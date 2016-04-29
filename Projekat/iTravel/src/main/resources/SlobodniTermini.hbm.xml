@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-Apr-2016 23:45:30 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.app.iTravel.DBModels.SlobodniTermini" table="slobodni_termini" catalog="tim12">
+        <id name="slobodniId" type="java.lang.Integer">
+            <column name="Slobodni_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="termin" class="ba.unsa.etf.si.app.iTravel.DBModels.Termin" fetch="select">
+            <column name="Termin_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="soba" class="ba.unsa.etf.si.app.iTravel.DBModels.Soba" fetch="select">
+            <column name="Soba_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

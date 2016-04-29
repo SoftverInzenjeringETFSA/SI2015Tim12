@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 27-Apr-2016 01:13:41 by Hibernate Tools 4.0.0.Final
+// Generated 28-Apr-2016 23:45:29 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;

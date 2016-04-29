@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC
 "-//Hibernate/Hibernate Configuration DTD//EN"
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -11,8 +12,19 @@
     <property name="hibernate.connection.password">Sitim12</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hbm2ddl.auto">create</property>
-    <mapping resource=""/>
+   <!--   <property name="hbm2ddl.auto">create</property>-->
+
+	<mapping resource="Hotel.hbm.xml"></mapping>
+	<mapping resource="Soba.hbm.xml"></mapping>
+	<mapping resource="AdminRol.hbm.xml"></mapping>
+	<mapping resource="AgentRol.hbm.xml"></mapping>
+	<mapping resource="Klijent.hbm.xml"></mapping>
+	<mapping resource="KorisnickiRacun.hbm.xml"></mapping>
+	<mapping resource="Osoba.hbm.xml"></mapping>
+	<mapping resource="Racun.hbm.xml"></mapping>
+	<mapping resource="Rezervacija.hbm.xml"></mapping>
+	<mapping resource="SlobodniTermini.hbm.xml"></mapping>
+    <mapping resource="Termin.hbm.xml"></mapping>
     
  <!--    <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
     <mapping resource="dvdrental/FilmActor.hbm.xml"/>

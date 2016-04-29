@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-Apr-2016 23:45:30 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.app.iTravel.DBModels.Racun" table="racun" catalog="tim12">
+        <id name="racunId" type="java.lang.Integer">
+            <column name="Racun_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="rezervacija" class="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" fetch="select">
+            <column name="Rezervacija_ID" />
+        </many-to-one>
+        <property name="datumUplate" type="date">
+            <column name="Datum_uplate" length="10" />
+        </property>
+        <property name="trenutniDatum" type="date">
+            <column name="Trenutni_datum" length="10" />
+        </property>
+        <property name="popust" type="java.lang.Integer">
+            <column name="Popust" />
+        </property>
+        <property name="cijena" type="java.lang.Integer">
+            <column name="Cijena" />
+        </property>
+    </class>
+</hibernate-mapping>
