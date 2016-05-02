@@ -24,7 +24,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
-	<classpathentry kind="lib" path="C:/MySQL Driver/mysql-connector-java-5.1.38-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/KenanPC/Downloads/iTravel/iTravel/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="S:/JWorkspaces/ETFTravel/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="S:/JWorkspaces/ETFTravel/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

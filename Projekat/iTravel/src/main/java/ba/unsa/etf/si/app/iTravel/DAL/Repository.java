@@ -1,12 +1,12 @@
 package ba.unsa.etf.si.app.iTravel.DAL;
-/*
-import ba.unsa.etf.si.tim11.dbmodels.BaseDbModel;
-import ba.unsa.etf.si.tim11.dbmodels.KorisnikDbModel;*/
+
 import ba.unsa.etf.si.app.iTravel.DAL.SessionFactoryDB;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 
 import static ba.unsa.etf.si.app.iTravel.DAL.SessionFactoryDB.getSession;
 
@@ -59,7 +59,7 @@ public class Repository<T>{
     public T ucitajIzBaze(Integer id) {
         Transaction t = this.session.beginTransaction();
         T resultObject = (T) this.session.get(entityClass, id);
-        session.close();
+        session.clear();
         return resultObject;
     }
 
@@ -108,5 +108,22 @@ public class Repository<T>{
         query.setString(0, entityClass.getCanonicalName());
         query.executeUpdate();
         t.commit();
+    }
+    
+    /* Učitavanje iz baze po kriteriju */
+    public List<T> ucitajIzBazePoKriteriju(List<Criterion> listaKriterija) {
+        
+    	//Transaction transaction = session.beginTransaction();
+        Criteria kriterja = session.createCriteria(entityClass);
+        
+        for(Criterion k : listaKriterija)
+        {
+        	kriterja.add(k);
+        }
+        
+        List rezultat = kriterja.list();
+        //session.clear();
+        
+        return rezultat;
     }
 }

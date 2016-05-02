@@ -53,7 +53,7 @@ public class GenerisanjeIzvjestaja {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Izvje\u0161taj o top destinacijama");
+		JLabel lblNewLabel = new JLabel("Izvještaj o top destinacijama");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel.setBounds(32, 11, 206, 26);
 		frame.getContentPane().add(lblNewLabel);

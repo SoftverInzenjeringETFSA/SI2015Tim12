@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 28-Apr-2016 23:45:30 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Soba" table="soba" catalog="tim12">
         <id name="sobaId" type="java.lang.Integer">
@@ -23,17 +23,17 @@
         <property name="cijenaNiska" type="int">
             <column name="Cijena_niska" not-null="true" />
         </property>
-        <set name="rezervacijas" table="rezervacija" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Soba_ID" />
-            </key>
-            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" />
-        </set>
         <set name="slobodniTerminis" table="slobodni_termini" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="Soba_ID" not-null="true" />
             </key>
             <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.SlobodniTermini" />
+        </set>
+        <set name="rezervacijas" table="rezervacija" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Soba_ID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" />
         </set>
     </class>
 </hibernate-mapping>

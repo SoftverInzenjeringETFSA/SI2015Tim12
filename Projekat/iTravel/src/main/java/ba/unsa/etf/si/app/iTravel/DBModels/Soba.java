@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 28-Apr-2016 23:45:29 by Hibernate Tools 4.0.0.Final
+// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,8 +27,8 @@ public class Soba implements java.io.Serializable {
 	private String opis;
 	private int cijenaVisoka;
 	private int cijenaNiska;
-	private Set<Rezervacija> rezervacijas = new HashSet<Rezervacija>(0);
 	private Set<SlobodniTermini> slobodniTerminis = new HashSet<SlobodniTermini>(0);
+	private Set<Rezervacija> rezervacijas = new HashSet<Rezervacija>(0);
 
 	public Soba() {
 	}
@@ -40,14 +40,14 @@ public class Soba implements java.io.Serializable {
 	}
 
 	public Soba(Hotel hotel, Integer brojKreveta, String opis, int cijenaVisoka, int cijenaNiska,
-			Set<Rezervacija> rezervacijas, Set<SlobodniTermini> slobodniTerminis) {
+			Set<SlobodniTermini> slobodniTerminis, Set<Rezervacija> rezervacijas) {
 		this.hotel = hotel;
 		this.brojKreveta = brojKreveta;
 		this.opis = opis;
 		this.cijenaVisoka = cijenaVisoka;
 		this.cijenaNiska = cijenaNiska;
-		this.rezervacijas = rezervacijas;
 		this.slobodniTerminis = slobodniTerminis;
+		this.rezervacijas = rezervacijas;
 	}
 
 	@Id
@@ -109,21 +109,21 @@ public class Soba implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "soba")
-	public Set<Rezervacija> getRezervacijas() {
-		return this.rezervacijas;
-	}
-
-	public void setRezervacijas(Set<Rezervacija> rezervacijas) {
-		this.rezervacijas = rezervacijas;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "soba")
 	public Set<SlobodniTermini> getSlobodniTerminis() {
 		return this.slobodniTerminis;
 	}
 
 	public void setSlobodniTerminis(Set<SlobodniTermini> slobodniTerminis) {
 		this.slobodniTerminis = slobodniTerminis;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "soba")
+	public Set<Rezervacija> getRezervacijas() {
+		return this.rezervacijas;
+	}
+
+	public void setRezervacijas(Set<Rezervacija> rezervacijas) {
+		this.rezervacijas = rezervacijas;
 	}
 
 }

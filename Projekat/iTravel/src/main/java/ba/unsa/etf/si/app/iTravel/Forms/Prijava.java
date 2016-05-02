@@ -1,18 +1,14 @@
 package ba.unsa.etf.si.app.iTravel.Forms;
 
 import java.awt.EventQueue;
-import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
-import ba.unsa.etf.si.app.iTravel.DAL.SessionFactoryDB;
-import ba.unsa.etf.si.app.iTravel.DAL.Repositories.HotelRepository;
-import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import org.hibernate.Session;
-import org.hibernate.dialect.function.VarArgsSQLFunction;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork.UserContext;
 
 import javax.swing.JOptionPane;
 
@@ -24,7 +20,7 @@ import java.awt.event.*;
 
 public class Prijava {
 	
-	private static DBContext baza;
+	private static UnitOfWork uow;
 	
 	private JFrame frmPrijava;
 	private JTextField textField;
@@ -32,34 +28,48 @@ public class Prijava {
 	
 	class AkcijaIzlaz implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			String nesto = textField.getText();
+			String usernameValue = textField.getText();
+			char[] passwordValue = passwordField.getPassword();
 			
-			// Primjer ucitavanja iz baze sada ide direktno u repository
-			// ali ce se ovo promijeniti tako da cemo pozivati metode
-			// iz bll pozivati
-			
-			int id = 1;
-			Hotel noviHotel = baza.getHoteliRepo().ucitajIzBaze(id);
-			
-			// Primjer upisa u bazu podataka isto vrijedi i za ovaj komad koda
-			// on ide u nize slojeve
-			Hotel noviHotel1 = new Hotel();
-			noviHotel1.setAdresa("TEST");
-			noviHotel1.setBrojTelefona("0606060");
-			noviHotel1.setGrad("Mostar");
-			baza.getHoteliRepo().spasiUBazu(noviHotel1,  SessionFactoryDB.getSession());
-			
-			JOptionPane.showMessageDialog(null, noviHotel.getGrad().toString(), "Posluka", JOptionPane.INFORMATION_MESSAGE);
+			if(uow.getPrijavaService().ProvjeriPristupnePodatke(usernameValue, passwordValue))
+			{		
+				uow.getPrijavaService().AutorizirajKorisnika(usernameValue);
+				
+				JOptionPane.showMessageDialog(null, "Dobrodošli u iTravel", "Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
+				
+				if(UserContext.RolaID == 1)
+				{
+					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					frmPrijava.setVisible(false);
+					forma.PrikaziFormu();
+				}
+				else if (UserContext.RolaID == 2)
+				{
+					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					frmPrijava.setVisible(false);
+					forma.PrikaziFormu();				
+				}
+				else if(UserContext.RolaID == 3)
+				{
+					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					frmPrijava.setVisible(false);
+					forma.PrikaziFormu();
+				}
+				
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Pogrešni pristupni podaci", "Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
-	}
-	
+	}	
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		
-		baza = new DBContext();
+		uow = new UnitOfWork();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -89,6 +99,7 @@ public class Prijava {
 		frmPrijava.setBounds(100, 100, 350, 250);
 		frmPrijava.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrijava.getContentPane().setLayout(null);
+		frmPrijava.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Unesite svoje korisni\u010Dke podatke");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));

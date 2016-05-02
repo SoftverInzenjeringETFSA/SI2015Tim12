@@ -12,12 +12,12 @@
     <property name="hibernate.connection.password">Sitim12</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
-   <!--   <property name="hbm2ddl.auto">create</property>-->
+    <property name="hbm2ddl.auto">update</property>
 
 	<mapping resource="Hotel.hbm.xml"></mapping>
 	<mapping resource="Soba.hbm.xml"></mapping>
-	<mapping resource="AdminRol.hbm.xml"></mapping>
-	<mapping resource="AgentRol.hbm.xml"></mapping>
+	<mapping resource="Rola.hbm.xml"></mapping>
+	<mapping resource="Korisnickiracunxrola.hbm.xml"></mapping>
 	<mapping resource="Klijent.hbm.xml"></mapping>
 	<mapping resource="KorisnickiRacun.hbm.xml"></mapping>
 	<mapping resource="Osoba.hbm.xml"></mapping>

@@ -8,5 +8,4 @@ public class KorisnickiRacunRepository extends Repository<KorisnickiRacun> {
 	{
 		super(KorisnickiRacun.class);
 	}
-
 }

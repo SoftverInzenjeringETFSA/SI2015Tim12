@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.app.iTravel.DBModels.Rola" table="rola" catalog="tim12">
+        <id name="rolaId" type="int">
+            <column name="Rola_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="naziv" type="string">
+            <column name="Naziv" length="40" />
+        </property>
+        <set name="korisnickiracunxrolas" table="korisnickiracunxrola" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Rola_ID" not-null="true" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola" />
+        </set>
+    </class>
+</hibernate-mapping>

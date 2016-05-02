@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 28-Apr-2016 23:45:29 by Hibernate Tools 4.0.0.Final
+// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -31,14 +31,14 @@ public class Osoba implements java.io.Serializable {
 	private String brojTel;
 	private Integer jmbg;
 	private String brPasosa;
-	private Set<KorisnickiRacun> korisnickiRacuns = new HashSet<KorisnickiRacun>(0);
 	private Set<Klijent> klijents = new HashSet<Klijent>(0);
+	private Set<KorisnickiRacun> korisnickiRacuns = new HashSet<KorisnickiRacun>(0);
 
 	public Osoba() {
 	}
 
 	public Osoba(String ime, String prezime, Date datumRodjenja, String adresa, String email, String brojTel,
-			Integer jmbg, String brPasosa, Set<KorisnickiRacun> korisnickiRacuns, Set<Klijent> klijents) {
+			Integer jmbg, String brPasosa, Set<Klijent> klijents, Set<KorisnickiRacun> korisnickiRacuns) {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.datumRodjenja = datumRodjenja;
@@ -47,8 +47,8 @@ public class Osoba implements java.io.Serializable {
 		this.brojTel = brojTel;
 		this.jmbg = jmbg;
 		this.brPasosa = brPasosa;
-		this.korisnickiRacuns = korisnickiRacuns;
 		this.klijents = klijents;
+		this.korisnickiRacuns = korisnickiRacuns;
 	}
 
 	@Id
@@ -137,21 +137,21 @@ public class Osoba implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "osoba")
-	public Set<KorisnickiRacun> getKorisnickiRacuns() {
-		return this.korisnickiRacuns;
-	}
-
-	public void setKorisnickiRacuns(Set<KorisnickiRacun> korisnickiRacuns) {
-		this.korisnickiRacuns = korisnickiRacuns;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "osoba")
 	public Set<Klijent> getKlijents() {
 		return this.klijents;
 	}
 
 	public void setKlijents(Set<Klijent> klijents) {
 		this.klijents = klijents;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "osoba")
+	public Set<KorisnickiRacun> getKorisnickiRacuns() {
+		return this.korisnickiRacuns;
+	}
+
+	public void setKorisnickiRacuns(Set<KorisnickiRacun> korisnickiRacuns) {
+		this.korisnickiRacuns = korisnickiRacuns;
 	}
 
 }

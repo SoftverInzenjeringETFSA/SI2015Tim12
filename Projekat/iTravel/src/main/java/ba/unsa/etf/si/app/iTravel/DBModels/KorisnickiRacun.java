@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 28-Apr-2016 23:45:29 by Hibernate Tools 4.0.0.Final
+// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +25,7 @@ public class KorisnickiRacun implements java.io.Serializable {
 	private Osoba osoba;
 	private String username;
 	private String password;
-	private Set<AgentRol> agentRols = new HashSet<AgentRol>(0);
-	private Set<AdminRol> adminRols = new HashSet<AdminRol>(0);
+	private Set<Korisnickiracunxrola> korisnickiracunxrolas = new HashSet<Korisnickiracunxrola>(0);
 
 	public KorisnickiRacun() {
 	}
@@ -35,13 +34,12 @@ public class KorisnickiRacun implements java.io.Serializable {
 		this.osoba = osoba;
 	}
 
-	public KorisnickiRacun(Osoba osoba, String username, String password, Set<AgentRol> agentRols,
-			Set<AdminRol> adminRols) {
+	public KorisnickiRacun(Osoba osoba, String username, String password,
+			Set<Korisnickiracunxrola> korisnickiracunxrolas) {
 		this.osoba = osoba;
 		this.username = username;
 		this.password = password;
-		this.agentRols = agentRols;
-		this.adminRols = adminRols;
+		this.korisnickiracunxrolas = korisnickiracunxrolas;
 	}
 
 	@Id
@@ -85,21 +83,12 @@ public class KorisnickiRacun implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "korisnickiRacun")
-	public Set<AgentRol> getAgentRols() {
-		return this.agentRols;
+	public Set<Korisnickiracunxrola> getKorisnickiracunxrolas() {
+		return this.korisnickiracunxrolas;
 	}
 
-	public void setAgentRols(Set<AgentRol> agentRols) {
-		this.agentRols = agentRols;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "korisnickiRacun")
-	public Set<AdminRol> getAdminRols() {
-		return this.adminRols;
-	}
-
-	public void setAdminRols(Set<AdminRol> adminRols) {
-		this.adminRols = adminRols;
+	public void setKorisnickiracunxrolas(Set<Korisnickiracunxrola> korisnickiracunxrolas) {
+		this.korisnickiracunxrolas = korisnickiracunxrolas;
 	}
 
 }

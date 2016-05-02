@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 28-Apr-2016 23:45:30 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun" table="korisnicki_racun" catalog="tim12">
         <id name="krId" type="java.lang.Integer">
@@ -17,17 +17,11 @@
         <property name="password" type="string">
             <column name="Password" length="45" />
         </property>
-        <set name="agentRols" table="agent_rol" inverse="true" lazy="true" fetch="select">
+        <set name="korisnickiracunxrolas" table="korisnickiracunxrola" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="KR_ID" not-null="true" />
+                <column name="KorisnickiRacun_ID" not-null="true" />
             </key>
-            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.AgentRol" />
-        </set>
-        <set name="adminRols" table="admin_rol" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="KR_ID" />
-            </key>
-            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.AdminRol" />
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola" />
         </set>
     </class>
 </hibernate-mapping>

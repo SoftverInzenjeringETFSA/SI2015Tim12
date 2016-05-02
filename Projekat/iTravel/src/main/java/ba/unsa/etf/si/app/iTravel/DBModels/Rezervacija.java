@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 28-Apr-2016 23:45:29 by Hibernate Tools 4.0.0.Final
+// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,9 +25,9 @@ import javax.persistence.TemporalType;
 public class Rezervacija implements java.io.Serializable {
 
 	private Integer rezervacijaId;
-	private AgentRol agentRol;
 	private Klijent klijent;
 	private Soba soba;
+	private int agentId;
 	private Date datumRezervacije;
 	private Date pocetakTermina;
 	private Date krajTermina;
@@ -36,16 +36,16 @@ public class Rezervacija implements java.io.Serializable {
 	public Rezervacija() {
 	}
 
-	public Rezervacija(AgentRol agentRol, Klijent klijent) {
-		this.agentRol = agentRol;
+	public Rezervacija(Klijent klijent, int agentId) {
 		this.klijent = klijent;
+		this.agentId = agentId;
 	}
 
-	public Rezervacija(AgentRol agentRol, Klijent klijent, Soba soba, Date datumRezervacije, Date pocetakTermina,
+	public Rezervacija(Klijent klijent, Soba soba, int agentId, Date datumRezervacije, Date pocetakTermina,
 			Date krajTermina, Set<Racun> racuns) {
-		this.agentRol = agentRol;
 		this.klijent = klijent;
 		this.soba = soba;
+		this.agentId = agentId;
 		this.datumRezervacije = datumRezervacije;
 		this.pocetakTermina = pocetakTermina;
 		this.krajTermina = krajTermina;
@@ -62,16 +62,6 @@ public class Rezervacija implements java.io.Serializable {
 
 	public void setRezervacijaId(Integer rezervacijaId) {
 		this.rezervacijaId = rezervacijaId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Agent_ID", nullable = false)
-	public AgentRol getAgentRol() {
-		return this.agentRol;
-	}
-
-	public void setAgentRol(AgentRol agentRol) {
-		this.agentRol = agentRol;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -92,6 +82,15 @@ public class Rezervacija implements java.io.Serializable {
 
 	public void setSoba(Soba soba) {
 		this.soba = soba;
+	}
+
+	@Column(name = "Agent_ID", nullable = false)
+	public int getAgentId() {
+		return this.agentId;
+	}
+
+	public void setAgentId(int agentId) {
+		this.agentId = agentId;
 	}
 
 	@Temporal(TemporalType.DATE)

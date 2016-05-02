@@ -17,7 +17,7 @@ public class PocetnaFormaAgent {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,6 +45,7 @@ public class PocetnaFormaAgent {
 		frame.setBounds(100, 100, 444, 255);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JButton btnHoteliUPonudi = new JButton("Hoteli u ponudi");
 		btnHoteliUPonudi.setBounds(38, 81, 350, 35);

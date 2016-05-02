@@ -1,17 +1,16 @@
 package ba.unsa.etf.si.app.iTravel.DAL;
 
-import ba.unsa.etf.si.app.iTravel.DAL.Repositories.AdminRolRepository;
-import ba.unsa.etf.si.app.iTravel.DAL.Repositories.AgentRolRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.HotelRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KlijentRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KorisnickiRacunRepository;
+import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KorisnickiRacunXRolaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.OsobaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RacunRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RezervacijaRepository;
+import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RolaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.SlobodniTerminiRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.SobaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.TerminRepository;
-import ba.unsa.etf.si.app.iTravel.DBModels.AgentRol;
 
 public class DBContext {
 	
@@ -26,9 +25,10 @@ public class DBContext {
 	private SlobodniTerminiRepository slobodniTerminiRepository;
 	private RezervacijaRepository rezervacijaRepository;
 	private RacunRepository racunRepository;
-	private AgentRolRepository agentRolRepository;
-	private AdminRolRepository adminRolRepository;
+	private RolaRepository rolaRepository;
+	private KorisnickiRacunXRolaRepository korisnickiRacunXRolaRepository;
 	
+	// Vidjeti da li treba izbrisati setere
 	public DBContext()
 	{
 		hoteliRepo = new HotelRepository();
@@ -40,8 +40,8 @@ public class DBContext {
 		slobodniTerminiRepository = new SlobodniTerminiRepository();
 		rezervacijaRepository = new RezervacijaRepository();
 		racunRepository = new RacunRepository();
-		agentRolRepository = new AgentRolRepository();
-		adminRolRepository = new AdminRolRepository();
+		rolaRepository = new RolaRepository();
+		korisnickiRacunXRolaRepository = new KorisnickiRacunXRolaRepository();
 	}
 
 	public static DBContext getInstance() {
@@ -123,21 +123,21 @@ public class DBContext {
 		this.racunRepository = racunRepository;
 	}
 
-	public AgentRolRepository getAgentRolRepository() {
-		return agentRolRepository;
+	public RolaRepository getRolaRepository() {
+		return rolaRepository;
 	}
 
-	public void setAgentRolRepository(AgentRolRepository agentRolRepository) {
-		this.agentRolRepository = agentRolRepository;
+	public void setRolaRepository(RolaRepository rolaRepository) {
+		this.rolaRepository = rolaRepository;
 	}
 
-	public AdminRolRepository getAdminRolRepository() {
-		return adminRolRepository;
+	public KorisnickiRacunXRolaRepository getKorisnickiRacunXRolaRepository() {
+		return korisnickiRacunXRolaRepository;
 	}
 
-	public void setAdminRolRepository(AdminRolRepository adminRolRepository) {
-		this.adminRolRepository = adminRolRepository;
+	public void setKorisnickiRacunXRolaRepository(KorisnickiRacunXRolaRepository korisnickiRacunXRolaRepository) {
+		this.korisnickiRacunXRolaRepository = korisnickiRacunXRolaRepository;
 	}
-
+	
 }
 
