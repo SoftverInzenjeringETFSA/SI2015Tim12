@@ -45,6 +45,7 @@ public class PocetnaFormaSupervizor {
 		frame.setBounds(100, 100, 444, 379);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblPrijavljeniSteKao = new JLabel("Prijavljeni ste kao supervizor, dobrodo\u0161li!");
 		lblPrijavljeniSteKao.setFont(new Font("Tahoma", Font.BOLD, 14));
