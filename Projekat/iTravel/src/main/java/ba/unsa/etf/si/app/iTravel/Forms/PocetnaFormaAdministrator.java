@@ -45,7 +45,6 @@ public class PocetnaFormaAdministrator {
 		frame.setBounds(100, 100, 453, 416);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
 		
 		JLabel lblPrijavljeniSteKao = new JLabel("Prijavljeni ste kao administrator, dobrodo\u0161li!");
 		lblPrijavljeniSteKao.setFont(new Font("Tahoma", Font.BOLD, 14));
