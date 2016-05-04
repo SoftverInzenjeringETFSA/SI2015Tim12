@@ -10,6 +10,9 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class ModifikacijaKorisnika {
 
@@ -58,10 +61,6 @@ public class ModifikacijaKorisnika {
 		JLabel lblNewLabel = new JLabel("Ime:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(25, 60, 99, 14);
-		
-		JLabel lblNewLabel_1 = new JLabel("Prezime:");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(25, 91, 99, 14);
 		
 		JLabel lblNewLabel_3 = new JLabel("Broj li\u010Dne karte:");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -124,7 +123,6 @@ public class ModifikacijaKorisnika {
 		frmModifikacijaKorisnika.getContentPane().setLayout(null);
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel);
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel_3);
-		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel_1);
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel_4);
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel_5);
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel_6);
@@ -154,5 +152,39 @@ public class ModifikacijaKorisnika {
 		textField_2.setColumns(10);
 		textField_2.setBounds(134, 277, 139, 20);
 		frmModifikacijaKorisnika.getContentPane().add(textField_2);
+		
+		JMenuItem menuItem = new JMenuItem("New menu item");
+		menuItem.setBounds(-5, 85, 129, 22);
+		frmModifikacijaKorisnika.getContentPane().add(menuItem);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmModifikacijaKorisnika.setJMenuBar(menuBar);
+		
+		JMenu mnMeni = new JMenu("Meni");
+		menuBar.add(mnMeni);
+		
+		JMenuItem mntmPoetna = new JMenuItem("Početna");
+		mnMeni.add(mntmPoetna);
+		
+		JMenuItem mntmHoteli = new JMenuItem("Hoteli");
+		mnMeni.add(mntmHoteli);
+		
+		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
+		mnMeni.add(mntmRezervacije);
+		
+		JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
+		mnMeni.add(mntmKlijenti);
+		
+		JMenuItem mntmKorisnici = new JMenuItem("Korisnici");
+		mnMeni.add(mntmKorisnici);
+		
+		JMenu mnRaun = new JMenu("Račun");
+		menuBar.add(mnRaun);
+		
+		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mnRaun.add(mntmPromijeniifru);
+		
+		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mnRaun.add(mntmOdjaviSe);
 	}
 }

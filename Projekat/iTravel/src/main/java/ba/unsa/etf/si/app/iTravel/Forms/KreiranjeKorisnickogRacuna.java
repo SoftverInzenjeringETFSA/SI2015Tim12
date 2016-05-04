@@ -10,6 +10,9 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class KreiranjeKorisnickogRacuna {
 
@@ -165,5 +168,35 @@ public class KreiranjeKorisnickogRacuna {
 		textField_8.setBounds(134, 303, 139, 20);
 		frmKreirajiKorisnika.getContentPane().add(textField_8);
 		textField_8.setColumns(10);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmKreirajiKorisnika.setJMenuBar(menuBar);
+		
+		JMenu mnMeni = new JMenu("Meni");
+		menuBar.add(mnMeni);
+		
+		JMenuItem mntmPoetna = new JMenuItem("Početna");
+		mnMeni.add(mntmPoetna);
+		
+		JMenuItem mntmHoteli = new JMenuItem("Hoteli");
+		mnMeni.add(mntmHoteli);
+		
+		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
+		mnMeni.add(mntmRezervacije);
+		
+		JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
+		mnMeni.add(mntmKlijenti);
+		
+		JMenuItem mntmKorisnici = new JMenuItem("Korisnici");
+		mnMeni.add(mntmKorisnici);
+		
+		JMenu mnRaun = new JMenu("Račun");
+		menuBar.add(mnRaun);
+		
+		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mnRaun.add(mntmPromijeniifru);
+		
+		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mnRaun.add(mntmOdjaviSe);
 	}
 }

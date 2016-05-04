@@ -14,6 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.Box;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class GenerisanjeIzvjestaja {
 
@@ -146,6 +149,36 @@ public class GenerisanjeIzvjestaja {
 		JDateChooser dateChooser_3 = new JDateChooser();
 		dateChooser_3.setBounds(270, 315, 131, 20);
 		frame.getContentPane().add(dateChooser_3);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		
+		JMenu mnPovratak = new JMenu("Meni");
+		menuBar.add(mnPovratak);
+		
+		JMenuItem mntmPoetna = new JMenuItem("Početna");
+		mnPovratak.add(mntmPoetna);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Hoteli");
+		mnPovratak.add(mntmNewMenuItem);
+		
+		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
+		mnPovratak.add(mntmRezervacije);
+		
+		JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
+		mnPovratak.add(mntmKlijenti);
+		
+		JMenuItem mntmKorisnici = new JMenuItem("Korisnici");
+		mnPovratak.add(mntmKorisnici);
+		
+		JMenu mnRaun = new JMenu("Račun");
+		menuBar.add(mnRaun);
+		
+		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mnRaun.add(mntmPromijeniifru);
+		
+		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mnRaun.add(mntmOdjaviSe);
 		table.getColumnModel().getColumn(0).setPreferredWidth(284);
 		table.getColumnModel().getColumn(1).setPreferredWidth(290);
 	}

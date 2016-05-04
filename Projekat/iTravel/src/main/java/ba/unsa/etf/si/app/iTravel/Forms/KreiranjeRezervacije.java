@@ -14,6 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class KreiranjeRezervacije {
 
@@ -222,5 +225,35 @@ public class KreiranjeRezervacije {
 		JDateChooser dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(394, 417, 152, 20);
 		frmKreiranjeRezervacije.getContentPane().add(dateChooser_2);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmKreiranjeRezervacije.setJMenuBar(menuBar);
+		
+		JMenu mnMeni = new JMenu("Meni");
+		menuBar.add(mnMeni);
+		
+		JMenuItem mntmPoetna = new JMenuItem("Početna");
+		mnMeni.add(mntmPoetna);
+		
+		JMenuItem mntmHoteli = new JMenuItem("Hoteli");
+		mnMeni.add(mntmHoteli);
+		
+		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
+		mnMeni.add(mntmRezervacije);
+		
+		JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
+		mnMeni.add(mntmKlijenti);
+		
+		JMenuItem mntmKorisnici = new JMenuItem("Korisnici");
+		mnMeni.add(mntmKorisnici);
+		
+		JMenu mnRaun = new JMenu("Račun");
+		menuBar.add(mnRaun);
+		
+		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mnRaun.add(mntmPromijeniifru);
+		
+		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mnRaun.add(mntmOdjaviSe);
 	}
 }

@@ -6,7 +6,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -23,8 +27,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
-	<classpathentry kind="lib" path="S:/JWorkspaces/ETFTravel/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="S:/JWorkspaces/ETFTravel/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="lib" path="D:/FAKS/SI/Git/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/FAKS/SI/Git/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

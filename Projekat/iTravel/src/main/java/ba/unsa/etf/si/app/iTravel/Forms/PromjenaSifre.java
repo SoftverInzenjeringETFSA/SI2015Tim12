@@ -66,12 +66,12 @@ public class PromjenaSifre {
 		btnNazad.setBounds(147, 189, 100, 30);
 		frmPromjenaife.getContentPane().add(btnNazad);
 		
-		JLabel lblNewLabel_1 = new JLabel("Korisni\u010Dko ime:");
+		JLabel lblNewLabel_1 = new JLabel("Trenutna šifra:");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setBounds(25, 79, 100, 14);
 		frmPromjenaife.getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblTrenutnaifra = new JLabel("Trenutna \u0161ifra:");
+		JLabel lblTrenutnaifra = new JLabel("Nova šifra:");
 		lblTrenutnaifra.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTrenutnaifra.setBounds(25, 113, 100, 14);
 		frmPromjenaife.getContentPane().add(lblTrenutnaifra);
@@ -80,7 +80,7 @@ public class PromjenaSifre {
 		passwordField_1.setBounds(135, 113, 100, 23);
 		frmPromjenaife.getContentPane().add(passwordField_1);
 		
-		JLabel lblNovaifra = new JLabel("Nova \u0161ifra:");
+		JLabel lblNovaifra = new JLabel("Potvrdi šifru:");
 		lblNovaifra.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNovaifra.setBounds(25, 147, 100, 14);
 		frmPromjenaife.getContentPane().add(lblNovaifra);

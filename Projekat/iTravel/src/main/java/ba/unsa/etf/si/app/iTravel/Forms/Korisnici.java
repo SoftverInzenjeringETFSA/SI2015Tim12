@@ -10,6 +10,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Korisnici {
 
@@ -99,5 +102,32 @@ public class Korisnici {
 		JButton btnDodajKorisnika = new JButton("Dodaj korisnika");
 		btnDodajKorisnika.setBounds(20, 226, 150, 30);
 		frmPrikazKorisnika.getContentPane().add(btnDodajKorisnika);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmPrikazKorisnika.setJMenuBar(menuBar);
+		
+		JMenu mnMeni = new JMenu("Meni");
+		menuBar.add(mnMeni);
+		
+		JMenuItem mntmPoetna = new JMenuItem("Početna");
+		mnMeni.add(mntmPoetna);
+		
+		JMenuItem mntmHoteli = new JMenuItem("Hoteli");
+		mnMeni.add(mntmHoteli);
+		
+		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
+		mnMeni.add(mntmRezervacije);
+		
+		JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
+		mnMeni.add(mntmKlijenti);
+		
+		JMenu mnRaun = new JMenu("Račun");
+		menuBar.add(mnRaun);
+		
+		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mnRaun.add(mntmPromijeniifru);
+		
+		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mnRaun.add(mntmOdjaviSe);
 	}
 }

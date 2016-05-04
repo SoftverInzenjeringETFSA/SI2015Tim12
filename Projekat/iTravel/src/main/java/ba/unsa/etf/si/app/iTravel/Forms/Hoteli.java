@@ -18,6 +18,9 @@ import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Hoteli {
 
@@ -28,6 +31,15 @@ public class Hoteli {
 	private JButton btnObriiHotel;
 	private JButton btnDodajHotel;
 	private JButton btnPregledajSobe;
+	private JMenuBar menuBar;
+	private JMenu mnMeni;
+	private JMenuItem mntmPoetna;
+	private JMenuItem mntmRezervacije;
+	private JMenuItem mntmKlijenti;
+	private JMenuItem mntmKorisnici;
+	private JMenu mnRaun;
+	private JMenuItem mntmPromijeniifru;
+	private JMenuItem mntmOdjaviSe;
 
 	/**
 	 * Launch the application.
@@ -107,6 +119,33 @@ public class Hoteli {
 		btnPregledajSobe = new JButton("Pregledaj sobe");
 		btnPregledajSobe.setBounds(23, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnPregledajSobe);
+		
+		menuBar = new JMenuBar();
+		frmPrikazHotela.setJMenuBar(menuBar);
+		
+		mnMeni = new JMenu("Meni");
+		menuBar.add(mnMeni);
+		
+		mntmPoetna = new JMenuItem("Početna");
+		mnMeni.add(mntmPoetna);
+		
+		mntmRezervacije = new JMenuItem("Rezervacije");
+		mnMeni.add(mntmRezervacije);
+		
+		mntmKlijenti = new JMenuItem("Klijenti");
+		mnMeni.add(mntmKlijenti);
+		
+		mntmKorisnici = new JMenuItem("Korisnici");
+		mnMeni.add(mntmKorisnici);
+		
+		mnRaun = new JMenu("Račun");
+		menuBar.add(mnRaun);
+		
+		mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mnRaun.add(mntmPromijeniifru);
+		
+		mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mnRaun.add(mntmOdjaviSe);
 		table_pregledHotela.getColumnModel().getColumn(0).setPreferredWidth(99);
 		table_pregledHotela.getColumnModel().getColumn(1).setPreferredWidth(83);
 		table_pregledHotela.getColumnModel().getColumn(2).setPreferredWidth(81);
