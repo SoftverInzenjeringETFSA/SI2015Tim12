@@ -56,7 +56,7 @@ public class PrijavaService {
 				 .ucitajIzBazePoKriteriju(listaKriterjona).get(0);
 		
 		UserContext.Username = username;
-		UserContext.Identitfication = korisnickiRacun.getKrId();
+		UserContext.Identitfication = korisnickiRacun.getKorisnickiRacunId();
 		
 		Set<Korisnickiracunxrola> skupRola = korisnickiRacun.getKorisnickiracunxrolas();
 		

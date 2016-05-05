@@ -1,13 +1,11 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,36 +19,37 @@ import javax.persistence.Table;
 @Table(name = "klijent", catalog = "tim12")
 public class Klijent implements java.io.Serializable {
 
-	private Integer klijentId;
+	private int klijentId;
 	private Osoba osoba;
 	private Set<Rezervacija> rezervacijas = new HashSet<Rezervacija>(0);
 
 	public Klijent() {
 	}
 
-	public Klijent(Osoba osoba) {
+	public Klijent(int klijentId, Osoba osoba) {
+		this.klijentId = klijentId;
 		this.osoba = osoba;
 	}
 
-	public Klijent(Osoba osoba, Set<Rezervacija> rezervacijas) {
+	public Klijent(int klijentId, Osoba osoba, Set<Rezervacija> rezervacijas) {
+		this.klijentId = klijentId;
 		this.osoba = osoba;
 		this.rezervacijas = rezervacijas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "Klijent_ID", unique = true, nullable = false)
-	public Integer getKlijentId() {
+	@Column(name = "KlijentID", unique = true, nullable = false)
+	public int getKlijentId() {
 		return this.klijentId;
 	}
 
-	public void setKlijentId(Integer klijentId) {
+	public void setKlijentId(int klijentId) {
 		this.klijentId = klijentId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Osoba_ID", nullable = false)
+	@JoinColumn(name = "OsobaID", nullable = false)
 	public Osoba getOsoba() {
 		return this.osoba;
 	}

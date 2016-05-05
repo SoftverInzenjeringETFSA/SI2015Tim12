@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,37 +25,30 @@ import javax.persistence.TemporalType;
 public class Rezervacija implements java.io.Serializable {
 
 	private Integer rezervacijaId;
+	private KorisnickiRacun korisnickiRacun;
 	private Klijent klijent;
-	private Soba soba;
-	private int agentId;
 	private Date datumRezervacije;
-	private Date pocetakTermina;
-	private Date krajTermina;
+	private Boolean ukljucenPrevoz;
+	private Set<RezervisaniTerminSoba> rezervisaniTerminSobas = new HashSet<RezervisaniTerminSoba>(0);
 	private Set<Racun> racuns = new HashSet<Racun>(0);
 
 	public Rezervacija() {
 	}
 
-	public Rezervacija(Klijent klijent, int agentId) {
+	public Rezervacija(KorisnickiRacun korisnickiRacun, Klijent klijent, Date datumRezervacije, Boolean ukljucenPrevoz,
+			Set<RezervisaniTerminSoba> rezervisaniTerminSobas, Set<Racun> racuns) {
+		this.korisnickiRacun = korisnickiRacun;
 		this.klijent = klijent;
-		this.agentId = agentId;
-	}
-
-	public Rezervacija(Klijent klijent, Soba soba, int agentId, Date datumRezervacije, Date pocetakTermina,
-			Date krajTermina, Set<Racun> racuns) {
-		this.klijent = klijent;
-		this.soba = soba;
-		this.agentId = agentId;
 		this.datumRezervacije = datumRezervacije;
-		this.pocetakTermina = pocetakTermina;
-		this.krajTermina = krajTermina;
+		this.ukljucenPrevoz = ukljucenPrevoz;
+		this.rezervisaniTerminSobas = rezervisaniTerminSobas;
 		this.racuns = racuns;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "Rezervacija_ID", unique = true, nullable = false)
+	@Column(name = "RezervacijaID", unique = true, nullable = false)
 	public Integer getRezervacijaId() {
 		return this.rezervacijaId;
 	}
@@ -65,7 +58,17 @@ public class Rezervacija implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Klijent_ID", nullable = false)
+	@JoinColumn(name = "AgentKreiraoID")
+	public KorisnickiRacun getKorisnickiRacun() {
+		return this.korisnickiRacun;
+	}
+
+	public void setKorisnickiRacun(KorisnickiRacun korisnickiRacun) {
+		this.korisnickiRacun = korisnickiRacun;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "KlijentID")
 	public Klijent getKlijent() {
 		return this.klijent;
 	}
@@ -74,27 +77,8 @@ public class Rezervacija implements java.io.Serializable {
 		this.klijent = klijent;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Soba_ID")
-	public Soba getSoba() {
-		return this.soba;
-	}
-
-	public void setSoba(Soba soba) {
-		this.soba = soba;
-	}
-
-	@Column(name = "Agent_ID", nullable = false)
-	public int getAgentId() {
-		return this.agentId;
-	}
-
-	public void setAgentId(int agentId) {
-		this.agentId = agentId;
-	}
-
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Datum_rezervacije", length = 10)
+	@Column(name = "DatumRezervacije", length = 10)
 	public Date getDatumRezervacije() {
 		return this.datumRezervacije;
 	}
@@ -103,24 +87,22 @@ public class Rezervacija implements java.io.Serializable {
 		this.datumRezervacije = datumRezervacije;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Pocetak_termina", length = 10)
-	public Date getPocetakTermina() {
-		return this.pocetakTermina;
+	@Column(name = "UkljucenPrevoz")
+	public Boolean getUkljucenPrevoz() {
+		return this.ukljucenPrevoz;
 	}
 
-	public void setPocetakTermina(Date pocetakTermina) {
-		this.pocetakTermina = pocetakTermina;
+	public void setUkljucenPrevoz(Boolean ukljucenPrevoz) {
+		this.ukljucenPrevoz = ukljucenPrevoz;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Kraj_termina", length = 10)
-	public Date getKrajTermina() {
-		return this.krajTermina;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rezervacija")
+	public Set<RezervisaniTerminSoba> getRezervisaniTerminSobas() {
+		return this.rezervisaniTerminSobas;
 	}
 
-	public void setKrajTermina(Date krajTermina) {
-		this.krajTermina = krajTermina;
+	public void setRezervisaniTerminSobas(Set<RezervisaniTerminSoba> rezervisaniTerminSobas) {
+		this.rezervisaniTerminSobas = rezervisaniTerminSobas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rezervacija")

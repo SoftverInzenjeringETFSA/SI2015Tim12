@@ -23,8 +23,8 @@
 	<mapping resource="Osoba.hbm.xml"></mapping>
 	<mapping resource="Racun.hbm.xml"></mapping>
 	<mapping resource="Rezervacija.hbm.xml"></mapping>
-	<mapping resource="SlobodniTermini.hbm.xml"></mapping>
-    <mapping resource="Termin.hbm.xml"></mapping>
+	<mapping resource="Destinacija.hbm.xml"></mapping>
+    <mapping resource="RezervisaniTerminSoba.hbm.xml"></mapping>
     
  <!--    <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
     <mapping resource="dvdrental/FilmActor.hbm.xml"/>

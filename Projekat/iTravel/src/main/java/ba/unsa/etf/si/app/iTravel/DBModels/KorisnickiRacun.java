@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,41 +21,39 @@ import javax.persistence.Table;
 @Table(name = "korisnicki_racun", catalog = "tim12")
 public class KorisnickiRacun implements java.io.Serializable {
 
-	private Integer krId;
+	private Integer korisnickiRacunId;
 	private Osoba osoba;
 	private String username;
 	private String password;
 	private Set<Korisnickiracunxrola> korisnickiracunxrolas = new HashSet<Korisnickiracunxrola>(0);
+	private Set<Rezervacija> rezervacijas = new HashSet<Rezervacija>(0);
 
 	public KorisnickiRacun() {
 	}
 
-	public KorisnickiRacun(Osoba osoba) {
-		this.osoba = osoba;
-	}
-
 	public KorisnickiRacun(Osoba osoba, String username, String password,
-			Set<Korisnickiracunxrola> korisnickiracunxrolas) {
+			Set<Korisnickiracunxrola> korisnickiracunxrolas, Set<Rezervacija> rezervacijas) {
 		this.osoba = osoba;
 		this.username = username;
 		this.password = password;
 		this.korisnickiracunxrolas = korisnickiracunxrolas;
+		this.rezervacijas = rezervacijas;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "KR_ID", unique = true, nullable = false)
-	public Integer getKrId() {
-		return this.krId;
+	@Column(name = "KorisnickiRacunID", unique = true, nullable = false)
+	public Integer getKorisnickiRacunId() {
+		return this.korisnickiRacunId;
 	}
 
-	public void setKrId(Integer krId) {
-		this.krId = krId;
+	public void setKorisnickiRacunId(Integer korisnickiRacunId) {
+		this.korisnickiRacunId = korisnickiRacunId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Osoba_ID", nullable = false)
+	@JoinColumn(name = "OsobaID")
 	public Osoba getOsoba() {
 		return this.osoba;
 	}
@@ -89,6 +87,15 @@ public class KorisnickiRacun implements java.io.Serializable {
 
 	public void setKorisnickiracunxrolas(Set<Korisnickiracunxrola> korisnickiracunxrolas) {
 		this.korisnickiracunxrolas = korisnickiracunxrolas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "korisnickiRacun")
+	public Set<Rezervacija> getRezervacijas() {
+		return this.rezervacijas;
+	}
+
+	public void setRezervacijas(Set<Rezervacija> rezervacijas) {
+		this.rezervacijas = rezervacijas;
 	}
 
 }

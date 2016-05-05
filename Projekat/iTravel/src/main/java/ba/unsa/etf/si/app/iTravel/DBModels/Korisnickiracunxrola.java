@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +33,7 @@ public class Korisnickiracunxrola implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "KorisnickiRacunXRola_ID", unique = true, nullable = false)
+	@Column(name = "KorisnickiRacunXRolaID", unique = true, nullable = false)
 	public Integer getKorisnickiRacunXrolaId() {
 		return this.korisnickiRacunXrolaId;
 	}
@@ -43,7 +43,7 @@ public class Korisnickiracunxrola implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Rola_ID", nullable = false)
+	@JoinColumn(name = "RolaID")
 	public Rola getRola() {
 		return this.rola;
 	}
@@ -53,7 +53,7 @@ public class Korisnickiracunxrola implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "KorisnickiRacun_ID", nullable = false)
+	@JoinColumn(name = "KorisnickiRacunID")
 	public KorisnickiRacun getKorisnickiRacun() {
 		return this.korisnickiRacun;
 	}

@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +36,7 @@ public class Rola implements java.io.Serializable {
 
 	@Id
 
-	@Column(name = "Rola_ID", unique = true, nullable = false)
+	@Column(name = "RolaID", unique = true, nullable = false)
 	public int getRolaId() {
 		return this.rolaId;
 	}

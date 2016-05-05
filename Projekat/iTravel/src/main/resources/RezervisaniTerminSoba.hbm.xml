@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba" table="rezervisani_termin_soba" catalog="tim12">
+        <id name="rezervisaniTerminId" type="int">
+            <column name="RezervisaniTerminID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="rezervacija" class="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" fetch="select">
+            <column name="RezervacijaID" />
+        </many-to-one>
+        <many-to-one name="soba" class="ba.unsa.etf.si.app.iTravel.DBModels.Soba" fetch="select">
+            <column name="SobaID" />
+        </many-to-one>
+        <property name="datumPocetak" type="date">
+            <column name="DatumPocetak" length="10" />
+        </property>
+        <property name="datumKraj" type="date">
+            <column name="DatumKraj" length="10" />
+        </property>
+        <property name="aktivan" type="java.lang.Boolean">
+            <column name="Aktivan" />
+        </property>
+    </class>
+</hibernate-mapping>

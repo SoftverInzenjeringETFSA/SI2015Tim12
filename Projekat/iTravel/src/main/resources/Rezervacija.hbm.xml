@@ -1,34 +1,34 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" table="rezervacija" catalog="tim12">
         <id name="rezervacijaId" type="java.lang.Integer">
-            <column name="Rezervacija_ID" />
+            <column name="RezervacijaID" />
             <generator class="identity" />
         </id>
+        <many-to-one name="korisnickiRacun" class="ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun" fetch="select">
+            <column name="AgentKreiraoID" />
+        </many-to-one>
         <many-to-one name="klijent" class="ba.unsa.etf.si.app.iTravel.DBModels.Klijent" fetch="select">
-            <column name="Klijent_ID" not-null="true" />
+            <column name="KlijentID" />
         </many-to-one>
-        <many-to-one name="soba" class="ba.unsa.etf.si.app.iTravel.DBModels.Soba" fetch="select">
-            <column name="Soba_ID" />
-        </many-to-one>
-        <property name="agentId" type="int">
-            <column name="Agent_ID" not-null="true" />
-        </property>
         <property name="datumRezervacije" type="date">
-            <column name="Datum_rezervacije" length="10" />
+            <column name="DatumRezervacije" length="10" />
         </property>
-        <property name="pocetakTermina" type="date">
-            <column name="Pocetak_termina" length="10" />
+        <property name="ukljucenPrevoz" type="java.lang.Boolean">
+            <column name="UkljucenPrevoz" />
         </property>
-        <property name="krajTermina" type="date">
-            <column name="Kraj_termina" length="10" />
-        </property>
+        <set name="rezervisaniTerminSobas" table="rezervisani_termin_soba" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RezervacijaID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba" />
+        </set>
         <set name="racuns" table="racun" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="Rezervacija_ID" />
+                <column name="RezervacijaID" />
             </key>
             <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Racun" />
         </set>

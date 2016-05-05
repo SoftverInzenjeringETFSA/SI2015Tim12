@@ -1,12 +1,10 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +19,7 @@ import javax.persistence.TemporalType;
 @Table(name = "racun", catalog = "tim12")
 public class Racun implements java.io.Serializable {
 
-	private Integer racunId;
+	private int racunId;
 	private Rezervacija rezervacija;
 	private Date datumUplate;
 	private Date trenutniDatum;
@@ -31,7 +29,13 @@ public class Racun implements java.io.Serializable {
 	public Racun() {
 	}
 
-	public Racun(Rezervacija rezervacija, Date datumUplate, Date trenutniDatum, Integer popust, Integer cijena) {
+	public Racun(int racunId) {
+		this.racunId = racunId;
+	}
+
+	public Racun(int racunId, Rezervacija rezervacija, Date datumUplate, Date trenutniDatum, Integer popust,
+			Integer cijena) {
+		this.racunId = racunId;
 		this.rezervacija = rezervacija;
 		this.datumUplate = datumUplate;
 		this.trenutniDatum = trenutniDatum;
@@ -40,19 +44,18 @@ public class Racun implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "Racun_ID", unique = true, nullable = false)
-	public Integer getRacunId() {
+	@Column(name = "RacunID", unique = true, nullable = false)
+	public int getRacunId() {
 		return this.racunId;
 	}
 
-	public void setRacunId(Integer racunId) {
+	public void setRacunId(int racunId) {
 		this.racunId = racunId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Rezervacija_ID")
+	@JoinColumn(name = "RezervacijaID")
 	public Rezervacija getRezervacija() {
 		return this.rezervacija;
 	}
@@ -62,7 +65,7 @@ public class Racun implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Datum_uplate", length = 10)
+	@Column(name = "DatumUplate", length = 10)
 	public Date getDatumUplate() {
 		return this.datumUplate;
 	}
@@ -72,7 +75,7 @@ public class Racun implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Trenutni_datum", length = 10)
+	@Column(name = "TrenutniDatum", length = 10)
 	public Date getTrenutniDatum() {
 		return this.trenutniDatum;
 	}

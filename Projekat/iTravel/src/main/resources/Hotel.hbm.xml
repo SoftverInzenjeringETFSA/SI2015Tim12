@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Hotel" table="hotel" catalog="tim12">
         <id name="hotelId" type="java.lang.Integer">
-            <column name="Hotel_ID" />
+            <column name="HotelID" />
             <generator class="identity" />
         </id>
+        <many-to-one name="destinacija" class="ba.unsa.etf.si.app.iTravel.DBModels.Destinacija" fetch="select">
+            <column name="DestinacijaID" />
+        </many-to-one>
         <property name="adresa" type="string">
             <column name="Adresa" length="70" />
         </property>
@@ -17,27 +20,33 @@
         <property name="grad" type="string">
             <column name="Grad" length="45" />
         </property>
-        <property name="destinacija" type="string">
-            <column name="Destinacija" length="45" />
-        </property>
         <property name="brojTelefona" type="string">
-            <column name="Broj_telefona" length="45" />
+            <column name="BrojTelefona" length="45" />
         </property>
         <property name="pocetakNiska" type="date">
-            <column name="Pocetak_niska" length="10" />
+            <column name="PocetakNiska" length="10" />
         </property>
         <property name="krajNiska" type="date">
-            <column name="Kraj_niska" length="10" />
+            <column name="KrajNiska" length="10" />
         </property>
         <property name="krajVisoka" type="date">
-            <column name="Kraj_visoka" length="10" />
+            <column name="KrajVisoka" length="10" />
         </property>
         <property name="pocetakVisoka" type="date">
-            <column name="Pocetak_visoka" length="10" />
+            <column name="PocetakVisoka" length="10" />
+        </property>
+        <property name="naziv" type="string">
+            <column name="Naziv" length="50" />
+        </property>
+        <property name="nazivLanca" type="string">
+            <column name="NazivLanca" length="50" />
+        </property>
+        <property name="brojZvjezdica" type="java.lang.Integer">
+            <column name="BrojZvjezdica" />
         </property>
         <set name="sobas" table="soba" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="Hotel_ID" not-null="true" />
+                <column name="HotelID" not-null="true" />
             </key>
             <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Soba" />
         </set>

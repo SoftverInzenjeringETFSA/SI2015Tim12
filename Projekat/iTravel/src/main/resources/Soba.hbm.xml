@@ -1,39 +1,33 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Soba" table="soba" catalog="tim12">
-        <id name="sobaId" type="java.lang.Integer">
-            <column name="Soba_ID" />
-            <generator class="identity" />
+        <id name="sobaId" type="int">
+            <column name="SobaID" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="hotel" class="ba.unsa.etf.si.app.iTravel.DBModels.Hotel" fetch="select">
-            <column name="Hotel_ID" not-null="true" />
+            <column name="HotelID" not-null="true" />
         </many-to-one>
         <property name="brojKreveta" type="java.lang.Integer">
-            <column name="Broj_kreveta" />
+            <column name="BrojKreveta" />
         </property>
         <property name="opis" type="string">
             <column name="Opis" length="200" />
         </property>
         <property name="cijenaVisoka" type="int">
-            <column name="Cijena_visoka" not-null="true" />
+            <column name="CijenaVisoka" not-null="true" />
         </property>
         <property name="cijenaNiska" type="int">
-            <column name="Cijena_niska" not-null="true" />
+            <column name="CijenaNiska" not-null="true" />
         </property>
-        <set name="slobodniTerminis" table="slobodni_termini" inverse="true" lazy="true" fetch="select">
+        <set name="rezervisaniTerminSobas" table="rezervisani_termin_soba" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="Soba_ID" not-null="true" />
+                <column name="SobaID" />
             </key>
-            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.SlobodniTermini" />
-        </set>
-        <set name="rezervacijas" table="rezervacija" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Soba_ID" />
-            </key>
-            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" />
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba" />
         </set>
     </class>
 </hibernate-mapping>

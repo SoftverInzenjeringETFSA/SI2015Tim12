@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Racun" table="racun" catalog="tim12">
-        <id name="racunId" type="java.lang.Integer">
-            <column name="Racun_ID" />
-            <generator class="identity" />
+        <id name="racunId" type="int">
+            <column name="RacunID" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="rezervacija" class="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" fetch="select">
-            <column name="Rezervacija_ID" />
+            <column name="RezervacijaID" />
         </many-to-one>
         <property name="datumUplate" type="date">
-            <column name="Datum_uplate" length="10" />
+            <column name="DatumUplate" length="10" />
         </property>
         <property name="trenutniDatum" type="date">
-            <column name="Trenutni_datum" length="10" />
+            <column name="TrenutniDatum" length="10" />
         </property>
         <property name="popust" type="java.lang.Integer">
             <column name="Popust" />

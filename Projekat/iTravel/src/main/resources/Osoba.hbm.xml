@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Osoba" table="osoba" catalog="tim12">
         <id name="osobaId" type="java.lang.Integer">
-            <column name="Osoba_ID" />
+            <column name="OsobaID" />
             <generator class="identity" />
         </id>
         <property name="ime" type="string">
@@ -15,7 +15,7 @@
             <column name="Prezime" length="45" />
         </property>
         <property name="datumRodjenja" type="date">
-            <column name="Datum_rodjenja" length="10" />
+            <column name="DatumRodjenja" length="10" />
         </property>
         <property name="adresa" type="string">
             <column name="Adresa" length="45" />
@@ -23,26 +23,26 @@
         <property name="email" type="string">
             <column name="Email" length="45" />
         </property>
-        <property name="brojTel" type="string">
-            <column name="Broj_tel" length="45" />
+        <property name="brojTelefona" type="string">
+            <column name="BrojTelefona" length="45" />
         </property>
         <property name="jmbg" type="java.lang.Integer">
             <column name="JMBG" />
         </property>
-        <property name="brPasosa" type="string">
-            <column name="Br_pasosa" length="45" />
+        <property name="brojPasosa" type="string">
+            <column name="BrojPasosa" length="45" />
         </property>
-        <set name="klijents" table="klijent" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Osoba_ID" not-null="true" />
-            </key>
-            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Klijent" />
-        </set>
         <set name="korisnickiRacuns" table="korisnicki_racun" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="Osoba_ID" not-null="true" />
+                <column name="OsobaID" />
             </key>
             <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun" />
+        </set>
+        <set name="klijents" table="klijent" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OsobaID" not-null="true" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Klijent" />
         </set>
     </class>
 </hibernate-mapping>

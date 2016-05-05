@@ -8,9 +8,7 @@ import ba.unsa.etf.si.app.iTravel.DAL.Repositories.OsobaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RacunRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RezervacijaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RolaRepository;
-import ba.unsa.etf.si.app.iTravel.DAL.Repositories.SlobodniTerminiRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.SobaRepository;
-import ba.unsa.etf.si.app.iTravel.DAL.Repositories.TerminRepository;
 
 public class DBContext {
 	
@@ -21,8 +19,6 @@ public class DBContext {
 	private KlijentRepository klijentRepository;
 	private OsobaRepository osobaRepository;
 	private SobaRepository sobaRepository;
-	private TerminRepository terminRepository;
-	private SlobodniTerminiRepository slobodniTerminiRepository;
 	private RezervacijaRepository rezervacijaRepository;
 	private RacunRepository racunRepository;
 	private RolaRepository rolaRepository;
@@ -36,8 +32,6 @@ public class DBContext {
 		klijentRepository = new KlijentRepository();
 		osobaRepository = new OsobaRepository();
 		sobaRepository = new SobaRepository();
-		terminRepository = new TerminRepository();
-		slobodniTerminiRepository = new SlobodniTerminiRepository();
 		rezervacijaRepository = new RezervacijaRepository();
 		racunRepository = new RacunRepository();
 		rolaRepository = new RolaRepository();
@@ -89,22 +83,6 @@ public class DBContext {
 
 	public void setSobaRepository(SobaRepository sobaRepository) {
 		this.sobaRepository = sobaRepository;
-	}
-
-	public TerminRepository getTerminRepository() {
-		return terminRepository;
-	}
-
-	public void setTerminRepository(TerminRepository terminRepository) {
-		this.terminRepository = terminRepository;
-	}
-
-	public SlobodniTerminiRepository getSlobodniTerminiRepository() {
-		return slobodniTerminiRepository;
-	}
-
-	public void setSlobodniTerminiRepository(SlobodniTerminiRepository slobodniTerminiRepository) {
-		this.slobodniTerminiRepository = slobodniTerminiRepository;
 	}
 
 	public RezervacijaRepository getRezervacijaRepository() {

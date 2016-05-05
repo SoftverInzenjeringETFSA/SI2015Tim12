@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,44 +25,61 @@ import javax.persistence.TemporalType;
 public class Hotel implements java.io.Serializable {
 
 	private Integer hotelId;
+	private Destinacija destinacija;
 	private String adresa;
 	private String drzava;
 	private String grad;
-	private String destinacija;
 	private String brojTelefona;
 	private Date pocetakNiska;
 	private Date krajNiska;
 	private Date krajVisoka;
 	private Date pocetakVisoka;
+	private String naziv;
+	private String nazivLanca;
+	private Integer brojZvjezdica;
 	private Set<Soba> sobas = new HashSet<Soba>(0);
 
 	public Hotel() {
 	}
 
-	public Hotel(String adresa, String drzava, String grad, String destinacija, String brojTelefona, Date pocetakNiska,
-			Date krajNiska, Date krajVisoka, Date pocetakVisoka, Set<Soba> sobas) {
+	public Hotel(Destinacija destinacija, String adresa, String drzava, String grad, String brojTelefona,
+			Date pocetakNiska, Date krajNiska, Date krajVisoka, Date pocetakVisoka, String naziv, String nazivLanca,
+			Integer brojZvjezdica, Set<Soba> sobas) {
+		this.destinacija = destinacija;
 		this.adresa = adresa;
 		this.drzava = drzava;
 		this.grad = grad;
-		this.destinacija = destinacija;
 		this.brojTelefona = brojTelefona;
 		this.pocetakNiska = pocetakNiska;
 		this.krajNiska = krajNiska;
 		this.krajVisoka = krajVisoka;
 		this.pocetakVisoka = pocetakVisoka;
+		this.naziv = naziv;
+		this.nazivLanca = nazivLanca;
+		this.brojZvjezdica = brojZvjezdica;
 		this.sobas = sobas;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "Hotel_ID", unique = true, nullable = false)
+	@Column(name = "HotelID", unique = true, nullable = false)
 	public Integer getHotelId() {
 		return this.hotelId;
 	}
 
 	public void setHotelId(Integer hotelId) {
 		this.hotelId = hotelId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DestinacijaID")
+	public Destinacija getDestinacija() {
+		return this.destinacija;
+	}
+
+	public void setDestinacija(Destinacija destinacija) {
+		this.destinacija = destinacija;
 	}
 
 	@Column(name = "Adresa", length = 70)
@@ -90,16 +109,7 @@ public class Hotel implements java.io.Serializable {
 		this.grad = grad;
 	}
 
-	@Column(name = "Destinacija", length = 45)
-	public String getDestinacija() {
-		return this.destinacija;
-	}
-
-	public void setDestinacija(String destinacija) {
-		this.destinacija = destinacija;
-	}
-
-	@Column(name = "Broj_telefona", length = 45)
+	@Column(name = "BrojTelefona", length = 45)
 	public String getBrojTelefona() {
 		return this.brojTelefona;
 	}
@@ -109,7 +119,7 @@ public class Hotel implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Pocetak_niska", length = 10)
+	@Column(name = "PocetakNiska", length = 10)
 	public Date getPocetakNiska() {
 		return this.pocetakNiska;
 	}
@@ -119,7 +129,7 @@ public class Hotel implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Kraj_niska", length = 10)
+	@Column(name = "KrajNiska", length = 10)
 	public Date getKrajNiska() {
 		return this.krajNiska;
 	}
@@ -129,7 +139,7 @@ public class Hotel implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Kraj_visoka", length = 10)
+	@Column(name = "KrajVisoka", length = 10)
 	public Date getKrajVisoka() {
 		return this.krajVisoka;
 	}
@@ -139,13 +149,40 @@ public class Hotel implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Pocetak_visoka", length = 10)
+	@Column(name = "PocetakVisoka", length = 10)
 	public Date getPocetakVisoka() {
 		return this.pocetakVisoka;
 	}
 
 	public void setPocetakVisoka(Date pocetakVisoka) {
 		this.pocetakVisoka = pocetakVisoka;
+	}
+
+	@Column(name = "Naziv", length = 50)
+	public String getNaziv() {
+		return this.naziv;
+	}
+
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
+
+	@Column(name = "NazivLanca", length = 50)
+	public String getNazivLanca() {
+		return this.nazivLanca;
+	}
+
+	public void setNazivLanca(String nazivLanca) {
+		this.nazivLanca = nazivLanca;
+	}
+
+	@Column(name = "BrojZvjezdica")
+	public Integer getBrojZvjezdica() {
+		return this.brojZvjezdica;
+	}
+
+	public void setBrojZvjezdica(Integer brojZvjezdica) {
+		this.brojZvjezdica = brojZvjezdica;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hotel")

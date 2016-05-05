@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-May-2016 22:04:01 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola" table="korisnickiracunxrola" catalog="tim12">
         <id name="korisnickiRacunXrolaId" type="java.lang.Integer">
-            <column name="KorisnickiRacunXRola_ID" />
+            <column name="KorisnickiRacunXRolaID" />
             <generator class="identity" />
         </id>
         <many-to-one name="rola" class="ba.unsa.etf.si.app.iTravel.DBModels.Rola" fetch="select">
-            <column name="Rola_ID" not-null="true" />
+            <column name="RolaID" />
         </many-to-one>
         <many-to-one name="korisnickiRacun" class="ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun" fetch="select">
-            <column name="KorisnickiRacun_ID" not-null="true" />
+            <column name="KorisnickiRacunID" />
         </many-to-one>
     </class>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -28,33 +28,33 @@ public class Osoba implements java.io.Serializable {
 	private Date datumRodjenja;
 	private String adresa;
 	private String email;
-	private String brojTel;
+	private String brojTelefona;
 	private Integer jmbg;
-	private String brPasosa;
-	private Set<Klijent> klijents = new HashSet<Klijent>(0);
+	private String brojPasosa;
 	private Set<KorisnickiRacun> korisnickiRacuns = new HashSet<KorisnickiRacun>(0);
+	private Set<Klijent> klijents = new HashSet<Klijent>(0);
 
 	public Osoba() {
 	}
 
-	public Osoba(String ime, String prezime, Date datumRodjenja, String adresa, String email, String brojTel,
-			Integer jmbg, String brPasosa, Set<Klijent> klijents, Set<KorisnickiRacun> korisnickiRacuns) {
+	public Osoba(String ime, String prezime, Date datumRodjenja, String adresa, String email, String brojTelefona,
+			Integer jmbg, String brojPasosa, Set<KorisnickiRacun> korisnickiRacuns, Set<Klijent> klijents) {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.datumRodjenja = datumRodjenja;
 		this.adresa = adresa;
 		this.email = email;
-		this.brojTel = brojTel;
+		this.brojTelefona = brojTelefona;
 		this.jmbg = jmbg;
-		this.brPasosa = brPasosa;
-		this.klijents = klijents;
+		this.brojPasosa = brojPasosa;
 		this.korisnickiRacuns = korisnickiRacuns;
+		this.klijents = klijents;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "Osoba_ID", unique = true, nullable = false)
+	@Column(name = "OsobaID", unique = true, nullable = false)
 	public Integer getOsobaId() {
 		return this.osobaId;
 	}
@@ -82,7 +82,7 @@ public class Osoba implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Datum_rodjenja", length = 10)
+	@Column(name = "DatumRodjenja", length = 10)
 	public Date getDatumRodjenja() {
 		return this.datumRodjenja;
 	}
@@ -109,13 +109,13 @@ public class Osoba implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "Broj_tel", length = 45)
-	public String getBrojTel() {
-		return this.brojTel;
+	@Column(name = "BrojTelefona", length = 45)
+	public String getBrojTelefona() {
+		return this.brojTelefona;
 	}
 
-	public void setBrojTel(String brojTel) {
-		this.brojTel = brojTel;
+	public void setBrojTelefona(String brojTelefona) {
+		this.brojTelefona = brojTelefona;
 	}
 
 	@Column(name = "JMBG")
@@ -127,22 +127,13 @@ public class Osoba implements java.io.Serializable {
 		this.jmbg = jmbg;
 	}
 
-	@Column(name = "Br_pasosa", length = 45)
-	public String getBrPasosa() {
-		return this.brPasosa;
+	@Column(name = "BrojPasosa", length = 45)
+	public String getBrojPasosa() {
+		return this.brojPasosa;
 	}
 
-	public void setBrPasosa(String brPasosa) {
-		this.brPasosa = brPasosa;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "osoba")
-	public Set<Klijent> getKlijents() {
-		return this.klijents;
-	}
-
-	public void setKlijents(Set<Klijent> klijents) {
-		this.klijents = klijents;
+	public void setBrojPasosa(String brojPasosa) {
+		this.brojPasosa = brojPasosa;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "osoba")
@@ -152,6 +143,15 @@ public class Osoba implements java.io.Serializable {
 
 	public void setKorisnickiRacuns(Set<KorisnickiRacun> korisnickiRacuns) {
 		this.korisnickiRacuns = korisnickiRacuns;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "osoba")
+	public Set<Klijent> getKlijents() {
+		return this.klijents;
+	}
+
+	public void setKlijents(Set<Klijent> klijents) {
+		this.klijents = klijents;
 	}
 
 }

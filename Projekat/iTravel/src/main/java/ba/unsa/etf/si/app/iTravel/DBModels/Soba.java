@@ -1,13 +1,11 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 02-May-2016 22:04:00 by Hibernate Tools 4.0.0.Final
+// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,49 +19,48 @@ import javax.persistence.Table;
 @Table(name = "soba", catalog = "tim12")
 public class Soba implements java.io.Serializable {
 
-	private Integer sobaId;
+	private int sobaId;
 	private Hotel hotel;
 	private Integer brojKreveta;
 	private String opis;
 	private int cijenaVisoka;
 	private int cijenaNiska;
-	private Set<SlobodniTermini> slobodniTerminis = new HashSet<SlobodniTermini>(0);
-	private Set<Rezervacija> rezervacijas = new HashSet<Rezervacija>(0);
+	private Set<RezervisaniTerminSoba> rezervisaniTerminSobas = new HashSet<RezervisaniTerminSoba>(0);
 
 	public Soba() {
 	}
 
-	public Soba(Hotel hotel, int cijenaVisoka, int cijenaNiska) {
+	public Soba(int sobaId, Hotel hotel, int cijenaVisoka, int cijenaNiska) {
+		this.sobaId = sobaId;
 		this.hotel = hotel;
 		this.cijenaVisoka = cijenaVisoka;
 		this.cijenaNiska = cijenaNiska;
 	}
 
-	public Soba(Hotel hotel, Integer brojKreveta, String opis, int cijenaVisoka, int cijenaNiska,
-			Set<SlobodniTermini> slobodniTerminis, Set<Rezervacija> rezervacijas) {
+	public Soba(int sobaId, Hotel hotel, Integer brojKreveta, String opis, int cijenaVisoka, int cijenaNiska,
+			Set<RezervisaniTerminSoba> rezervisaniTerminSobas) {
+		this.sobaId = sobaId;
 		this.hotel = hotel;
 		this.brojKreveta = brojKreveta;
 		this.opis = opis;
 		this.cijenaVisoka = cijenaVisoka;
 		this.cijenaNiska = cijenaNiska;
-		this.slobodniTerminis = slobodniTerminis;
-		this.rezervacijas = rezervacijas;
+		this.rezervisaniTerminSobas = rezervisaniTerminSobas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "Soba_ID", unique = true, nullable = false)
-	public Integer getSobaId() {
+	@Column(name = "SobaID", unique = true, nullable = false)
+	public int getSobaId() {
 		return this.sobaId;
 	}
 
-	public void setSobaId(Integer sobaId) {
+	public void setSobaId(int sobaId) {
 		this.sobaId = sobaId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Hotel_ID", nullable = false)
+	@JoinColumn(name = "HotelID", nullable = false)
 	public Hotel getHotel() {
 		return this.hotel;
 	}
@@ -72,7 +69,7 @@ public class Soba implements java.io.Serializable {
 		this.hotel = hotel;
 	}
 
-	@Column(name = "Broj_kreveta")
+	@Column(name = "BrojKreveta")
 	public Integer getBrojKreveta() {
 		return this.brojKreveta;
 	}
@@ -90,7 +87,7 @@ public class Soba implements java.io.Serializable {
 		this.opis = opis;
 	}
 
-	@Column(name = "Cijena_visoka", nullable = false)
+	@Column(name = "CijenaVisoka", nullable = false)
 	public int getCijenaVisoka() {
 		return this.cijenaVisoka;
 	}
@@ -99,7 +96,7 @@ public class Soba implements java.io.Serializable {
 		this.cijenaVisoka = cijenaVisoka;
 	}
 
-	@Column(name = "Cijena_niska", nullable = false)
+	@Column(name = "CijenaNiska", nullable = false)
 	public int getCijenaNiska() {
 		return this.cijenaNiska;
 	}
@@ -109,21 +106,12 @@ public class Soba implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "soba")
-	public Set<SlobodniTermini> getSlobodniTerminis() {
-		return this.slobodniTerminis;
+	public Set<RezervisaniTerminSoba> getRezervisaniTerminSobas() {
+		return this.rezervisaniTerminSobas;
 	}
 
-	public void setSlobodniTerminis(Set<SlobodniTermini> slobodniTerminis) {
-		this.slobodniTerminis = slobodniTerminis;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "soba")
-	public Set<Rezervacija> getRezervacijas() {
-		return this.rezervacijas;
-	}
-
-	public void setRezervacijas(Set<Rezervacija> rezervacijas) {
-		this.rezervacijas = rezervacijas;
+	public void setRezervisaniTerminSobas(Set<RezervisaniTerminSoba> rezervisaniTerminSobas) {
+		this.rezervisaniTerminSobas = rezervisaniTerminSobas;
 	}
 
 }
