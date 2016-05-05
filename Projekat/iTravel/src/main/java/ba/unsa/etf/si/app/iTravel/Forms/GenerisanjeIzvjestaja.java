@@ -17,6 +17,10 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GenerisanjeIzvjestaja {
 
@@ -52,7 +56,7 @@ public class GenerisanjeIzvjestaja {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 625, 618);
+		frame.setBounds(100, 100, 621, 633);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -87,7 +91,33 @@ public class GenerisanjeIzvjestaja {
 			}
 		));
 		
+		final JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(78, 55, 131, 20);
+		frame.getContentPane().add(dateChooser);
+		
+		final JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1.setBounds(270, 52, 131, 20);
+		frame.getContentPane().add(dateChooser_1);
+		
 		JButton btnNewButton = new JButton("Generi\u0161i");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(dateChooser.getDate()==null || dateChooser_1.getDate()==null) 
+				{
+					
+					JOptionPane.showMessageDialog( null, "Datumi se moraju odabrati!");
+				}
+				
+				
+			
+					
+					
+			
+				
+					
+			}
+		});
 		btnNewButton.setBounds(436, 50, 150, 30);
 		frame.getContentPane().add(btnNewButton);
 		
@@ -134,13 +164,7 @@ public class GenerisanjeIzvjestaja {
 		btnIzlaz.setBounds(436, 530, 150, 30);
 		frame.getContentPane().add(btnIzlaz);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(78, 55, 131, 20);
-		frame.getContentPane().add(dateChooser);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(270, 52, 131, 20);
-		frame.getContentPane().add(dateChooser_1);
 		
 		JDateChooser dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(78, 315, 131, 20);
@@ -181,5 +205,8 @@ public class GenerisanjeIzvjestaja {
 		mnRaun.add(mntmOdjaviSe);
 		table.getColumnModel().getColumn(0).setPreferredWidth(284);
 		table.getColumnModel().getColumn(1).setPreferredWidth(290);
+		
+		
+		
 	}
 }
