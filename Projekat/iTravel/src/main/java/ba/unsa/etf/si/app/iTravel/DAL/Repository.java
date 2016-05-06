@@ -40,7 +40,7 @@ public class Repository<T>{
      * @return Lista svih objekata
      */
     
-    public List<T> ucitajSveIzBaze(Session session) {
+    public List<T> ucitajSveIzBaze() {
         Transaction t = session.beginTransaction();
         String queryString = FROM + SPACE + PARAMETER;
         Query query = session.createQuery(queryString);
@@ -79,7 +79,7 @@ public class Repository<T>{
      * @param object Objekat koji se spasava
      * @param session Hibernate sesija
      */
-    public void sacuvajIliAzurirajUBazu(T object, Session session) {
+    public void sacuvajIliAzurirajUBazu(T object) {
         Transaction t = session.beginTransaction();
         session.saveOrUpdate(object);
         t.commit();
@@ -91,7 +91,7 @@ public class Repository<T>{
      * @param object Objekat koji se brise
      * @param session Hibernate sesija
      */
-    public void obrisiIzBaze(T object, Session session) {
+    public void obrisiIzBaze(T object) {
         Transaction t = session.beginTransaction();
         session.delete(object);
         t.commit();
@@ -101,7 +101,7 @@ public class Repository<T>{
      * Obrisi sve objekte
      * @param session Hibernate sesija
      */
-    public void obrisiSveIzBaze(Session session) {
+    public void obrisiSveIzBaze() {
         Transaction t = session.beginTransaction();
         String queryString = DELETE + SPACE + FROM + PARAMETER;
         Query query = session.createQuery(queryString);

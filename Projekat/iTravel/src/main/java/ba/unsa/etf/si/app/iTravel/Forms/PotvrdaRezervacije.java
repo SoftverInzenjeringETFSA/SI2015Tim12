@@ -9,6 +9,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class PotvrdaRezervacije {
 
 	private JFrame frmPotvrdaRezervacije;
@@ -43,8 +48,9 @@ public class PotvrdaRezervacije {
 		frmPotvrdaRezervacije = new JFrame();
 		frmPotvrdaRezervacije.setTitle("Potvrda rezervacije");
 		frmPotvrdaRezervacije.setBounds(100, 100, 317, 195);
-		frmPotvrdaRezervacije.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPotvrdaRezervacije.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPotvrdaRezervacije.getContentPane().setLayout(null);
+		frmPotvrdaRezervacije.setLocationRelativeTo(null);
 		
 		JButton btnNewButton = new JButton("Izdaj potvrdu");
 		btnNewButton.setBounds(35, 40, 230, 30);
@@ -79,9 +85,28 @@ public class PotvrdaRezervacije {
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PromjenaSifre novaForma = new PromjenaSifre();
+				novaForma.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OdjavaService odjava = new OdjavaService();
+				odjava.OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava prijava = new Prijava();
+				prijava.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmOdjaviSe);
 	}
 

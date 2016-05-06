@@ -12,9 +12,14 @@ import javax.swing.SwingConstants;
 import javax.swing.DropMode;
 import java.awt.Font;
 import com.toedter.calendar.JDateChooser;
+
+import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DodavanjeHotela {
 
@@ -54,9 +59,11 @@ public class DodavanjeHotela {
 	private void initialize() {
 		frmUnosHotela = new JFrame();
 		frmUnosHotela.setTitle("Unos hotela");
-		frmUnosHotela.setBounds(100, 100, 400, 428);
-		frmUnosHotela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmUnosHotela.setBounds(100, 100, 400, 433);
+		frmUnosHotela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmUnosHotela.getContentPane().setLayout(null);
+		frmUnosHotela.setLocationRelativeTo(null);
+
 		
 		JLabel lblNazivHotela = new JLabel("Naziv hotela:");
 		lblNazivHotela.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -78,12 +85,12 @@ public class DodavanjeHotela {
 		lblBroj.setBounds(10, 130, 161, 20);
 		frmUnosHotela.getContentPane().add(lblBroj);
 		
-		JLabel lblPoetniDatum = new JLabel("Po\u010Detni datum:");
+		JLabel lblPoetniDatum = new JLabel("Početak visoke sezone:");
 		lblPoetniDatum.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPoetniDatum.setBounds(10, 192, 161, 20);
 		frmUnosHotela.getContentPane().add(lblPoetniDatum);
 		
-		JLabel lblKrajnjiDatum = new JLabel("Krajnji datum:");
+		JLabel lblKrajnjiDatum = new JLabel("Kraj visoke sezone:");
 		lblKrajnjiDatum.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblKrajnjiDatum.setBounds(10, 223, 161, 20);
 		frmUnosHotela.getContentPane().add(lblKrajnjiDatum);
@@ -109,7 +116,7 @@ public class DodavanjeHotela {
 		frmUnosHotela.getContentPane().add(spinner);
 		
 		JButton btnNewButton = new JButton("Dodaj");
-		btnNewButton.setBounds(118, 327, 150, 30);
+		btnNewButton.setBounds(119, 325, 150, 30);
 		frmUnosHotela.getContentPane().add(btnNewButton);
 		
 		JLabel lblCijena = new JLabel("Cijena (visoka sezona):");
@@ -170,9 +177,28 @@ public class DodavanjeHotela {
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PromjenaSifre novaForma = new PromjenaSifre();
+				novaForma.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OdjavaService odjava = new OdjavaService();
+				odjava.OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava prijava = new Prijava();
+				prijava.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmOdjaviSe);
 	}
 }

@@ -6,10 +6,15 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Postavke {
 
@@ -45,7 +50,8 @@ public class Postavke {
 		frmPostavke = new JFrame();
 		frmPostavke.setTitle("Postavke");
 		frmPostavke.setBounds(100, 100, 228, 268);
-		frmPostavke.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPostavke.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmPostavke.setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmPostavke.setJMenuBar(menuBar);
@@ -72,9 +78,28 @@ public class Postavke {
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PromjenaSifre novaForma = new PromjenaSifre();
+				novaForma.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OdjavaService odjava = new OdjavaService();
+				odjava.OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava prijava = new Prijava();
+				prijava.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmOdjaviSe);
 		frmPostavke.getContentPane().setLayout(null);
 		

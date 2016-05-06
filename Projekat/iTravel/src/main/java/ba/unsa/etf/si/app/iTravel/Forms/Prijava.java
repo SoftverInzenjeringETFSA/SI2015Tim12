@@ -64,6 +64,19 @@ public class Prijava {
 		}
 	}	
 	
+	public static void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Prijava window = new Prijava();
+					window.frmPrijava.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -97,9 +110,10 @@ public class Prijava {
 		frmPrijava = new JFrame();
 		frmPrijava.setTitle("Prijava");
 		frmPrijava.setBounds(100, 100, 350, 250);
-		frmPrijava.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPrijava.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrijava.getContentPane().setLayout(null);
 		frmPrijava.setLocationRelativeTo(null);
+		
 		
 		JLabel lblNewLabel = new JLabel("Unesite svoje korisni\u010Dke podatke");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -125,6 +139,7 @@ public class Prijava {
 		JButton btnPotvrdi = new JButton("Potvrdi");
 		btnPotvrdi.setBounds(95, 142, 150, 30);
 		frmPrijava.getContentPane().add(btnPotvrdi);
+		frmPrijava.getRootPane().setDefaultButton(btnPotvrdi);
 		
 		btnPotvrdi.addActionListener(new AkcijaIzlaz());
 		

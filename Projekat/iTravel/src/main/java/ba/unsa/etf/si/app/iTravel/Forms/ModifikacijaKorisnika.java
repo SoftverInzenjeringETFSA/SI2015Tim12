@@ -9,10 +9,15 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ModifikacijaKorisnika {
 
@@ -56,7 +61,8 @@ public class ModifikacijaKorisnika {
 		frmModifikacijaKorisnika = new JFrame();
 		frmModifikacijaKorisnika.setTitle("Modifikacija korisnika");
 		frmModifikacijaKorisnika.setBounds(100, 100, 362, 454);
-		frmModifikacijaKorisnika.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmModifikacijaKorisnika.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmModifikacijaKorisnika.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Ime:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -182,9 +188,28 @@ public class ModifikacijaKorisnika {
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PromjenaSifre novaForma = new PromjenaSifre();
+				novaForma.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OdjavaService odjava = new OdjavaService();
+				odjava.OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava prijava = new Prijava();
+				prijava.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmOdjaviSe);
 	}
 }

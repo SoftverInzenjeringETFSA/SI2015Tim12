@@ -8,6 +8,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
+
+import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
@@ -71,8 +74,9 @@ public class Hoteli {
 		frmPrikazHotela = new JFrame();
 		frmPrikazHotela.setTitle("Pregled hotela");
 		frmPrikazHotela.setBounds(100, 100, 784, 382);
-		frmPrikazHotela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPrikazHotela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrikazHotela.getContentPane().setLayout(null);
+		frmPrikazHotela.setLocationRelativeTo(null);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(23, 41, 720, 218);
@@ -142,9 +146,28 @@ public class Hoteli {
 		menuBar.add(mnRaun);
 		
 		mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PromjenaSifre novaForma = new PromjenaSifre();
+				novaForma.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OdjavaService odjava = new OdjavaService();
+				odjava.OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava prijava = new Prijava();
+				prijava.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmOdjaviSe);
 		table_pregledHotela.getColumnModel().getColumn(0).setPreferredWidth(99);
 		table_pregledHotela.getColumnModel().getColumn(1).setPreferredWidth(83);

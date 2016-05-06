@@ -9,6 +9,12 @@ import java.awt.Font;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PocetnaFormaAgent {
 
@@ -43,7 +49,7 @@ public class PocetnaFormaAgent {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 444, 255);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		
@@ -63,13 +69,32 @@ public class PocetnaFormaAgent {
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnAkcije = new JMenu("Akcije");
+		JMenu mnAkcije = new JMenu("Račun");
 		menuBar.add(mnAkcije);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni \u0161ifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PromjenaSifre novaForma = new PromjenaSifre();
+				novaForma.PrikaziFormu();
+			}
+		});
 		mnAkcije.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OdjavaService odjava = new OdjavaService();
+				odjava.OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava prijava = new Prijava();
+				prijava.PrikaziFormu();
+			}
+		});
 		mnAkcije.add(mntmOdjaviSe);
 	}
 

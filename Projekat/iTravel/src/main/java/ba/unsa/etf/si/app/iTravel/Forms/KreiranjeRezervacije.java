@@ -13,10 +13,16 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
+
+import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+
 import com.toedter.calendar.JCalendar;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class KreiranjeRezervacije {
 
@@ -60,15 +66,17 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije = new JFrame();
 		frmKreiranjeRezervacije.setTitle("Kreiranje rezervacije");
 		frmKreiranjeRezervacije.setBounds(100, 100, 836, 553);
-		frmKreiranjeRezervacije.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmKreiranjeRezervacije.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmKreiranjeRezervacije.getContentPane().setLayout(null);
+		frmKreiranjeRezervacije.setLocationRelativeTo(null);
 		
 		JLabel lblDestinacija = new JLabel("Destinacija:");
-		lblDestinacija.setBounds(30, 53, 73, 14);
+		lblDestinacija.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDestinacija.setBounds(35, 53, 66, 14);
 		frmKreiranjeRezervacije.getContentPane().add(lblDestinacija);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(105, 50, 145, 20);
+		comboBox.setBounds(111, 50, 153, 20);
 		frmKreiranjeRezervacije.getContentPane().add(comboBox);
 		
 		JLabel lblNewLabel = new JLabel("Unesite podatke o novoj rezervaciji");
@@ -77,7 +85,7 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Dostupni hoteli na odabranoj destinaciji:");
-		lblNewLabel_1.setBounds(30, 92, 220, 14);
+		lblNewLabel_1.setBounds(30, 92, 234, 14);
 		frmKreiranjeRezervacije.getContentPane().add(lblNewLabel_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -105,15 +113,18 @@ public class KreiranjeRezervacije {
 		scrollPane.setViewportView(table);
 		
 		JLabel lblOd = new JLabel("Od:");
-		lblOd.setBounds(30, 276, 25, 14);
+		lblOd.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblOd.setBounds(77, 271, 25, 14);
 		frmKreiranjeRezervacije.getContentPane().add(lblOd);
 		
 		JLabel lblDo = new JLabel("Do:");
-		lblDo.setBounds(253, 276, 25, 14);
+		lblDo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDo.setBounds(359, 271, 25, 14);
 		frmKreiranjeRezervacije.getContentPane().add(lblDo);
 		
 		JLabel lblNewLabel_2 = new JLabel("Podaci o klijentu:");
-		lblNewLabel_2.setBounds(30, 317, 100, 14);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2.setBounds(30, 317, 145, 14);
 		frmKreiranjeRezervacije.getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblIme = new JLabel("Ime:");
@@ -172,26 +183,26 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije.getContentPane().add(lblDatumRoenja);
 		
 		JLabel lblCijena = new JLabel("Cijena:");
-		lblCijena.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCijena.setBounds(533, 276, 61, 14);
+		lblCijena.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblCijena.setBounds(601, 353, 61, 21);
 		frmKreiranjeRezervacije.getContentPane().add(lblCijena);
 		
 		JLabel label = new JLabel("954,23");
-		label.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		label.setBounds(596, 276, 61, 14);
+		label.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label.setBounds(663, 353, 61, 21);
 		frmKreiranjeRezervacije.getContentPane().add(label);
 		
 		JLabel lblNewLabel_3 = new JLabel("KM");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_3.setBounds(654, 277, 46, 14);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_3.setBounds(721, 354, 46, 20);
 		frmKreiranjeRezervacije.getContentPane().add(lblNewLabel_3);
 		
 		JButton btnNewButton = new JButton("Potvrdi");
-		btnNewButton.setBounds(597, 377, 150, 30);
+		btnNewButton.setBounds(598, 399, 150, 30);
 		frmKreiranjeRezervacije.getContentPane().add(btnNewButton);
 		
 		JButton btnPotvrdi = new JButton("Izlaz");
-		btnPotvrdi.setBounds(597, 416, 150, 30);
+		btnPotvrdi.setBounds(598, 438, 150, 30);
 		frmKreiranjeRezervacije.getContentPane().add(btnPotvrdi);
 		
 		textField = new JTextField();
@@ -215,16 +226,20 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije.getContentPane().add(textField_3);
 		
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(55, 276, 164, 20);
+		dateChooser.setBounds(110, 271, 153, 20);
 		frmKreiranjeRezervacije.getContentPane().add(dateChooser);
 		
 		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(276, 276, 164, 20);
+		dateChooser_1.setBounds(393, 271, 152, 20);
 		frmKreiranjeRezervacije.getContentPane().add(dateChooser_1);
 		
 		JDateChooser dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(394, 417, 152, 20);
 		frmKreiranjeRezervacije.getContentPane().add(dateChooser_2);
+		
+		JCheckBox chckbxPrijevoz = new JCheckBox("Prijevoz");
+		chckbxPrijevoz.setBounds(600, 267, 97, 23);
+		frmKreiranjeRezervacije.getContentPane().add(chckbxPrijevoz);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmKreiranjeRezervacije.setJMenuBar(menuBar);
@@ -251,9 +266,28 @@ public class KreiranjeRezervacije {
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PromjenaSifre novaForma = new PromjenaSifre();
+				novaForma.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OdjavaService odjava = new OdjavaService();
+				odjava.OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava prijava = new Prijava();
+				prijava.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmOdjaviSe);
 	}
 }

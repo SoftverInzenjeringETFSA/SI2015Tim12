@@ -9,10 +9,15 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
+import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+
 import java.awt.Font;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ModifikacijaHotela {
 
@@ -51,8 +56,9 @@ public class ModifikacijaHotela {
 		frmModifikacijaHotela = new JFrame();
 		frmModifikacijaHotela.setTitle("Modifikacija hotela");
 		frmModifikacijaHotela.setBounds(100, 100, 400, 300);
-		frmModifikacijaHotela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmModifikacijaHotela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmModifikacijaHotela.getContentPane().setLayout(null);
+		frmModifikacijaHotela.setLocationRelativeTo(null);
 		
 		JLabel lblNazivHotela = new JLabel("Naziv hotela:");
 		lblNazivHotela.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -128,9 +134,28 @@ public class ModifikacijaHotela {
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PromjenaSifre novaForma = new PromjenaSifre();
+				novaForma.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OdjavaService odjava = new OdjavaService();
+				odjava.OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava prijava = new Prijava();
+				prijava.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmOdjaviSe);
 	}
 }
