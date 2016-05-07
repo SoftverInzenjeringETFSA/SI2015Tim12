@@ -2,12 +2,22 @@ package ba.unsa.etf.si.app.iTravel.BLL;
 
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
 
+import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
+
 public class ProbaService {
 	
 	private DBContext test = new DBContext();
 	
+	
+	Destinacija d;
 	public ProbaService() {
-		// TODO Auto-generated constructor stub
+		
+		d= new Destinacija();
+	}
+	
+	public void NistaNeRadi()
+	{
+		d.setNaziv("Dubai");
 		
 	}
 
