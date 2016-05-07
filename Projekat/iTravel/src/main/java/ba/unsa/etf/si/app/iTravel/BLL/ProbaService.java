@@ -6,10 +6,10 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 
 public class ProbaService {
 	
-	private DBContext test = new DBContext();
+private DBContext test = new DBContext();
 	
 	
-	Destinacija d;
+Destinacija d;
 	public ProbaService() {
 		
 		d= new Destinacija();
@@ -18,7 +18,8 @@ public class ProbaService {
 	public void NistaNeRadi()
 	{
 		d.setNaziv("Dubai");
-		
+	
+
 	}
 
 }
