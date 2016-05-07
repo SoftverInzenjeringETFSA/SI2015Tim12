@@ -1,20 +1,12 @@
 package ba.unsa.etf.si.app.iTravel.BLL;
 import java.util.List;
-import java.sql.Date;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
 
+import java.util.ArrayList;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
-
-
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork.UserContext;
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
-import ba.unsa.etf.si.app.iTravel.DAL.Repository;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
-import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
 import ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba;
 import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 

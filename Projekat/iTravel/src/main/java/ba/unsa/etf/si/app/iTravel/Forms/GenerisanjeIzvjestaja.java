@@ -233,36 +233,7 @@ public class GenerisanjeIzvjestaja {
 		label_1.setBounds(232, 321, 28, 14);
 		frame.getContentPane().add(label_1);
 		
-		JButton btnIzlaz = new JButton("Izlaz");
-		btnIzlaz.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				if(UserContext.RolaID == 1)
-				{
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
-					frmPrijava.setVisible(false);
-					forma.PrikaziFormu();
-				}
-				else if (UserContext.RolaID == 2)
-				{
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
-					frmPrijava.setVisible(false);
-					forma.PrikaziFormu();				
-				}
-				else if(UserContext.RolaID == 3)
-				{
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
-					frmPrijava.setVisible(false);
-					forma.PrikaziFormu();
-				}
-			}
-		});
-		btnIzlaz.setBounds(436, 530, 150, 30);
-		frame.getContentPane().add(btnIzlaz);
 		
-		
-		
-	
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
