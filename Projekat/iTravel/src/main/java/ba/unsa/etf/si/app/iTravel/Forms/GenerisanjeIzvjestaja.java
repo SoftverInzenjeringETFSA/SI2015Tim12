@@ -15,7 +15,11 @@ import javax.swing.JButton;
 import javax.swing.Box;
 import com.toedter.calendar.JDateChooser;
 
-import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork.UserContext;
+import ba.unsa.etf.si.app.iTravel.DAL.Repository;
+import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
+import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,12 +28,18 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.beans.PropertyChangeEvent;
 
 public class GenerisanjeIzvjestaja {
 
 	private JFrame frame;
 	private JTable table;
 	private JTable table_1;
+	private JFrame frmPrijava;
+	private static UnitOfWork uow;
 
 	/**
 	 * Launch the application.
@@ -52,6 +62,7 @@ public class GenerisanjeIzvjestaja {
 	 */
 	public GenerisanjeIzvjestaja() {
 		initialize();
+		uow= new UnitOfWork();
 	}
 
 	/**
@@ -60,9 +71,8 @@ public class GenerisanjeIzvjestaja {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 621, 633);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Izvještaj o top destinacijama");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -83,25 +93,34 @@ public class GenerisanjeIzvjestaja {
 		scrollPane.setBounds(32, 102, 554, 139);
 		frame.getContentPane().add(scrollPane);
 		
+		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
-				{null, null},
 			},
 			new String[] {
 				"Destinacija", "Broj posjeta"
 			}
 		));
-		
-		final JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(78, 55, 131, 20);
-		frame.getContentPane().add(dateChooser);
+		table.getColumnModel().getColumn(0).setPreferredWidth(284);
+		table.getColumnModel().getColumn(1).setPreferredWidth(290);
 		
 		final JDateChooser dateChooser_1 = new JDateChooser();
 		dateChooser_1.setBounds(270, 52, 131, 20);
 		frame.getContentPane().add(dateChooser_1);
+		
+		final JDateChooser dateChooser = new JDateChooser();
+		dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) 
+			{
+				dateChooser_1.setMinSelectableDate(dateChooser.getDate());
+			}
+		});
+		dateChooser.setBounds(78, 55, 131, 20);
+		frame.getContentPane().add(dateChooser);
+		
+	
 		
 		JButton btnNewButton = new JButton("Generi\u0161i");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -109,18 +128,20 @@ public class GenerisanjeIzvjestaja {
 				
 				if(dateChooser.getDate()==null || dateChooser_1.getDate()==null) 
 				{
-					
 					JOptionPane.showMessageDialog( null, "Datumi se moraju odabrati!");
 				}
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				List<Destinacija> id= uow.getIzvjestajService().VratiListuDestinacija();
 				
 				
-			
-					
-					
-			
-				
-					
-			}
+				for(Destinacija i: id)
+				{
+					Integer rezervacija= uow.getIzvjestajService().PrebrojRezervacijeZaDestinaciju(i, dateChooser.getDate(), dateChooser_1.getDate());
+					JOptionPane.showMessageDialog( null, rezervacija);
+					Object[] row={i.getNaziv(), rezervacija}; 
+					model.addRow(row);
+				}
+		}
 		});
 		btnNewButton.setBounds(436, 50, 150, 30);
 		frame.getContentPane().add(btnNewButton);
@@ -129,8 +150,56 @@ public class GenerisanjeIzvjestaja {
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setBounds(32, 321, 36, 14);
 		frame.getContentPane().add(label);
+
+		final JDateChooser dateChooser_3 = new JDateChooser();
+		dateChooser_3.setBounds(270, 315, 131, 20);
+		frame.getContentPane().add(dateChooser_3);
+		
+		final JDateChooser dateChooser_2 = new JDateChooser();
+		dateChooser_2.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) 
+			{
+				dateChooser_3.setMinSelectableDate(dateChooser_2.getDate());
+			}
+		});
+		dateChooser_2.setBounds(78, 315, 131, 20);
+		frame.getContentPane().add(dateChooser_2);
+		
 		
 		JButton button = new JButton("Generi\u0161i");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				while(dateChooser_2.getDate()==null || dateChooser_3.getDate()==null) 
+				{
+					
+					JOptionPane.showMessageDialog( null, "Datumi se moraju odabrati!");
+				}
+				
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				List<Destinacija> destinacija= uow.getIzvjestajService().VratiListuDestinacija();
+				
+				for(Destinacija d: destinacija)
+				{
+					String dest= d.getNaziv();
+					List<Hotel> hotel= uow.getIzvjestajService().VratiListuHotela(d);
+					for(Hotel i: hotel)
+					{
+						Integer rezervacija= uow.getIzvjestajService().brojIznajmljenihSoba(i, dateChooser.getDate(), dateChooser_1.getDate());
+						String hot= i.getNaziv();
+						Integer broj_soba= uow.getIzvjestajService().ukupanBrojSobaNaRaspolaganju(i);
+						Integer broj_iznajmljenih_soba= uow.getIzvjestajService().brojIznajmljenihSoba(i, dateChooser_2.getDate(), dateChooser_3.getDate());
+						double postotak= (100*broj_iznajmljenih_soba)/broj_soba ;
+						String post= postotak + "%";
+						Object[] row={d.getNaziv(), i.getNaziv(), broj_soba,broj_iznajmljenih_soba, post}; 
+						model.addRow(row);
+					}
+					
+				}
+				
+				
+			}
+		});
 		button.setBounds(436, 313, 150, 30);
 		frame.getContentPane().add(button);
 		
@@ -165,18 +234,35 @@ public class GenerisanjeIzvjestaja {
 		frame.getContentPane().add(label_1);
 		
 		JButton btnIzlaz = new JButton("Izlaz");
+		btnIzlaz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				if(UserContext.RolaID == 1)
+				{
+					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					frmPrijava.setVisible(false);
+					forma.PrikaziFormu();
+				}
+				else if (UserContext.RolaID == 2)
+				{
+					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					frmPrijava.setVisible(false);
+					forma.PrikaziFormu();				
+				}
+				else if(UserContext.RolaID == 3)
+				{
+					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					frmPrijava.setVisible(false);
+					forma.PrikaziFormu();
+				}
+			}
+		});
 		btnIzlaz.setBounds(436, 530, 150, 30);
 		frame.getContentPane().add(btnIzlaz);
 		
 		
 		
-		JDateChooser dateChooser_2 = new JDateChooser();
-		dateChooser_2.setBounds(78, 315, 131, 20);
-		frame.getContentPane().add(dateChooser_2);
-		
-		JDateChooser dateChooser_3 = new JDateChooser();
-		dateChooser_3.setBounds(270, 315, 131, 20);
-		frame.getContentPane().add(dateChooser_3);
+	
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -203,31 +289,10 @@ public class GenerisanjeIzvjestaja {
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
-		mntmPromijeniifru.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
-			}
-		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
-		mntmOdjaviSe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				OdjavaService odjava = new OdjavaService();
-				odjava.OdjaviKorisnika();
-							
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
-			}
-		});
 		mnRaun.add(mntmOdjaviSe);
-		table.getColumnModel().getColumn(0).setPreferredWidth(284);
-		table.getColumnModel().getColumn(1).setPreferredWidth(290);
 		
 		
 		
