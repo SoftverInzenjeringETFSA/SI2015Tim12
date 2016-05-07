@@ -1,9 +1,18 @@
 package ba.unsa.etf.si.app.iTravel.BLL;
 
-public class ProbaService {
+import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 
+public class ProbaService {
+	
+	Destinacija d;
 	public ProbaService() {
-		// TODO Auto-generated constructor stub
+		
+		d= new Destinacija();
+	}
+	
+	public void NistaNeRadi()
+	{
+		d.setNaziv("Dubai");
 	}
 
 }
