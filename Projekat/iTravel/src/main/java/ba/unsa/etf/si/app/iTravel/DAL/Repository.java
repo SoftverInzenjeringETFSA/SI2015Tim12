@@ -50,7 +50,7 @@ public class Repository<T>{
         return resultObjects;*/
         
         List<T> lista = this.session.createCriteria(entityClass).list();
-        session.close();
+        //session.close();
         return (List<T>)lista;
     }
 

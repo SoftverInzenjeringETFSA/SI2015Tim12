@@ -6,6 +6,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
+import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 
 public class HoteliService
@@ -93,5 +94,21 @@ public class HoteliService
 
 		return true;
 	}
+	
+	public ArrayList<Hotel> VratiHotelZaDestinaciju(String nazivDestinacije) {
+		ArrayList<Hotel> hoteli = new ArrayList<Hotel>();
+		
+		Destinacija destinacija=new Destinacija();
+		DestinacijeService d=new DestinacijeService();
+		destinacija=d.VratiDestinaciju(nazivDestinacije);
+		
+		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
+		listaKriterjona.add(Restrictions.eq("destinacija", destinacija));
+
+		hoteli.addAll(baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterjona));
+
+		return hoteli;
+	}
+
 
 }

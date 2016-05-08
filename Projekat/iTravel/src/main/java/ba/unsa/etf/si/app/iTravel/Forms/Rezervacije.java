@@ -25,7 +25,7 @@ public class Rezervacije {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -106,6 +106,13 @@ public class Rezervacije {
 		frmPrikazRezervacija.getContentPane().add(btnObriiKorisnika);
 		
 		JButton btnDodajKorisnika = new JButton("Kreiraj rezervaciju");
+		btnDodajKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				KreiranjeRezervacije forma=new KreiranjeRezervacije();
+				//frmPrikazRezervacija.setVisible(false);
+				forma.PrikaziFormu();
+			}
+		});
 		btnDodajKorisnika.setBounds(20, 226, 150, 30);
 		frmPrikazRezervacija.getContentPane().add(btnDodajKorisnika);
 		

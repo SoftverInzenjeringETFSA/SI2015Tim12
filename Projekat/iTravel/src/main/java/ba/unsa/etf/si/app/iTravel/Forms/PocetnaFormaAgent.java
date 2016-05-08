@@ -63,6 +63,13 @@ public class PocetnaFormaAgent {
 		frame.getContentPane().add(lblPrijavljeniSteKao);
 		
 		JButton btnRezervacije = new JButton("Rezervacije");
+		btnRezervacije.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Rezervacije forma=new Rezervacije();
+				frame.setVisible(false);
+				forma.PrikaziFormu();
+			}
+		});
 		btnRezervacije.setBounds(38, 127, 350, 35);
 		frame.getContentPane().add(btnRezervacije);
 		
