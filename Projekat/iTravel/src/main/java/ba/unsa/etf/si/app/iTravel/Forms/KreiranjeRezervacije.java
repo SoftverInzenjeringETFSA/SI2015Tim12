@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import javax.persistence.Convert;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -30,7 +29,6 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
 import ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
-import com.toedter.calendar.JCalendar;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -44,20 +42,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 import java.beans.PropertyChangeListener;
-import java.time.temporal.ChronoUnit;
 import java.beans.PropertyChangeEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseMotionAdapter;
 
 public class KreiranjeRezervacije {
 	
@@ -94,7 +83,7 @@ public class KreiranjeRezervacije {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the application.
 	 */
@@ -122,31 +111,7 @@ public class KreiranjeRezervacije {
 		//ucitavanje hotela na osnovu izabrane destinacije
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				DefaultTableModel model=(DefaultTableModel) table.getModel();
-				model.setRowCount(0);
-				table.setModel(model);
-				if(comboBox.getSelectedItem().toString()!="Izaberite destinaciju"){
-					ArrayList<Hotel> h=uow.getHoteliService().VratiHotelZaDestinaciju(comboBox.getSelectedItem().toString());				
-					if(h!=null) {
-						for(int i=0; i<h.size(); i++){
-							Object[] row={h.get(i).getNaziv(), h.get(i).getBrojZvjezdica(),h.get(i).getSobas().size(),h.get(i).getDestinacija().getOmogucenPrevoz(),h.get(i).getHotelId()};
-							model.addRow(row);					
-						}
-					}
-					table.setModel(model);
-					
-				}
-				table_Sobe.setModel(new DefaultTableModel(
-						new Object[][] {
-						},
-						new String[] {
-								"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis"
-						}
-					));
-				
-				TableColumnModel tcm = table.getColumnModel();
-				if(tcm.getColumnCount()==5)
-					tcm.removeColumn( tcm.getColumn(4) );
+				UcitajHotele();
 			}
 		});
 		comboBox.setBounds(111, 50, 153, 20);
@@ -301,20 +266,18 @@ public class KreiranjeRezervacije {
 		//ucitavanje soba na promjenu datuma "od" ukoliko je postavljen datum "do" i ukoliko je odabran neki red u tabeli
 		dateChooser.getDateEditor().addPropertyChangeListener(
 	    new PropertyChangeListener() {
-	        public void propertyChange(PropertyChangeEvent e) {
-	        	if ("date".equals(e.getPropertyName())) {
-		        	if(table.getSelectedRow()!=-1 && dateChooser_1.getCalendar()!=null){
-		        		table_Sobe.setModel(new DefaultTableModel(
-								new Object[][] {
-								},
-								new String[] {
-										"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
-								}
-							));
-			        	int row=table.getSelectedRow();
-						int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());			
-						UcitavanjeSoba(id);
-		        	}
+	    	public void propertyChange(PropertyChangeEvent e) {
+	        	if ("date".equals(e.getPropertyName()) && table.getSelectedRow()!=-1 && dateChooser_1.getCalendar()!=null){
+	        		table_Sobe.setModel(new DefaultTableModel(
+							new Object[][] {
+							},
+							new String[] {
+									"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
+							}
+						));
+		        	int row=table.getSelectedRow();
+					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());			
+					UcitavanjeSoba(id);
 	        	}
 	        }
 	    });
@@ -333,19 +296,18 @@ public class KreiranjeRezervacije {
 		dateChooser_1.getDateEditor().addPropertyChangeListener(
 	    new PropertyChangeListener() {
 	        public void propertyChange(PropertyChangeEvent e) {
-	        	if ("date".equals(e.getPropertyName())) {
-		        	if(table.getSelectedRow()!=-1 && dateChooser.getCalendar()!=null){
-		        		table_Sobe.setModel(new DefaultTableModel(
-								new Object[][] {
-								},
-								new String[] {
-										"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
-								}
-							));
-			        	int row=table.getSelectedRow();
-						int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());			
-						UcitavanjeSoba(id);
-		        	}
+	        	if ("date".equals(e.getPropertyName())&& table.getSelectedRow()!=-1 && dateChooser.getCalendar()!=null){
+	        		table_Sobe.setModel(new DefaultTableModel(
+							new Object[][] {
+							},
+							new String[] {
+									"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
+							}
+						));
+		        	int row=table.getSelectedRow();
+					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());			
+					UcitavanjeSoba(id);
+	        	
 	        	}
 	        }
 	    });
@@ -401,11 +363,8 @@ public class KreiranjeRezervacije {
 			public void mouseClicked(MouseEvent e) {
 				if(dateChooser.getCalendar()!=null && dateChooser_1.getCalendar()!=null){
 					table_Sobe.setModel(new DefaultTableModel(
-							new Object[][] {
-							},
-							new String[] {
-									"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
-							}
+							new Object[][] {},
+							new String[] {"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"}
 						));
 					int row=table.rowAtPoint(e.getPoint());
 					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
@@ -485,6 +444,30 @@ public class KreiranjeRezervacije {
 		});
 		
 	}
+	private void UcitajHotele(){
+		DefaultTableModel model=(DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		table.setModel(model);
+		if(comboBox.getSelectedItem().toString()!="Izaberite destinaciju"){
+			ArrayList<Hotel> h=uow.getHoteliService().VratiHotelZaDestinaciju(comboBox.getSelectedItem().toString());				
+			if(h!=null) {
+				for(int i=0; i<h.size(); i++){
+					Object[] row={h.get(i).getNaziv(), h.get(i).getBrojZvjezdica(),h.get(i).getSobas().size(),h.get(i).getDestinacija().getOmogucenPrevoz(),h.get(i).getHotelId()};
+					model.addRow(row);					
+				}
+			}
+			table.setModel(model);
+			
+		}
+		table_Sobe.setModel(new DefaultTableModel(
+				new Object[][] {},
+				new String[] {"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis"}
+			));
+		
+		TableColumnModel tcm = table.getColumnModel();
+		if(tcm.getColumnCount()==5)
+			tcm.removeColumn( tcm.getColumn(4) );
+	};
 	
 	private void UcitajDestinacije(){
 		ArrayList<Destinacija> destinacije=uow.getDestinacijeService().DajSveDestinacije();
