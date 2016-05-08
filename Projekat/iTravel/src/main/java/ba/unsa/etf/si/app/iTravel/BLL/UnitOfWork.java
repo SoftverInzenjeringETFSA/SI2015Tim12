@@ -19,6 +19,7 @@ public class UnitOfWork {
 	private UbaciHotel ubaciHotel;
 	private ObrisiHotel obrisiHotel;
 	private IzvjestajService izvjestajService;
+	private HoteliService hoteliService;
 
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
@@ -60,8 +61,6 @@ public class UnitOfWork {
 			ubaciHotel = new UbaciHotel();
 		return ubaciHotel;
 	}
-	
-
 
 	public IzvjestajService getIzvjestajService() {
 		if(izvjestajService == null)
@@ -69,5 +68,15 @@ public class UnitOfWork {
 		
 		return izvjestajService;
 	}
+
+	public HoteliService getHoteliService()
+	{
+		if(hoteliService == null)
+			hoteliService = new HoteliService();
+		
+		return hoteliService;
+	}
+	
+	
 
 }
