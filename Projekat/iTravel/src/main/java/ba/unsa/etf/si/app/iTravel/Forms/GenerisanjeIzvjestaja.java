@@ -16,7 +16,6 @@ import javax.swing.Box;
 import com.toedter.calendar.JDateChooser;
 
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork.UserContext;
 import ba.unsa.etf.si.app.iTravel.DAL.Repository;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;

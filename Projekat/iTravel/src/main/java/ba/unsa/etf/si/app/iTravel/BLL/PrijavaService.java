@@ -1,6 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.BLL;
 
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork.UserContext;
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
 import ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola;
@@ -39,38 +38,13 @@ public class PrijavaService {
 			return false;
 		
 		if(Arrays.equals(password, korisnickiRacun.getPassword().toCharArray()))
-			return true;
+		{
+			// pristupni podaci korinika tačni
+			// logovanje korisnika u aplikaciju
+			return UserContext.getInstance().logUserIn(username);
+		}
 		
 		return false;
-	}
-	
-	public void AutorizirajKorisnika(String username)
-	{
-		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("username", (String)username));
-		
-		KorisnickiRacun korisnickiRacun = new KorisnickiRacun();
-		
-		korisnickiRacun = baza
-				 .getKorisnickiRacunRepository()
-				 .ucitajIzBazePoKriteriju(listaKriterjona).get(0);
-		
-		UserContext.Username = username;
-		UserContext.Identitfication = korisnickiRacun.getKorisnickiRacunId();
-		
-		Set<Korisnickiracunxrola> skupRola = korisnickiRacun.getKorisnickiracunxrolas();
-		
-		for (Iterator<Korisnickiracunxrola> it = skupRola.iterator(); it.hasNext(); ) {
-	        Korisnickiracunxrola r = it.next();
-	        
-	        if(r != null)
-	        {
-	        	UserContext.RolaID = r.getRola().getRolaId();
-	        	break; // sad za sad predpostavljamo da imamo samo jednu rolu
-	        	// za jednog korisnika
-	        }
-	    }
-		
 	}
 
 }

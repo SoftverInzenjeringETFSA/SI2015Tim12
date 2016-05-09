@@ -21,7 +21,7 @@ import com.toedter.calendar.JDateChooser;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork.UserContext;
+import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Klijent;
@@ -563,7 +563,7 @@ public class KreiranjeRezervacije {
 			Klijent klijent=new Klijent();
 		    klijent.setOsoba(osoba);
 		    
-		    int idAgenta= UserContext.Identitfication;
+		    int idAgenta= UserContext.getInstance().getIdentification();
 		    
 		    Rezervacija rezerv=new Rezervacija();
 		    rezerv.setKlijent(klijent);

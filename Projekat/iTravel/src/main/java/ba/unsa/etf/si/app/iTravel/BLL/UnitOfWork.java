@@ -1,17 +1,6 @@
 package ba.unsa.etf.si.app.iTravel.BLL;
 
 public class UnitOfWork {
-	public static class UserContext {
-		public static String Username;
-		public static int Identitfication;
-		public static int RolaID;
-
-		public UserContext(String username, int ID, int idRole) {
-			Username = username;
-			Identitfication = ID;
-			RolaID = idRole;
-		}
-	}
 
 	private PrijavaService prijavaService;
 	private DohvatiHotel dohvatiHotel;
@@ -25,6 +14,7 @@ public class UnitOfWork {
 	private DestinacijeService destinacijeService;
 	private RezervacijeService kreiranjeRezervacijaService;
 	private RacunService racunService;
+	private RolaService rolaService;
 
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
@@ -32,12 +22,13 @@ public class UnitOfWork {
 		modifikacijaHotela = new ModifikacijaHotel();
 		ubaciHotel = new UbaciHotel();
 		obrisiHotel = new ObrisiHotel();
-		izvjestajService= new IzvjestajService();
+		izvjestajService = new IzvjestajService();
 		osobaService = new OsobaService();
 		korisnickiRacunService = new KorisnickiRacunService();
-		destinacijeService=new DestinacijeService();
-		kreiranjeRezervacijaService=new RezervacijeService();
-		racunService=new RacunService();
+		destinacijeService = new DestinacijeService();
+		kreiranjeRezervacijaService = new RezervacijeService();
+		racunService = new RacunService();
+		rolaService = new RolaService();
 	}
 
 	public PrijavaService getPrijavaService() {
@@ -120,5 +111,14 @@ public class UnitOfWork {
 		}
 		return racunService;
 	}
+
+	public RolaService getRolaService() 
+	{
+		if(rolaService == null)
+			rolaService = new RolaService();
+		
+		return rolaService;
+	}
+	
 
 }

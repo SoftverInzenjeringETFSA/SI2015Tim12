@@ -1,6 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.BLL;
 
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork.UserContext;
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola;
