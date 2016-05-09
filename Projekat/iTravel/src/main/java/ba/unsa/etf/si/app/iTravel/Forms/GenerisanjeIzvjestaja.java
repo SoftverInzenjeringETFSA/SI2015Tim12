@@ -50,7 +50,7 @@ public class GenerisanjeIzvjestaja {
 					GenerisanjeIzvjestaja window = new GenerisanjeIzvjestaja();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
@@ -136,7 +136,6 @@ public class GenerisanjeIzvjestaja {
 				for(Destinacija i: id)
 				{
 					Integer rezervacija= uow.getIzvjestajService().PrebrojRezervacijeZaDestinaciju(i, dateChooser.getDate(), dateChooser_1.getDate());
-					JOptionPane.showMessageDialog( null, rezervacija);
 					Object[] row={i.getNaziv(), rezervacija}; 
 					model.addRow(row);
 				}
@@ -163,7 +162,30 @@ public class GenerisanjeIzvjestaja {
 		});
 		dateChooser_2.setBounds(78, 315, 131, 20);
 		frame.getContentPane().add(dateChooser_2);
+
+		JLabel lblIzvjetajOIskoritenosti = new JLabel("Izvje\u0161taj o iskori\u0161tenosti soba");
+		lblIzvjetajOIskoritenosti.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblIzvjetajOIskoritenosti.setBounds(32, 272, 206, 26);
+		frame.getContentPane().add(lblIzvjetajOIskoritenosti);
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(32, 365, 554, 139);
+		frame.getContentPane().add(scrollPane_1);
+		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Destinacija", "Hotel", "Broj iznajmljenih soba", "Broj iskori\u0161tenih soba", "Iskori\u0161tenost (%)"
+			}
+		));
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(93);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(79);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(136);
+		table_1.getColumnModel().getColumn(3).setPreferredWidth(126);
+		table_1.getColumnModel().getColumn(4).setPreferredWidth(104);
+		scrollPane_1.setViewportView(table_1);
 		
 		JButton button = new JButton("Generi\u0161i");
 		button.addActionListener(new ActionListener() {
@@ -175,7 +197,7 @@ public class GenerisanjeIzvjestaja {
 					JOptionPane.showMessageDialog( null, "Datumi se moraju odabrati!");
 				}
 				
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				List<Destinacija> destinacija= uow.getIzvjestajService().VratiListuDestinacija();
 				
 				for(Destinacija d: destinacija)
@@ -202,30 +224,6 @@ public class GenerisanjeIzvjestaja {
 		button.setBounds(436, 313, 150, 30);
 		frame.getContentPane().add(button);
 		
-		JLabel lblIzvjetajOIskoritenosti = new JLabel("Izvje\u0161taj o iskori\u0161tenosti soba");
-		lblIzvjetajOIskoritenosti.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblIzvjetajOIskoritenosti.setBounds(32, 272, 206, 26);
-		frame.getContentPane().add(lblIzvjetajOIskoritenosti);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(32, 365, 554, 139);
-		frame.getContentPane().add(scrollPane_1);
-		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"Destinacija", "Hotel", "Broj iznajmljenih soba", "Broj iskori\u0161tenih soba", "Iskori\u0161tenost (%)"
-			}
-		));
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(93);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(79);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(136);
-		table_1.getColumnModel().getColumn(3).setPreferredWidth(126);
-		table_1.getColumnModel().getColumn(4).setPreferredWidth(104);
-		scrollPane_1.setViewportView(table_1);
 		
 		JLabel label_1 = new JLabel("Do:");
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);

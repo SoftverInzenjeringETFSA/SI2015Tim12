@@ -70,7 +70,7 @@ public class Prijava {
 					Prijava window = new Prijava();
 					window.frmPrijava.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
@@ -89,7 +89,7 @@ public class Prijava {
 					Prijava window = new Prijava();
 					window.frmPrijava.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

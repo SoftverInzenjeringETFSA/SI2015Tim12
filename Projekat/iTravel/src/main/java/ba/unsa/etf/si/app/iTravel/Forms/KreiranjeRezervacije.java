@@ -78,7 +78,7 @@ public class KreiranjeRezervacije {
 					KreiranjeRezervacije window = new KreiranjeRezervacije();
 					window.frmKreiranjeRezervacije.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

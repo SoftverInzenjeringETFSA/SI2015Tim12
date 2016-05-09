@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuBar;
@@ -41,7 +42,7 @@ public class ModifikacijaKorisnika {
 					ModifikacijaKorisnika window = new ModifikacijaKorisnika ();
 					window.frmModifikacijaKorisnika.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
