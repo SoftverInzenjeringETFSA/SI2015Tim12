@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuBar;
@@ -102,6 +103,13 @@ public class KreiranjeKorisnickogRacuna {
 		lblNewLabel_8.setBounds(25, 339, 99, 14);
 		
 		JButton btnNewButton = new JButton("Kreiraj");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Osoba osoba = new Osoba();
+				
+			}
+		});
 		btnNewButton.setBounds(90, 384, 150, 30);
 		
 		JComboBox comboBox = new JComboBox();
