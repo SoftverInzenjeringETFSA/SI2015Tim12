@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,7 +31,7 @@ public class PocetnaFormaAgent {
 					PocetnaFormaAgent window = new PocetnaFormaAgent();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

@@ -1,7 +1,10 @@
 package ba.unsa.etf.si.app.iTravel.BLL;
 
-public class UnitOfWork {
+import org.apache.log4j.Logger;
 
+public class UnitOfWork {
+	public final static Logger logger = Logger.getLogger(UnitOfWork.class);
+	
 	private PrijavaService prijavaService;
 	private DohvatiHotel dohvatiHotel;
 	private ModifikacijaHotel modifikacijaHotela;
@@ -15,7 +18,7 @@ public class UnitOfWork {
 	private RezervacijeService kreiranjeRezervacijaService;
 	private RacunService racunService;
 	private RolaService rolaService;
-
+	
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
 		dohvatiHotel = new DohvatiHotel();

@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -54,7 +55,7 @@ public class Hoteli {
 					Hoteli window = new Hoteli();
 					window.frmPrikazHotela.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

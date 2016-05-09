@@ -55,7 +55,7 @@ public class KreiranjeKorisnickogRacuna {
 					KreiranjeKorisnickogRacuna window = new KreiranjeKorisnickogRacuna();
 					window.frmKreirajiKorisnika.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

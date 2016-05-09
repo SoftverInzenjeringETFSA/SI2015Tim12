@@ -148,7 +148,8 @@ public class RezervacijeService {
 	    	rezervTermin.setAktivan(true);
 	    	baza.getRezervisaniTerminSobaRepository().spasiUBazu(rezervTermin);
 	    	return true;			
-		}catch(Exception ex){
+		}catch(Exception e){
+			UnitOfWork.logger.error(e);
 			return false;
 		}
 	}
@@ -169,7 +170,8 @@ public class RezervacijeService {
 		
 			rez.setKlijent(dajKlijentaPoOsobi(s).get(0));
 			baza.getRezervacijaRepository().spasiUBazu(rez);
-		}catch(Exception ex){
+		}catch(Exception e){
+			UnitOfWork.logger.error(e);
 			return false;
 		}		
 		return true;
