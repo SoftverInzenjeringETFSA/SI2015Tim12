@@ -31,7 +31,7 @@ public class PrikazKorisnika {
 	red[i][0]=os.get(i).getOsoba().getIme();
 	red[i][1]=os.get(i).getOsoba().getPrezime();
 	red[i][2]=os.get(i).getOsoba().getJmbg();
-	red[i][3]=os.get(i).getOsoba().getAdresa();
+	red[i][3]=os.get(i).getOsoba().getBrojLicneKarte();
 	red[i][4]=os.get(i).getOsoba().getAdresa();;
 	red[i][5]=os.get(i).getOsoba().getBrojTelefona();
 	red[i][6]=os.get(i).getOsoba().getEmail();

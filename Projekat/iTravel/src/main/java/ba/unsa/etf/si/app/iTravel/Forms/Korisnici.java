@@ -62,12 +62,12 @@ public class Korisnici {
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		PrikazKorisnika pk=new PrikazKorisnika();	
+		Object[][] podaci=pk.PrikaziSveKorisnike();
+		
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Kenan", "Prses", "1234567898745", "38LC11A", "Zmaja od Bosne bb", "061111111", "kprses1@gmail.com", "prso", "Supervizor"},
-				{"Emina", "Prlja", "9876543211236", "12AE21A", "Zmaja od Bosne bb", "061222222", "eprlja1@gmail.com", "emina", "Putni\u010Dki agent"},
-				{"\u0160ahin", "Repuh", "1111111111111", "3CLC12A", "Senada Mandi\u0107a 7", "063929365", "srepuh1@gmail.com", "sahin", "Putni\u010Dki agent"},
-			},
+			podaci,
 			new String[] {
 				"Ime", "Prezime", "JMBG", "Broj li\u010Dne karte", "Adresa", "Telefon", "E-mail", "Username", "Tip korisnika"
 			}

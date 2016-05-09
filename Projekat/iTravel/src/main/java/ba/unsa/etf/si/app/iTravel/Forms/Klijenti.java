@@ -63,12 +63,12 @@ public class Klijenti {
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		PrikazKlijenata pk=new PrikazKlijenata();
+		Object[][] podaci=pk.PrikaziSveKlijente();
+		
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Predrag", "Simani\u0107", "1203993896541", "123456", "061789654", "psimanic1@etf.unsa.ba", "Neka Adresa 5", "12.03.1993."},
-				{"Emina", "Prlja", "1405993174515", "124512", "062845854", "eprlja1@etf.unsa.ba", "Adresa 6", "14.05.1993."},
-				{"Adna", "Tahi\u0107", "1001993123323", "321321", "062365456", null, "Neko Mjesto 12", null},
-			},
+			podaci,
 			new String[] {
 				"Ime", "Prezime", "JMBG", "Broj paso\u0161a", "Broj telefona", "E-mail", "Adresa", "Datum ro\u0111enja"
 			}
