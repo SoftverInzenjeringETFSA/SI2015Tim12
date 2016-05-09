@@ -2,6 +2,8 @@ package ba.unsa.etf.si.app.iTravel.BLL;
 import java.util.List;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
@@ -19,32 +21,35 @@ public class IzvjestajService {
 		baza = DBContext.getInstance();
 	}
 	
-	public int PrebrojRezervacijeZaDestinaciju(Destinacija destinacija1, java.util.Date date, java.util.Date date2)
+	public int PrebrojRezervacijeZaDestinaciju(Destinacija destinacija1, Date date, Date date2)
 	{	
-		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		ArrayList<Criterion> listaKriterjona1 = new ArrayList<Criterion>();
-		ArrayList<Criterion> listaKriterjona2 = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("destinacija", (Destinacija)destinacija1));
+		ArrayList<Criterion> listaKriterijona = new ArrayList<Criterion>();
+		ArrayList<Criterion> listaKriterijona1 = new ArrayList<Criterion>();
+		ArrayList<Criterion> listaKriterijona2 = new ArrayList<Criterion>();
+		listaKriterijona.add(Restrictions.eq("destinacija", (Destinacija)destinacija1));
 		List<Hotel> hotel= new ArrayList<Hotel>();
-		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterjona);
+		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterijona);
 		
 		int suma=0;
 		for(Hotel h: hotel)
 		{
-			listaKriterjona1.add(Restrictions.eq("hotel", h));
+			listaKriterijona1.add(Restrictions.eq("hotel", h));
 			List<Soba> sobe= new ArrayList<Soba>();
-			sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterjona1);
+			sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterijona1);
 			for(Soba s: sobe)
 			{
-				listaKriterjona2.add(Restrictions.eq("soba", s));
+				listaKriterijona2.add(Restrictions.eq("soba", s));
 				List<RezervisaniTerminSoba> rez= new ArrayList<RezervisaniTerminSoba>();
-				rez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterjona2);
+				rez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterijona2);
 				for(RezervisaniTerminSoba r: rez)
 				{
 					if( date.before(r.getDatumPocetak()) && r.getDatumKraj().before(date2))
+					
 						suma++;
 				}
+				listaKriterijona2.clear();
 			}
+			listaKriterijona1.clear();
 		}
 		
 		
@@ -54,29 +59,29 @@ public class IzvjestajService {
 	
 	public int ukupanBrojSobaNaRaspolaganju(Hotel i)
 	{
-		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("hotel", (Hotel)i));
+		ArrayList<Criterion> listaKriterijona = new ArrayList<Criterion>();
+		listaKriterijona.add(Restrictions.eq("hotel", (Hotel)i));
 		List<Soba> sobe= new ArrayList<Soba>();
-		sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterjona);
+		sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterijona);
 		
 		return sobe.size();
 	}
 	
 	public int brojIznajmljenihSoba(Hotel IDhotel,java.util.Date date, java.util.Date date2)
 	{
-		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("hotel", (Hotel)IDhotel));
+		ArrayList<Criterion> listaKriterijona = new ArrayList<Criterion>();
+		listaKriterijona.add(Restrictions.eq("hotel", (Hotel)IDhotel));
 		List<Soba> sobe= new ArrayList<Soba>();
-		sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterjona);
+		sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterijona);
 		
 
 		int suma=0;
 		for(Soba s: sobe)
 		{
-			ArrayList<Criterion> listaKriterjona1 = new ArrayList<Criterion>();
-			listaKriterjona1.add(Restrictions.eq("soba", (Soba)s));
+			ArrayList<Criterion> listaKriterijona1 = new ArrayList<Criterion>();
+			listaKriterijona1.add(Restrictions.eq("soba", (Soba)s));
 			List<RezervisaniTerminSoba> sobeRez= new ArrayList<RezervisaniTerminSoba>();
-			sobeRez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterjona1);
+			sobeRez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterijona1);
 			
 			for(RezervisaniTerminSoba rs: sobeRez)
 			{
@@ -129,10 +134,10 @@ public class IzvjestajService {
 	public List<Hotel> VratiListuHotela(Destinacija d)
 	{
 	
-		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("destinacija", (Destinacija)d));
+		ArrayList<Criterion> listaKriterijona = new ArrayList<Criterion>();
+		listaKriterijona.add(Restrictions.eq("destinacija", (Destinacija)d));
 		List<Hotel> hotel= new ArrayList<Hotel>();
-		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterjona);
+		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterijona);
 		
 		return hotel;
 	}
