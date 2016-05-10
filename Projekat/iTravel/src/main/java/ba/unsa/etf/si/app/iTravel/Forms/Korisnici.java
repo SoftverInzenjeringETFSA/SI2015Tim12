@@ -7,7 +7,6 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.PrikazKorisnika;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
@@ -94,8 +93,7 @@ public class Korisnici {
 		JButton button_izlaz = new JButton("Izlaz");
 		button_izlaz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				System.exit(0);
+
 			}
 		});
 		button_izlaz.setBounds(676, 226, 150, 30);
@@ -134,16 +132,15 @@ public class Korisnici {
 		JMenu mnRaun = new JMenu("Račun");
 		mnRaun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OdjavaService odjava = new OdjavaService();
-				odjava.OdjaviKorisnika();
+				
+				uow.getOdjavaService().OdjaviKorisnika();
 							
 				java.awt.Window win[] = java.awt.Window.getWindows(); 
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
 				
-				Prijava prijava = new Prijava();
-				
+				Prijava prijava = new Prijava();				
 				prijava.PrikaziFormu();
 			}
 		});
