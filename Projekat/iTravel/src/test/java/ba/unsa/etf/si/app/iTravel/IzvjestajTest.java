@@ -17,7 +17,7 @@ public class IzvjestajTest {
 
 	
 	@Test
-	public void testPrebrojRezervacijeZaDestinacijuTest() {
+	public void PrebrojRezervacijeZaDestinacijuTest() {
 		uow= new UnitOfWork();
 		List<Destinacija> destinacije= new ArrayList<Destinacija>();
 		destinacije= uow.getIzvjestajService().VratiListuDestinacija();
@@ -29,22 +29,22 @@ public class IzvjestajTest {
 	}
 
 	@Test
-	public void testUkupanBrojSobaNaRaspolaganju() {
+	public void UkupanBrojSobaNaRaspolaganjuTest() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testBrojIznajmljenihSoba() {
+	public void BrojIznajmljenihSobaTest() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testVratiNazivDestinacije() {
+	public void VratiNazivDestinacijeTest() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	public void testVratiNazivHotela() {
+	public void VratiNazivHotelaTest() {
 		
 		uow= new UnitOfWork();
 		List<Hotel> hotel= new ArrayList<Hotel>();
@@ -54,7 +54,7 @@ public class IzvjestajTest {
 	}
 
 	@Test
-	public void testVratiListuDestinacija() {
+	public void VratiListuDestinacijaTest() {
 		
 		uow= new UnitOfWork();
 		List<Destinacija> destinacije= new ArrayList<Destinacija>();
@@ -64,7 +64,7 @@ public class IzvjestajTest {
 	}
 
 	@Test
-	public void testVratiListuHotela() {
+	public void VratiListuHotelaTest() {
 		uow= new UnitOfWork();
 		List<Hotel> hotel= new ArrayList<Hotel>();
 		hotel= uow.getIzvjestajService().VratiListuHotela();
@@ -76,7 +76,7 @@ public class IzvjestajTest {
 	}
 
 	@Test
-	public void testVratiListuHotelaDestinacija() {
+	public void VratiListuHotelaDestinacijaTest() {
 		uow= new UnitOfWork();
 		List<Hotel> hotel= new ArrayList<Hotel>();
 		List<Destinacija> destinacije= new ArrayList<Destinacija>();
