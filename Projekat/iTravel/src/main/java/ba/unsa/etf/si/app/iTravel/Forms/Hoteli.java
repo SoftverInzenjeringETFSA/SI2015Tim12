@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class Hoteli {
 
@@ -73,7 +74,7 @@ public class Hoteli {
 	private void initialize() {
 		frmPrikazHotela = new JFrame();
 		frmPrikazHotela.setTitle("Pregled hotela");
-		frmPrikazHotela.setBounds(100, 100, 784, 382);
+		frmPrikazHotela.setBounds(100, 100, 784, 395);
 		frmPrikazHotela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrikazHotela.getContentPane().setLayout(null);
 		frmPrikazHotela.setLocationRelativeTo(null);
@@ -109,14 +110,31 @@ public class Hoteli {
 		});
 		
 		btnModifikujHotel = new JButton("Modifikuj hotel");
+		btnModifikujHotel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModifikacijaHotela forma =  new ModifikacijaHotela();
+				forma.PrikaziFormu();
+			}
+		});
 		btnModifikujHotel.setBounds(343, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnModifikujHotel);
 		
 		btnObriiHotel = new JButton("Obri\u0161i hotel");
+		btnObriiHotel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Jeste li sigurni da želite obrisati odabrani hotel?", "Brisanje hotela", JOptionPane.OK_CANCEL_OPTION);
+			}
+		});
 		btnObriiHotel.setBounds(503, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnObriiHotel);
 		
 		btnDodajHotel = new JButton("Dodaj hotel");
+		btnDodajHotel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DodavanjeHotela forma =  new DodavanjeHotela();
+				forma.PrikaziFormu();
+			}
+		});
 		btnDodajHotel.setBounds(183, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnDodajHotel);
 		
@@ -177,4 +195,19 @@ public class Hoteli {
 		table_pregledHotela.getColumnModel().getColumn(5).setPreferredWidth(110);
 		table_pregledHotela.getColumnModel().getColumn(6).setPreferredWidth(108);
 	}
+
+	public void PrikaziFormu() {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						Hoteli window = new Hoteli();
+						window.frmPrikazHotela.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+		}
+
+
 }

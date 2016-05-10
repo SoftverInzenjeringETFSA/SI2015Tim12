@@ -51,7 +51,7 @@ public class Korisnici {
 	private void initialize() {
 		frmPrikazKorisnika = new JFrame();
 		frmPrikazKorisnika.setTitle("Prikaz korisnika");
-		frmPrikazKorisnika.setBounds(100, 100, 876, 318);
+		frmPrikazKorisnika.setBounds(100, 100, 876, 336);
 		frmPrikazKorisnika.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrikazKorisnika.getContentPane().setLayout(null);
 		frmPrikazKorisnika.setLocationRelativeTo(null);
@@ -104,6 +104,12 @@ public class Korisnici {
 		frmPrikazKorisnika.getContentPane().add(btnObriiKorisnika);
 		
 		JButton btnDodajKorisnika = new JButton("Dodaj korisnika");
+		btnDodajKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna();
+				forma.PrikaziFormu();
+			}
+		});
 		btnDodajKorisnika.setBounds(20, 226, 150, 30);
 		frmPrikazKorisnika.getContentPane().add(btnDodajKorisnika);
 		
@@ -152,5 +158,18 @@ public class Korisnici {
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
 		mnRaun.add(mntmOdjaviSe);
+	}
+	
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Korisnici window = new Korisnici();
+					window.frmPrikazKorisnika.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

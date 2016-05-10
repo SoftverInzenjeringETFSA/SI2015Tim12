@@ -109,5 +109,17 @@ public class PotvrdaRezervacije {
 		});
 		mnRaun.add(mntmOdjaviSe);
 	}
-
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PotvrdaRezervacije window = new PotvrdaRezervacije();
+					window.frmPotvrdaRezervacije.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+	}
 }

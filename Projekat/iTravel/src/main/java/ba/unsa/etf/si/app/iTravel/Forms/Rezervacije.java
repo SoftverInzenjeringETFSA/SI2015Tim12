@@ -51,7 +51,7 @@ public class Rezervacije {
 	private void initialize() {
 		frmPrikazRezervacija = new JFrame();
 		frmPrikazRezervacija.setTitle("Prikaz rezervacija");
-		frmPrikazRezervacija.setBounds(100, 100, 876, 318);
+		frmPrikazRezervacija.setBounds(100, 100, 876, 332);
 		frmPrikazRezervacija.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrikazRezervacija.getContentPane().setLayout(null);
 		frmPrikazRezervacija.setLocationRelativeTo(null);
@@ -90,8 +90,7 @@ public class Rezervacije {
 		JButton button_izlaz = new JButton("Izlaz");
 		button_izlaz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				System.exit(0);
+				frmPrikazRezervacija.dispose();
 			}
 		});
 		button_izlaz.setBounds(691, 226, 150, 30);
@@ -106,6 +105,12 @@ public class Rezervacije {
 		frmPrikazRezervacija.getContentPane().add(btnObriiKorisnika);
 		
 		JButton btnDodajKorisnika = new JButton("Kreiraj rezervaciju");
+		btnDodajKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				KreiranjeRezervacije forma = new KreiranjeRezervacije();
+				forma.PrikaziFormu();
+			}
+		});
 		btnDodajKorisnika.setBounds(20, 226, 150, 30);
 		frmPrikazRezervacija.getContentPane().add(btnDodajKorisnika);
 		
@@ -154,5 +159,19 @@ public class Rezervacije {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+	}
+
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Rezervacije window = new Rezervacije();
+					window.frmPrikazRezervacija.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 	}
 }

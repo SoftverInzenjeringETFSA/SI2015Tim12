@@ -127,4 +127,16 @@ public class Postavke {
 		btnPotvrdi.setBounds(26, 162, 150, 30);
 		frmPostavke.getContentPane().add(btnPotvrdi);
 	}
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Postavke window = new Postavke();
+					window.frmPostavke.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 }

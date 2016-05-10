@@ -59,22 +59,52 @@ public class PocetnaFormaSupervizor {
 		frame.getContentPane().add(lblPrijavljeniSteKao);
 		
 		JButton btnHoteliUPonudi = new JButton("Hoteli u ponudi");
+		btnHoteliUPonudi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Hoteli novaForma = new Hoteli();
+				novaForma.PrikaziFormu();
+			}
+		});
 		btnHoteliUPonudi.setBounds(36, 69, 350, 35);
 		frame.getContentPane().add(btnHoteliUPonudi);
 		
 		JButton btnRezervacije = new JButton("Rezervacije");
+		btnRezervacije.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Rezervacije novaForma = new Rezervacije();
+				novaForma.PrikaziFormu();
+			}
+		});
 		btnRezervacije.setBounds(36, 115, 350, 35);
 		frame.getContentPane().add(btnRezervacije);
 		
 		JButton btnKlijenti = new JButton("Klijenti");
+		btnKlijenti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Klijenti forma = new Klijenti();
+				forma.PrikaziFormu();
+			}
+		});
 		btnKlijenti.setBounds(36, 161, 350, 35);
 		frame.getContentPane().add(btnKlijenti);
 		
 		JButton btnKorisnici = new JButton("Korisnici");
+		btnKorisnici.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Korisnici forma = new Korisnici();
+				forma.PrikaziFormu();
+			}
+		});
 		btnKorisnici.setBounds(36, 207, 350, 35);
 		frame.getContentPane().add(btnKorisnici);
 		
 		JButton btnIzvjetaji = new JButton("Izvje\u0161taji");
+		btnIzvjetaji.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
+				forma.PrikaziFormu();
+			}
+		});
 		btnIzvjetaji.setBounds(36, 253, 350, 35);
 		frame.getContentPane().add(btnIzvjetaji);
 		

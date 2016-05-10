@@ -158,5 +158,18 @@ public class ModifikacijaHotela {
 		});
 		mnRaun.add(mntmOdjaviSe);
 	}
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ModifikacijaHotela window = new ModifikacijaHotela();
+					window.frmModifikacijaHotela.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+	}
 }
 

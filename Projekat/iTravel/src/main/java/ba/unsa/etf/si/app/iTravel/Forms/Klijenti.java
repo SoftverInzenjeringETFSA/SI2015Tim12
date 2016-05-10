@@ -17,6 +17,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class Klijenti {
 
@@ -52,7 +53,7 @@ public class Klijenti {
 	private void initialize() {
 		frmPrikazKlijenata = new JFrame();
 		frmPrikazKlijenata.setTitle("Prikaz klijenata");
-		frmPrikazKlijenata.setBounds(100, 100, 876, 318);
+		frmPrikazKlijenata.setBounds(100, 100, 876, 329);
 		frmPrikazKlijenata.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrikazKlijenata.getContentPane().setLayout(null);
 		frmPrikazKlijenata.setLocationRelativeTo(null);
@@ -85,10 +86,20 @@ public class Klijenti {
 		scrollPane.setViewportView(table);
 		
 		JButton btnModifikujKorisnike = new JButton("Modifikuj klijenta");
+		btnModifikujKorisnike.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnModifikujKorisnike.setBounds(20, 222, 150, 30);
 		frmPrikazKlijenata.getContentPane().add(btnModifikujKorisnike);
 		
 		JButton btnObriiKorisnika = new JButton("Obri\u0161i klijenta");
+		btnObriiKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, "Jeste li sigurni da želite obrisati odabranog klijnta?", "Brisanje klijenta", JOptionPane.OK_CANCEL_OPTION);
+			}
+		});
 		btnObriiKorisnika.setBounds(180, 222, 150, 30);
 		frmPrikazKlijenata.getContentPane().add(btnObriiKorisnika);
 		
@@ -141,5 +152,17 @@ public class Klijenti {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+	}
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Klijenti window = new Klijenti();
+					window.frmPrikazKlijenata.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

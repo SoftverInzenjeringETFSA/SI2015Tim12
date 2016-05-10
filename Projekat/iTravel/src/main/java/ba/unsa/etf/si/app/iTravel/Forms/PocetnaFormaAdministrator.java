@@ -58,26 +58,62 @@ public class PocetnaFormaAdministrator {
 		frame.getContentPane().add(lblPrijavljeniSteKao);
 		
 		JButton btnPonude = new JButton("Hoteli u ponudi");
+		btnPonude.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Hoteli novaForma = new Hoteli();
+				novaForma.PrikaziFormu();
+			}
+		});
 		btnPonude.setBounds(44, 67, 350, 35);
 		frame.getContentPane().add(btnPonude);
 		
 		JButton btnKorisnici = new JButton("Rezervacije");
+		btnKorisnici.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Rezervacije novaForma = new Rezervacije();
+						novaForma.PrikaziFormu();
+			}
+		});
 		btnKorisnici.setBounds(44, 113, 350, 35);
 		frame.getContentPane().add(btnKorisnici);
 		
 		JButton btnKlijenti = new JButton("Klijenti");
+		btnKlijenti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Klijenti forma = new Klijenti();
+				forma.PrikaziFormu();
+			}
+		});
 		btnKlijenti.setBounds(44, 158, 350, 35);
 		frame.getContentPane().add(btnKlijenti);
 		
 		JButton btnIzvjetaji = new JButton("Izvje\u0161taji");
+		btnIzvjetaji.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
+				forma.PrikaziFormu();
+			}
+		});
 		btnIzvjetaji.setBounds(44, 250, 350, 35);
 		frame.getContentPane().add(btnIzvjetaji);
 		
 		JButton btnPostavke = new JButton("Postavke");
+		btnPostavke.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Postavke forma = new Postavke();
+				forma.PrikaziFormu();
+			}
+		});
 		btnPostavke.setBounds(44, 296, 350, 35);
 		frame.getContentPane().add(btnPostavke);
 		
 		JButton btnKorisnici_1 = new JButton("Korisnici");
+		btnKorisnici_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Korisnici forma = new Korisnici();
+				forma.PrikaziFormu();
+			}
+		});
 		btnKorisnici_1.setBounds(44, 204, 350, 35);
 		frame.getContentPane().add(btnKorisnici_1);
 		

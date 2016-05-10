@@ -61,7 +61,7 @@ public class KreiranjeKorisnickogRacuna {
 	private void initialize() {
 		frmKreirajiKorisnika = new JFrame();
 		frmKreirajiKorisnika.setTitle("Kreiranje korisni\u010Dkog naloga");
-		frmKreirajiKorisnika.setBounds(100, 100, 353, 475);
+		frmKreirajiKorisnika.setBounds(100, 100, 353, 497);
 		frmKreirajiKorisnika.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmKreirajiKorisnika.setLocationRelativeTo(null);
 		
@@ -223,5 +223,17 @@ public class KreiranjeKorisnickogRacuna {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+	}
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					KreiranjeKorisnickogRacuna window = new KreiranjeKorisnickogRacuna();
+					window.frmKreirajiKorisnika.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
