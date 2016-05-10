@@ -3,6 +3,7 @@ package ba.unsa.etf.si.app.iTravel.BLL;
 import org.apache.log4j.Logger;
 
 public class UnitOfWork {
+	
 	public final static Logger logger = Logger.getLogger(UnitOfWork.class);
 	
 	private PrijavaService prijavaService;
@@ -18,6 +19,8 @@ public class UnitOfWork {
 	private RezervacijeService kreiranjeRezervacijaService;
 	private RacunService racunService;
 	private RolaService rolaService;
+	private PrikazKlijenata prikazKlijenata;
+	private PrikazKorisnika prikazKorisnika;
 	
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
@@ -32,6 +35,8 @@ public class UnitOfWork {
 		kreiranjeRezervacijaService = new RezervacijeService();
 		racunService = new RacunService();
 		rolaService = new RolaService();
+		prikazKlijenata = new PrikazKlijenata();
+		prikazKorisnika = new PrikazKorisnika();
 	}
 
 	public PrijavaService getPrijavaService() {
@@ -122,6 +127,25 @@ public class UnitOfWork {
 		
 		return rolaService;
 	}
+	
+	public PrikazKlijenata getPrikazKlijenata()
+	{
+		if(prikazKlijenata == null)
+			prikazKlijenata = new PrikazKlijenata();
+		
+		return prikazKlijenata;
+	}
+
+	public PrikazKorisnika getPrikazKorisnika() {
+		if(prikazKorisnika == null)
+			prikazKorisnika = new PrikazKorisnika();
+		
+		return prikazKorisnika;
+	}
+	
+	
+	
+	
 	
 
 }

@@ -1,4 +1,4 @@
-﻿package ba.unsa.etf.si.app.iTravel.Forms;
+package ba.unsa.etf.si.app.iTravel.Forms;
 
 import java.awt.EventQueue;
 
@@ -11,7 +11,6 @@ import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.PrikazKorisnika;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,6 +20,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 public class Korisnici {
+	
+	private UnitOfWork uow = new UnitOfWork();
+	
 
 	private JFrame frmPrikazKorisnika;
 	private JTable table;
@@ -35,7 +37,7 @@ public class Korisnici {
 					Korisnici window = new Korisnici();
 					window.frmPrikazKorisnika.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
@@ -66,8 +68,9 @@ public class Korisnici {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		PrikazKorisnika pk=new PrikazKorisnika();	
-		Object[][] podaci=pk.PrikaziSveKorisnike();
+		PrikazKorisnika pk = new PrikazKorisnika();
+		
+		Object[][] podaci= pk.PrikaziSveKorisnike();
 		
 		table.setModel(new DefaultTableModel(
 			podaci,
@@ -138,7 +141,9 @@ public class Korisnici {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
+				
 				Prijava prijava = new Prijava();
+				
 				prijava.PrikaziFormu();
 			}
 		});
@@ -147,7 +152,9 @@ public class Korisnici {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				PromjenaSifre novaForma = new PromjenaSifre();
+				
 				novaForma.PrikaziFormu();
 			}
 		});

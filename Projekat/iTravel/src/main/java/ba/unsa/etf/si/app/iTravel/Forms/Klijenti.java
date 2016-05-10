@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.PrikazKlijenata;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -34,7 +35,7 @@ public class Klijenti {
 					Klijenti window = new Klijenti();
 					window.frmPrikazKlijenata.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

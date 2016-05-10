@@ -14,7 +14,7 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola;
 public class UserContext {
 	
 	private static UserContext instance = null;
-	private DBContext baza;
+	private static DBContext baza;
 	
 	private static String Username;
 	private static int Identitfication;
@@ -54,7 +54,7 @@ public class UserContext {
 		return RolaID;
 	}
 	
-	public boolean logUserIn(String username)
+	public static boolean logUserIn(String username)
 	{
 		if(username == Username && Authenticated == true)
 			return false;
@@ -91,7 +91,7 @@ public class UserContext {
 		return true;
 	}
 	
-	public void logUserOut()
+	public static void logUserOut()
 	{
 		Username = null;
 		RolaID = -1;
