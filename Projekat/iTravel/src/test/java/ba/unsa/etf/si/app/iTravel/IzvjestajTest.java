@@ -17,7 +17,7 @@ public class IzvjestajTest {
 
 	
 	@Test
-	public void testPrebrojRezervacijeZaDestinaciju() {
+	public void testPrebrojRezervacijeZaDestinacijuTest() {
 		uow= new UnitOfWork();
 		List<Destinacija> destinacije= new ArrayList<Destinacija>();
 		destinacije= uow.getIzvjestajService().VratiListuDestinacija();
