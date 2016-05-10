@@ -8,7 +8,6 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -26,14 +25,14 @@ public class Rezervacije {
 	/**
 	 * Launch the application.
 	 */
-	public void PrikaziFormu() {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Rezervacije window = new Rezervacije();
 					window.frmPrikazRezervacija.setVisible(true);
 				} catch (Exception e) {
-					UnitOfWork.logger.error(e);
+					e.printStackTrace();
 				}
 			}
 		});
@@ -52,7 +51,7 @@ public class Rezervacije {
 	private void initialize() {
 		frmPrikazRezervacija = new JFrame();
 		frmPrikazRezervacija.setTitle("Prikaz rezervacija");
-		frmPrikazRezervacija.setBounds(100, 100, 876, 318);
+		frmPrikazRezervacija.setBounds(100, 100, 876, 332);
 		frmPrikazRezervacija.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrikazRezervacija.getContentPane().setLayout(null);
 		frmPrikazRezervacija.setLocationRelativeTo(null);
@@ -91,8 +90,7 @@ public class Rezervacije {
 		JButton button_izlaz = new JButton("Izlaz");
 		button_izlaz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				System.exit(0);
+				frmPrikazRezervacija.dispose();
 			}
 		});
 		button_izlaz.setBounds(691, 226, 150, 30);
@@ -109,8 +107,7 @@ public class Rezervacije {
 		JButton btnDodajKorisnika = new JButton("Kreiraj rezervaciju");
 		btnDodajKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KreiranjeRezervacije forma=new KreiranjeRezervacije();
-				//frmPrikazRezervacija.setVisible(false);
+				KreiranjeRezervacije forma = new KreiranjeRezervacije();
 				forma.PrikaziFormu();
 			}
 		});
@@ -162,5 +159,19 @@ public class Rezervacije {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+	}
+
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Rezervacije window = new Rezervacije();
+					window.frmPrikazRezervacija.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 	}
 }

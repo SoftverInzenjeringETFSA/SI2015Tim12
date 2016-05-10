@@ -117,6 +117,10 @@ public class DodavanjeHotela {
 		frmUnosHotela.getContentPane().add(spinner);
 		
 		JButton btnNewButton = new JButton("Dodaj");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setBounds(119, 325, 150, 30);
 		frmUnosHotela.getContentPane().add(btnNewButton);
 		
@@ -201,6 +205,19 @@ public class DodavanjeHotela {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+	}
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DodavanjeHotela window = new DodavanjeHotela();
+					window.frmUnosHotela.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 	}
 }
 

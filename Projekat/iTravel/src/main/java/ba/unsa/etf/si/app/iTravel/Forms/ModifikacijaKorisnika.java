@@ -213,4 +213,17 @@ public class ModifikacijaKorisnika {
 		});
 		mnRaun.add(mntmOdjaviSe);
 	}
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ModifikacijaKorisnika window = new ModifikacijaKorisnika();
+					window.frmModifikacijaKorisnika.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+	}
 }

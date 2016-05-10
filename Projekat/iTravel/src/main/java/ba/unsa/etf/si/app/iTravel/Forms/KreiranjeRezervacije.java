@@ -618,4 +618,17 @@ public class KreiranjeRezervacije {
 		}
 		return true;
 	}
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					KreiranjeRezervacije window = new KreiranjeRezervacije();
+					window.frmKreiranjeRezervacije.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+	}
 }

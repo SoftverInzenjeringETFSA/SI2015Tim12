@@ -265,4 +265,16 @@ public class GenerisanjeIzvjestaja {
 		
 		
 	}
+	public void PrikaziFormu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GenerisanjeIzvjestaja window = new GenerisanjeIzvjestaja();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 }
