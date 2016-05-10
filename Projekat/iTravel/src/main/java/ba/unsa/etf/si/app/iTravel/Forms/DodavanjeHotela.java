@@ -14,6 +14,7 @@ import java.awt.Font;
 import com.toedter.calendar.JDateChooser;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -40,7 +41,7 @@ public class DodavanjeHotela {
 					DodavanjeHotela window = new DodavanjeHotela();
 					window.frmUnosHotela.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

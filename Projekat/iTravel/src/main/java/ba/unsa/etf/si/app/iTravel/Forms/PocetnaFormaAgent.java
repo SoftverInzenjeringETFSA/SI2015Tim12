@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,7 +31,7 @@ public class PocetnaFormaAgent {
 					PocetnaFormaAgent window = new PocetnaFormaAgent();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
@@ -54,12 +55,6 @@ public class PocetnaFormaAgent {
 		frame.setLocationRelativeTo(null);
 		
 		JButton btnHoteliUPonudi = new JButton("Hoteli u ponudi");
-		btnHoteliUPonudi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Hoteli novaForma = new Hoteli();
-				novaForma.PrikaziFormu();
-			}
-		});
 		btnHoteliUPonudi.setBounds(38, 81, 350, 35);
 		frame.getContentPane().add(btnHoteliUPonudi);
 		
@@ -71,8 +66,9 @@ public class PocetnaFormaAgent {
 		JButton btnRezervacije = new JButton("Rezervacije");
 		btnRezervacije.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Rezervacije novaForma = new Rezervacije();
-				novaForma.PrikaziFormu();
+				Rezervacije forma=new Rezervacije();
+				frame.setVisible(false);
+				forma.PrikaziFormu();
 			}
 		});
 		btnRezervacije.setBounds(38, 127, 350, 35);

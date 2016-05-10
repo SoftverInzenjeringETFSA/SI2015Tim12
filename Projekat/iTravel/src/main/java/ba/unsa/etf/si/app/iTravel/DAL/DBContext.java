@@ -1,5 +1,6 @@
 package ba.unsa.etf.si.app.iTravel.DAL;
 
+import ba.unsa.etf.si.app.iTravel.DAL.Repositories.DestinacijaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.HotelRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KlijentRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KorisnickiRacunRepository;
@@ -7,8 +8,10 @@ import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KorisnickiRacunXRolaRepositor
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.OsobaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RacunRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RezervacijaRepository;
+import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RezervisaniTerminSobaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RolaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.SobaRepository;
+import ba.unsa.etf.si.app.iTravel.DAL.Repositories.SobaRezervacijaRepository;
 
 public class DBContext {
 	
@@ -23,6 +26,9 @@ public class DBContext {
 	private RacunRepository racunRepository;
 	private RolaRepository rolaRepository;
 	private KorisnickiRacunXRolaRepository korisnickiRacunXRolaRepository;
+	private DestinacijaRepository DestRepository;
+	private SobaRezervacijaRepository SobaRezRepozitory;
+	private RezervisaniTerminSobaRepository rezervisaniTerminSobaRepository;
 	
 	// Vidjeti da li treba izbrisati setere
 	public DBContext()
@@ -36,6 +42,9 @@ public class DBContext {
 		racunRepository = new RacunRepository();
 		rolaRepository = new RolaRepository();
 		korisnickiRacunXRolaRepository = new KorisnickiRacunXRolaRepository();
+		DestRepository= new DestinacijaRepository();
+		SobaRezRepozitory=new SobaRezervacijaRepository();
+		rezervisaniTerminSobaRepository=new RezervisaniTerminSobaRepository();
 	}
 
 	public static DBContext getInstance() {
@@ -44,6 +53,24 @@ public class DBContext {
 		}
 		return instance;
 	}
+	
+
+	public DestinacijaRepository getDestRepository() {
+		return DestRepository;
+	}
+
+	public void setDestRepository(DestinacijaRepository destRepository) {
+		DestRepository = destRepository;
+	}
+
+	public SobaRezervacijaRepository getSobaRezRepozitory() {
+		return SobaRezRepozitory;
+	}
+
+	public void setSobaRezRepozitory(SobaRezervacijaRepository sobaRezRepozitory) {
+		SobaRezRepozitory = sobaRezRepozitory;
+	}
+
 	
 	public HotelRepository getHoteliRepo() {
 		return hoteliRepo;
@@ -117,5 +144,14 @@ public class DBContext {
 		this.korisnickiRacunXRolaRepository = korisnickiRacunXRolaRepository;
 	}
 	
+	public RezervisaniTerminSobaRepository getRezervisaniTerminSobaRepository(){
+		return rezervisaniTerminSobaRepository;
+	}
+	
+	public void setRezervisaniTerminSobaRepository(RezervisaniTerminSobaRepository rezervisaniTerminSobaRepository)
+	{
+		this.rezervisaniTerminSobaRepository=rezervisaniTerminSobaRepository;
+	}
+
 }
 

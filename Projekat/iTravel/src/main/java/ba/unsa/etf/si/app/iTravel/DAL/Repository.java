@@ -41,13 +41,17 @@ public class Repository<T>{
      */
     
     public List<T> ucitajSveIzBaze() {
-        Transaction t = session.beginTransaction();
+        /*Transaction t = session.beginTransaction();
         String queryString = FROM + SPACE + PARAMETER;
         Query query = session.createQuery(queryString);
         query.setString(0, entityClass.getCanonicalName());
         List<T> resultObjects = query.list();
         t.commit();
-        return resultObjects;
+        return resultObjects;*/
+        
+        List<T> lista = this.session.createCriteria(entityClass).list();
+        //session.close();
+        return (List<T>)lista;
     }
 
     /**
@@ -68,10 +72,11 @@ public class Repository<T>{
      * @param object Objekat koji se spasava
      * @param session Hibernate sesija
      */
-    public void spasiUBazu(T object, Session session) {
+    public T spasiUBazu(T object) {
         Transaction t = session.beginTransaction();
         session.save(object);
         t.commit();
+        return object;
     }
 
     /**

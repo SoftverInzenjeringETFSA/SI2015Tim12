@@ -8,6 +8,8 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.PrikazKorisnika;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -18,6 +20,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 public class Korisnici {
+	
+	private UnitOfWork uow = new UnitOfWork();
+	
 
 	private JFrame frmPrikazKorisnika;
 	private JTable table;
@@ -32,7 +37,7 @@ public class Korisnici {
 					Korisnici window = new Korisnici();
 					window.frmPrikazKorisnika.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
@@ -62,12 +67,13 @@ public class Korisnici {
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		PrikazKorisnika pk = new PrikazKorisnika();
+		
+		Object[][] podaci= pk.PrikaziSveKorisnike();
+		
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Kenan", "Prses", "1234567898745", "38LC11A", "Zmaja od Bosne bb", "061111111", "kprses1@gmail.com", "prso", "Supervizor"},
-				{"Emina", "Prlja", "9876543211236", "12AE21A", "Zmaja od Bosne bb", "061222222", "eprlja1@gmail.com", "emina", "Putni\u010Dki agent"},
-				{"\u0160ahin", "Repuh", "1111111111111", "3CLC12A", "Senada Mandi\u0107a 7", "063929365", "srepuh1@gmail.com", "sahin", "Putni\u010Dki agent"},
-			},
+			podaci,
 			new String[] {
 				"Ime", "Prezime", "JMBG", "Broj li\u010Dne karte", "Adresa", "Telefon", "E-mail", "Username", "Tip korisnika"
 			}
@@ -141,7 +147,9 @@ public class Korisnici {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
+				
 				Prijava prijava = new Prijava();
+				
 				prijava.PrikaziFormu();
 			}
 		});
@@ -150,7 +158,9 @@ public class Korisnici {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				PromjenaSifre novaForma = new PromjenaSifre();
+				
 				novaForma.PrikaziFormu();
 			}
 		});

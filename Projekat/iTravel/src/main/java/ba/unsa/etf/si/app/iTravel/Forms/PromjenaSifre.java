@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import ba.unsa.etf.si.app.iTravel.BLL.PromjenaSifreService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 public class PromjenaSifre {
 
@@ -42,7 +43,7 @@ public class PromjenaSifre {
 					PromjenaSifre window = new PromjenaSifre();
 					window.frmPromjenaSifre.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
@@ -55,7 +56,7 @@ public class PromjenaSifre {
 					PromjenaSifre window = new PromjenaSifre();
 					window.frmPromjenaSifre.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

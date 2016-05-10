@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import java.awt.Font;
 import javax.swing.JMenuBar;
@@ -36,7 +37,7 @@ public class ModifikacijaHotela {
 					ModifikacijaHotela window = new ModifikacijaHotela();
 					window.frmModifikacijaHotela.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

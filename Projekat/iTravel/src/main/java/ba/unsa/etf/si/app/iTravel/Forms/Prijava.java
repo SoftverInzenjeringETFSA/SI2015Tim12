@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork.UserContext;
+import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 
 import javax.swing.JOptionPane;
 
@@ -33,23 +33,22 @@ public class Prijava {
 			
 			if(uow.getPrijavaService().ProvjeriPristupnePodatke(usernameValue, passwordValue))
 			{		
-				uow.getPrijavaService().AutorizirajKorisnika(usernameValue);
 				
 				JOptionPane.showMessageDialog(null, "Dobrodošli u iTravel", "Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
 				
-				if(UserContext.RolaID == 1)
+				if(UserContext.getInstance().getRoleID() == 1)
 				{
 					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
 					frmPrijava.setVisible(false);
 					forma.PrikaziFormu();
 				}
-				else if (UserContext.RolaID == 2)
+				else if (UserContext.getInstance().getRoleID() == 2)
 				{
 					PocetnaFormaAgent forma = new PocetnaFormaAgent();
 					frmPrijava.setVisible(false);
 					forma.PrikaziFormu();				
 				}
-				else if(UserContext.RolaID == 3)
+				else if(UserContext.getInstance().getRoleID() == 3)
 				{
 					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
 					frmPrijava.setVisible(false);
@@ -71,7 +70,7 @@ public class Prijava {
 					Prijava window = new Prijava();
 					window.frmPrijava.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
@@ -90,7 +89,7 @@ public class Prijava {
 					Prijava window = new Prijava();
 					window.frmPrijava.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

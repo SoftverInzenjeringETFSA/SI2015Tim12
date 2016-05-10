@@ -32,6 +32,9 @@
         <property name="brojPasosa" type="string">
             <column name="BrojPasosa" length="45" />
         </property>
+        <property name="brojLicneKarte" type="string">
+            <column name="BrojLicneKarte" length="45" />
+        </property>
         <set name="korisnickiRacuns" table="korisnicki_racun" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="OsobaID" />

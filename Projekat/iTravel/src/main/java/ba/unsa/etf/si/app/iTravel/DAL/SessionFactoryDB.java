@@ -18,11 +18,14 @@ public class SessionFactoryDB {
             ourSessionFactory = new Configuration().
                     configure().
                     buildSessionFactory();
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
             throw new ExceptionInInitializerError(ex);
         }
     }
-
+    
+    private SessionFactoryDB(){ 	
+    }
+    
     public static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }

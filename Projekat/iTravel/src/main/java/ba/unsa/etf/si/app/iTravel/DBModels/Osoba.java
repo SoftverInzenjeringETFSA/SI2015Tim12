@@ -31,6 +31,7 @@ public class Osoba implements java.io.Serializable {
 	private String brojTelefona;
 	private Integer jmbg;
 	private String brojPasosa;
+	private String brojLicneKarte;
 	private Set<KorisnickiRacun> korisnickiRacuns = new HashSet<KorisnickiRacun>(0);
 	private Set<Klijent> klijents = new HashSet<Klijent>(0);
 
@@ -135,6 +136,16 @@ public class Osoba implements java.io.Serializable {
 	public void setBrojPasosa(String brojPasosa) {
 		this.brojPasosa = brojPasosa;
 	}
+	
+	@Column(name = "BrojLicneKarte", length = 45)
+	public String getBrojLicneKarte() {
+		return this.brojLicneKarte;
+	}
+
+	public void setBrojLicneKarte(String brojLicneKarte) {
+		this.brojLicneKarte = brojLicneKarte;
+	}
+
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "osoba")
 	public Set<KorisnickiRacun> getKorisnickiRacuns() {

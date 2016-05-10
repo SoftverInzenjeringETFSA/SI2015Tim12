@@ -1,8 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
---
--- Host: localhost    Database: tim12
--- ------------------------------------------------------
--- Server version	5.7.11-log
+use tim12;
+
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +25,7 @@ CREATE TABLE `destinacija` (
   `Naziv` varchar(100) DEFAULT NULL,
   `OmogucenPrevoz` bit(1) DEFAULT NULL,
   PRIMARY KEY (`DestinacijaID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,9 +34,15 @@ CREATE TABLE `destinacija` (
 
 LOCK TABLES `destinacija` WRITE;
 /*!40000 ALTER TABLE `destinacija` DISABLE KEYS */;
-INSERT INTO `destinacija` VALUES (1,'Dubai',''),(2,'Sarajevo',''),(3,'Pariz',''),(4,'Zenica','\0');
+INSERT INTO `destinacija` VALUES 
+(1,'Dubai',''),
+(2,'Sarajevo',''),
+(3,'Pariz',''),
+(4,'Zenica','\0');
 /*!40000 ALTER TABLE `destinacija` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 
 --
 -- Table structure for table `hotel`
@@ -74,9 +78,19 @@ CREATE TABLE `hotel` (
 
 LOCK TABLES `hotel` WRITE;
 /*!40000 ALTER TABLE `hotel` DISABLE KEYS */;
-INSERT INTO `hotel` VALUES (1,'Fina adresa','BiH','Sarajevo',2,'ijbijb','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Holiday',NULL,4),(2,'Ruzna adresa','jibi','Sarajevo',2,'ijbijb','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Europa',NULL,5),(3,'Add','BiH','Sarajevo',2,'ijbijb','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Twist Tower',NULL,5),(4,'Ruzna adresa2','UAE','Dubai',1,'4564654','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Harem',NULL,5),(5,'Ruzna adresa3','UAE','Dubai',1,'ijbijb','2016-09-02','2016-04-30','2016-09-01','2016-05-01','HaremVeliki',NULL,5),(6,'Ruzna adresa4','France','Pariz',3,'56465','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Love',NULL,5),(7,'adresa u Ze','BiH','Zenica',4,'5465','2016-09-02','2016-04-30','2016-09-01','2016-05-01','NSBiH',NULL,4);
+INSERT INTO `hotel` VALUES 
+(1,'Fina adresa','BiH','Sarajevo',2,'ijbijb','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Holiday',NULL,4),
+(2,'Ruzna adresa','jibi','Sarajevo',2,'ijbijb','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Europa',NULL,5),(3,'Add','BiH','Sarajevo',2,'ijbijb','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Twist Tower',NULL,5),
+(4,'Ruzna adresa2','UAE','Dubai',1,'4564654','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Harem',NULL,5),
+(5,'Ruzna adresa3','UAE','Dubai',1,'ijbijb','2016-09-02','2016-04-30','2016-09-01','2016-05-01','HaremVeliki',NULL,5),
+(6,'Ruzna adresa4','France','Pariz',3,'56465','2016-09-02','2016-04-30','2016-09-01','2016-05-01','Love',NULL,5),
+(7,'adresa u Ze','BiH','Zenica',4,'5465','2016-09-02','2016-04-30','2016-09-01','2016-05-01','NSBiH',NULL,4);
 /*!40000 ALTER TABLE `hotel` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+
 
 --
 -- Table structure for table `klijent`
@@ -92,7 +106,7 @@ CREATE TABLE `klijent` (
   KEY `OsobaID` (`OsobaID`),
   CONSTRAINT `FK7utmlw51oc9c80912xv34bxvd` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`),
   CONSTRAINT `klijent_ibfk_1` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,9 +115,19 @@ CREATE TABLE `klijent` (
 
 LOCK TABLES `klijent` WRITE;
 /*!40000 ALTER TABLE `klijent` DISABLE KEYS */;
-INSERT INTO `klijent` VALUES (1,2),(2,3),(3,4),(4,5);
+INSERT INTO `klijent` VALUES 
+(1,2),
+(2,3),
+(3,4),
+(4,5);
+
 /*!40000 ALTER TABLE `klijent` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+
+
 
 --
 -- Table structure for table `korisnicki_racun`
@@ -121,7 +145,7 @@ CREATE TABLE `korisnicki_racun` (
   KEY `OsobaID` (`OsobaID`),
   CONSTRAINT `FK6dm6s3s0tm9ijpbg69ko6qtsr` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`),
   CONSTRAINT `korisnicki_racun_ibfk_1` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,9 +154,16 @@ CREATE TABLE `korisnicki_racun` (
 
 LOCK TABLES `korisnicki_racun` WRITE;
 /*!40000 ALTER TABLE `korisnicki_racun` DISABLE KEYS */;
-INSERT INTO `korisnicki_racun` VALUES (1,'kenanprses','Sitim12',NULL),(2,'kagent','Sitim12',NULL),(3,'ksupervizor','Sitim12',NULL),(5,'Tkorisnik','Tsifra',7),(6,'neko1','sifra1',8);
+INSERT INTO `korisnicki_racun` VALUES 
+(1,'kenanprses','Sitim12',NULL),
+(2,'kagent','Sitim12',NULL),
+(3,'ksupervizor','Sitim12',NULL);
 /*!40000 ALTER TABLE `korisnicki_racun` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+
 
 --
 -- Table structure for table `korisnickiracunxrola`
@@ -152,7 +183,7 @@ CREATE TABLE `korisnickiracunxrola` (
   CONSTRAINT `FKamwf73l7ffq8s659bdrl78gi0` FOREIGN KEY (`KorisnickiRacunID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`),
   CONSTRAINT `korisnickiracunxrola_ibfk_1` FOREIGN KEY (`RolaID`) REFERENCES `rola` (`RolaID`),
   CONSTRAINT `korisnickiracunxrola_ibfk_2` FOREIGN KEY (`KorisnickiRacunID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,9 +192,16 @@ CREATE TABLE `korisnickiracunxrola` (
 
 LOCK TABLES `korisnickiracunxrola` WRITE;
 /*!40000 ALTER TABLE `korisnickiracunxrola` DISABLE KEYS */;
-INSERT INTO `korisnickiracunxrola` VALUES (1,1,1),(2,2,2),(3,3,5),(4,2,6);
+INSERT INTO `korisnickiracunxrola` VALUES 
+(1,1,1),
+(2,2,2);
 /*!40000 ALTER TABLE `korisnickiracunxrola` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+
+
 
 --
 -- Table structure for table `osoba`
@@ -182,9 +220,8 @@ CREATE TABLE `osoba` (
   `BrojTelefona` varchar(45) DEFAULT NULL,
   `JMBG` int(13) DEFAULT NULL,
   `BrojPasosa` varchar(45) DEFAULT NULL,
-  `BrojLicneKarte` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`OsobaID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,9 +230,23 @@ CREATE TABLE `osoba` (
 
 LOCK TABLES `osoba` WRITE;
 /*!40000 ALTER TABLE `osoba` DISABLE KEYS */;
-INSERT INTO `osoba` VALUES (1,'Kenan','Prses','1995-01-06','Test','test@test.test','222-222-222',123456,'1234A',NULL),(2,'Sahin','Repuh','2016-05-10','fsfsfds','saijdoiaj@email.com','45645',156156,'454dsa',NULL),(3,'Treci','Trecko','2016-05-11','nesto','valjdaMail','safas',242432,'safa',NULL),(4,'Tim','12','2016-05-10','fsfsfds','saijdoiaj@vrucimail.com','45645',156454156,'454dsa',NULL),(5,'12','Tim','2016-05-10','tel','email@email.com','45645',1561564556,'454dsa',NULL),(7,'TIme','TPrezime',NULL,'TAdresa','Temail','062062062',123123123,'','TB124'),(8,'Time1','Tprezim1',NULL,'asdsad','dkamksond','561565',123321123,'','231KKK'),(9,'Test','test',NULL,'sdasd','kodkasod','51321',321321,'','sda51'),(10,'Test','test',NULL,'sdasd','kodkasod','51321',321321,'','sda51'),(11,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da'),(12,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da'),(13,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da');
+INSERT INTO `osoba` VALUES 
+(1,'Kenan','Prses','1995-01-06','Test','test@test.test','222-222-222',123456,'1234A'),
+(2,'Sahin','Repuh','2016-05-10','fsfsfds','saijdoiaj@email.com','45645',156156,'454dsa'),
+(3,'Treci','Trecko','2016-05-11','nesto','valjdaMail','safas',242432,'safa'),
+(4,'Tim','12','2016-05-10','fsfsfds','saijdoiaj@vrucimail.com','45645',156454156,'454dsa'),
+(5,'12','Tim','2016-05-10','tel','email@email.com','45645',1561564556,'454dsa');
 /*!40000 ALTER TABLE `osoba` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+
+
+
+
+
+
 
 --
 -- Table structure for table `racun`
@@ -215,8 +266,9 @@ CREATE TABLE `racun` (
   KEY `FK57atuwmdqgl9ft04a6ysndbmv` (`RezervacijaID`),
   CONSTRAINT `FK1ji96e1wqpcy7gk2fmfid09bp` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`),
   CONSTRAINT `FK57atuwmdqgl9ft04a6ysndbmv` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table `racun`
@@ -224,9 +276,16 @@ CREATE TABLE `racun` (
 
 LOCK TABLES `racun` WRITE;
 /*!40000 ALTER TABLE `racun` DISABLE KEYS */;
-INSERT INTO `racun` VALUES (1,1,NULL,'2016-05-08',NULL,1120),(2,2,NULL,'2016-05-08',NULL,1120),(3,3,NULL,'2016-05-09',NULL,1120),(4,4,NULL,'2016-05-09',NULL,1120);
+INSERT INTO `racun` VALUES 
+(1,1,NULL,'2016-05-08',NULL,1120),
+(2,2,NULL,'2016-05-08',NULL,1120),
+(3,3,NULL,'2016-05-09',NULL,1120),
+(4,4,NULL,'2016-05-09',NULL,1120);
 /*!40000 ALTER TABLE `racun` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
 
 --
 -- Table structure for table `rezervacija`
@@ -248,7 +307,7 @@ CREATE TABLE `rezervacija` (
   CONSTRAINT `FK5txyk606exashquy2w0ourlxx` FOREIGN KEY (`AgentKreiraoID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`),
   CONSTRAINT `rezervacija_ibfk_1` FOREIGN KEY (`KlijentID`) REFERENCES `klijent` (`KlijentID`),
   CONSTRAINT `rezervacija_ibfk_2` FOREIGN KEY (`AgentKreiraoID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,9 +316,21 @@ CREATE TABLE `rezervacija` (
 
 LOCK TABLES `rezervacija` WRITE;
 /*!40000 ALTER TABLE `rezervacija` DISABLE KEYS */;
-INSERT INTO `rezervacija` VALUES (1,'2016-05-08','',2,1),(2,'2016-05-08','',2,2),(3,'2016-05-09','',2,3),(4,'2016-05-09','',2,4);
+INSERT INTO `rezervacija` VALUES 
+(1,'2016-05-08','',2,1),
+(2,'2016-05-08','',2,2),
+(3,'2016-05-09','',2,3),
+(4,'2016-05-09','',2,4);
 /*!40000 ALTER TABLE `rezervacija` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+
+
+
+
+
 
 --
 -- Table structure for table `rezervisani_termin_soba`
@@ -282,8 +353,9 @@ CREATE TABLE `rezervisani_termin_soba` (
   CONSTRAINT `FKleb6wmcghjngcmfy5ikmxp4p` FOREIGN KEY (`SobaID`) REFERENCES `soba` (`SobaID`),
   CONSTRAINT `rezervisani_termin_soba_ibfk_2` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`),
   CONSTRAINT `rezervisani_termin_soba_ibfk_3` FOREIGN KEY (`SobaID`) REFERENCES `soba` (`SobaID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table `rezervisani_termin_soba`
@@ -291,9 +363,19 @@ CREATE TABLE `rezervisani_termin_soba` (
 
 LOCK TABLES `rezervisani_termin_soba` WRITE;
 /*!40000 ALTER TABLE `rezervisani_termin_soba` DISABLE KEYS */;
-INSERT INTO `rezervisani_termin_soba` VALUES (1,1,'2016-05-01','2016-05-10',8,''),(2,2,'2016-05-19','2016-05-25',10,''),(3,3,'2016-05-08','2016-05-15',15,''),(4,4,'2016-05-05','2016-05-10',2,'');
+INSERT INTO `rezervisani_termin_soba` VALUES 
+(1,1,'2016-05-01','2016-05-10',8,''),
+(2,2,'2016-05-19','2016-05-25',10,''),
+(3,3,'2016-05-08','2016-05-15',15,''),
+(4,4,'2016-05-05','2016-05-10',2,'');
 /*!40000 ALTER TABLE `rezervisani_termin_soba` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+
+
+
 
 --
 -- Table structure for table `rola`
@@ -315,9 +397,14 @@ CREATE TABLE `rola` (
 
 LOCK TABLES `rola` WRITE;
 /*!40000 ALTER TABLE `rola` DISABLE KEYS */;
-INSERT INTO `rola` VALUES (1,'Administrator'),(2,'Agent'),(3,'Supervizor');
+INSERT INTO `rola` VALUES 
+(1,'Administrator'),
+(2,'Agent'),
+(3,'Supervizor');
 /*!40000 ALTER TABLE `rola` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 
 --
 -- Table structure for table `soba`
@@ -337,7 +424,7 @@ CREATE TABLE `soba` (
   KEY `HotelID` (`HotelID`),
   CONSTRAINT `FK9p9j6xhl8gwusioly36rg7wh1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
   CONSTRAINT `soba_ibfk_1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -346,10 +433,43 @@ CREATE TABLE `soba` (
 
 LOCK TABLES `soba` WRITE;
 /*!40000 ALTER TABLE `soba` DISABLE KEYS */;
-INSERT INTO `soba` VALUES (1,1,5,'prva ',220,100),(2,1,3,'druga ',150,130),(3,1,3,'trece ',150,110),(4,2,5,'4. ',270,250),(5,2,3,'5,, ',160,130),(6,2,3,'6a ',155,110),(7,3,4,'7a ',250,220),(8,4,3,'8.',170,150),(9,5,3,'deveta soba ',150,130),(10,4,5,'10ta ',250,230),(11,5,3,'11., ',190,170),(12,5,3,'12a ',155,105),(13,6,4,'13a ',210,200),(14,1,3,'14aa sobaaa',190,100),(15,1,3,'15taa ',120,110),(16,2,5,'16. ',295,222),(17,2,3,'nes vjerovati 17.',140,100),(18,2,3,'18. mnogo brate',190,150),(19,3,4,'19. je jako fina',235,200),(20,4,3,'20. je mrak',150,100),(21,5,3,'21. soba',155,110),(22,4,5,'22.',350,320),(23,5,3,'23ca',250,220),(24,5,3,'24. ',120,100),(25,6,4,'iiii 25. ',280,230);
+INSERT INTO `soba` VALUES 
+(1,1,5,'prva ',220,100),
+(2,1,3,'druga ',150,130),
+(3,1,3,'trece ',150,110),
+(4,2,5,'4. ',270,250),
+(5,2,3,'5,, ',160,130),
+(6,2,3,'6a ',155,110),
+(7,3,4,'7a ',250,220),
+(8,4,3,'8.',170,150),
+(9,5,3,'deveta soba ',150,130),
+(10,4,5,'10ta ',250,230),
+(11,5,3,'11., ',190,170),
+(12,5,3,'12a ',155,105),
+(13,6,4,'13a ',210,200),
+(14,1,3,'14aa sobaaa',190,100),
+(15,1,3,'15taa ',120,110),
+(16,2,5,'16. ',295,222),
+(17,2,3,'nes vjerovati 17.',140,100),
+(18,2,3,'18. mnogo brate',190,150),
+(19,3,4,'19. je jako fina',235,200),
+(20,4,3,'20. je mrak',150,100),
+(21,5,3,'21. soba',155,110),
+(22,4,5,'22.',350,320),
+(23,5,3,'23ca',250,220),
+(24,5,3,'24. ',120,100),
+(25,6,4,'iiii 25. ',280,230);
 /*!40000 ALTER TABLE `soba` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+
+
+
+
+
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -359,4 +479,10 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-10  0:52:28
+
+
+
+
+
+
+
