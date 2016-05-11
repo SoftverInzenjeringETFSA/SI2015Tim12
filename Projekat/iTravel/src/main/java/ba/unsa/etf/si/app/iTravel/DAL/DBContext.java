@@ -6,6 +6,7 @@ import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KlijentRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KorisnickiRacunRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.KorisnickiRacunXRolaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.OsobaRepository;
+import ba.unsa.etf.si.app.iTravel.DAL.Repositories.PostavkeRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RacunRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RezervacijaRepository;
 import ba.unsa.etf.si.app.iTravel.DAL.Repositories.RezervisaniTerminSobaRepository;
@@ -29,6 +30,7 @@ public class DBContext {
 	private DestinacijaRepository DestRepository;
 	private SobaRezervacijaRepository SobaRezRepozitory;
 	private RezervisaniTerminSobaRepository rezervisaniTerminSobaRepository;
+	private PostavkeRepository postavkeRepository;
 	
 	// Vidjeti da li treba izbrisati setere
 	public DBContext()
@@ -45,6 +47,7 @@ public class DBContext {
 		DestRepository= new DestinacijaRepository();
 		SobaRezRepozitory=new SobaRezervacijaRepository();
 		rezervisaniTerminSobaRepository=new RezervisaniTerminSobaRepository();
+		postavkeRepository = new PostavkeRepository();
 	}
 
 	public static DBContext getInstance() {
@@ -152,6 +155,16 @@ public class DBContext {
 	{
 		this.rezervisaniTerminSobaRepository=rezervisaniTerminSobaRepository;
 	}
+
+	public PostavkeRepository getPostavkeRepository() {
+		return postavkeRepository;
+	}
+
+	public void setPostavkeRepository(PostavkeRepository postavkeRepository) {
+		this.postavkeRepository = postavkeRepository;
+	}
+	
+	
 
 }
 

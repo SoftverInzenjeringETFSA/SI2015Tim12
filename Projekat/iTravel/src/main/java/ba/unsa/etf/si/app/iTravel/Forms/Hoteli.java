@@ -29,6 +29,8 @@ import javax.swing.JOptionPane;
 
 public class Hoteli {
 
+	private UnitOfWork uow = new UnitOfWork();
+	
 	private JFrame frmPrikazHotela;
 	private JTable table_pregledHotela;
 	private JScrollPane scrollPane;
@@ -176,8 +178,10 @@ public class Hoteli {
 		mntmOdjaviSe = new JMenuItem("Odjavi se");
 		mntmOdjaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OdjavaService odjava = new OdjavaService();
-				odjava.OdjaviKorisnika();
+				//OdjavaService odjava = new OdjavaService();
+				//odjava.OdjaviKorisnika();
+				
+				uow.getOdjavaService().OdjaviKorisnika();
 							
 				java.awt.Window win[] = java.awt.Window.getWindows(); 
 				for(int i=0;i<win.length;i++){ 

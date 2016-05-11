@@ -14,10 +14,13 @@ import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import java.awt.event.ActionListener;
+import java.sql.Ref;
 import java.awt.event.ActionEvent;
 
 public class PocetnaFormaAdministrator {
 
+	private UnitOfWork uow = new UnitOfWork();
+	
 	private JFrame frame;
 
 	/**
@@ -41,6 +44,7 @@ public class PocetnaFormaAdministrator {
 	 */
 	public PocetnaFormaAdministrator() {
 		initialize();
+		
 	}
 
 	/**
@@ -59,6 +63,8 @@ public class PocetnaFormaAdministrator {
 		frame.getContentPane().add(lblPrijavljeniSteKao);
 		
 		JButton btnPonude = new JButton("Hoteli u ponudi");
+		btnPonude.setEnabled(uow.getPostavkeService().modulOmogucen(1));
+		
 		btnPonude.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Hoteli novaForma = new Hoteli();
@@ -68,17 +74,21 @@ public class PocetnaFormaAdministrator {
 		btnPonude.setBounds(44, 67, 350, 35);
 		frame.getContentPane().add(btnPonude);
 		
-		JButton btnKorisnici = new JButton("Rezervacije");
-		btnKorisnici.addActionListener(new ActionListener() {
+		JButton btnRezervacije = new JButton("Rezervacije");
+		btnRezervacije.setEnabled(uow.getPostavkeService().modulOmogucen(2));
+		
+		btnRezervacije.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Rezervacije novaForma = new Rezervacije();
 						novaForma.PrikaziFormu();
 			}
 		});
-		btnKorisnici.setBounds(44, 113, 350, 35);
-		frame.getContentPane().add(btnKorisnici);
+		btnRezervacije.setBounds(44, 113, 350, 35);
+		frame.getContentPane().add(btnRezervacije);
 		
 		JButton btnKlijenti = new JButton("Klijenti");
+		btnKlijenti.setEnabled(uow.getPostavkeService().modulOmogucen(3));
+		
 		btnKlijenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Klijenti forma = new Klijenti();
@@ -87,8 +97,22 @@ public class PocetnaFormaAdministrator {
 		});
 		btnKlijenti.setBounds(44, 158, 350, 35);
 		frame.getContentPane().add(btnKlijenti);
+				
+		JButton btnKorisnici = new JButton("Korisnici");
+		btnKorisnici.setEnabled(uow.getPostavkeService().modulOmogucen(4));
 		
-		JButton btnIzvjetaji = new JButton("Izvje\u0161taji");
+		btnKorisnici.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Korisnici forma = new Korisnici();
+				forma.PrikaziFormu();
+			}
+		});
+		btnKorisnici.setBounds(44, 204, 350, 35);
+		frame.getContentPane().add(btnKorisnici);
+		
+		JButton btnIzvjetaji = new JButton("Izvještaji");
+		btnIzvjetaji.setEnabled(uow.getPostavkeService().modulOmogucen(5));
+		
 		btnIzvjetaji.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
@@ -101,22 +125,12 @@ public class PocetnaFormaAdministrator {
 		JButton btnPostavke = new JButton("Postavke");
 		btnPostavke.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Postavke forma = new Postavke();
+				Postavke forma = new Postavke(frame);
 				forma.PrikaziFormu();
 			}
 		});
 		btnPostavke.setBounds(44, 296, 350, 35);
 		frame.getContentPane().add(btnPostavke);
-		
-		JButton btnKorisnici_1 = new JButton("Korisnici");
-		btnKorisnici_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Korisnici forma = new Korisnici();
-				forma.PrikaziFormu();
-			}
-		});
-		btnKorisnici_1.setBounds(44, 204, 350, 35);
-		frame.getContentPane().add(btnKorisnici_1);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -141,7 +155,7 @@ public class PocetnaFormaAdministrator {
 							
 				java.awt.Window win[] = java.awt.Window.getWindows(); 
 				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
+				win[i].dispose();
 				} 
 				Prijava prijava = new Prijava();
 				prijava.PrikaziFormu();

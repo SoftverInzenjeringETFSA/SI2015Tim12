@@ -38,7 +38,8 @@ public class GenerisanjeIzvjestaja {
 	private JTable table;
 	private JTable table_1;
 	private JFrame frmPrijava;
-	private static UnitOfWork uow;
+	
+	private static UnitOfWork uow = new UnitOfWork();
 
 	/**
 	 * Launch the application.
@@ -61,7 +62,6 @@ public class GenerisanjeIzvjestaja {
 	 */
 	public GenerisanjeIzvjestaja() {
 		initialize();
-		uow= new UnitOfWork();
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class GenerisanjeIzvjestaja {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 621, 633);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Izvještaj o top destinacijama");

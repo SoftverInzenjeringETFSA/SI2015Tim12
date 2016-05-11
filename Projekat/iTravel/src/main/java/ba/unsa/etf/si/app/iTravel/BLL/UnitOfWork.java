@@ -22,6 +22,7 @@ public class UnitOfWork {
 	private PrikazKlijenata prikazKlijenata;
 	private PrikazKorisnika prikazKorisnika;
 	private OdjavaService odjavaService;
+	private PostavkeService postavkeService;
 	
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
@@ -39,6 +40,8 @@ public class UnitOfWork {
 		prikazKlijenata = new PrikazKlijenata();
 		prikazKorisnika = new PrikazKorisnika();
 		odjavaService = new OdjavaService();
+		postavkeService = new PostavkeService();
+		
 	}
 
 	public PrijavaService getPrijavaService() {
@@ -152,6 +155,14 @@ public class UnitOfWork {
 			odjavaService = new OdjavaService();
 		
 		return odjavaService;
+	}
+
+	public PostavkeService getPostavkeService() 
+	{
+		if(postavkeService == null)
+			postavkeService = new PostavkeService();
+		
+		return postavkeService;
 	}
 	
 	

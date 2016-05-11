@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-May-2016 22:43:41 by noke -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.app.iTravel.DBModels.Postavke" table="postavke" catalog="tim12">
+        <id name="postavkaId" type="int">
+            <column name="PostavkaID" />
+            <generator class="assigned" />
+        </id>
+        <property name="nazivPostavke" type="string">
+            <column name="NazivPostavke" length="45" />
+        </property>
+        <property name="omoguceno" type="java.lang.Boolean">
+            <column name="Omoguceno" />
+        </property>
+    </class>
+</hibernate-mapping>
