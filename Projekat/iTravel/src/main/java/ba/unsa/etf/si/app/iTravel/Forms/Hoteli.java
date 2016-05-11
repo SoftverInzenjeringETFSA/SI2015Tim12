@@ -208,7 +208,7 @@ public class Hoteli {
 						Hoteli window = new Hoteli();
 						window.frmPrikazHotela.setVisible(true);
 					} catch (Exception e) {
-						e.printStackTrace();
+						UnitOfWork.logger.error(e);
 					}
 				}
 			});

@@ -220,7 +220,7 @@ public class Postavke {
 					Postavke window = new Postavke();
 					window.frmPostavke.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

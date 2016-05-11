@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -32,7 +33,7 @@ public class Rezervacije {
 					Rezervacije window = new Rezervacije();
 					window.frmPrikazRezervacija.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
@@ -168,7 +169,7 @@ public class Rezervacije {
 					Rezervacije window = new Rezervacije();
 					window.frmPrikazRezervacija.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

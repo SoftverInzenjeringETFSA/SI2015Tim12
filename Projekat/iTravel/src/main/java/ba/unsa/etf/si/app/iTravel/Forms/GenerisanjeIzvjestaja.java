@@ -272,7 +272,7 @@ public class GenerisanjeIzvjestaja {
 					GenerisanjeIzvjestaja window = new GenerisanjeIzvjestaja();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
