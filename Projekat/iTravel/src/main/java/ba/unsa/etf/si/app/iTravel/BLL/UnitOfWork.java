@@ -16,7 +16,7 @@ public class UnitOfWork {
 	private KorisnickiRacunService korisnickiRacunService;
 	private OsobaService osobaService;
 	private DestinacijeService destinacijeService;
-	private RezervacijeService kreiranjeRezervacijaService;
+	private RezervacijeService rezervacijaService;
 	private RacunService racunService;
 	private RolaService rolaService;
 	private PrikazKlijenata prikazKlijenata;
@@ -34,7 +34,7 @@ public class UnitOfWork {
 		osobaService = new OsobaService();
 		korisnickiRacunService = new KorisnickiRacunService();
 		destinacijeService = new DestinacijeService();
-		kreiranjeRezervacijaService = new RezervacijeService();
+		rezervacijaService = new RezervacijeService();
 		racunService = new RacunService();
 		rolaService = new RolaService();
 		prikazKlijenata = new PrikazKlijenata();
@@ -112,10 +112,10 @@ public class UnitOfWork {
 		
 		return destinacijeService;
 	}
-	public RezervacijeService getKreiranjeRezervacijaService(){
-		if(kreiranjeRezervacijaService==null)
-			kreiranjeRezervacijaService=new RezervacijeService();
-		return kreiranjeRezervacijaService;
+	public RezervacijeService getRezervacijaService(){
+		if(rezervacijaService==null)
+			rezervacijaService=new RezervacijeService();
+		return rezervacijaService;
 	}
 	
 	public RacunService getRacunService(){

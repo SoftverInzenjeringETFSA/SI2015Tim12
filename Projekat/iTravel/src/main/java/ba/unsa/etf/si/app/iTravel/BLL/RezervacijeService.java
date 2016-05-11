@@ -100,6 +100,14 @@ public class RezervacijeService {
 		return k;
 	}
 	
+	//dok cekam OsobaService
+	public Osoba dajOsobuPoId(int idOsoba){
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		listaKriterija.add(Restrictions.eq("osobaId", idOsoba));
+		List<Osoba> k=baza.getOsobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
+		return k.get(0);
+	}
+	
 	public Rezervacija dajRezervaciju(int idRezervacije){
 		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
 		listaKriterija.add(Restrictions.eq("rezervacijaId", idRezervacije));
@@ -187,4 +195,45 @@ public class RezervacijeService {
 		r=baza.getRezervacijaRepository().ucitajIzBazePoKriteriju(listaKriterija);
 		return r;
 	}
+	
+	public ArrayList<Rezervacija> dajSveRezervacije(){
+		ArrayList<Rezervacija> r=new ArrayList<Rezervacija>();
+		r=(ArrayList<Rezervacija>) baza.getRezervacijaRepository().ucitajSveIzBaze();
+		return r;
+	}
+	
+	//dok cekam rezervisaniTerminSobaService
+	public ArrayList<RezervisaniTerminSoba> dajRezervisaneTermineZaRezervaciju(int idRezervacije){
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		listaKriterija.add(Restrictions.eq("rezervisaniTerminId", idRezervacije));
+		ArrayList<RezervisaniTerminSoba> r=new ArrayList<RezervisaniTerminSoba>();
+		r=(ArrayList<RezervisaniTerminSoba>)baza.getRezervisaniTerminSobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
+		return r;
+	}
+	
+	//dok cekam SobaService
+	public Soba dajSobu(int idSobe){
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		listaKriterija.add(Restrictions.eq("sobaId", idSobe));
+		Soba r=new Soba();
+		r=baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterija).get(0);
+		HoteliService hs=new HoteliService();		
+		Hotel h=hs.VratiHotelId(r.getHotel().getHotelId());
+		r.setHotel(h);
+		return r;
+	}
+	
+	public boolean potvrdiRezervaciju(int idRezervacije){
+		try{
+			Rezervacija rez= dajRezervaciju(idRezervacije);
+			Racun racun= rez.getRacuns().iterator().next();
+			racun.setDatumUplate(new Date());
+			baza.getRacunRepository().sacuvajIliAzurirajUBazu(racun);
+			return true;
+		}catch(Exception e){
+			UnitOfWork.logger.error(e);
+			return false;
+		}
+	}
+		
 }

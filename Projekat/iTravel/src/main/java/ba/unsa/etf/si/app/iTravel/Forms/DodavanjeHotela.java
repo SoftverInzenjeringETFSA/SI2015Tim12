@@ -287,7 +287,7 @@ public class DodavanjeHotela {
 					DodavanjeHotela window = new DodavanjeHotela();
 					window.frmUnosHotela.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

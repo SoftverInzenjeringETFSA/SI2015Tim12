@@ -295,7 +295,7 @@ public class ModifikacijaKorisnika {
 					ModifikacijaKorisnika window = new ModifikacijaKorisnika();
 					window.frmModifikacijaKorisnika.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

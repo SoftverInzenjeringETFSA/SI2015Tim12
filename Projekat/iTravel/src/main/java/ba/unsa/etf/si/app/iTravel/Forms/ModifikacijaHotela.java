@@ -242,7 +242,7 @@ public class ModifikacijaHotela {
 					ModifikacijaHotela window = new ModifikacijaHotela();
 					window.frmModifikacijaHotela.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

@@ -235,7 +235,7 @@ public class Korisnici {
 					Korisnici window = new Korisnici();
 					window.frmPrikazKorisnika.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});

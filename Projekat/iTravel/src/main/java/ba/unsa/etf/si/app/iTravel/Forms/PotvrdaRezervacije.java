@@ -192,7 +192,7 @@ public class PotvrdaRezervacije {
 					PotvrdaRezervacije window = new PotvrdaRezervacije();
 					window.frmPotvrdaRezervacije.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
