@@ -27,6 +27,16 @@ public class DestinacijeService {
 		return dest;
 	} 
 	
+	public Destinacija VratiDestinacijuPoId(int idDestinacije){
+		Destinacija dest=new Destinacija();
+
+		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
+		listaKriterjona.add(Restrictions.eq("destinacijaId",idDestinacije));
+		
+		dest=baza.getDestRepository().ucitajIzBazePoKriteriju(listaKriterjona).get(0);
+		return dest;
+	} 
+	
 	public ArrayList<Destinacija> DajSveDestinacije(){
 		ArrayList<Destinacija> destinacije=new ArrayList<Destinacija>();
 		destinacije.addAll((ArrayList<Destinacija>) baza.getDestRepository().ucitajSveIzBaze());

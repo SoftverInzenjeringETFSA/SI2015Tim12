@@ -282,7 +282,7 @@ public class Rezervacije {
 				RezervisaniTerminSoba termin=uow.getRezervacijaService().dajRezervisaneTermineZaRezervaciju(rezervacije.get(i).getRezervacijaId()).get(0);
 				Soba s= uow.getRezervacijaService().dajSobu(termin.getSoba().getSobaId());
 				Hotel h=s.getHotel();
-				Destinacija d=uow.getDestinacijeService().VratiDestinaciju(h.getDestinacija().getDestinacijaId());
+				Destinacija d=uow.getDestinacijeService().VratiDestinacijuPoId(h.getDestinacija().getDestinacijaId());
 				String status="Nije potvdjeno";
 				if(r.getDatumUplate()!=null) status="Potvrdjeno";
 				Object[] row={d.getNaziv(), h.getNaziv(),osoba.getIme(),osoba.getPrezime(),r.getCijena(),termin.getDatumPocetak(),termin.getDatumKraj(),rezervacije.get(i).getUkljucenPrevoz(),status,rezervacije.get(i).getRezervacijaId()};
