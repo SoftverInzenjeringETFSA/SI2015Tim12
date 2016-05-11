@@ -63,7 +63,7 @@ public class Prijava {
 		}
 	}	
 	
-	public static void PrikaziFormu() {
+	public void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

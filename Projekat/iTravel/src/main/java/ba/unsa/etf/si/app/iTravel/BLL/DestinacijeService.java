@@ -7,6 +7,8 @@ import org.hibernate.criterion.Restrictions;
 
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
+import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
+import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
 public class DestinacijeService {
 	DBContext baza;
@@ -25,21 +27,35 @@ public class DestinacijeService {
 		return dest;
 	} 
 	
-	public Destinacija VratiDestinaciju(int idDest){
+	public Destinacija VratiDestinacijuPoId(int idDestinacije){
 		Destinacija dest=new Destinacija();
 
 		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("destinacijaId", idDest));
+		listaKriterjona.add(Restrictions.eq("destinacijaId",idDestinacije));
 		
 		dest=baza.getDestRepository().ucitajIzBazePoKriteriju(listaKriterjona).get(0);
 		return dest;
 	} 
-	
 	
 	public ArrayList<Destinacija> DajSveDestinacije(){
 		ArrayList<Destinacija> destinacije=new ArrayList<Destinacija>();
 		destinacije.addAll((ArrayList<Destinacija>) baza.getDestRepository().ucitajSveIzBaze());
 		return destinacije;
 	}
+	public void UbaciDestinacijuUBAzu(Destinacija destinacija) {
+		baza.getDestRepository().spasiUBazu(destinacija);
+
+	}
 	
+	public void ObrisiJednuDestinaciju (Destinacija destinacija) {
+
+		baza.getDestRepository().obrisiIzBaze(destinacija);
+	}
+
+	public void ObrisiSveDestinacije()
+	{
+
+		baza.getDestRepository().obrisiSveIzBaze();
+	}
+
 }
