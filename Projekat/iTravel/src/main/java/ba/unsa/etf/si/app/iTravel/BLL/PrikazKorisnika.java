@@ -27,16 +27,31 @@ public class PrikazKorisnika {
 	Object[][] red=new Object[os.size()][9];
 	for(int i=0;i<os.size();i++)
 	{
+		if(os.get(i).getOsoba()==null)
+		{
+			red[i][0]="";
+			red[i][1]="";
+			red[i][2]="";
+			red[i][3]="";
+			red[i][4]="";
+			red[i][5]="";
+			red[i][6]="";	
+		}
+		else	{	
 		
 	red[i][0]=os.get(i).getOsoba().getIme();
 	red[i][1]=os.get(i).getOsoba().getPrezime();
 	red[i][2]=os.get(i).getOsoba().getJmbg();
 	red[i][3]=os.get(i).getOsoba().getBrojLicneKarte();
-	red[i][4]=os.get(i).getOsoba().getAdresa();;
+	red[i][4]=os.get(i).getOsoba().getAdresa();
 	red[i][5]=os.get(i).getOsoba().getBrojTelefona();
 	red[i][6]=os.get(i).getOsoba().getEmail();
+	}
+		
 	red[i][7]=os.get(i).getUsername();
+		
 Set<Korisnickiracunxrola> skupRola=	os.get(i).getKorisnickiracunxrolas();
+
 for(Iterator<Korisnickiracunxrola> it=skupRola.iterator();
 	it.hasNext();)
 {
