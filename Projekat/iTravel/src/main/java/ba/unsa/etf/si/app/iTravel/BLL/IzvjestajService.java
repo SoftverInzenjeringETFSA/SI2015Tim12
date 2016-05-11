@@ -43,7 +43,7 @@ public class IzvjestajService {
 				rez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterijona2);
 				for(RezervisaniTerminSoba r: rez)
 				{
-					if( date.before(r.getDatumPocetak()) && r.getDatumKraj().before(date2))
+					if( date.getTime()< r.getDatumPocetak().getTime() && r.getDatumKraj().getTime()<date2.getTime())
 					
 						suma++;
 				}
@@ -73,7 +73,7 @@ public class IzvjestajService {
 		listaKriterijona.add(Restrictions.eq("hotel", (Hotel)IDhotel));
 		List<Soba> sobe= new ArrayList<Soba>();
 		sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterijona);
-		System.out.print(date.getTime());
+		
 
 		int suma=0;
 		for(Soba s: sobe)
