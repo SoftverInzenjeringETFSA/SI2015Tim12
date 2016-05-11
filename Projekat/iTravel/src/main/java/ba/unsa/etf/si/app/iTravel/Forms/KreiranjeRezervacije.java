@@ -502,7 +502,7 @@ public class KreiranjeRezervacije {
 			Hotel h=new Hotel();
 			h=uow.getHoteliService().VratiHotelId(idHotel);
 			
-	     	ArrayList<Soba>	sobe=uow.getKreiranjeRezervacijaService().dajSlobodneSobeZaHotel(h,odDatuma,doDatuma);
+	     	ArrayList<Soba>	sobe=uow.getRezervacijaService().dajSlobodneSobeZaHotel(h,odDatuma,doDatuma);
 	    	
 			DefaultTableModel model=(DefaultTableModel) table_Sobe.getModel();
 			model.setRowCount(0);
@@ -575,7 +575,7 @@ public class KreiranjeRezervacije {
 			int id=Integer.parseInt(table_Sobe.getModel().getValueAt(row, 4).toString());
 			soba.setSobaId(id);
 
-			boolean provjera=uow.getKreiranjeRezervacijaService().kreirajRezervacijuSaSobom(rezerv,soba, odDatuma, doDatuma, idAgenta, (int)Double.parseDouble(cijena.getText()));
+			boolean provjera=uow.getRezervacijaService().kreirajRezervacijuSaSobom(rezerv,soba, odDatuma, doDatuma, idAgenta, (int)Double.parseDouble(cijena.getText()));
 			if(provjera)
 				JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);
 			else
