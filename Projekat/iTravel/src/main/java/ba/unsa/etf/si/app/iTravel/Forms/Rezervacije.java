@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
+import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -121,17 +122,80 @@ public class Rezervacije {
 		menuBar.add(mnMeni);
 		
 		JMenuItem mntmPoetna = new JMenuItem("Početna");
+		mntmPoetna.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 				
+				if(UserContext.getInstance().getRoleID() == 1){
+					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					frmPrikazRezervacija.setVisible(false);
+					forma.PrikaziFormu();
+				}
+				else if(UserContext.getInstance().getRoleID() == 2){
+					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					frmPrikazRezervacija.setVisible(false);
+					forma.PrikaziFormu();
+				}
+				else if(UserContext.getInstance().getRoleID() == 3){
+					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					frmPrikazRezervacija.setVisible(false);
+					forma.PrikaziFormu();
+				}
+			}
+		});
 		mnMeni.add(mntmPoetna);
 		
 		JMenuItem mntmHoteli = new JMenuItem("Hoteli");
+		mntmHoteli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 				
+				
+				Hoteli forma = new Hoteli();
+				frmPrikazRezervacija.setVisible(false);
+				forma.PrikaziFormu();
+			}
+		});
 		mnMeni.add(mntmHoteli);
 		
-		JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
-		mnMeni.add(mntmKlijenti);
 		
-		JMenuItem mntmKorisnici = new JMenuItem("Korisnici");
-		mnMeni.add(mntmKorisnici);
-		
+		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
+			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
+			mntmKlijenti.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					java.awt.Window win[] = java.awt.Window.getWindows(); 
+					for(int i=0;i<win.length;i++){ 
+					win[i].dispose(); 
+					} 				
+						Klijenti forma = new Klijenti();
+						frmPrikazRezervacija.setVisible(false);
+						forma.PrikaziFormu();	
+					
+				}
+			});
+				mnMeni.add(mntmKlijenti);
+			}
+			
+			if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
+			JMenuItem mntmKorisnici = new JMenuItem("Korisnici");
+			mntmKorisnici.addActionListener(new ActionListener() {
+						
+				public void actionPerformed(ActionEvent e) {
+					java.awt.Window win[] = java.awt.Window.getWindows(); 
+					for(int i=0;i<win.length;i++){ 
+					win[i].dispose(); 
+					} 				
+					Korisnici forma = new Korisnici();
+					frmPrikazRezervacija.setVisible(false);
+					forma.PrikaziFormu();				
+				}
+			});
+			mnMeni.add(mntmKorisnici);
+			}
 		JMenu mnRaun = new JMenu("Račun");
 		menuBar.add(mnRaun);
 		

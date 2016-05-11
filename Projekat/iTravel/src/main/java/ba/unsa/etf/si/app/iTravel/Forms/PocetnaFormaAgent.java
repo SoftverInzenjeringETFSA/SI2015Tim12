@@ -24,7 +24,7 @@ public class PocetnaFormaAgent {
 	/**
 	 * Launch the application.
 	 */
-	public static void PrikaziFormu() {
+	public void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -55,6 +55,12 @@ public class PocetnaFormaAgent {
 		frame.setLocationRelativeTo(null);
 		
 		JButton btnHoteliUPonudi = new JButton("Hoteli u ponudi");
+		btnHoteliUPonudi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Hoteli forma = new Hoteli();
+				forma.PrikaziFormu();
+			}
+		});
 		btnHoteliUPonudi.setBounds(38, 81, 350, 35);
 		frame.getContentPane().add(btnHoteliUPonudi);
 		

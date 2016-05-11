@@ -24,7 +24,7 @@ public class PocetnaFormaSupervizor {
 	/**
 	 * Launch the application.
 	 */
-	public static void PrikaziFormu() {
+	public void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
