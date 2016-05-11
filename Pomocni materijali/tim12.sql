@@ -130,7 +130,7 @@ CREATE TABLE `korisnicki_racun` (
 
 LOCK TABLES `korisnicki_racun` WRITE;
 /*!40000 ALTER TABLE `korisnicki_racun` DISABLE KEYS */;
-INSERT INTO `korisnicki_racun` VALUES (1,'kenanprses','Sitim12',NULL),(2,'kagent','Sitim12',NULL),(3,'ksupervizor','Sitim12',NULL),(5,'Tkorisnik','Tsifra',7),(6,'neko1','sifra1',8);
+INSERT INTO `korisnicki_racun` VALUES (1,'kenanprses','Sitim12',1),(2,'kagent','Sitim12',1),(3,'ksupervizor','Sitim12',1),(5,'Tkorisnik','Tsifra',7),(6,'neko1','sifra1',8);
 /*!40000 ALTER TABLE `korisnicki_racun` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,6 +195,31 @@ LOCK TABLES `osoba` WRITE;
 /*!40000 ALTER TABLE `osoba` DISABLE KEYS */;
 INSERT INTO `osoba` VALUES (1,'Kenan','Prses','1995-01-06','Test','test@test.test','222-222-222',123456,'1234A',NULL),(2,'Sahin','Repuh','2016-05-10','fsfsfds','saijdoiaj@email.com','45645',156156,'454dsa',NULL),(3,'Treci','Trecko','2016-05-11','nesto','valjdaMail','safas',242432,'safa',NULL),(4,'Tim','12','2016-05-10','fsfsfds','saijdoiaj@vrucimail.com','45645',156454156,'454dsa',NULL),(5,'12','Tim','2016-05-10','tel','email@email.com','45645',1561564556,'454dsa',NULL),(7,'TIme','TPrezime',NULL,'TAdresa','Temail','062062062',123123123,'','TB124'),(8,'Time1','Tprezim1',NULL,'asdsad','dkamksond','561565',123321123,'','231KKK'),(9,'Test','test',NULL,'sdasd','kodkasod','51321',321321,'','sda51'),(10,'Test','test',NULL,'sdasd','kodkasod','51321',321321,'','sda51'),(11,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da'),(12,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da'),(13,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da');
 /*!40000 ALTER TABLE `osoba` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `postavke`
+--
+
+DROP TABLE IF EXISTS `postavke`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `postavke` (
+  `PostavkaID` int(11) NOT NULL,
+  `NazivPostavke` varchar(45) DEFAULT NULL,
+  `Omoguceno` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`PostavkaID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `postavke`
+--
+
+LOCK TABLES `postavke` WRITE;
+/*!40000 ALTER TABLE `postavke` DISABLE KEYS */;
+INSERT INTO `postavke` VALUES (1,'Hoteli',''),(2,'Rezervacije',''),(3,'Klijenti',''),(4,'Korisnici','\0'),(5,'Izvještaji','\0');
+/*!40000 ALTER TABLE `postavke` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -359,4 +384,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-10  0:52:28
+-- Dump completed on 2016-05-11  3:39:33
