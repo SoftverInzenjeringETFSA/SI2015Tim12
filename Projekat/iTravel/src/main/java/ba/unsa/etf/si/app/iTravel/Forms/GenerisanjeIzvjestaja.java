@@ -29,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.beans.PropertyChangeEvent;
 
@@ -197,6 +198,7 @@ public class GenerisanjeIzvjestaja {
 					JOptionPane.showMessageDialog( null, "Datumi se moraju odabrati!");
 				}
 				
+				
 				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				List<Destinacija> destinacija= uow.getIzvjestajService().VratiListuDestinacija();
 				
@@ -206,7 +208,7 @@ public class GenerisanjeIzvjestaja {
 					List<Hotel> hotel= uow.getIzvjestajService().VratiListuHotela(d);
 					for(Hotel i: hotel)
 					{
-						Integer rezervacija= uow.getIzvjestajService().brojIznajmljenihSoba(i, dateChooser.getDate(), dateChooser_1.getDate());
+						Integer rezervacija= uow.getIzvjestajService().brojIznajmljenihSoba(i, dateChooser_2.getDate(), dateChooser_3.getDate());
 						String hot= i.getNaziv();
 						Integer broj_soba= uow.getIzvjestajService().ukupanBrojSobaNaRaspolaganju(i);
 						Integer broj_iznajmljenih_soba= uow.getIzvjestajService().brojIznajmljenihSoba(i, dateChooser_2.getDate(), dateChooser_3.getDate());

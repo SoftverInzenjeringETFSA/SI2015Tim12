@@ -67,13 +67,13 @@ public class IzvjestajService {
 		return sobe.size();
 	}
 	
-	public int brojIznajmljenihSoba(Hotel IDhotel,java.util.Date date, java.util.Date date2)
+	public int brojIznajmljenihSoba(Hotel IDhotel,Date date, Date date2)
 	{
 		ArrayList<Criterion> listaKriterijona = new ArrayList<Criterion>();
 		listaKriterijona.add(Restrictions.eq("hotel", (Hotel)IDhotel));
 		List<Soba> sobe= new ArrayList<Soba>();
 		sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterijona);
-		
+		System.out.print(date.getTime());
 
 		int suma=0;
 		for(Soba s: sobe)
@@ -85,11 +85,13 @@ public class IzvjestajService {
 			
 			for(RezervisaniTerminSoba rs: sobeRez)
 			{
-				if(rs.getAktivan()==true && date.before(rs.getDatumPocetak()) && rs.getDatumKraj().before(date2))
-					suma++;
+				if(rs.getAktivan()==true)
+					if(date.getTime()< rs.getDatumPocetak().getTime())
+						if(rs.getDatumKraj().getTime()< date2.getTime())
+							suma++;
 			}
+			listaKriterijona1.clear();
 		}
-		
 		
 		return suma;
 	}
@@ -105,7 +107,6 @@ public class IzvjestajService {
 	
 	public String VratiNazivHotela(Integer hotelid)
 	{
-		
 		Hotel h= new Hotel();
 		h = baza.getHoteliRepo().ucitajIzBaze(hotelid);
 		return h.getNaziv();
