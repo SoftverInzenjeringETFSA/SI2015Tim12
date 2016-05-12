@@ -47,6 +47,7 @@ public class IzvjestajTest {
 		
 		Date d= new Date(2016,3,1);
 		Date d1= new Date(2016,4,31);
+		//Nesto ne fercera
 		assertEquals(0, uow.getIzvjestajService().brojIznajmljenihSoba(hotel.get(4), d, d1));
 		
 	}
@@ -66,7 +67,7 @@ public class IzvjestajTest {
 		uow= new UnitOfWork();
 		List<Hotel> hotel= new ArrayList<Hotel>();
 		hotel= uow.getIzvjestajService().VratiListuHotela();
-		assertEquals(uow.getIzvjestajService().VratiNazivHotela(0), hotel.get(0).getNaziv());
+		assertEquals(uow.getIzvjestajService().VratiNazivHotela(1), hotel.get(0).getNaziv());
 		assertEquals(uow.getIzvjestajService().VratiNazivHotela(3), hotel.get(2).getNaziv());
 	}
 

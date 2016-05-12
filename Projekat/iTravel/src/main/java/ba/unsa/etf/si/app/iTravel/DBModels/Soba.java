@@ -36,6 +36,7 @@ public class Soba implements java.io.Serializable {
 		this.cijenaVisoka = cijenaVisoka;
 		this.cijenaNiska = cijenaNiska;
 	}
+	
 
 	public Soba(int sobaId, Hotel hotel, Integer brojKreveta, String opis, int cijenaVisoka, int cijenaNiska,
 			Set<RezervisaniTerminSoba> rezervisaniTerminSobas) {
