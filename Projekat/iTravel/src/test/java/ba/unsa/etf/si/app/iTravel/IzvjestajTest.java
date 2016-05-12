@@ -90,7 +90,7 @@ public class IzvjestajTest {
 		assertEquals("Holiday", hotel.get(0).getNaziv());
 		assertEquals("Twist Tower", hotel.get(2).getNaziv());
 		assertEquals("Love", hotel.get(5).getNaziv());
-		
+		//Samo zbog commit
 	}
 
 	@Test
