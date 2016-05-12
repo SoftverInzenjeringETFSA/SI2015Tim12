@@ -13,7 +13,7 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 
 public class IzvjestajTest {
-	public static UnitOfWork uow;
+	public UnitOfWork uow;
 
 	
 	@Test

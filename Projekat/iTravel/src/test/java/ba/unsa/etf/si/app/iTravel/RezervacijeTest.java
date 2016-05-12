@@ -19,7 +19,7 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
 public class RezervacijeTest {
 
-	public static UnitOfWork uow;
+	public UnitOfWork uow;
 	
 	@Test
 	public void testDajSobeZaHotel() {
@@ -98,7 +98,7 @@ public class RezervacijeTest {
 		
 	}
 
-	@Test(expected=java.lang.AssertionError.class)
+	@Test(expected= java.lang.NullPointerException.class)
 	public void testRezervisiSobu() {
 		Soba soba= new Soba();
 		soba.setSobaId(17);
