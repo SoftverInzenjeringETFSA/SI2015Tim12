@@ -5,22 +5,55 @@ import java.util.List;
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
 import ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola;
+import ba.unsa.etf.si.app.iTravel.Forms.ModifikacijaHotela;
 
 public class KorisnickiRacunService
 {
 	DBContext baza = new DBContext();
 	
-	public KorisnickiRacun KreirajKorisnickiRacun(KorisnickiRacun korisnickiRacun)
+	public KorisnickiRacun KreirajKorisnickiRacun(KorisnickiRacun korisnickiRacun, boolean modifikacija)
 	{
-		return baza.getKorisnickiRacunRepository().spasiUBazu(korisnickiRacun);
+		if(modifikacija)
+		{
+			KorisnickiRacun postojeciKorisnickiRac = baza.getKorisnickiRacunRepository()
+														 .ucitajIzBaze(korisnickiRacun.getKorisnickiRacunId());
+			
+			postojeciKorisnickiRac.setUsername(korisnickiRacun.getUsername());
+			
+			return baza.getKorisnickiRacunRepository().sacuvajIliAzurirajUBazu(postojeciKorisnickiRac);
+		}
+		else
+		{
+			return baza.getKorisnickiRacunRepository().spasiUBazu(korisnickiRacun);
+		}
+		
 	}
 	
-	public Korisnickiracunxrola KreirajRoluZaKorisnika(Korisnickiracunxrola korisnickiracunxrola)
+	public Korisnickiracunxrola KreirajRoluZaKorisnika(Korisnickiracunxrola korisnickiracunxrola, boolean modifikacija)
 	{
-		return baza.getKorisnickiRacunXRolaRepository().spasiUBazu(korisnickiracunxrola);
+		if(modifikacija)
+		{
+			Korisnickiracunxrola postojecaKorisnickaRola = baza.getKorisnickiRacunXRolaRepository()
+															   .ucitajIzBaze(korisnickiracunxrola.getKorisnickiRacunXrolaId());
+			
+			postojecaKorisnickaRola.setRola(korisnickiracunxrola.getRola());
+			
+			return baza.getKorisnickiRacunXRolaRepository().sacuvajIliAzurirajUBazu(postojecaKorisnickaRola);
+		}
+		else
+		{
+			return baza.getKorisnickiRacunXRolaRepository().spasiUBazu(korisnickiracunxrola);
+			
+		}
+
 	}
 	
-	public String Validiraj(KorisnickiRacun korisnickiRacun)
+	public KorisnickiRacun dajKorisnika(int id)
+	{
+		return baza.getKorisnickiRacunRepository().ucitajIzBaze(id);
+	}
+	
+	public String Validiraj(KorisnickiRacun korisnickiRacun, boolean modifikacija)
 	{
 		String rezultat = "";
 		
@@ -28,7 +61,7 @@ public class KorisnickiRacunService
 		{
 			rezultat = rezultat + "Polje username ne smije biti prazno<br />";
 		}
-		if(korisnickiRacun.getPassword().isEmpty())
+		if(korisnickiRacun.getPassword().isEmpty() && !modifikacija)
 		{
 			rezultat = rezultat + "Polje šifra ne smije biti prazno<br />";
 		}
@@ -37,8 +70,11 @@ public class KorisnickiRacunService
 	
 		for (KorisnickiRacun kr : listaKorisnika) 
 		{
+			if(modifikacija && korisnickiRacun.getKorisnickiRacunId() != null)
+				continue;
+			
 			if(kr.getUsername().equals(korisnickiRacun.getUsername()))
-			{
+			{				
 				rezultat = rezultat + "Uneseni username već postoji molimo unesite drugi!<br />";
 				break;
 			}		

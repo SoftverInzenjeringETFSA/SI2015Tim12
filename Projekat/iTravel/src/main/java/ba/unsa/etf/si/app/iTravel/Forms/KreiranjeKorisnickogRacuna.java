@@ -1,6 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.Forms;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.Font;
-import java.awt.Stroke;
 
 import javax.swing.SwingConstants;
 
@@ -21,6 +19,7 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola;
 import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
 import ba.unsa.etf.si.app.iTravel.DBModels.Rola;
 
+import javax.rmi.CORBA.Tie;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -28,11 +27,20 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 
 public class KreiranjeKorisnickogRacuna {
 
 	private UnitOfWork uow = new UnitOfWork();
+	
+	private boolean modifikacija = false;
+	
+	private KorisnickiRacun korisnickiRacun;
+	//private Rola rola;
+	private Osoba osoba;
+	private Korisnickiracunxrola korisnickiracunxrola;
 	
 	private JFrame frmKreirajiKorisnika;
 	private JTextField textField;
@@ -45,6 +53,8 @@ public class KreiranjeKorisnickogRacuna {
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JComboBox comboBox1;
+	private JLabel lblUnesitePodatkeO;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -53,8 +63,9 @@ public class KreiranjeKorisnickogRacuna {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					KreiranjeKorisnickogRacuna window = new KreiranjeKorisnickogRacuna();
-					window.frmKreirajiKorisnika.setVisible(true);
+					//KreiranjeKorisnickogRacuna window = new KreiranjeKorisnickogRacuna();
+					frmKreirajiKorisnika.setVisible(true);
+					//window.frmKreirajiKorisnika.setVisible(true);
 				} catch (Exception e) {
 					UnitOfWork.logger.error(e);
 				}
@@ -65,16 +76,50 @@ public class KreiranjeKorisnickogRacuna {
 	/**
 	 * Create the application.
 	 */
-	public KreiranjeKorisnickogRacuna() {
+	public KreiranjeKorisnickogRacuna()
+	{
 		initialize();
+	}
+	
+	public KreiranjeKorisnickogRacuna(int idKorisnika)
+	{
+		modifikacija = true;
+		
+		this.korisnickiRacun = uow.getKorisnickiRacunService().dajKorisnika(idKorisnika);
+		
+		//this.korisnickiRacun = korisnickiRacun;
+		this.osoba = korisnickiRacun.getOsoba();
+		
+		Set<Korisnickiracunxrola> skupRola=	korisnickiRacun.getKorisnickiracunxrolas();
+
+		for(Iterator<Korisnickiracunxrola> it=skupRola.iterator();
+			it.hasNext();)
+		{
+			Korisnickiracunxrola r = it.next();
+			if(r!=null)
+			{
+				this.korisnickiracunxrola = r;
+				break;
+			}
+		}
+		
+		initialize();		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmKreirajiKorisnika = new JFrame();
-		frmKreirajiKorisnika.setTitle("Kreiranje korisni\u010Dkog naloga");
+		
+		if(modifikacija == true)
+			frmKreirajiKorisnika.setTitle("Promjena korisničkog naloga");
+		else
+			frmKreirajiKorisnika.setTitle("Kreiranje korisničkog naloga");
+		
 		frmKreirajiKorisnika.setBounds(100, 100, 353, 496);
 		frmKreirajiKorisnika.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmKreirajiKorisnika.setLocationRelativeTo(null);
@@ -115,11 +160,15 @@ public class KreiranjeKorisnickogRacuna {
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_8.setBounds(25, 339, 99, 14);
 		
-		JButton btnNewButton = new JButton("Kreiraj");
+		if(modifikacija == true)
+			btnNewButton = new JButton("Ažuriraj");
+		else
+			btnNewButton = new JButton("Kreiraj");
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Osoba osoba = new Osoba();
+				Osoba novaOsoba = new Osoba();
 				
 				String ime = textField.getText();
 				String prezime = textField_1.getText();
@@ -134,59 +183,73 @@ public class KreiranjeKorisnickogRacuna {
 				Integer rolaID = comboBox1.getSelectedIndex();
 				rolaID = rolaID + 1;
 				
-				osoba.setIme(ime);
-				osoba.setPrezime(prezime);
-				osoba.setAdresa(adresa);
-				osoba.setBrojLicneKarte(brojLicne);
-				osoba.setBrojPasosa("");
-				osoba.setBrojTelefona(brojTelefona);
-				osoba.setEmail(email);
+				if(modifikacija)
+					novaOsoba.setOsobaId(osoba.getOsobaId());
+				
+				novaOsoba.setIme(ime);
+				novaOsoba.setPrezime(prezime);
+				novaOsoba.setAdresa(adresa);
+				novaOsoba.setBrojLicneKarte(brojLicne);
+				novaOsoba.setBrojPasosa("");
+				novaOsoba.setBrojTelefona(brojTelefona);
+				novaOsoba.setEmail(email);
 				
 				if(jmb.isEmpty() == false)
-					osoba.setJmbg(Integer.parseInt(jmb));
+					novaOsoba.setJmbg(Integer.parseInt(jmb));
 				
-				String porukaValidacije = uow.getOsobaService().Validiraj(osoba);
+				String porukaValidacije = uow.getOsobaService().Validiraj(novaOsoba);
 				
 				if(porukaValidacije == "")
 				{
 					// Ako se uspije kreirati osoba idi dalje da kreiras korisnicki racun
-					if(uow.getOsobaService().KreirajOsobu(osoba).getOsobaId() != null)
+					if(uow.getOsobaService().KreirajOsobu(novaOsoba, modifikacija).getOsobaId() != null)
 					{						
-						KorisnickiRacun korisnickiRacun = new KorisnickiRacun();
+						KorisnickiRacun noviLorisnickiRacun = new KorisnickiRacun();
 						
-						korisnickiRacun.setOsoba(osoba);
-						korisnickiRacun.setUsername(username);
-						korisnickiRacun.setPassword(password);
+						if(modifikacija)
+							noviLorisnickiRacun.setKorisnickiRacunId(korisnickiRacun.getKorisnickiRacunId());
 						
-						String porukaValidacijeRacuna = uow.getKorisnickiRacunService().Validiraj(korisnickiRacun);
+						noviLorisnickiRacun.setOsoba(novaOsoba);
+						noviLorisnickiRacun.setUsername(username);
+						noviLorisnickiRacun.setPassword(password);
+						
+						String porukaValidacijeRacuna = uow.getKorisnickiRacunService().Validiraj(korisnickiRacun, modifikacija);
 						
 						if(porukaValidacijeRacuna == "")
 						{		
 							// Ako se kreira korisnicki racun idi kreiraj rekord za rolu
 							if(uow.getKorisnickiRacunService().
-									KreirajKorisnickiRacun(korisnickiRacun).
+									KreirajKorisnickiRacun(korisnickiRacun,  modifikacija).
 									getKorisnickiRacunId() != null)
 							{
-								Korisnickiracunxrola korisnickiracunxrola = new Korisnickiracunxrola();
+								Korisnickiracunxrola novaKorisnickiracunxrola = new Korisnickiracunxrola();
 								
-								korisnickiracunxrola.setKorisnickiRacun(korisnickiRacun);
+								novaKorisnickiracunxrola.setKorisnickiRacunXrolaId(korisnickiracunxrola.getKorisnickiRacunXrolaId());
 								
 								// Dobavi rolu
 								Rola rola = uow.getRolaService().dajRolu(rolaID);
 								
-								korisnickiracunxrola.setRola(rola);
+								novaKorisnickiracunxrola.setRola(rola);
 								
 								// Kreiranje rekorda za rolu
 								if(uow.getKorisnickiRacunService()
-										.KreirajRoluZaKorisnika(korisnickiracunxrola)
+										.KreirajRoluZaKorisnika(novaKorisnickiracunxrola,  modifikacija)
 										.getKorisnickiRacunXrolaId() != null)
 								{
-									JOptionPane.showMessageDialog(null,
-											"Uspješno kreiran korisnički račun", "Obavijest",
-											JOptionPane.INFORMATION_MESSAGE);
-									
+									if(modifikacija)
+									{
+										JOptionPane.showMessageDialog(null,
+												"Uspješno ažuriran korisnički račun", "Obavijest",
+												JOptionPane.INFORMATION_MESSAGE);
+									}
+									else
+									{
+										JOptionPane.showMessageDialog(null,
+												"Uspješno kreiran korisnički račun", "Obavijest",
+												JOptionPane.INFORMATION_MESSAGE);
+									}
+							
 									frmKreirajiKorisnika.dispose();
-									// Prikaži formu korisnici
 									
 								}
 							}
@@ -263,9 +326,22 @@ public class KreiranjeKorisnickogRacuna {
 		frmKreirajiKorisnika.getContentPane().add(textField);
 		frmKreirajiKorisnika.getContentPane().add(btnNewButton);
 		
-		JLabel lblUnesitePodatkeO = new JLabel("Unesite podatke o novom korisniku");
+		if(modifikacija == true)
+		{
+			lblUnesitePodatkeO = new JLabel("Promjena podataka korisnika");
+			lblUnesitePodatkeO.setBounds(90, 21, 231, 14);
+		}
+		else
+		{
+			lblUnesitePodatkeO = new JLabel("Unesite podatke o novom korisniku");
+			lblUnesitePodatkeO.setBounds(53, 21, 231, 14);
+		}
+
+		
+		
+		
 		lblUnesitePodatkeO.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblUnesitePodatkeO.setBounds(53, 21, 231, 14);
+		
 		frmKreirajiKorisnika.getContentPane().add(lblUnesitePodatkeO);
 		
 		JLabel lblifra = new JLabel("\u0160ifra:");
@@ -279,10 +355,24 @@ public class KreiranjeKorisnickogRacuna {
 		textField_8.setColumns(10);
 		
 		comboBox1 = new JComboBox();
-		comboBox1.setModel(new DefaultComboBoxModel(new String[] {"Administrator", "Supervizor", "Putnički agent"}));
+		comboBox1.setModel(new DefaultComboBoxModel(new String[] {"Administrator", "Putnički agent","Supervizor"}));
 		comboBox1.setSelectedIndex(0);
 		comboBox1.setBounds(134, 336, 139, 20);
 		frmKreirajiKorisnika.getContentPane().add(comboBox1);
+		
+		if(modifikacija == true)
+		{
+			textField.setText(osoba.getIme());
+			textField_1.setText(osoba.getPrezime());
+			textField_2.setText(osoba.getJmbg().toString());
+			textField_3.setText(osoba.getBrojLicneKarte());
+			textField_4.setText(osoba.getAdresa());
+			textField_5.setText(osoba.getBrojTelefona());
+			textField_6.setText(osoba.getEmail());
+			textField_7.setText(korisnickiRacun.getUsername());
+			textField_8.setVisible(false);	
+			comboBox1.setSelectedIndex(korisnickiracunxrola.getRola().getRolaId() - 1);
+		}
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmKreirajiKorisnika.setJMenuBar(menuBar);
@@ -330,6 +420,7 @@ public class KreiranjeKorisnickogRacuna {
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -344,6 +435,7 @@ public class KreiranjeKorisnickogRacuna {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -360,6 +452,7 @@ public class KreiranjeKorisnickogRacuna {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -377,7 +470,26 @@ public class KreiranjeKorisnickogRacuna {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
+		
+		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
+		JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
+		mntmIzvjestaji.addActionListener(new ActionListener() {
+					
+			public void actionPerformed(ActionEvent e) {
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
+				frmKreirajiKorisnika.setVisible(false);
+				forma.PrikaziFormu();				
+			}
+		});
+		mnMeni.add(mntmIzvjestaji);
+		mntmIzvjestaji.setEnabled(postavke[5]);
+		}
 			
 		
 		JMenu mnRaun = new JMenu("Račun");
@@ -408,4 +520,5 @@ public class KreiranjeKorisnickogRacuna {
 		});
 		mnRaun.add(mntmOdjaviSe);
 	}
+	
 }

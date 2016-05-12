@@ -12,9 +12,30 @@ public class OsobaService
 {
 	DBContext baza = new DBContext();
 
-	public Osoba KreirajOsobu(Osoba osoba)
+	public Osoba KreirajOsobu(Osoba osoba, boolean  modifikacija)
 	{
-		return baza.getOsobaRepository().spasiUBazu(osoba);
+		if(modifikacija)
+		{
+			Osoba postojecaOsoba = baza.getOsobaRepository().ucitajIzBaze(osoba.getOsobaId());
+			
+			postojecaOsoba.setAdresa(osoba.getAdresa());
+			postojecaOsoba.setBrojLicneKarte(osoba.getBrojLicneKarte());
+			postojecaOsoba.setBrojPasosa(osoba.getBrojPasosa());
+			postojecaOsoba.setBrojTelefona(osoba.getBrojTelefona());
+			postojecaOsoba.setDatumRodjenja(osoba.getDatumRodjenja());
+			postojecaOsoba.setEmail(osoba.getEmail());
+			postojecaOsoba.setIme(osoba.getIme());
+			postojecaOsoba.setPrezime(osoba.getPrezime());
+			postojecaOsoba.setJmbg(osoba.getJmbg());
+			
+			return baza.getOsobaRepository().sacuvajIliAzurirajUBazu(postojecaOsoba);
+		}
+		else
+		{
+			return baza.getOsobaRepository().spasiUBazu(osoba);
+		}
+		
+		//return baza.getOsobaRepository().sacuvajIliAzurirajUBazu(osoba);
 	}
 	
 	public String Validiraj(Osoba osoba)

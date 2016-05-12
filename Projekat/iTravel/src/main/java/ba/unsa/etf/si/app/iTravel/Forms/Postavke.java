@@ -44,9 +44,9 @@ public class Postavke {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					Postavke window = new Postavke();
-					window.frmPostavke.setVisible(true);
+				try {		
+					//Postavke window = new Postavke();
+					//window.frmPostavke.setVisible(true);		
 				} catch (Exception e) {
 					UnitOfWork.logger.error(e);
 				}
@@ -248,6 +248,7 @@ public class Postavke {
 							JOptionPane.INFORMATION_MESSAGE);
 					
 					frmPostavke.dispose();
+					
 				}
 				else
 				{
@@ -265,8 +266,9 @@ public class Postavke {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Postavke window = new Postavke();
-					window.frmPostavke.setVisible(true);
+					frmPostavke.setVisible(true);
+					//Postavke window = new Postavke();
+					//window.frmPostavke.setVisible(true);
 				} catch (Exception e) {
 					UnitOfWork.logger.error(e);
 				}

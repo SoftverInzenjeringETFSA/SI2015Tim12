@@ -23,6 +23,8 @@ import javax.swing.JMenuItem;
 
 public class Klijenti {
 
+	private UnitOfWork uow = new UnitOfWork();
+	
 	private JFrame frmPrikazKlijenata;
 	private JTable table;
 
@@ -53,6 +55,9 @@ public class Klijenti {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmPrikazKlijenata = new JFrame();
 		frmPrikazKlijenata.setTitle("Prikaz klijenata");
 		frmPrikazKlijenata.setBounds(100, 100, 876, 318);
@@ -145,6 +150,7 @@ public class Klijenti {
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -159,6 +165,7 @@ public class Klijenti {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKorisnici = new JMenuItem("Korisnici");
@@ -175,7 +182,26 @@ public class Klijenti {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
+		
+		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
+		JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
+		mntmIzvjestaji.addActionListener(new ActionListener() {
+					
+			public void actionPerformed(ActionEvent e) {
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
+				frmPrikazKlijenata.setVisible(false);
+				forma.PrikaziFormu();				
+			}
+		});
+		mnMeni.add(mntmIzvjestaji);
+		mntmIzvjestaji.setEnabled(postavke[5]);
+		}
 		
 		JMenu mnRaun = new JMenu("Račun");
 		menuBar.add(mnRaun);

@@ -24,9 +24,10 @@ public class PrikazKorisnika {
 		os=(ArrayList<KorisnickiRacun>)baza.getKorisnickiRacunRepository().ucitajSveIzBaze();
 
 	
-	Object[][] red=new Object[os.size()][9];
+	Object[][] red=new Object[os.size()][10];
 	for(int i=0;i<os.size();i++)
 	{
+		red[i][9] = os.get(i).getKorisnickiRacunId();
 		if(os.get(i).getOsoba()==null)
 		{
 			red[i][0]="";

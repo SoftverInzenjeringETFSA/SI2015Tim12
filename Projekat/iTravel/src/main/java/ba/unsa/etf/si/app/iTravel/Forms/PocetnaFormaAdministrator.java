@@ -73,7 +73,7 @@ public class PocetnaFormaAdministrator {
 	}
 	
 	// Neki problem sa repositorijem i sesijama nece fino da ucita iz baze
-	/*private void OsvjeziPostavkeFormu()
+	/*public void OsvjeziPostavkeFormu()
 	{	
 		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
@@ -82,8 +82,8 @@ public class PocetnaFormaAdministrator {
 		btnKlijenti.setEnabled(postavke[3]);		
 		btnKorisnici.setEnabled(postavke[4]); 	
 		btnIzvjetaji.setEnabled(postavke[5]);
-	}
-	*/
+	}*/
+	
 
 	/**
 	 * Create the application.

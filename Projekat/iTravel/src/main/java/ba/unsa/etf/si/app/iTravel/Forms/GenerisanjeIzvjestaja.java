@@ -10,14 +10,13 @@ import javax.swing.JComboBox;
 import java.awt.ScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
-import javax.swing.Box;
 import com.toedter.calendar.JDateChooser;
 
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
-import ba.unsa.etf.si.app.iTravel.DAL.Repository;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 
@@ -65,11 +64,16 @@ public class GenerisanjeIzvjestaja {
 	public GenerisanjeIzvjestaja() {
 		initialize();
 	}
-
+	
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 621, 633);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -282,6 +286,7 @@ public class GenerisanjeIzvjestaja {
 			}
 		});
 		mnPovratak.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -296,6 +301,7 @@ public class GenerisanjeIzvjestaja {
 			}
 		});
 		mnPovratak.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -312,6 +318,7 @@ public class GenerisanjeIzvjestaja {
 				}
 			});
 				mnPovratak.add(mntmKlijenti);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -320,8 +327,8 @@ public class GenerisanjeIzvjestaja {
 						
 				public void actionPerformed(ActionEvent e) {
 					java.awt.Window win[] = java.awt.Window.getWindows(); 
-					for(int i=0;i<win.length;i++){ 
-					win[i].dispose(); 
+					for(int i=0;i<win.length;i++){	
+					win[i].dispose();
 					} 				
 					Korisnici forma = new Korisnici();
 					frame.setVisible(false);
@@ -329,6 +336,7 @@ public class GenerisanjeIzvjestaja {
 				}
 			});
 			mnPovratak.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
 		
 		JMenu mnRaun = new JMenu("Račun");

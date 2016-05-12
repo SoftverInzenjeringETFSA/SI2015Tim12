@@ -6,10 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import ba.unsa.etf.si.app.iTravel.BLL.PrikazKorisnika;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
+import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -54,6 +56,9 @@ public class Korisnici {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmPrikazKorisnika = new JFrame();
 		frmPrikazKorisnika.setTitle("Prikaz korisnika");
 		frmPrikazKorisnika.setBounds(100, 100, 876, 336);
@@ -75,11 +80,11 @@ public class Korisnici {
 		table.setModel(new DefaultTableModel(
 			podaci,
 			new String[] {
-				"Ime", "Prezime", "JMBG", "Broj li\u010Dne karte", "Adresa", "Telefon", "E-mail", "Username", "Tip korisnika"
+				"Ime", "Prezime", "JMBG", "Broj li\u010Dne karte", "Adresa", "Telefon", "E-mail", "Username", "Tip korisnika", "Id"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
+				String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -91,16 +96,32 @@ public class Korisnici {
 		table.getColumnModel().getColumn(6).setPreferredWidth(100);
 		scrollPane.setViewportView(table);
 		
+		TableColumnModel tcm = table.getColumnModel();
+		if(tcm.getColumnCount()==10)
+			tcm.removeColumn( tcm.getColumn(9) );
+		
 		JButton button_izlaz = new JButton("Izlaz");
 		button_izlaz.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
+			public void actionPerformed(ActionEvent e) {			
+				frmPrikazKorisnika.dispose();
 			}
 		});
 		button_izlaz.setBounds(676, 226, 150, 30);
 		frmPrikazKorisnika.getContentPane().add(button_izlaz);
 		
 		JButton btnModifikujKorisnike = new JButton("Modifikuj korisnika");
+		btnModifikujKorisnike.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+	        	int row=table.getSelectedRow();
+				int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());			
+				
+				//KorisnickiRacun korisnickiRacun = uow.getKorisnickiRacunService().dajKorisnika(idSelektovanogKorisnika);
+				
+				KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(idSelektovanogKorisnika);
+				forma.PrikaziFormu();
+			}
+		});
 		btnModifikujKorisnike.setBounds(180, 226, 150, 30);
 		frmPrikazKorisnika.getContentPane().add(btnModifikujKorisnike);
 		
@@ -164,6 +185,7 @@ public class Korisnici {
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -178,6 +200,7 @@ public class Korisnici {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -194,7 +217,26 @@ public class Korisnici {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
+		
+		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
+		JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
+		mntmIzvjestaji.addActionListener(new ActionListener() {
+					
+			public void actionPerformed(ActionEvent e) {
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
+				frmPrikazKorisnika.setVisible(false);
+				forma.PrikaziFormu();				
+			}
+		});
+		mnMeni.add(mntmIzvjestaji);
+		mntmIzvjestaji.setEnabled(postavke[5]);
+		}
 		
 		JMenu mnRaun = new JMenu("Račun");
 		mnRaun.addActionListener(new ActionListener() {

@@ -45,6 +45,7 @@ public class Hoteli {
 	private JMenuItem mntmRezervacije;
 	private JMenuItem mntmKlijenti;
 	private JMenuItem mntmKorisnici;
+	private JMenuItem mntmIzvjestaji;
 	private JMenu mnRaun;
 	private JMenuItem mntmPromijeniifru;
 	private JMenuItem mntmOdjaviSe;
@@ -76,6 +77,9 @@ public class Hoteli {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmPrikazHotela = new JFrame();
 		frmPrikazHotela.setTitle("Pregled hotela");
 		frmPrikazHotela.setBounds(100, 100, 784, 395);
@@ -191,6 +195,7 @@ public class Hoteli {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -207,6 +212,7 @@ public class Hoteli {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -224,7 +230,26 @@ public class Hoteli {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
+		
+		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
+		JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
+		mntmIzvjestaji.addActionListener(new ActionListener() {
+					
+			public void actionPerformed(ActionEvent e) {
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
+				frmPrikazHotela.setVisible(false);
+				forma.PrikaziFormu();				
+			}
+		});
+		mnMeni.add(mntmIzvjestaji);
+		mntmIzvjestaji.setEnabled(postavke[5]);
+		}
 		
 		mnRaun = new JMenu("Račun");
 		menuBar.add(mnRaun);

@@ -82,10 +82,11 @@ public class Repository<T>{
      * @param object Objekat koji se spasava
      * @param session Hibernate sesija
      */
-    public void sacuvajIliAzurirajUBazu(T object) {
+    public T sacuvajIliAzurirajUBazu(T object) {
         Transaction t = session.beginTransaction();
         session.saveOrUpdate(object);
         t.commit();
+        return object;
     }
 
 

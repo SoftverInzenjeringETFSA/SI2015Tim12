@@ -8,9 +8,6 @@ public class UnitOfWork {
 	
 	private PrijavaService prijavaService;
 	private DohvatiHotel dohvatiHotel;
-	private ModifikacijaHotel modifikacijaHotela;
-	private UbaciHotel ubaciHotel;
-	private ObrisiHotel obrisiHotel;
 	private IzvjestajService izvjestajService;
 	private HoteliService hoteliService;
 	private KorisnickiRacunService korisnickiRacunService;
@@ -28,9 +25,6 @@ public class UnitOfWork {
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
 		dohvatiHotel = new DohvatiHotel();
-		modifikacijaHotela = new ModifikacijaHotel();
-		ubaciHotel = new UbaciHotel();
-		obrisiHotel = new ObrisiHotel();
 		izvjestajService = new IzvjestajService();
 		osobaService = new OsobaService();
 		korisnickiRacunService = new KorisnickiRacunService();
@@ -57,24 +51,6 @@ public class UnitOfWork {
 		if (dohvatiHotel == null)
 			dohvatiHotel = new DohvatiHotel();
 		return dohvatiHotel;
-	}
-
-	public ModifikacijaHotel getModifikacijaHotel() {
-		if (modifikacijaHotela == null)
-			modifikacijaHotela = new ModifikacijaHotel();
-		return modifikacijaHotela;
-	}
-
-	public ObrisiHotel getObrisiHotel() {
-		if (obrisiHotel == null)
-			obrisiHotel = new ObrisiHotel();
-		return obrisiHotel;
-	}
-
-	public UbaciHotel getUbaciHotel() {
-		if (ubaciHotel == null)
-			ubaciHotel = new UbaciHotel();
-		return ubaciHotel;
 	}
 
 	public IzvjestajService getIzvjestajService() {
