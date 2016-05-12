@@ -119,7 +119,7 @@ public class RezervacijeService {
 	public Rezervacija dajRezervacijuPoDatumuIKlijentu(Date datum, Klijent klijent){
 		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
 		listaKriterija.add(Restrictions.eq("datumRezervacije", datum));
-		listaKriterija.add(Restrictions.eq("klijent", klijent));
+		//listaKriterija.add(Restrictions.eq("klijent", klijent));
 		List<Rezervacija> r=new ArrayList<Rezervacija>();
 		r=baza.getRezervacijaRepository().ucitajIzBazePoKriteriju(listaKriterija);
 		return r.get(0);
