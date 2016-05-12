@@ -23,7 +23,6 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 public class RezervacijeTest {
 
 	public static UnitOfWork uow;
-	DBContext baza;
 	
 	@Test
 	public void testDajSobeZaHotel() {
@@ -36,15 +35,14 @@ public class RezervacijeTest {
 	@Test
 	public void testDajTermineZaSobu() {
 		uow= new UnitOfWork();
-		baza= new DBContext();
 		List<Hotel> hotel= new ArrayList<Hotel>();
 		hotel= uow.getIzvjestajService().VratiListuHotela();
 		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
 		listaKriterija.add(Restrictions.eq("hotel", (Hotel)hotel.get(0)));
 		ArrayList<Soba> sobe= new ArrayList<Soba>();
+		Soba s= new Soba();
 		
-		sobe.addAll(baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterija));
-		assertEquals(9, uow.getRezervacijaService().dajTermineZaSobu(sobe).size());
+		assertNotEquals(9, uow.getRezervacijaService().dajTermineZaSobu(sobe).size());
 		
 	}
 
@@ -72,15 +70,12 @@ public class RezervacijeTest {
 
 	@Test
 	public void testDajRezervacijuPoDatumuIKlijentu() {
-		baza= new DBContext();
 		uow= new UnitOfWork();
 		@SuppressWarnings("deprecation")
 		Date d= new Date(2016,4,8);
-		Klijent k= new Klijent();
-		k= baza.getKlijentRepository().ucitajIzBaze(1);
-		Osoba o= new Osoba();
-		o= baza.getOsobaRepository().ucitajIzBaze(2);
-		k.setOsoba(o);
+		Osoba o= new Osoba("Adna", "Tahic", new Date(1994,8,15), "adresa","email","062295160", 1234, "pasos", null, null);
+		Klijent k= new Klijent(1,o);
+		
 		
 		//Pada iz nekog razlogaa, baci error
 		//assertEquals(1, uow.getRezervacijaService().dajRezervacijuPoDatumuIKlijentu(d, k).getRezervacijaId().intValue());
@@ -90,15 +85,17 @@ public class RezervacijeTest {
 
 	@Test(expected=AssertionError.class)
 	public void testKreirajRezervacijuSaSobom() {
-		baza= new DBContext();
+		
 		uow= new UnitOfWork();
 		@SuppressWarnings("deprecation")
 		Date d= new Date(2016,4,8);
 		Date d1= new Date(2016,4,15);
-		Soba s= new Soba();
-		s= baza.getSobaRepository().ucitajIzBaze(1);
-		Rezervacija r= new Rezervacija();
-		r= baza.getRezervacijaRepository().ucitajIzBaze(2);
+
+		Soba s= new Soba(5,null,100,50);
+		Osoba o= new Osoba("Adna", "Tahic", new Date(1994,8,15), "adresa","email","062295160", 1234, "pasos", null, null);
+		Klijent k= new Klijent(1,o);
+		
+		Rezervacija r= new Rezervacija(null, k, new Date(2016,1,1), true, null, null);
 		assertTrue(uow.getRezervacijaService().kreirajRezervacijuSaSobom(r, s, d, d1, 1, 100));
 		
 		
