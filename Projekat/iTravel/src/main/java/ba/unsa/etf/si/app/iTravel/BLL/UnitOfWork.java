@@ -7,7 +7,6 @@ public class UnitOfWork {
 	public final static Logger logger = Logger.getLogger(UnitOfWork.class);
 	
 	private PrijavaService prijavaService;
-	private DohvatiHotel dohvatiHotel;
 	private IzvjestajService izvjestajService;
 	private HoteliService hoteliService;
 	private KorisnickiRacunService korisnickiRacunService;
@@ -24,7 +23,6 @@ public class UnitOfWork {
 	
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
-		dohvatiHotel = new DohvatiHotel();
 		izvjestajService = new IzvjestajService();
 		osobaService = new OsobaService();
 		korisnickiRacunService = new KorisnickiRacunService();
@@ -45,12 +43,6 @@ public class UnitOfWork {
 			prijavaService = new PrijavaService();
 
 		return prijavaService;
-	}
-
-	public DohvatiHotel getDohvatiHotel() {
-		if (dohvatiHotel == null)
-			dohvatiHotel = new DohvatiHotel();
-		return dohvatiHotel;
 	}
 
 	public IzvjestajService getIzvjestajService() {
