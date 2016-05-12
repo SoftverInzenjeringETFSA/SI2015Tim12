@@ -59,7 +59,7 @@ public class RezervacijeTest {
 	@Test
 	public void testDajRezervacijuPoDatumuIKlijentu() {
 		
-		Klijent k= new Klijent(1,2);
+		//Klijent k= new Klijent(1,2);
 	}
 
 	@Test
