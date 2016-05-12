@@ -11,13 +11,10 @@ import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
-import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
-import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Klijent;
 import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
 import ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija;
-import ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba;
 import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
 public class RezervacijeTest {

@@ -2,7 +2,6 @@ package ba.unsa.etf.si.app.iTravel;
 
 import static org.junit.Assert.*;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
