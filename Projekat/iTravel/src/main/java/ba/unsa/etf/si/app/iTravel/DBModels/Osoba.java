@@ -51,7 +51,7 @@ public class Osoba implements java.io.Serializable {
 		this.korisnickiRacuns = korisnickiRacuns;
 		this.klijents = klijents;
 	}
-	Osoba o= new Osoba("adna", "tahic","")
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
