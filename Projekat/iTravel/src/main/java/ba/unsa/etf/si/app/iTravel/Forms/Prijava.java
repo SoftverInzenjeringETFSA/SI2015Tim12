@@ -54,6 +54,12 @@ public class Prijava {
 					frmPrijava.setVisible(false);
 					forma.PrikaziFormu();
 				}
+				else
+				{
+					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					frmPrijava.setVisible(false);
+					forma.PrikaziFormu();			
+				}
 				
 			}
 			else

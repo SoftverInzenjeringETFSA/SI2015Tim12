@@ -35,5 +35,19 @@ public class PostavkeService
 		}
 
 	}
+	
+	public boolean[] dajSvePostavke()
+	{
+		List<Postavke> listaPostavki = baza.getPostavkeRepository().ucitajSveIzBaze();
+		
+		boolean[] nizPostavki = new boolean[6];
+		nizPostavki[0] = false;
+		
+		for (Postavke postavke : listaPostavki) {
+			nizPostavki[postavke.getPostavkaId()] = postavke.getOmoguceno();
+		}
+		
+		return nizPostavki;
+	}
 
 }

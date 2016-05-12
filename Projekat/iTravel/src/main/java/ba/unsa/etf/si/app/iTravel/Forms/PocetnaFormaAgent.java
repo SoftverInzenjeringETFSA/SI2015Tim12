@@ -11,6 +11,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
@@ -19,7 +21,12 @@ import java.awt.event.ActionEvent;
 
 public class PocetnaFormaAgent {
 
+	private UnitOfWork uow = new UnitOfWork();
+	
 	private JFrame frame;
+	
+	private JButton btnHoteliUPonudi;
+	private JButton btnRezervacije;
 
 	/**
 	 * Launch the application.
@@ -54,7 +61,7 @@ public class PocetnaFormaAgent {
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		
-		JButton btnHoteliUPonudi = new JButton("Hoteli u ponudi");
+		btnHoteliUPonudi = new JButton("Hoteli u ponudi");
 		btnHoteliUPonudi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Hoteli forma = new Hoteli();
@@ -64,12 +71,14 @@ public class PocetnaFormaAgent {
 		btnHoteliUPonudi.setBounds(38, 81, 350, 35);
 		frame.getContentPane().add(btnHoteliUPonudi);
 		
+		btnHoteliUPonudi.setEnabled(uow.getPostavkeService().modulOmogucen(1));
+		
 		JLabel lblPrijavljeniSteKao = new JLabel("Prijavljeni ste kao putni\u010Dki agent, dobrodo\u0161li!");
 		lblPrijavljeniSteKao.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPrijavljeniSteKao.setBounds(55, 28, 312, 22);
 		frame.getContentPane().add(lblPrijavljeniSteKao);
 		
-		JButton btnRezervacije = new JButton("Rezervacije");
+		btnRezervacije = new JButton("Rezervacije");
 		btnRezervacije.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Rezervacije forma=new Rezervacije();
@@ -79,6 +88,8 @@ public class PocetnaFormaAgent {
 		});
 		btnRezervacije.setBounds(38, 127, 350, 35);
 		frame.getContentPane().add(btnRezervacije);
+		
+		btnRezervacije.setEnabled(uow.getPostavkeService().modulOmogucen(2));
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -98,8 +109,8 @@ public class PocetnaFormaAgent {
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
 		mntmOdjaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OdjavaService odjava = new OdjavaService();
-				odjava.OdjaviKorisnika();
+				
+				uow.getOdjavaService().OdjaviKorisnika();
 							
 				java.awt.Window win[] = java.awt.Window.getWindows(); 
 				for(int i=0;i<win.length;i++){ 

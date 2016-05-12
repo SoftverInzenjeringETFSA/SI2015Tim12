@@ -72,25 +72,18 @@ public class PocetnaFormaAdministrator {
 		});
 	}
 	
-	private void OsvjeziPostavkeFormu()
-	{
-		/*
-		boolean prvi = uow.getPostavkeService().modulOmogucen(1);
-		boolean drugi = uow.getPostavkeService().modulOmogucen(2);
-		boolean treci = uow.getPostavkeService().modulOmogucen(3);
-		boolean cet = uow.getPostavkeService().modulOmogucen(4);
-		boolean pet = uow.getPostavkeService().modulOmogucen(5);
+	// Neki problem sa repositorijem i sesijama nece fino da ucita iz baze
+	/*private void OsvjeziPostavkeFormu()
+	{	
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
-		System.out.println("#########################################################");
-		System.out.println(prvi + " " + drugi + " " + treci + " " + cet + " " + pet);
-		System.out.println("#########################################################");
-		*/
-		btnPonude.setEnabled(uow.getPostavkeService().modulOmogucen(1));
-		btnRezervacije.setEnabled(uow.getPostavkeService().modulOmogucen(2));	
-		btnKlijenti.setEnabled(uow.getPostavkeService().modulOmogucen(3));		
-		btnKorisnici.setEnabled(uow.getPostavkeService().modulOmogucen(4)); 	
-		btnIzvjetaji.setEnabled(uow.getPostavkeService().modulOmogucen(5));
+		btnPonude.setEnabled(postavke[1]);
+		btnRezervacije.setEnabled(postavke[2]);	
+		btnKlijenti.setEnabled(postavke[3]);		
+		btnKorisnici.setEnabled(postavke[4]); 	
+		btnIzvjetaji.setEnabled(postavke[5]);
 	}
+	*/
 
 	/**
 	 * Create the application.
@@ -109,6 +102,8 @@ public class PocetnaFormaAdministrator {
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		
+		// Evenit na fokus dobijen i izgubljen kad budemo htjeli promjene opcija odma
+		/*
 	      frame.addWindowFocusListener(new WindowFocusListener() {
 			
 			public void windowLostFocus(WindowEvent e) {
@@ -116,10 +111,10 @@ public class PocetnaFormaAdministrator {
 			}
 			
 			public void windowGainedFocus(WindowEvent e) {
-				System.out.println("Dobio fokus");
+
 				OsvjeziPostavkeFormu();	
 			}
-		});
+		});*/
 		
 		JLabel lblPrijavljeniSteKao = new JLabel("Prijavljeni ste kao administrator, dobrodo\u0161li!");
 		lblPrijavljeniSteKao.setFont(new Font("Tahoma", Font.BOLD, 14));

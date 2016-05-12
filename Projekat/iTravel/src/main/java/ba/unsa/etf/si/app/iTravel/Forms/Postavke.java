@@ -242,7 +242,8 @@ public class Postavke {
 				if(uspjesno)
 				{
 					JOptionPane.showMessageDialog(null, 
-							"Uspješno spašene promjene.",
+							"Uspješno spašene promjene. Promjene možete vidjeti nakon što"+
+								" se seljdeći put logujete u aplikaciju.",							
 							"Obavještenje",
 							JOptionPane.INFORMATION_MESSAGE);
 					

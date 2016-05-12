@@ -8,8 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 
-import static ba.unsa.etf.si.app.iTravel.DAL.SessionFactoryDB.getSession;
-
 import java.util.List;
 import java.util.logging.Logger;
 
