@@ -15,11 +15,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import ba.unsa.etf.si.app.iTravel.BLL.PromjenaSifreService;
+//import ba.unsa.etf.si.app.iTravel.BLL.PromjenaSifreService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 
 public class PromjenaSifre {
 
+	private UnitOfWork uow = new UnitOfWork();
+	
 	private JFrame frmPromjenaSifre;
 	private JPasswordField passwordField_trenutna;
 	private JPasswordField passwordField_nova;
@@ -49,7 +51,7 @@ public class PromjenaSifre {
 		});
 	}
 	
-	public static void PrikaziFormu() {
+	public void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -94,11 +96,12 @@ public class PromjenaSifre {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(Arrays.equals(passwordField_potvrda.getPassword(), passwordField_nova.getPassword())){
-					PromjenaSifreService p = new PromjenaSifreService();
+					//PromjenaSifreService p = new PromjenaSifreService();
+								
 					String passStari = new String(passwordField_trenutna.getPassword());
 					String passNovi = new String(passwordField_nova.getPassword());
 				
-					if(p.PromijeniPristupnePodatke(passStari, passNovi)){
+					if(uow.getPromjenaSifreService().PromijeniPristupnePodatke(passStari, passNovi)){
 						JOptionPane.showMessageDialog(null, "Uspješno promijenjena šifra!");
 						frmPromjenaSifre.dispose();
 					}

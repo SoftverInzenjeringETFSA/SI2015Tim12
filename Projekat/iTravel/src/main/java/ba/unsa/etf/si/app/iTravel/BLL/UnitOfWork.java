@@ -23,6 +23,7 @@ public class UnitOfWork {
 	private PrikazKorisnika prikazKorisnika;
 	private OdjavaService odjavaService;
 	private PostavkeService postavkeService;
+	private PromjenaSifreService promjenaSifreService;
 	
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
@@ -41,6 +42,7 @@ public class UnitOfWork {
 		prikazKorisnika = new PrikazKorisnika();
 		odjavaService = new OdjavaService();
 		postavkeService = new PostavkeService();
+		promjenaSifreService = new PromjenaSifreService();
 		
 	}
 
@@ -163,6 +165,14 @@ public class UnitOfWork {
 			postavkeService = new PostavkeService();
 		
 		return postavkeService;
+	}
+
+	public PromjenaSifreService getPromjenaSifreService() 
+	{
+		if(promjenaSifreService == null)
+			promjenaSifreService = new PromjenaSifreService();
+		
+		return promjenaSifreService;
 	}
 	
 	

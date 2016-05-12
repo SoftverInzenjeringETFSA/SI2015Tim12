@@ -29,9 +29,8 @@ public class Postavke {
 
 	private UnitOfWork uow = new UnitOfWork();
 	
-	private JFrame parentFrame;
-	
 	private JFrame frmPostavke;
+
 	private JCheckBox chckbxHoteli;
 	private	JCheckBox chckbxRezervacije;
 	private JCheckBox chckbxKlijenti;
@@ -59,11 +58,6 @@ public class Postavke {
 	 */
 	public Postavke() {
 		initialize();
-	}
-	
-	public Postavke(JFrame topFrame) {
-		initialize();
-		parentFrame = topFrame;
 	}
 
 	/**
@@ -176,30 +170,8 @@ public class Postavke {
 							"Uspješno spašene promjene.",
 							"Obavještenje",
 							JOptionPane.INFORMATION_MESSAGE);
-						
-					// TREBA OSVJEŽITI PARENT FORMU
 					
-					//SwingUtilities.updateComponentTreeUI(parentFrame);
-					//SwingUtilities.updateComponentTreeUI(parentFrame.getContentPane());
-				
-					//parentFrame.invalidate();
-					//parentFrame.validate();
-					//parentFrame.repaint();
-					
-					for (Window w : Window.getWindows()) {
-					    //SwingUtilities.updateComponentTreeUI(w);
-					    
-					    w.invalidate();
-					    w.validate();
-					    w.repaint();
-
-					  /*  if (w.isDisplayable() &&
-					        (w instanceof JFrame ? !((JFrame)w).isResizable() :
-					        w instanceof Dialog ? !((Dialog)w).isResizable() :
-					        true)) w.pack();*/
-					}
-					
-
+					frmPostavke.dispose();
 				}
 				else
 				{
