@@ -2,6 +2,7 @@ package ba.unsa.etf.si.app.iTravel;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class IzvjestajTest {
 		List<Destinacija> destinacije= new ArrayList<Destinacija>();
 		destinacije= uow.getIzvjestajService().VratiListuDestinacija();
 		@SuppressWarnings("deprecation")
-		Date d= new Date(2016,5,1);
+		Date d= new Date(2016,4,1);
 		Date d1= new Date(2016,5,31);
 		assertNotEquals(1, uow.getIzvjestajService().PrebrojRezervacijeZaDestinaciju(destinacije.get(0), d, d1));
 		
@@ -30,17 +31,34 @@ public class IzvjestajTest {
 
 	@Test
 	public void UkupanBrojSobaNaRaspolaganjuTest() {
-		 assertTrue( true ); // TODO
+		uow= new UnitOfWork();
+		List<Hotel> hotel= new ArrayList<Hotel>();
+		hotel= uow.getIzvjestajService().VratiListuHotela();
+		assertEquals(5, uow.getIzvjestajService().ukupanBrojSobaNaRaspolaganju(hotel.get(0)));
+		assertEquals(4, uow.getIzvjestajService().ukupanBrojSobaNaRaspolaganju(hotel.get(3)));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void BrojIznajmljenihSobaTest() {
-		 assertTrue( true ); // TODO
+		uow= new UnitOfWork();
+		List<Hotel> hotel= new ArrayList<Hotel>();
+		hotel= uow.getIzvjestajService().VratiListuHotela();
+		
+		Date d= new Date(2016,3,1);
+		Date d1= new Date(2016,4,31);
+		//Nesto ne fercera
+		assertEquals(0, uow.getIzvjestajService().brojIznajmljenihSoba(hotel.get(4), d, d1));
+		
 	}
 
 	@Test
 	public void VratiNazivDestinacijeTest() {
-		 assertTrue( true ); // TODO
+		uow= new UnitOfWork();
+		List<Destinacija> destinacije= new ArrayList<Destinacija>();
+		destinacije= uow.getIzvjestajService().VratiListuDestinacija();
+		assertEquals("Dubai", destinacije.get(0).getNaziv());
+		assertEquals(uow.getIzvjestajService().VratiNazivDestinacije(3), destinacije.get(2).getNaziv());
 	}
 
 	@Test
@@ -49,8 +67,8 @@ public class IzvjestajTest {
 		uow= new UnitOfWork();
 		List<Hotel> hotel= new ArrayList<Hotel>();
 		hotel= uow.getIzvjestajService().VratiListuHotela();
-		assertEquals(uow.getIzvjestajService().VratiNazivHotela(0), hotel.get(0).getNaziv());
-		assertEquals(uow.getIzvjestajService().VratiNazivHotela(2), hotel.get(2).getNaziv());
+		assertEquals(uow.getIzvjestajService().VratiNazivHotela(1), hotel.get(0).getNaziv());
+		assertEquals(uow.getIzvjestajService().VratiNazivHotela(3), hotel.get(2).getNaziv());
 	}
 
 	@Test
