@@ -20,7 +20,7 @@ import java.awt.event.*;
 
 public class Prijava {
 	
-	private static UnitOfWork uow;
+	private static UnitOfWork uow = new UnitOfWork();
 	
 	private JFrame frmPrijava;
 	private JTextField textField;
@@ -80,8 +80,6 @@ public class Prijava {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
-		uow = new UnitOfWork();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
