@@ -31,6 +31,7 @@ public class IzvjestajTest {
 	@Test
 	public void UkupanBrojSobaNaRaspolaganjuTest() {
 		uow= new UnitOfWork();
+		//za commit
 		List<Hotel> hotel= new ArrayList<Hotel>();
 		hotel= uow.getIzvjestajService().VratiListuHotela();
 		assertEquals(5, uow.getIzvjestajService().ukupanBrojSobaNaRaspolaganju(hotel.get(0)));
