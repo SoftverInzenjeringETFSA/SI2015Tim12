@@ -31,8 +31,12 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class Rezervacije {
@@ -129,6 +133,11 @@ public class Rezervacije {
 		frmPrikazRezervacija.getContentPane().add(btnModifikujKorisnike);
 		
 		JButton btnObriiKorisnika = new JButton("Otka\u017Ei rezervaciju");
+		btnObriiKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OtkaziRezervaciju();
+			}
+		});
 		btnObriiKorisnika.setBounds(340, 226, 150, 30);
 		frmPrikazRezervacija.getContentPane().add(btnObriiKorisnika);
 		
@@ -278,7 +287,10 @@ public class Rezervacije {
 				Klijent k= rezervacije.get(i).getKlijent();
 				Osoba osoba=uow.getRezervacijaService().dajOsobuPoId(k.getOsoba().getOsobaId());
 				
-				Racun r= rezervacije.get(i).getRacuns().iterator().next();
+				Racun r=null;
+				//if(rezervacije.get(i).getRacuns().iterator().hasNext())
+				Object[] racuniList=rezervacije.get(i).getRacuns().toArray();
+				r=(Racun) racuniList[0];
 				RezervisaniTerminSoba termin=uow.getRezervacijaService().dajRezervisaneTermineZaRezervaciju(rezervacije.get(i).getRezervacijaId()).get(0);
 				Soba s= uow.getRezervacijaService().dajSobu(termin.getSoba().getSobaId());
 				Hotel h=s.getHotel();
@@ -307,6 +319,23 @@ public class Rezervacije {
 				UcitajSveRezervacije();
 			}else
 				JOptionPane.showMessageDialog(null, "Niste uspjeli potvrditi rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
+		}
+	}
+	
+	private void OtkaziRezervaciju(){
+		if(table.getSelectedRow()!=-1){
+			int row=table.getSelectedRow();
+			int idRezervacije=Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
+			
+			boolean provjera=false;
+			int dialogResult = JOptionPane.showConfirmDialog(null,"Da li zaista zelite otkazati rezervaciju?");
+			if(dialogResult==JOptionPane.YES_OPTION)
+				provjera=uow.getRezervacijaService().obrisiRezervaciju(idRezervacije);
+			if(provjera){
+				JOptionPane.showMessageDialog(null, "Rezervacija je otkazana", "Info", JOptionPane.INFORMATION_MESSAGE);
+				UcitajSveRezervacije();
+			}else
+				JOptionPane.showMessageDialog(null, "Niste uspjeli otkazati rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
 		}
 	}
 }
