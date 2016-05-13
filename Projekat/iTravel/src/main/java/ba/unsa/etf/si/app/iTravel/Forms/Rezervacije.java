@@ -73,6 +73,9 @@ public class Rezervacije {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmPrikazRezervacija = new JFrame();
 		frmPrikazRezervacija.addWindowListener(new WindowAdapter() {
 			@Override
@@ -197,6 +200,7 @@ public class Rezervacije {
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -214,6 +218,7 @@ public class Rezervacije {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
 			
 			if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -231,6 +236,7 @@ public class Rezervacije {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
 		JMenu mnRaun = new JMenu("Račun");
 		menuBar.add(mnRaun);
