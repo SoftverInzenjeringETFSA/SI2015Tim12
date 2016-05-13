@@ -20,11 +20,12 @@ public class SobeService
 	}
 	
 	public void UbaciSobuUBazu(Soba soba) {
+		
 		baza.getSobaRepository().spasiUBazu(soba);
 
 	}
 	
-	public void ObrisiJendaHotel(Soba soba) {
+	public void ObrisiJenduSobu(Soba soba) {
 
 		baza.getSobaRepository().obrisiIzBaze(soba);
 	}

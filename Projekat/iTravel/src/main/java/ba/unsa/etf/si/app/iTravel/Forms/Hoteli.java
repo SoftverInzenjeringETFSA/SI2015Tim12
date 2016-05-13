@@ -8,10 +8,15 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
+import ba.unsa.etf.si.app.iTravel.BLL.HoteliService;
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
+import ba.unsa.etf.si.app.iTravel.DAL.Repositories.HotelRepository;
+import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
+import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -22,6 +27,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -45,10 +51,11 @@ public class Hoteli {
 	private JMenuItem mntmRezervacije;
 	private JMenuItem mntmKlijenti;
 	private JMenuItem mntmKorisnici;
-	private JMenuItem mntmIzvjestaji;
 	private JMenu mnRaun;
 	private JMenuItem mntmPromijeniifru;
 	private JMenuItem mntmOdjaviSe;
+	private ArrayList<Hotel> hoteli;
+	private HoteliService hoteliService =new HoteliService();;
 
 	/**
 	 * Launch the application.
@@ -65,7 +72,39 @@ public class Hoteli {
 			}
 		});
 	}
+       void NapuniHotele() {
+		
+		hoteli = new ArrayList<Hotel>();
+		
+		hoteli =  hoteliService.VratiSveHotele();
+		
+		String header[] = new String[] { "Naziv", "Adresa", "Destinacija", "Broj Zvijezdica",
+				"Lanac", "Pocetak visoke", "Kraj visoke", "broj" };
 
+		TableModel model = new DefaultTableModel() {
+			Class[] types = new Class[] {
+					
+					java.lang.String.class,java.lang.String.class,java.lang.String.class, java.lang.Integer.class,java.lang.String.class,java.lang.String.class,
+					java.lang.String.class,java.lang.String.class };
+
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return types[columnIndex];
+			}
+		};
+		((DefaultTableModel) model).setColumnIdentifiers(header);
+		table_pregledHotela.setModel(model);
+		Hotel hotel = new Hotel();
+		
+		for (int i = 0; i < hoteli.size(); i++) {
+			hotel = hoteli.get(i);			
+
+			((DefaultTableModel) model).addRow(new Object[] {hotel.getNaziv(),hotel.getAdresa(),hotel.getDestinacija().getNaziv()
+					, hotel.getBrojZvjezdica(),hotel.getNazivLanca(),hotel.getPocetakVisoka().toString(),hotel.getKrajVisoka().toString(),hotel.getBrojTelefona()});
+		}
+      
+       
+       }
 	/**
 	 * Create the application.
 	 */
@@ -77,9 +116,6 @@ public class Hoteli {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
-		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
-		
 		frmPrikazHotela = new JFrame();
 		frmPrikazHotela.setTitle("Pregled hotela");
 		frmPrikazHotela.setBounds(100, 100, 784, 395);
@@ -97,40 +133,37 @@ public class Hoteli {
 		table_pregledHotela.setCellSelectionEnabled(true);
 		table_pregledHotela.setBackground(Color.WHITE);
 		table_pregledHotela.setBorder(new CompoundBorder());
-		table_pregledHotela.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"The Marmara Taksi", "Istanbul, Turkey", new Float(5.0f), new Integer(19), new Integer(9), new Float(150.0f), new Float(135.0f)},
-				{"Sura Hagia Sophia", "Istanbul, Turkey", new Float(5.0f), new Integer(15), new Integer(15), new Float(150.0f), new Float(130.0f)},
-				{"Grand Hyatt Dubai", "Dubai, UAE", new Float(4.5f), new Integer(15), new Integer(7), new Float(140.0f), new Float(120.0f)},
-				{"Marina Byblos", "Dubai, UAE", new Float(4.0f), new Integer(24), new Integer(10), new Float(130.0f), new Float(110.0f)},
-				{"Ambassador", "Istanbul, Turkey", new Float(1.0f), new Integer(15), new Integer(14), new Float(70.0f), new Float(50.0f)},
-			},
-			new String[] {
-				"Ime", "Destinacija", "Broj zvjezdica", "Slobodne sobe", "Zauzete sobe", "Cijena visoke sezone", "Cijena niske sezone"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, String.class, Float.class, Integer.class, Integer.class, Float.class, Float.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+		
 		
 		btnModifikujHotel = new JButton("Modifikuj hotel");
 		btnModifikujHotel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ModifikacijaHotela forma =  new ModifikacijaHotela();
+
 				forma.PrikaziFormu();
 			}
 		});
 		btnModifikujHotel.setBounds(343, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnModifikujHotel);
 		
+			
 		btnObriiHotel = new JButton("Obri\u0161i hotel");
 		btnObriiHotel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Jeste li sigurni da želite obrisati odabrani hotel?", "Brisanje hotela", JOptionPane.OK_CANCEL_OPTION);
+				
+				Hotel hotel = new Hotel();
+				if (table_pregledHotela.getSelectedRow() == -1) {
+					JOptionPane.showMessageDialog(null, "Niste selektovali hotel", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					hotel = hoteli.get(table_pregledHotela.getSelectedRow());
+
+					
+					hoteliService.ObrisiJendaHotel(hotel);
+				}
+				NapuniHotele();
+				
 			}
 		});
 		btnObriiHotel.setBounds(503, 287, 150, 30);
@@ -150,6 +183,13 @@ public class Hoteli {
 		btnPregledajSobe.setBounds(23, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnPregledajSobe);
 		
+		btnPregledajSobe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				EditSoba forma = new EditSoba();
+				forma.PrikaziFormu();
+			}
+		});
 		menuBar = new JMenuBar();
 		frmPrikazHotela.setJMenuBar(menuBar);
 		
@@ -195,7 +235,6 @@ public class Hoteli {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
-		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -212,7 +251,6 @@ public class Hoteli {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
-				mntmKlijenti.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -230,26 +268,7 @@ public class Hoteli {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
-			mntmKorisnici.setEnabled(postavke[4]);
 			}
-		
-		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
-		JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
-		mntmIzvjestaji.addActionListener(new ActionListener() {
-					
-			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 
-				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
-				frmPrikazHotela.setVisible(false);
-				forma.PrikaziFormu();				
-			}
-		});
-		mnMeni.add(mntmIzvjestaji);
-		mntmIzvjestaji.setEnabled(postavke[5]);
-		}
 		
 		mnRaun = new JMenu("Račun");
 		menuBar.add(mnRaun);
@@ -262,7 +281,7 @@ public class Hoteli {
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
-		
+		NapuniHotele();
 		mntmOdjaviSe = new JMenuItem("Odjavi se");
 		mntmOdjaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -287,6 +306,7 @@ public class Hoteli {
 		table_pregledHotela.getColumnModel().getColumn(4).setPreferredWidth(78);
 		table_pregledHotela.getColumnModel().getColumn(5).setPreferredWidth(110);
 		table_pregledHotela.getColumnModel().getColumn(6).setPreferredWidth(108);
+		table_pregledHotela.getColumnModel().getColumn(7).setPreferredWidth(110);
 	}
 
 	public void PrikaziFormu() {

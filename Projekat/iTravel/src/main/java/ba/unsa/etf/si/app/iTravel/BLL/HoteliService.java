@@ -32,7 +32,7 @@ public class HoteliService
 
 	}
 
-	public ArrayList<Hotel> VratiSveHotele(int id) {
+	public ArrayList<Hotel> VratiSveHotele() {
 		ArrayList<Hotel> hoteli = new ArrayList<Hotel>();
 
 		hoteli = (ArrayList<Hotel>) baza.getHoteliRepo().ucitajSveIzBaze();
