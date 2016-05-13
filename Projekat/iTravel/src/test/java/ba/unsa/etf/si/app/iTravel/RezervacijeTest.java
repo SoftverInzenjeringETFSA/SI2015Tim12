@@ -101,12 +101,12 @@ public class RezervacijeTest {
 	@Test(expected= java.lang.NullPointerException.class)
 	public void testRezervisiSobu() {
 		Soba soba= new Soba();
-		soba.setSobaId(17);
+		soba.setSobaId(16);
 		soba.setBrojKreveta(3);
 		soba.setCijenaNiska(50);
 		soba.setCijenaVisoka(100);
 		Rezervacija rezervacija= new Rezervacija();
-		rezervacija.setRezervacijaId(2);
+		rezervacija.setRezervacijaId(3);
 		Date d= new Date(2016,4,1);
 		Date d1= new Date(2016,4,5);
 		assertFalse(uow.getRezervacijaService().rezervisiSobu(soba, d, d1, rezervacija));
@@ -119,7 +119,7 @@ public class RezervacijeTest {
 		
 		Rezervacija r= new Rezervacija();
 		uow= new UnitOfWork();
-		r.setRezervacijaId(2);
+		r.setRezervacijaId(16);
 		assertFalse(uow.getRezervacijaService().kreirajRezervaciju(r, 2));
 	}
 

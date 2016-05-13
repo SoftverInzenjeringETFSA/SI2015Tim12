@@ -23,33 +23,36 @@ public class IzvjestajService {
 	
 	public int PrebrojRezervacijeZaDestinaciju(Destinacija destinacija1, Date date, Date date2)
 	{	
-		ArrayList<Criterion> listaKriterijona = new ArrayList<Criterion>();
-		ArrayList<Criterion> listaKriterijona1 = new ArrayList<Criterion>();
-		ArrayList<Criterion> listaKriterijona2 = new ArrayList<Criterion>();
-		listaKriterijona.add(Restrictions.eq("destinacija", (Destinacija)destinacija1));
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		ArrayList<Criterion> listaKriterija1 = new ArrayList<Criterion>();
+		ArrayList<Criterion> listaKriterija2 = new ArrayList<Criterion>();
+		listaKriterija.add(Restrictions.eq("destinacija", (Destinacija)destinacija1));
 		List<Hotel> hotel= new ArrayList<Hotel>();
-		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterijona);
+		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterija);
 		
 		int suma=0;
 		for(Hotel h: hotel)
 		{
-			listaKriterijona1.add(Restrictions.eq("hotel", h));
+			listaKriterija1.add(Restrictions.eq("hotel", (Hotel)h));
 			List<Soba> sobe= new ArrayList<Soba>();
-			sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterijona1);
+			sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterija1);
 			for(Soba s: sobe)
 			{
-				listaKriterijona2.add(Restrictions.eq("soba", s));
+				listaKriterija2.add(Restrictions.eq("soba", (Soba)s));
 				List<RezervisaniTerminSoba> rez= new ArrayList<RezervisaniTerminSoba>();
-				rez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterijona2);
+				rez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterija2);
 				for(RezervisaniTerminSoba r: rez)
 				{
-					if( date.getTime()< r.getDatumPocetak().getTime() && r.getDatumKraj().getTime()<date2.getTime())
+					if( (date.getTime()< r.getDatumPocetak().getTime() && r.getDatumKraj().getTime()<date2.getTime()) 
+							|| ( r.getDatumPocetak().getTime()<date.getTime() && date.getTime() < r.getDatumKraj().getTime() && r.getDatumKraj().getTime()<date2.getTime()) 
+							|| (date.getTime() < r.getDatumPocetak().getTime() && r.getDatumPocetak().getTime()<date2.getTime() && date2.getTime()<r.getDatumKraj().getTime())
+							|| (r.getDatumPocetak().getTime()==date.getTime()) || (r.getDatumKraj().getTime()==date2.getTime()))
 					
 						suma++;
 				}
-				listaKriterijona2.clear();
+				listaKriterija2.clear();
 			}
-			listaKriterijona1.clear();
+			listaKriterija1.clear();
 		}
 		
 		
@@ -69,28 +72,31 @@ public class IzvjestajService {
 	
 	public int brojIznajmljenihSoba(Hotel IDhotel,Date date, Date date2)
 	{
-		ArrayList<Criterion> listaKriterijona = new ArrayList<Criterion>();
-		listaKriterijona.add(Restrictions.eq("hotel", (Hotel)IDhotel));
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		listaKriterija.add(Restrictions.eq("hotel", (Hotel)IDhotel));
 		List<Soba> sobe= new ArrayList<Soba>();
-		sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterijona);
+		sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
 		
 
 		int suma=0;
 		for(Soba s: sobe)
 		{
-			ArrayList<Criterion> listaKriterijona1 = new ArrayList<Criterion>();
-			listaKriterijona1.add(Restrictions.eq("soba", (Soba)s));
+			ArrayList<Criterion> listaKriterija1 = new ArrayList<Criterion>();
+			listaKriterija1.add(Restrictions.eq("soba", (Soba)s));
 			List<RezervisaniTerminSoba> sobeRez= new ArrayList<RezervisaniTerminSoba>();
-			sobeRez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterijona1);
+			sobeRez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterija1);
 			
-			for(RezervisaniTerminSoba rs: sobeRez)
+			for(RezervisaniTerminSoba r: sobeRez)
 			{
-				if(rs.getAktivan()==true)
-					if(date.getTime()< rs.getDatumPocetak().getTime())
-						if(rs.getDatumKraj().getTime()< date2.getTime())
-							suma++;
+				if(r.getAktivan()==true)
+					if( (date.getTime()< r.getDatumPocetak().getTime() && r.getDatumKraj().getTime()<date2.getTime()) 
+							|| ( r.getDatumPocetak().getTime()<date.getTime() && date.getTime() < r.getDatumKraj().getTime() && r.getDatumKraj().getTime()<date2.getTime()) 
+							|| (date.getTime() < r.getDatumPocetak().getTime() && r.getDatumPocetak().getTime()<date2.getTime() && date2.getTime()<r.getDatumKraj().getTime())
+							|| (r.getDatumPocetak().getTime()==date.getTime()) || (r.getDatumKraj().getTime()==date2.getTime()))
+					
+					suma++;
 			}
-			listaKriterijona1.clear();
+			listaKriterija1.clear();
 		}
 		
 		return suma;
@@ -135,10 +141,10 @@ public class IzvjestajService {
 	public List<Hotel> VratiListuHotela(Destinacija d)
 	{
 	
-		ArrayList<Criterion> listaKriterijona = new ArrayList<Criterion>();
-		listaKriterijona.add(Restrictions.eq("destinacija", (Destinacija)d));
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		listaKriterija.add(Restrictions.eq("destinacija", (Destinacija)d));
 		List<Hotel> hotel= new ArrayList<Hotel>();
-		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterijona);
+		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterija);
 		
 		return hotel;
 	}
