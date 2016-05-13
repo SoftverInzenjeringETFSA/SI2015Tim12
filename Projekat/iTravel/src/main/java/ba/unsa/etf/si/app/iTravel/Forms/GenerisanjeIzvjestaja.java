@@ -141,6 +141,7 @@ public class GenerisanjeIzvjestaja {
 				for(Destinacija i: id)
 				{
 					Integer rezervacija= uow.getIzvjestajService().PrebrojRezervacijeZaDestinaciju(i, dateChooser.getDate(), dateChooser_1.getDate());
+					if(rezervacija==-1) continue;
 					Object[] row={i.getNaziv(), rezervacija}; 
 					model.addRow(row);
 				}

@@ -36,6 +36,7 @@ public class IzvjestajService {
 			listaKriterija1.add(Restrictions.eq("hotel", (Hotel)h));
 			List<Soba> sobe= new ArrayList<Soba>();
 			sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterija1);
+			if(sobe.size()==0) return -1; 
 			for(Soba s: sobe)
 			{
 				listaKriterija2.add(Restrictions.eq("soba", (Soba)s));
