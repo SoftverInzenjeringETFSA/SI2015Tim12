@@ -38,27 +38,23 @@ public class Prijava {
 				
 				if(UserContext.getInstance().getRoleID() == 1)
 				{
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmPrijava.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if (UserContext.getInstance().getRoleID() == 2)
 				{
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmPrijava.setVisible(false);
-					forma.PrikaziFormu();				
 				}
 				else if(UserContext.getInstance().getRoleID() == 3)
 				{
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmPrijava.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else
 				{
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmPrijava.setVisible(false);
-					forma.PrikaziFormu();			
 				}
 				
 			}
@@ -69,7 +65,7 @@ public class Prijava {
 		}
 	}	
 	
-	public void PrikaziFormu() {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

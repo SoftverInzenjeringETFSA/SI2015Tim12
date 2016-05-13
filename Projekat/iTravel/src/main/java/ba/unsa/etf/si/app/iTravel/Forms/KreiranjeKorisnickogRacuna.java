@@ -392,19 +392,16 @@ public class KreiranjeKorisnickogRacuna {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmKreirajiKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmKreirajiKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmKreirajiKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -418,9 +415,8 @@ public class KreiranjeKorisnickogRacuna {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmKreirajiKorisnika.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -433,9 +429,9 @@ public class KreiranjeKorisnickogRacuna {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frmKreirajiKorisnika.setVisible(false);
-				forma.PrikaziFormu();
+
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -449,9 +445,8 @@ public class KreiranjeKorisnickogRacuna {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmKreirajiKorisnika.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
@@ -468,9 +463,8 @@ public class KreiranjeKorisnickogRacuna {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-					Korisnici forma = new Korisnici();
-					frmKreirajiKorisnika.setVisible(false);
-					forma.PrikaziFormu();				
+					Korisnici.PrikaziFormu();
+					frmKreirajiKorisnika.setVisible(false);			
 				}
 			});
 			mnMeni.add(mntmKorisnici);
@@ -486,9 +480,8 @@ public class KreiranjeKorisnickogRacuna {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
-				frmKreirajiKorisnika.setVisible(false);
-				forma.PrikaziFormu();				
+				GenerisanjeIzvjestaja.PrikaziFormu();
+				frmKreirajiKorisnika.setVisible(false);			
 			}
 		});
 		mnMeni.add(mntmIzvjestaji);
@@ -502,8 +495,7 @@ public class KreiranjeKorisnickogRacuna {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -518,8 +510,7 @@ public class KreiranjeKorisnickogRacuna {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);

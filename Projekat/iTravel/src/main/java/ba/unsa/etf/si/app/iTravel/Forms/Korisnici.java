@@ -36,7 +36,7 @@ public class Korisnici {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -81,15 +81,15 @@ public class Korisnici {
 	private void OtvoriKreirajKorisnikaFormu(boolean modif, int idSelektovanogKorisnika)
 	{
 		if(modif)
-		{
-			KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(this, idSelektovanogKorisnika);
-			forma.PrikaziFormu();
-		}
-		else		
-		{
-			KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(this);
-			forma.PrikaziFormu();
-		}
+	 	{
+ 			KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(this, idSelektovanogKorisnika);
+ 			forma.PrikaziFormu();
+ 		}
+ 		else		
+ 		{
+ 			KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(this);
+ 			forma.PrikaziFormu();
+ 		}
 
 	}
 
@@ -223,19 +223,17 @@ public class Korisnici {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmPrikazKorisnika.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmPrikazKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmPrikazKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -249,9 +247,9 @@ public class Korisnici {
 				win[i].dispose(); 
 				} 				
 				
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmPrikazKorisnika.setVisible(false);
-				forma.PrikaziFormu();
+
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -264,9 +262,8 @@ public class Korisnici {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frmPrikazKorisnika.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -280,9 +277,8 @@ public class Korisnici {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmPrikazKorisnika.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
@@ -299,9 +295,8 @@ public class Korisnici {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
-				frmPrikazKorisnika.setVisible(false);
-				forma.PrikaziFormu();				
+				GenerisanjeIzvjestaja.PrikaziFormu();
+				frmPrikazKorisnika.setVisible(false);			
 			}
 		});
 		mnMeni.add(mntmIzvjestaji);
@@ -319,8 +314,7 @@ public class Korisnici {
 				win[i].dispose(); 
 				} 
 				
-				Prijava prijava = new Prijava();				
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		menuBar.add(mnRaun);
@@ -329,9 +323,7 @@ public class Korisnici {
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				PromjenaSifre novaForma = new PromjenaSifre();
-				
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -340,16 +332,5 @@ public class Korisnici {
 		mnRaun.add(mntmOdjaviSe);
 	}
 	
-	public void PrikaziFormu() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Korisnici window = new Korisnici();
-					window.frmPrikazKorisnika.setVisible(true);
-				} catch (Exception e) {
-					UnitOfWork.logger.error(e);
-				}
-			}
-		});
-	}
+	
 }

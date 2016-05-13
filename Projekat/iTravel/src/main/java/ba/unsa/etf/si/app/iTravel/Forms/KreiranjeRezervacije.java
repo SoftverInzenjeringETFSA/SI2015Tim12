@@ -75,7 +75,7 @@ public class KreiranjeRezervacije {
 	/**
 	 * Launch the application.
 	 */
-	public void PrikaziFormu() {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -417,19 +417,16 @@ public class KreiranjeRezervacije {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmKreiranjeRezervacije.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmKreiranjeRezervacije.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmKreiranjeRezervacije.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -443,9 +440,8 @@ public class KreiranjeRezervacije {
 				win[i].dispose(); 
 				} 				
 				
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmKreiranjeRezervacije.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -457,9 +453,8 @@ public class KreiranjeRezervacije {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frmKreiranjeRezervacije.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -472,9 +467,8 @@ public class KreiranjeRezervacije {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmKreiranjeRezervacije.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
@@ -490,9 +484,8 @@ public class KreiranjeRezervacije {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-					Korisnici forma = new Korisnici();
-					frmKreiranjeRezervacije.setVisible(false);
-					forma.PrikaziFormu();				
+					Korisnici.PrikaziFormu();
+					frmKreiranjeRezervacije.setVisible(false);			
 				}
 			});
 			mnMeni.add(mntmKorisnici);
@@ -505,8 +498,7 @@ public class KreiranjeRezervacije {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -521,8 +513,7 @@ public class KreiranjeRezervacije {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);

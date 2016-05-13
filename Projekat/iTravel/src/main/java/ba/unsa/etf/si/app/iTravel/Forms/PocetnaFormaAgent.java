@@ -31,7 +31,7 @@ public class PocetnaFormaAgent {
 	/**
 	 * Launch the application.
 	 */
-	public void PrikaziFormu() {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -64,8 +64,7 @@ public class PocetnaFormaAgent {
 		btnHoteliUPonudi = new JButton("Hoteli u ponudi");
 		btnHoteliUPonudi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Hoteli forma = new Hoteli();
-				forma.PrikaziFormu();
+				Hoteli.PrikaziFormu();
 			}
 		});
 		btnHoteliUPonudi.setBounds(38, 81, 350, 35);
@@ -81,9 +80,8 @@ public class PocetnaFormaAgent {
 		btnRezervacije = new JButton("Rezervacije");
 		btnRezervacije.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Rezervacije forma=new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frame.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		btnRezervacije.setBounds(38, 127, 350, 35);
@@ -100,8 +98,7 @@ public class PocetnaFormaAgent {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni \u0161ifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnAkcije.add(mntmPromijeniifru);
@@ -116,8 +113,7 @@ public class PocetnaFormaAgent {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnAkcije.add(mntmOdjaviSe);

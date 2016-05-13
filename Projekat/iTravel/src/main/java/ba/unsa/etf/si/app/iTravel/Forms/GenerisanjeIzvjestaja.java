@@ -46,7 +46,7 @@ public class GenerisanjeIzvjestaja {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -256,19 +256,18 @@ public class GenerisanjeIzvjestaja {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frame.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frame.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frame.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -281,9 +280,8 @@ public class GenerisanjeIzvjestaja {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 	
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frame.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnPovratak.add(mntmHoteli);
@@ -295,9 +293,8 @@ public class GenerisanjeIzvjestaja {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frame.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnPovratak.add(mntmRezervacije);
@@ -310,9 +307,8 @@ public class GenerisanjeIzvjestaja {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
-						frame.setVisible(false);
-						forma.PrikaziFormu();	
+						Klijenti.PrikaziFormu();
+						frame.setVisible(false);	
 					
 				}
 			});
@@ -328,9 +324,8 @@ public class GenerisanjeIzvjestaja {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-					Korisnici forma = new Korisnici();
-					frame.setVisible(false);
-					forma.PrikaziFormu();				
+					Korisnici.PrikaziFormu();
+					frame.setVisible(false);			
 				}
 			});
 			mnPovratak.add(mntmKorisnici);
@@ -348,16 +343,5 @@ public class GenerisanjeIzvjestaja {
 		
 		
 	}
-	public void PrikaziFormu() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GenerisanjeIzvjestaja window = new GenerisanjeIzvjestaja();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					UnitOfWork.logger.error(e);
-				}
-			}
-		});
-	}
+	
 }
