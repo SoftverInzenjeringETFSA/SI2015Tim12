@@ -8,6 +8,8 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import org.hibernate.engine.internal.StatisticalLoggingSessionEventListener;
+
 import ba.unsa.etf.si.app.iTravel.BLL.PrikazKorisnika;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
@@ -24,7 +26,7 @@ import javax.swing.JMenuItem;
 public class Korisnici {
 	
 	private UnitOfWork uow = new UnitOfWork();
-	
+
 
 	private JFrame frmPrikazKorisnika;
 	private JTable table;
@@ -90,6 +92,7 @@ public class Korisnici {
 				return columnTypes[columnIndex];
 			}
 		});
+		
 		table.getColumnModel().getColumn(2).setPreferredWidth(89);
 		table.getColumnModel().getColumn(3).setPreferredWidth(85);
 		table.getColumnModel().getColumn(4).setPreferredWidth(99);

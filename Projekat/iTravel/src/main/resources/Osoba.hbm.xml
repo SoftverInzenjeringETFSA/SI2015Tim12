@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 13-May-2016 21:01:02 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Osoba" table="osoba" catalog="tim12">
         <id name="osobaId" type="java.lang.Integer">
@@ -26,8 +26,8 @@
         <property name="brojTelefona" type="string">
             <column name="BrojTelefona" length="45" />
         </property>
-        <property name="jmbg" type="java.lang.Integer">
-            <column name="JMBG" />
+        <property name="jmbg" type="string">
+            <column name="JMBG" length="13" />
         </property>
         <property name="brojPasosa" type="string">
             <column name="BrojPasosa" length="45" />
@@ -46,6 +46,18 @@
                 <column name="OsobaID" not-null="true" />
             </key>
             <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Klijent" />
+        </set>
+        <set name="klijents_1" table="klijent" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OsobaID" not-null="true" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Klijent" />
+        </set>
+        <set name="korisnickiRacuns_1" table="korisnicki_racun" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OsobaID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun" />
         </set>
     </class>
 </hibernate-mapping>

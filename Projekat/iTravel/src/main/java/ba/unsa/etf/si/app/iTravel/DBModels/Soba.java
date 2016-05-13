@@ -1,11 +1,13 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,44 +21,44 @@ import javax.persistence.Table;
 @Table(name = "soba", catalog = "tim12")
 public class Soba implements java.io.Serializable {
 
-	private int sobaId;
+	private Integer sobaId;
 	private Hotel hotel;
 	private Integer brojKreveta;
 	private String opis;
 	private int cijenaVisoka;
 	private int cijenaNiska;
 	private Set<RezervisaniTerminSoba> rezervisaniTerminSobas = new HashSet<RezervisaniTerminSoba>(0);
+	private Set<RezervisaniTerminSoba> rezervisaniTerminSobas_1 = new HashSet<RezervisaniTerminSoba>(0);
 
 	public Soba() {
 	}
 
-	public Soba(int sobaId, Hotel hotel, int cijenaVisoka, int cijenaNiska) {
-		this.sobaId = sobaId;
+	public Soba(Hotel hotel, int cijenaVisoka, int cijenaNiska) {
 		this.hotel = hotel;
 		this.cijenaVisoka = cijenaVisoka;
 		this.cijenaNiska = cijenaNiska;
 	}
-	
 
-	public Soba(int sobaId, Hotel hotel, Integer brojKreveta, String opis, int cijenaVisoka, int cijenaNiska,
-			Set<RezervisaniTerminSoba> rezervisaniTerminSobas) {
-		this.sobaId = sobaId;
+	public Soba(Hotel hotel, Integer brojKreveta, String opis, int cijenaVisoka, int cijenaNiska,
+			Set<RezervisaniTerminSoba> rezervisaniTerminSobas, Set<RezervisaniTerminSoba> rezervisaniTerminSobas_1) {
 		this.hotel = hotel;
 		this.brojKreveta = brojKreveta;
 		this.opis = opis;
 		this.cijenaVisoka = cijenaVisoka;
 		this.cijenaNiska = cijenaNiska;
 		this.rezervisaniTerminSobas = rezervisaniTerminSobas;
+		this.rezervisaniTerminSobas_1 = rezervisaniTerminSobas_1;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "SobaID", unique = true, nullable = false)
-	public int getSobaId() {
+	public Integer getSobaId() {
 		return this.sobaId;
 	}
 
-	public void setSobaId(int sobaId) {
+	public void setSobaId(Integer sobaId) {
 		this.sobaId = sobaId;
 	}
 
@@ -113,6 +115,15 @@ public class Soba implements java.io.Serializable {
 
 	public void setRezervisaniTerminSobas(Set<RezervisaniTerminSoba> rezervisaniTerminSobas) {
 		this.rezervisaniTerminSobas = rezervisaniTerminSobas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "soba")
+	public Set<RezervisaniTerminSoba> getRezervisaniTerminSobas_1() {
+		return this.rezervisaniTerminSobas_1;
+	}
+
+	public void setRezervisaniTerminSobas_1(Set<RezervisaniTerminSoba> rezervisaniTerminSobas_1) {
+		this.rezervisaniTerminSobas_1 = rezervisaniTerminSobas_1;
 	}
 
 }

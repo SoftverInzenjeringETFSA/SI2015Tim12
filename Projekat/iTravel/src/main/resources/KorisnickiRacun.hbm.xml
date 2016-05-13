@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 13-May-2016 21:01:02 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun" table="korisnicki_racun" catalog="tim12">
         <id name="korisnickiRacunId" type="java.lang.Integer">
@@ -24,6 +24,18 @@
             <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola" />
         </set>
         <set name="rezervacijas" table="rezervacija" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AgentKreiraoID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" />
+        </set>
+        <set name="korisnickiracunxrolas_1" table="korisnickiracunxrola" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="KorisnickiRacunID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola" />
+        </set>
+        <set name="rezervacijas_1" table="rezervacija" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="AgentKreiraoID" />
             </key>

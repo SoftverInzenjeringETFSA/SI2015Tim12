@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -38,13 +38,14 @@ public class Hotel implements java.io.Serializable {
 	private String nazivLanca;
 	private Integer brojZvjezdica;
 	private Set<Soba> sobas = new HashSet<Soba>(0);
+	private Set<Soba> sobas_1 = new HashSet<Soba>(0);
 
 	public Hotel() {
 	}
 
 	public Hotel(Destinacija destinacija, String adresa, String drzava, String grad, String brojTelefona,
 			Date pocetakNiska, Date krajNiska, Date krajVisoka, Date pocetakVisoka, String naziv, String nazivLanca,
-			Integer brojZvjezdica, Set<Soba> sobas) {
+			Integer brojZvjezdica, Set<Soba> sobas, Set<Soba> sobas_1) {
 		this.destinacija = destinacija;
 		this.adresa = adresa;
 		this.drzava = drzava;
@@ -58,6 +59,7 @@ public class Hotel implements java.io.Serializable {
 		this.nazivLanca = nazivLanca;
 		this.brojZvjezdica = brojZvjezdica;
 		this.sobas = sobas;
+		this.sobas_1 = sobas_1;
 	}
 
 	@Id
@@ -192,6 +194,15 @@ public class Hotel implements java.io.Serializable {
 
 	public void setSobas(Set<Soba> sobas) {
 		this.sobas = sobas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hotel")
+	public Set<Soba> getSobas_1() {
+		return this.sobas_1;
+	}
+
+	public void setSobas_1(Set<Soba> sobas_1) {
+		this.sobas_1 = sobas_1;
 	}
 
 }

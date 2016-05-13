@@ -70,7 +70,7 @@ public class RezervacijaTest {
 		uow= new UnitOfWork();
 		@SuppressWarnings("deprecation")
 		Date d= new Date(2016,4,8);
-		Osoba o= new Osoba("Adna", "Tahic", new Date(1994,8,15), "adresa","email","062295160", 1234, "pasos", null, null);
+		Osoba o= new Osoba("Adna", "Tahic", new Date(1994,8,15), "adresa","email","062295160", "1234", "pasos", null, null,null,null,null);
 		Klijent k= new Klijent(1,o);
 		
 		

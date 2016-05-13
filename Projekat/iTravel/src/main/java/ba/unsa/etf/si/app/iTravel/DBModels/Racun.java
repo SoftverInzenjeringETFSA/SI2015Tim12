@@ -1,10 +1,12 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,7 @@ import javax.persistence.TemporalType;
 @Table(name = "racun", catalog = "tim12")
 public class Racun implements java.io.Serializable {
 
-	private int racunId;
+	private Integer racunId;
 	private Rezervacija rezervacija;
 	private Date datumUplate;
 	private Date trenutniDatum;
@@ -29,13 +31,7 @@ public class Racun implements java.io.Serializable {
 	public Racun() {
 	}
 
-	public Racun(int racunId) {
-		this.racunId = racunId;
-	}
-
-	public Racun(int racunId, Rezervacija rezervacija, Date datumUplate, Date trenutniDatum, Integer popust,
-			Integer cijena) {
-		this.racunId = racunId;
+	public Racun(Rezervacija rezervacija, Date datumUplate, Date trenutniDatum, Integer popust, Integer cijena) {
 		this.rezervacija = rezervacija;
 		this.datumUplate = datumUplate;
 		this.trenutniDatum = trenutniDatum;
@@ -44,13 +40,14 @@ public class Racun implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "RacunID", unique = true, nullable = false)
-	public int getRacunId() {
+	public Integer getRacunId() {
 		return this.racunId;
 	}
 
-	public void setRacunId(int racunId) {
+	public void setRacunId(Integer racunId) {
 		this.racunId = racunId;
 	}
 
@@ -64,8 +61,8 @@ public class Racun implements java.io.Serializable {
 		this.rezervacija = rezervacija;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DatumUplate", length = 10)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DatumUplate", length = 19)
 	public Date getDatumUplate() {
 		return this.datumUplate;
 	}
@@ -74,8 +71,8 @@ public class Racun implements java.io.Serializable {
 		this.datumUplate = datumUplate;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "TrenutniDatum", length = 10)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "TrenutniDatum", length = 19)
 	public Date getTrenutniDatum() {
 		return this.trenutniDatum;
 	}

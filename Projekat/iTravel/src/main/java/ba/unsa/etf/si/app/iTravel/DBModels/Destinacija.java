@@ -1,11 +1,13 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,33 +19,31 @@ import javax.persistence.Table;
 @Table(name = "destinacija", catalog = "tim12")
 public class Destinacija implements java.io.Serializable {
 
-	private int destinacijaId;
+	private Integer destinacijaId;
 	private String naziv;
 	private Boolean omogucenPrevoz;
 	private Set<Hotel> hotels = new HashSet<Hotel>(0);
+	private Set<Hotel> hotels_1 = new HashSet<Hotel>(0);
 
 	public Destinacija() {
 	}
 
-	public Destinacija(int destinacijaId) {
-		this.destinacijaId = destinacijaId;
-	}
-
-	public Destinacija(int destinacijaId, String naziv, Boolean omogucenPrevoz, Set<Hotel> hotels) {
-		this.destinacijaId = destinacijaId;
+	public Destinacija(String naziv, Boolean omogucenPrevoz, Set<Hotel> hotels, Set<Hotel> hotels_1) {
 		this.naziv = naziv;
 		this.omogucenPrevoz = omogucenPrevoz;
 		this.hotels = hotels;
+		this.hotels_1 = hotels_1;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "DestinacijaID", unique = true, nullable = false)
-	public int getDestinacijaId() {
+	public Integer getDestinacijaId() {
 		return this.destinacijaId;
 	}
 
-	public void setDestinacijaId(int destinacijaId) {
+	public void setDestinacijaId(Integer destinacijaId) {
 		this.destinacijaId = destinacijaId;
 	}
 
@@ -72,6 +72,15 @@ public class Destinacija implements java.io.Serializable {
 
 	public void setHotels(Set<Hotel> hotels) {
 		this.hotels = hotels;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "destinacija")
+	public Set<Hotel> getHotels_1() {
+		return this.hotels_1;
+	}
+
+	public void setHotels_1(Set<Hotel> hotels_1) {
+		this.hotels_1 = hotels_1;
 	}
 
 }

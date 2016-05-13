@@ -74,9 +74,9 @@ public class RezervacijeService {
 	}
 	
 	//dok cekam OsobaService
-	private List<Osoba> dajOsobuPoJMBG(int jmbg){
+	private List<Osoba> dajOsobuPoJMBG(String jmbg){
 		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("jmbg", (Integer)jmbg));
+		listaKriterija.add(Restrictions.eq("jmbg", jmbg));
 		List<Osoba> s=new ArrayList<Osoba>();
 		s=baza.getOsobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
 		return s;

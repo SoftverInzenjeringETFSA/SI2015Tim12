@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -29,20 +29,25 @@ public class Rezervacija implements java.io.Serializable {
 	private Klijent klijent;
 	private Date datumRezervacije;
 	private Boolean ukljucenPrevoz;
-	private Set<RezervisaniTerminSoba> rezervisaniTerminSobas = new HashSet<RezervisaniTerminSoba>(0);
 	private Set<Racun> racuns = new HashSet<Racun>(0);
+	private Set<RezervisaniTerminSoba> rezervisaniTerminSobas = new HashSet<RezervisaniTerminSoba>(0);
+	private Set<RezervisaniTerminSoba> rezervisaniTerminSobas_1 = new HashSet<RezervisaniTerminSoba>(0);
+	private Set<Racun> racuns_1 = new HashSet<Racun>(0);
 
 	public Rezervacija() {
 	}
 
 	public Rezervacija(KorisnickiRacun korisnickiRacun, Klijent klijent, Date datumRezervacije, Boolean ukljucenPrevoz,
-			Set<RezervisaniTerminSoba> rezervisaniTerminSobas, Set<Racun> racuns) {
+			Set<Racun> racuns, Set<RezervisaniTerminSoba> rezervisaniTerminSobas,
+			Set<RezervisaniTerminSoba> rezervisaniTerminSobas_1, Set<Racun> racuns_1) {
 		this.korisnickiRacun = korisnickiRacun;
 		this.klijent = klijent;
 		this.datumRezervacije = datumRezervacije;
 		this.ukljucenPrevoz = ukljucenPrevoz;
-		this.rezervisaniTerminSobas = rezervisaniTerminSobas;
 		this.racuns = racuns;
+		this.rezervisaniTerminSobas = rezervisaniTerminSobas;
+		this.rezervisaniTerminSobas_1 = rezervisaniTerminSobas_1;
+		this.racuns_1 = racuns_1;
 	}
 
 	@Id
@@ -77,8 +82,8 @@ public class Rezervacija implements java.io.Serializable {
 		this.klijent = klijent;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DatumRezervacije", length = 10)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DatumRezervacije", length = 19)
 	public Date getDatumRezervacije() {
 		return this.datumRezervacije;
 	}
@@ -97,6 +102,15 @@ public class Rezervacija implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rezervacija")
+	public Set<Racun> getRacuns() {
+		return this.racuns;
+	}
+
+	public void setRacuns(Set<Racun> racuns) {
+		this.racuns = racuns;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rezervacija")
 	public Set<RezervisaniTerminSoba> getRezervisaniTerminSobas() {
 		return this.rezervisaniTerminSobas;
 	}
@@ -106,12 +120,21 @@ public class Rezervacija implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rezervacija")
-	public Set<Racun> getRacuns() {
-		return this.racuns;
+	public Set<RezervisaniTerminSoba> getRezervisaniTerminSobas_1() {
+		return this.rezervisaniTerminSobas_1;
 	}
 
-	public void setRacuns(Set<Racun> racuns) {
-		this.racuns = racuns;
+	public void setRezervisaniTerminSobas_1(Set<RezervisaniTerminSoba> rezervisaniTerminSobas_1) {
+		this.rezervisaniTerminSobas_1 = rezervisaniTerminSobas_1;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rezervacija")
+	public Set<Racun> getRacuns_1() {
+		return this.racuns_1;
+	}
+
+	public void setRacuns_1(Set<Racun> racuns_1) {
+		this.racuns_1 = racuns_1;
 	}
 
 }

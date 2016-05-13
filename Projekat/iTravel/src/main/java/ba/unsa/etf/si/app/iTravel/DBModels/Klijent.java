@@ -1,11 +1,13 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,32 +21,33 @@ import javax.persistence.Table;
 @Table(name = "klijent", catalog = "tim12")
 public class Klijent implements java.io.Serializable {
 
-	private int klijentId;
+	private Integer klijentId;
 	private Osoba osoba;
 	private Set<Rezervacija> rezervacijas = new HashSet<Rezervacija>(0);
+	private Set<Rezervacija> rezervacijas_1 = new HashSet<Rezervacija>(0);
 
 	public Klijent() {
 	}
 
-	public Klijent(int klijentId, Osoba osoba) {
-		this.klijentId = klijentId;
+	public Klijent(Osoba osoba) {
 		this.osoba = osoba;
 	}
 
-	public Klijent(int klijentId, Osoba osoba, Set<Rezervacija> rezervacijas) {
-		this.klijentId = klijentId;
+	public Klijent(Osoba osoba, Set<Rezervacija> rezervacijas, Set<Rezervacija> rezervacijas_1) {
 		this.osoba = osoba;
 		this.rezervacijas = rezervacijas;
+		this.rezervacijas_1 = rezervacijas_1;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "KlijentID", unique = true, nullable = false)
-	public int getKlijentId() {
+	public Integer getKlijentId() {
 		return this.klijentId;
 	}
 
-	public void setKlijentId(int klijentId) {
+	public void setKlijentId(Integer klijentId) {
 		this.klijentId = klijentId;
 	}
 
@@ -65,6 +68,15 @@ public class Klijent implements java.io.Serializable {
 
 	public void setRezervacijas(Set<Rezervacija> rezervacijas) {
 		this.rezervacijas = rezervacijas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "klijent")
+	public Set<Rezervacija> getRezervacijas_1() {
+		return this.rezervacijas_1;
+	}
+
+	public void setRezervacijas_1(Set<Rezervacija> rezervacijas_1) {
+		this.rezervacijas_1 = rezervacijas_1;
 	}
 
 }

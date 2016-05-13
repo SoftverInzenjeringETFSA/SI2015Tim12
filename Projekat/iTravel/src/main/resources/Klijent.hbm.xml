@@ -1,17 +1,23 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 13-May-2016 21:01:02 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Klijent" table="klijent" catalog="tim12">
-        <id name="klijentId" type="int">
+        <id name="klijentId" type="java.lang.Integer">
             <column name="KlijentID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="osoba" class="ba.unsa.etf.si.app.iTravel.DBModels.Osoba" fetch="select">
             <column name="OsobaID" not-null="true" />
         </many-to-one>
         <set name="rezervacijas" table="rezervacija" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="KlijentID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" />
+        </set>
+        <set name="rezervacijas_1" table="rezervacija" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="KlijentID" />
             </key>
