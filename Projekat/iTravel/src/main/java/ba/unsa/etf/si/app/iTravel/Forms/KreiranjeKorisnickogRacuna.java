@@ -55,6 +55,8 @@ public class KreiranjeKorisnickogRacuna {
 	private JComboBox comboBox1;
 	private JLabel lblUnesitePodatkeO;
 	private JButton btnNewButton;
+	
+	Korisnici parentFormaKorisnici;
 
 	/**
 	 * Launch the application.
@@ -193,9 +195,7 @@ public class KreiranjeKorisnickogRacuna {
 				novaOsoba.setBrojPasosa("");
 				novaOsoba.setBrojTelefona(brojTelefona);
 				novaOsoba.setEmail(email);
-				
-				if(jmb.isEmpty() == false)
-					novaOsoba.setJmbg(Integer.parseInt(jmb));
+				novaOsoba.setJmbg(jmb);
 				
 				String porukaValidacije = uow.getOsobaService().Validiraj(novaOsoba);
 				
@@ -248,7 +248,8 @@ public class KreiranjeKorisnickogRacuna {
 												"Uspješno kreiran korisnički račun", "Obavijest",
 												JOptionPane.INFORMATION_MESSAGE);
 									}
-							
+									
+									
 									frmKreirajiKorisnika.dispose();
 									
 								}

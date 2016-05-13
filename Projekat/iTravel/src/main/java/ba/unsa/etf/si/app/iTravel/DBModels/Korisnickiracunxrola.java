@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

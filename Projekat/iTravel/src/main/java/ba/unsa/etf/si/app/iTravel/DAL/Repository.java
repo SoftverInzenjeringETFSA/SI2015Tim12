@@ -9,11 +9,11 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 
 import java.util.List;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 public class Repository<T>{
-    private static final Logger logger =
-            Logger.getLogger(Repository.class.getName());
+    /*private static final Logger logger =
+            Logger.getLogger(Repository.class.getName());*/
 
     private static final String DELETE = "DELETE";
     private static final String FROM = "FROM";

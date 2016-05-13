@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 13-May-2016 21:01:02 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija" table="rezervacija" catalog="tim12">
         <id name="rezervacijaId" type="java.lang.Integer">
@@ -14,19 +14,31 @@
         <many-to-one name="klijent" class="ba.unsa.etf.si.app.iTravel.DBModels.Klijent" fetch="select">
             <column name="KlijentID" />
         </many-to-one>
-        <property name="datumRezervacije" type="date">
-            <column name="DatumRezervacije" length="10" />
+        <property name="datumRezervacije" type="timestamp">
+            <column name="DatumRezervacije" length="19" />
         </property>
         <property name="ukljucenPrevoz" type="java.lang.Boolean">
             <column name="UkljucenPrevoz" />
         </property>
+        <set name="racuns" table="racun" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RezervacijaID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Racun" />
+        </set>
         <set name="rezervisaniTerminSobas" table="rezervisani_termin_soba" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="RezervacijaID" />
             </key>
             <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba" />
         </set>
-        <set name="racuns" table="racun" inverse="true" lazy="true" fetch="select">
+        <set name="rezervisaniTerminSobas_1" table="rezervisani_termin_soba" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RezervacijaID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba" />
+        </set>
+        <set name="racuns_1" table="racun" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="RezervacijaID" />
             </key>

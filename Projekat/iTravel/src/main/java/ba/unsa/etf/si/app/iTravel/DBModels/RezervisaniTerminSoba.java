@@ -1,10 +1,12 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,7 @@ import javax.persistence.TemporalType;
 @Table(name = "rezervisani_termin_soba", catalog = "tim12")
 public class RezervisaniTerminSoba implements java.io.Serializable {
 
-	private int rezervisaniTerminId;
+	private Integer rezervisaniTerminId;
 	private Rezervacija rezervacija;
 	private Soba soba;
 	private Date datumPocetak;
@@ -29,13 +31,8 @@ public class RezervisaniTerminSoba implements java.io.Serializable {
 	public RezervisaniTerminSoba() {
 	}
 
-	public RezervisaniTerminSoba(int rezervisaniTerminId) {
-		this.rezervisaniTerminId = rezervisaniTerminId;
-	}
-
-	public RezervisaniTerminSoba(int rezervisaniTerminId, Rezervacija rezervacija, Soba soba, Date datumPocetak,
-			Date datumKraj, Boolean aktivan) {
-		this.rezervisaniTerminId = rezervisaniTerminId;
+	public RezervisaniTerminSoba(Rezervacija rezervacija, Soba soba, Date datumPocetak, Date datumKraj,
+			Boolean aktivan) {
 		this.rezervacija = rezervacija;
 		this.soba = soba;
 		this.datumPocetak = datumPocetak;
@@ -44,13 +41,14 @@ public class RezervisaniTerminSoba implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "RezervisaniTerminID", unique = true, nullable = false)
-	public int getRezervisaniTerminId() {
+	public Integer getRezervisaniTerminId() {
 		return this.rezervisaniTerminId;
 	}
 
-	public void setRezervisaniTerminId(int rezervisaniTerminId) {
+	public void setRezervisaniTerminId(Integer rezervisaniTerminId) {
 		this.rezervisaniTerminId = rezervisaniTerminId;
 	}
 

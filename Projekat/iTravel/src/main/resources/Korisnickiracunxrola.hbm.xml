@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 13-May-2016 21:01:02 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Korisnickiracunxrola" table="korisnickiracunxrola" catalog="tim12">
         <id name="korisnickiRacunXrolaId" type="java.lang.Integer">

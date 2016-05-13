@@ -654,7 +654,7 @@ public class KreiranjeRezervacije {
 				Osoba osoba=new Osoba();
 				osoba.setIme(textField_1.getText());
 				osoba.setPrezime(textField.getText());
-				osoba.setJmbg(Integer.parseInt(textField_2.getText()));
+				osoba.setJmbg(textField_2.getText());
 				osoba.setBrojPasosa(textField_3.getText());
 				osoba.setEmail(textField_5.getText());
 				osoba.setAdresa(textField_6.getText());

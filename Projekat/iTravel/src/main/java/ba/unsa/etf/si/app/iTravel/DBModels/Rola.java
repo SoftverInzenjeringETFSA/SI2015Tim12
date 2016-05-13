@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +20,7 @@ public class Rola implements java.io.Serializable {
 	private int rolaId;
 	private String naziv;
 	private Set<Korisnickiracunxrola> korisnickiracunxrolas = new HashSet<Korisnickiracunxrola>(0);
+	private Set<Korisnickiracunxrola> korisnickiracunxrolas_1 = new HashSet<Korisnickiracunxrola>(0);
 
 	public Rola() {
 	}
@@ -28,10 +29,12 @@ public class Rola implements java.io.Serializable {
 		this.rolaId = rolaId;
 	}
 
-	public Rola(int rolaId, String naziv, Set<Korisnickiracunxrola> korisnickiracunxrolas) {
+	public Rola(int rolaId, String naziv, Set<Korisnickiracunxrola> korisnickiracunxrolas,
+			Set<Korisnickiracunxrola> korisnickiracunxrolas_1) {
 		this.rolaId = rolaId;
 		this.naziv = naziv;
 		this.korisnickiracunxrolas = korisnickiracunxrolas;
+		this.korisnickiracunxrolas_1 = korisnickiracunxrolas_1;
 	}
 
 	@Id
@@ -61,6 +64,15 @@ public class Rola implements java.io.Serializable {
 
 	public void setKorisnickiracunxrolas(Set<Korisnickiracunxrola> korisnickiracunxrolas) {
 		this.korisnickiracunxrolas = korisnickiracunxrolas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rola")
+	public Set<Korisnickiracunxrola> getKorisnickiracunxrolas_1() {
+		return this.korisnickiracunxrolas_1;
+	}
+
+	public void setKorisnickiracunxrolas_1(Set<Korisnickiracunxrola> korisnickiracunxrolas_1) {
+		this.korisnickiracunxrolas_1 = korisnickiracunxrolas_1;
 	}
 
 }

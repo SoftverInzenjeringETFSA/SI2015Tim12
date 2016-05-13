@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-May-2016 22:43:41 by Hibernate Tools 4.0.0.Final -->
+<!-- Generated 13-May-2016 21:01:02 by Hibernate Tools 4.0.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.app.iTravel.DBModels.Destinacija" table="destinacija" catalog="tim12">
-        <id name="destinacijaId" type="int">
+        <id name="destinacijaId" type="java.lang.Integer">
             <column name="DestinacijaID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="naziv" type="string">
             <column name="Naziv" length="100" />
@@ -15,6 +15,12 @@
             <column name="OmogucenPrevoz" />
         </property>
         <set name="hotels" table="hotel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DestinacijaID" />
+            </key>
+            <one-to-many class="ba.unsa.etf.si.app.iTravel.DBModels.Hotel" />
+        </set>
+        <set name="hotels_1" table="hotel" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="DestinacijaID" />
             </key>

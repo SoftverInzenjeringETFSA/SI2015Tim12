@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.DBModels;
-// Generated 05-May-2016 22:43:40 by Hibernate Tools 4.0.0.Final
+// Generated 13-May-2016 21:00:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,17 +27,22 @@ public class KorisnickiRacun implements java.io.Serializable {
 	private String password;
 	private Set<Korisnickiracunxrola> korisnickiracunxrolas = new HashSet<Korisnickiracunxrola>(0);
 	private Set<Rezervacija> rezervacijas = new HashSet<Rezervacija>(0);
+	private Set<Korisnickiracunxrola> korisnickiracunxrolas_1 = new HashSet<Korisnickiracunxrola>(0);
+	private Set<Rezervacija> rezervacijas_1 = new HashSet<Rezervacija>(0);
 
 	public KorisnickiRacun() {
 	}
 
 	public KorisnickiRacun(Osoba osoba, String username, String password,
-			Set<Korisnickiracunxrola> korisnickiracunxrolas, Set<Rezervacija> rezervacijas) {
+			Set<Korisnickiracunxrola> korisnickiracunxrolas, Set<Rezervacija> rezervacijas,
+			Set<Korisnickiracunxrola> korisnickiracunxrolas_1, Set<Rezervacija> rezervacijas_1) {
 		this.osoba = osoba;
 		this.username = username;
 		this.password = password;
 		this.korisnickiracunxrolas = korisnickiracunxrolas;
 		this.rezervacijas = rezervacijas;
+		this.korisnickiracunxrolas_1 = korisnickiracunxrolas_1;
+		this.rezervacijas_1 = rezervacijas_1;
 	}
 
 	@Id
@@ -96,6 +101,24 @@ public class KorisnickiRacun implements java.io.Serializable {
 
 	public void setRezervacijas(Set<Rezervacija> rezervacijas) {
 		this.rezervacijas = rezervacijas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "korisnickiRacun")
+	public Set<Korisnickiracunxrola> getKorisnickiracunxrolas_1() {
+		return this.korisnickiracunxrolas_1;
+	}
+
+	public void setKorisnickiracunxrolas_1(Set<Korisnickiracunxrola> korisnickiracunxrolas_1) {
+		this.korisnickiracunxrolas_1 = korisnickiracunxrolas_1;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "korisnickiRacun")
+	public Set<Rezervacija> getRezervacijas_1() {
+		return this.rezervacijas_1;
+	}
+
+	public void setRezervacijas_1(Set<Rezervacija> rezervacijas_1) {
+		this.rezervacijas_1 = rezervacijas_1;
 	}
 
 }
