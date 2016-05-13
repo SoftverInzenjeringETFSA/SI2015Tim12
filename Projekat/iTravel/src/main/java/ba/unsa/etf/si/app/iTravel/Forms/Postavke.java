@@ -57,14 +57,14 @@ public class Postavke {
 	/**
 	 * Create the application.
 	 */
-	public Postavke() {
-		initialize();
+	public Postavke(PocetnaFormaAdministrator parentForma) {
+		initialize(parentForma);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(final PocetnaFormaAdministrator parentForma) {
 		
 		frmPostavke = new JFrame();
 		frmPostavke.setTitle("Postavke");
@@ -242,13 +242,12 @@ public class Postavke {
 				if(uspjesno)
 				{
 					JOptionPane.showMessageDialog(null, 
-							"Uspješno spašene promjene. Promjene možete vidjeti nakon što"+
-								" se seljdeći put logujete u aplikaciju.",							
+							"Uspješno spašene promjene.",							
 							"Obavještenje",
 							JOptionPane.INFORMATION_MESSAGE);
 					
 					frmPostavke.dispose();
-					
+					parentForma.OsvjeziPostavkeFormu();
 				}
 				else
 				{

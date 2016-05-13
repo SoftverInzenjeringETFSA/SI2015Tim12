@@ -82,4 +82,19 @@ public class KorisnickiRacunService
 		
 		return rezultat;
 	}
+
+	public boolean obrisiKorisnika(int idSelektovanogKorisnika)
+	{
+		try {
+			
+			KorisnickiRacun korisnickiRacun = baza.getKorisnickiRacunRepository().ucitajIzBaze(idSelektovanogKorisnika);
+			baza.getKorisnickiRacunRepository().obrisiIzBaze(korisnickiRacun);
+			
+			return true;
+		} catch (Exception e) {
+			UnitOfWork.logger.error(e);
+			return false;
+		}
+
+	}
 }

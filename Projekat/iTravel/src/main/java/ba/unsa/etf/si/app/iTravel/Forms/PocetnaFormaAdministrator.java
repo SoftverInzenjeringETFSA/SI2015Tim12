@@ -38,7 +38,7 @@ public class PocetnaFormaAdministrator {
 
 	private void otvoriPostavke()
 	{
-		Postavke forma = new Postavke();
+		Postavke forma = new Postavke(this);
 		forma.PrikaziFormu();
 	}
 		
@@ -49,8 +49,9 @@ public class PocetnaFormaAdministrator {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PocetnaFormaAdministrator window = new PocetnaFormaAdministrator();
-					window.frame.setVisible(true);
+					
+					frame.setVisible(true);
+			
 				} catch (Exception e) {
 					UnitOfWork.logger.error(e);
 				}
@@ -73,7 +74,7 @@ public class PocetnaFormaAdministrator {
 	}
 	
 	// Neki problem sa repositorijem i sesijama nece fino da ucita iz baze
-	/*public void OsvjeziPostavkeFormu()
+	public void OsvjeziPostavkeFormu()
 	{	
 		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
@@ -82,7 +83,7 @@ public class PocetnaFormaAdministrator {
 		btnKlijenti.setEnabled(postavke[3]);		
 		btnKorisnici.setEnabled(postavke[4]); 	
 		btnIzvjetaji.setEnabled(postavke[5]);
-	}*/
+	}
 	
 
 	/**

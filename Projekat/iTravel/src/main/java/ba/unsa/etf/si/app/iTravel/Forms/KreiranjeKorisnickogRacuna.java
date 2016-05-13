@@ -78,12 +78,12 @@ public class KreiranjeKorisnickogRacuna {
 	/**
 	 * Create the application.
 	 */
-	public KreiranjeKorisnickogRacuna()
+	public KreiranjeKorisnickogRacuna(Korisnici parentForma)
 	{
-		initialize();
+		initialize(parentForma);
 	}
 	
-	public KreiranjeKorisnickogRacuna(int idKorisnika)
+	public KreiranjeKorisnickogRacuna(Korisnici parentForma, int idKorisnika)
 	{
 		modifikacija = true;
 		
@@ -105,13 +105,13 @@ public class KreiranjeKorisnickogRacuna {
 			}
 		}
 		
-		initialize();		
+		initialize(parentForma);		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(final Korisnici parentForma) {
 		
 		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
@@ -213,18 +213,22 @@ public class KreiranjeKorisnickogRacuna {
 						noviLorisnickiRacun.setUsername(username);
 						noviLorisnickiRacun.setPassword(password);
 						
-						String porukaValidacijeRacuna = uow.getKorisnickiRacunService().Validiraj(korisnickiRacun, modifikacija);
+						String porukaValidacijeRacuna = uow.getKorisnickiRacunService().Validiraj(noviLorisnickiRacun, modifikacija);
 						
 						if(porukaValidacijeRacuna == "")
 						{		
 							// Ako se kreira korisnicki racun idi kreiraj rekord za rolu
 							if(uow.getKorisnickiRacunService().
-									KreirajKorisnickiRacun(korisnickiRacun,  modifikacija).
+									KreirajKorisnickiRacun(noviLorisnickiRacun,  modifikacija).
 									getKorisnickiRacunId() != null)
 							{
 								Korisnickiracunxrola novaKorisnickiracunxrola = new Korisnickiracunxrola();
 								
-								novaKorisnickiracunxrola.setKorisnickiRacunXrolaId(korisnickiracunxrola.getKorisnickiRacunXrolaId());
+								if(modifikacija)
+									novaKorisnickiracunxrola.setKorisnickiRacunXrolaId(korisnickiracunxrola.getKorisnickiRacunXrolaId());
+								
+								if(!modifikacija)
+									novaKorisnickiracunxrola.setKorisnickiRacun(noviLorisnickiRacun);
 								
 								// Dobavi rolu
 								Rola rola = uow.getRolaService().dajRolu(rolaID);
@@ -248,10 +252,9 @@ public class KreiranjeKorisnickogRacuna {
 												"Uspješno kreiran korisnički račun", "Obavijest",
 												JOptionPane.INFORMATION_MESSAGE);
 									}
-									
-									
+														
 									frmKreirajiKorisnika.dispose();
-									
+									parentForma.OsvjeziFormu();
 								}
 							}
 						}

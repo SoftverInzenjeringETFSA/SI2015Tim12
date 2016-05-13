@@ -22,6 +22,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class Korisnici {
 	
@@ -30,6 +31,7 @@ public class Korisnici {
 
 	private JFrame frmPrikazKorisnika;
 	private JTable table;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -45,6 +47,50 @@ public class Korisnici {
 				}
 			}
 		});
+	}
+	
+	public void OsvjeziFormu()
+	{
+		Object[][] podaci= uow.getPrikazKorisnika().PrikaziSveKorisnike();
+		
+		table.setModel(new DefaultTableModel(
+				podaci,
+				new String[] {
+					"Ime", "Prezime", "JMBG", "Broj li\u010Dne karte", "Adresa", "Telefon", "E-mail", "Username", "Tip korisnika", "Id"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		
+		table.getColumnModel().getColumn(2).setPreferredWidth(89);
+		table.getColumnModel().getColumn(3).setPreferredWidth(85);
+		table.getColumnModel().getColumn(4).setPreferredWidth(99);
+		table.getColumnModel().getColumn(6).setPreferredWidth(100);
+		scrollPane.setViewportView(table);
+		
+		TableColumnModel tcm = table.getColumnModel();
+		if(tcm.getColumnCount()==10)
+			tcm.removeColumn( tcm.getColumn(9) );
+	}
+	
+	private void OtvoriKreirajKorisnikaFormu(boolean modif, int idSelektovanogKorisnika)
+	{
+		if(modif)
+		{
+			KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(this, idSelektovanogKorisnika);
+			forma.PrikaziFormu();
+		}
+		else		
+		{
+			KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(this);
+			forma.PrikaziFormu();
+		}
+
 	}
 
 	/**
@@ -68,16 +114,14 @@ public class Korisnici {
 		frmPrikazKorisnika.getContentPane().setLayout(null);
 		frmPrikazKorisnika.setLocationRelativeTo(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 29, 821, 175);
 		frmPrikazKorisnika.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		PrikazKorisnika pk = new PrikazKorisnika();
-		
-		Object[][] podaci= pk.PrikaziSveKorisnike();
+				
+		Object[][] podaci= uow.getPrikazKorisnika().PrikaziSveKorisnike();
 		
 		table.setModel(new DefaultTableModel(
 			podaci,
@@ -120,23 +164,46 @@ public class Korisnici {
 				int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());			
 				
 				//KorisnickiRacun korisnickiRacun = uow.getKorisnickiRacunService().dajKorisnika(idSelektovanogKorisnika);
+
+
 				
-				KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(idSelektovanogKorisnika);
-				forma.PrikaziFormu();
+				OtvoriKreirajKorisnikaFormu(true, idSelektovanogKorisnika);
 			}
 		});
 		btnModifikujKorisnike.setBounds(180, 226, 150, 30);
 		frmPrikazKorisnika.getContentPane().add(btnModifikujKorisnike);
 		
 		JButton btnObriiKorisnika = new JButton("Obri\u0161i korisnika");
+		btnObriiKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite izbrisati korisnika",
+						"Potvrda", JOptionPane.YES_NO_OPTION);
+				
+		        if (reply == JOptionPane.YES_OPTION) {
+		        	
+		        	int row=table.getSelectedRow();
+					int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
+					
+		        	boolean uspjesno = uow.getKorisnickiRacunService().obrisiKorisnika(idSelektovanogKorisnika);
+		        	
+		        	if(uspjesno)
+		        		JOptionPane.showMessageDialog(null, "Uspješno obrisan korisnik.");
+		        	else
+		        		JOptionPane.showMessageDialog(null, "Dogodila se greška pri brisanju korisnika.");
+		        }
+		        else {
+		        }
+			}
+		});
+		
 		btnObriiKorisnika.setBounds(340, 226, 150, 30);
 		frmPrikazKorisnika.getContentPane().add(btnObriiKorisnika);
 		
 		JButton btnDodajKorisnika = new JButton("Dodaj korisnika");
 		btnDodajKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna();
-				forma.PrikaziFormu();
+				OtvoriKreirajKorisnikaFormu(false, -1);
 			}
 		});
 		btnDodajKorisnika.setBounds(20, 226, 150, 30);
