@@ -32,8 +32,8 @@ public class RezervacijaTest {
 
 	public UnitOfWork uow;
 	
-	@Test
-	public void testAAAAAAInsertDestinacije(){
+/*	@Test
+	public void testInsertDestinacije(){
 		uow=new UnitOfWork();
 		//destinacije
 		Destinacija d=new Destinacija("Sarajevo",false,null,null);
@@ -44,9 +44,9 @@ public class RezervacijaTest {
 		uow.getDestinacijeService().UbaciDestinacijuUBAzu(d);
 		assertEquals(2,uow.getDestinacijeService().DajSveDestinacije().size());
 	}
-
-	@Test
-	public void testAAAAAInsertHotel(){
+*/
+/*	@Test
+	public void testInsertHotel(){
 		uow= new UnitOfWork();
 		Destinacija d=uow.getDestinacijeService().VratiDestinacijuPoId(1);
 		Destinacija d1=uow.getDestinacijeService().VratiDestinacijuPoId(2);
@@ -65,9 +65,9 @@ public class RezervacijaTest {
 		uow.getHoteliService().KreirajHotel(h3);
 		assertEquals(4,uow.getHoteliService().VratiSveHotele().size());
 	}
-	
-	@Test 
-	public void testAAAAInsertSoba(){
+	*/
+/*	@Test 
+	public void testInsertSoba(){
 		uow= new UnitOfWork();
 		Hotel h=uow.getHoteliService().VratiHotelId(1);
 		Hotel h1=uow.getHoteliService().VratiHotelId(2);
@@ -107,9 +107,10 @@ public class RezervacijaTest {
 		uow.getSobeService().AzurirajiliUbaciSobu(s9);
 		assertEquals(10,uow.getSobeService().VratiSveSobe().size());
 	}
-	
-	@Test
-	public void testAAAInsertOsobaKlijentRacun(){
+	*/
+
+/*	@Test
+	public void testInsertOsobaKlijentRacun(){
 		uow= new UnitOfWork();
 		//osobe
 		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
@@ -160,9 +161,10 @@ public class RezervacijaTest {
 		krr2.setKorisnickiRacunXrolaId(3);
 		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr2, false);
 	}
+	*/
 	
 	@Test
-	public void testAAInsertRezervacija(){
+	public void testInsertRezervacija(){
 		uow= new UnitOfWork();
 		KorisnickiRacun kr2=uow.getKorisnickiRacunService().dajKorisnika(2);
 		Klijent k1=uow.getKlijentiService().dajSveKlijente().get(0);
@@ -258,13 +260,13 @@ public class RezervacijaTest {
 	@Test
 	public void testBrojDestinacijaUBazi(){
 		uow=new UnitOfWork();
-		assertEquals(1,uow.getDestinacijeService().DajSveDestinacije().size());
+		assertEquals(18,uow.getDestinacijeService().DajSveDestinacije().size());
 	}
 	
 	@Test
 	public void testBrojHotelUBazi(){
 		uow=new UnitOfWork();
-		assertEquals(1,uow.getHoteliService().VratiSveHotele().size());		
+		assertEquals(33,uow.getHoteliService().VratiSveHotele().size());		
 	}
 	
 	@Test
@@ -291,7 +293,8 @@ public class RezervacijaTest {
 		Klijent k=uow.getKlijentiService().dajKlijentaPoOsobi(o).get(0);
 		KorisnickiRacun kr=uow.getKorisnickiRacunService().dajKorisnika(2);
 		Rezervacija r= new Rezervacija(kr, k, new Date(2016,1,1), true, null, null, null, null);
-		assertTrue(uow.getRezervacijaService().kreirajRezervacijuSaSobom(r, s, d, d1, 1, 100));
+		
+		assertEquals(false,uow.getRezervacijaService().kreirajRezervacijuSaSobom(r, s, d, d1, 1, 100));
 	}
 
 	@Test(expected= java.lang.NullPointerException.class)
@@ -331,7 +334,7 @@ public class RezervacijaTest {
 	@Test
 	public void testDajSobu() {
 		uow= new UnitOfWork();
-		assertEquals(5, uow.getRezervacijaService().dajSobu(1).getBrojKreveta().intValue());
+		assertEquals(3, uow.getRezervacijaService().dajSobu(1).getBrojKreveta().intValue());
 	}
 
 	@Test
@@ -356,6 +359,15 @@ public class RezervacijaTest {
 	public void testZZZObrisiSobe(){
 	 	uow=new UnitOfWork();
 		uow.getSobeService().ObrisiSveSobe();
+	}
+	
+	@Test
+	public void testObrisiSveRezervacije(){
+		uow=new UnitOfWork();
+		ArrayList<Rezervacija>  rez=uow.getRezervacijaService().dajSveRezervacije();
+		for(Rezervacija r:rez){
+			uow.getRezervacijaService().obrisiRezervaciju(r.getRezervacijaId());
+		}
 	}
 	
 }
