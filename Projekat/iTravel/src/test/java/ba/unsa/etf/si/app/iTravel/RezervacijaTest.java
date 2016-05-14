@@ -44,8 +44,9 @@ public class RezervacijaTest {
 
 	@Test
 	public void testAAAInsertHotel(){
-		Destinacija d=uow.getDestinacijeService().VratiDestinaciju("Sarajevo");
-		Destinacija d1=uow.getDestinacijeService().VratiDestinaciju("Dubai");
+		uow= new UnitOfWork();
+		Destinacija d=uow.getDestinacijeService().VratiDestinacijuPoId(1);
+		Destinacija d1=uow.getDestinacijeService().VratiDestinacijuPoId(2);
 		//hoteli
 		Hotel h=new Hotel(d,"Adresa1","BiH","Sarajevo","065498",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Europa","DOO",5,null,null);
 		//h.setHotelId(1);
@@ -64,6 +65,7 @@ public class RezervacijaTest {
 	
 	@Test 
 	public void testAAInsertSoba(){
+		uow= new UnitOfWork();
 		Hotel h=uow.getHoteliService().VratiHotelId(1);
 		Hotel h1=uow.getHoteliService().VratiHotelId(2);
 		Hotel h2=uow.getHoteliService().VratiHotelId(3);
@@ -105,7 +107,8 @@ public class RezervacijaTest {
 	
 	
 	@Test
-	public void testInsertOsobaKlijentRacun(){
+	public void testAInsertOsobaKlijentRacun(){
+		uow= new UnitOfWork();
 		//osobe
 		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
 		o.setOsobaId(1);
@@ -157,7 +160,8 @@ public class RezervacijaTest {
 	}
 	
 	@Test
-	public void testInsertRezervacija(){
+	public void testAInsertRezervacija(){
+		uow= new UnitOfWork();
 		KorisnickiRacun kr2=uow.getKorisnickiRacunService().dajKorisnika(2);
 		Klijent k1=uow.getKlijentiService().dajSveKlijente().get(0);
 		//rezervacija
@@ -184,10 +188,81 @@ public class RezervacijaTest {
 	
 	@Test
 	public void testDajRezervaciju() {
-		
 		uow= new UnitOfWork();
+		Destinacija d=new Destinacija("Sarajevo",false,null,null);
+		//d.setDestinacijaId(1);
+		uow.getDestinacijeService().UbaciDestinacijuUBAzu(d);
+
+		
+		Hotel h=new Hotel(d,"Adresa1","BiH","Sarajevo","065498",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Europa","DOO",5,null,null);
+		//h.setHotelId(1);
+		uow.getHoteliService().KreirajHotel(h);
+
+		
+		Soba s1=new Soba(h,3,"opis drug sobe",90,800,null,null);
+		//s1.setSobaId(2);
+		uow.getSobeService().AzurirajiliUbaciSobu(s1);
+		
+		//osobe
+				Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
+				o.setOsobaId(1);
+				uow.getOsobaService().KreirajOsobu(o, false);
+				Osoba o1=new Osoba("Emina","Prlja", new Date(1668,5,5),"adresa usera 2","emaieet@nesto.com","46546545","1234567894489","dsa6454","4dsasda654d",null,null,null,null);
+				o1.setOsobaId(2);
+				uow.getOsobaService().KreirajOsobu(o1, false);
+
+				//klijenti
+				Klijent k=new Klijent(o);
+//				k.setKlijentId(1);
+				uow.getKlijentiService().KreirajKlijenta(k);
+				Klijent k1=new Klijent(o1);
+//				k1.setKlijentId(2);
+				uow.getKlijentiService().KreirajKlijenta(k1);
+
+				//Role
+				Rola r1=new Rola(2,"Agent",null,null);
+				uow.getRolaService().KreirajRolu(r1);
+				//korisnicki racuni
+				KorisnickiRacun kr2=new KorisnickiRacun(o,"kagent","Sitim12",null,null,null,null);
+//				kr2.setKorisnickiRacunId(2);
+				uow.getKorisnickiRacunService().KreirajKorisnickiRacun(kr2, false);
+
+				//korisnicki Racun Rola
+				Korisnickiracunxrola krr=new Korisnickiracunxrola(r1,kr2);
+//				krr.setKorisnickiRacunXrolaId(2);
+				uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr, false);
+		
+		//rezervacija
+		Rezervacija rez=new Rezervacija(kr2,k1,new Date(2016,5,14,19,11,00),false,null,null,null,null);
+//		rez.setRezervacijaId(1);
+		uow.getRezervacijaService().kreirajRezervaciju(rez, 2);
+		
+		
+		
+		//rezervisani termin soba
+		uow.getRezervacijaService().rezervisiSobu(s1, new Date(2016,7,1), new Date(2016,7,5), rez);
+		//racun
+		Racun rac=new Racun(rez,null,new Date(2016,5,14,19,11,00),null,500);
+//		rac.setRacunId(1);
+		uow.getRacunService().kreirajRacun(rac);
+		
+		
+		
+
 		boolean test=uow.getRezervacijaService().dajRezervaciju(1).getUkljucenPrevoz();
 		assertNotEquals(true, test);
+	}
+	
+	@Test
+	public void testBrojDestinacijaUBazi(){
+		uow=new UnitOfWork();
+		assertEquals(1,uow.getDestinacijeService().DajSveDestinacije().size());
+	}
+	
+	@Test
+	public void testBrojHotelUBazi(){
+		uow=new UnitOfWork();
+		assertEquals(1,uow.getHoteliService().VratiSveHotele().size());		
 	}
 	
 	@Test
