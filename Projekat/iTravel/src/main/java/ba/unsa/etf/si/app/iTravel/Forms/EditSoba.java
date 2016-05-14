@@ -67,18 +67,32 @@ public class EditSoba {
 	private JMenuItem mntmPromijeniifru;
 	private JMenuItem mntmOdjaviSe;
 	private ArrayList<Soba> sobe;
+	private ArrayList<Soba> sobesve;
 	private Soba hotelsoba;
 	private Hotel hoteldaj;
 	private SobeService sobeService = new SobeService();
 	private JTextField textFielde;
 	private JTextField textField_1e;
 	private JSpinner spinnere;
+	private Integer hotelID = new Integer(0);
 	
 	private JTextField textField_2e;
 
 	/**
 	 * Launch the application.
 	 */
+	public static void PrikaziFormu(final Integer ID) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					EditSoba window = new EditSoba(ID);
+					window.frmEditSoba.setVisible(true);
+				} catch (Exception e) {
+					UnitOfWork.logger.error(e);
+				}
+			}
+		});
+	}
 	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -91,12 +105,15 @@ public class EditSoba {
 			}
 		});
 	}
-
 	void NapuniSobe() {
 		
 		sobe = new ArrayList<Soba>();
-		sobe = sobeService.VratiSveSobe();
-		
+		sobesve = new ArrayList<Soba>();
+		sobesve = sobeService.VratiSveSobe();
+		for (int i = 0; i < sobesve.size(); i++) {
+			if( sobesve.get(i).getHotel().getHotelId()==hotelID)
+				sobe.add(sobesve.get(i));
+		}
 		String header[] = new String[] { "Hotel", "Broj kreveta", "Cijena niska sezona", "Cijena visoka sezona",
 				"Opis" };
 
@@ -128,31 +145,43 @@ public class EditSoba {
 	}
     
 	
+	
+	
 	class AkcijaDodavanja implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			if (SelektovanRed()&&ValidacijaPoljaZaDodavanjeSobe()) {
+		
 
 				
+              try { 
+            	  HoteliService hoteliService = new HoteliService();
+            		if (ValidacijaPoljaZaDodavanjeSobe()) {
+            	  hotelsoba.setBrojKreveta((Integer) spinnere.getValue());
+  				hotelsoba.setCijenaNiska(Integer.parseInt(textField_1e.getText()));
+  				hotelsoba.setCijenaVisoka(Integer.parseInt(textFielde.getText()));
+  				hotelsoba.setOpis(textField_2e.getText());
+  				
+  				
+                  hotelsoba.setHotel(hoteliService.VratiHotelId(hotelID));
+                 
+  				
+  				sobeService.UbaciSobuUBazu(hotelsoba);
+  				
+                   NapuniSobe();
+				
+                   
+                   JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali sobu", "Info",
+   						JOptionPane.INFORMATION_MESSAGE);
+   			} else {
+   				JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
 
-				hotelsoba.setBrojKreveta((Integer) spinnere.getValue());
-				hotelsoba.setCijenaNiska(Integer.parseInt(textField_1e.getText()));
-				hotelsoba.setCijenaVisoka(Integer.parseInt(textFielde.getText()));
-				hotelsoba.setOpis(textField_2e.getText());
-				
-				
-                hotelsoba.setHotel(sobe.get(table_pregledSoba.getSelectedRow()).getHotel());
-               
-				
-				sobeService.UbaciSobuUBazu(hotelsoba);
-				
-                 NapuniSobe();
-				JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali sobu", "Info",
-						JOptionPane.INFORMATION_MESSAGE);
-			} else {
-				JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
-
+   			}
+			} catch (Exception e) {
+				UnitOfWork.logger.error(e);
+				JOptionPane.showMessageDialog(null, "Provjerite vas unos", "Info", JOptionPane.INFORMATION_MESSAGE);
 			}
+				
+				
 		}
 
 	}
@@ -160,28 +189,37 @@ public class EditSoba {
 	class AkcijaEditovanja implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			if (SelektovanRed()&&ValidacijaPoljaZaDodavanjeSobe()) {
-
-				
-
-				hotelsoba.setBrojKreveta((Integer) spinnere.getValue());
+			
+			 try {
+         		if (SelektovanRed()&&ValidacijaPoljaZaDodavanjeSobe()) {
+         	  hotelsoba.setBrojKreveta((Integer) spinnere.getValue());
 				hotelsoba.setCijenaNiska(Integer.parseInt(textField_1e.getText()));
 				hotelsoba.setCijenaVisoka(Integer.parseInt(textFielde.getText()));
 				hotelsoba.setOpis(textField_2e.getText());
 				
 				
-                hotelsoba.setHotel(sobe.get(table_pregledSoba.getSelectedRow()).getHotel());
-               
+               hotelsoba.setHotel(sobe.get(table_pregledSoba.getSelectedRow()).getHotel());
+              
 				
-				sobeService.AzurirajiliUbaciSobu(hotelsoba);
+               sobeService.AzurirajiliUbaciSobu(hotelsoba);
 				
-                 NapuniSobe();
-				JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali sobu", "Info",
+                NapuniSobe();
+				
+                
+                JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali sobu", "Info",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
 
 			}
+			} catch (Exception e) {
+				UnitOfWork.logger.error(e);
+				JOptionPane.showMessageDialog(null, "Provjerite vas unos", "Info", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+			
+				
+			
 		}
 
 	}
@@ -211,6 +249,10 @@ public class EditSoba {
 	 * Create the application.
 	 */
 	public EditSoba() {
+		initialize();
+	}
+	public EditSoba(Integer IDpom) {
+		hotelID =IDpom;
 		initialize();
 	}
 
@@ -304,19 +346,29 @@ public class EditSoba {
 		btnObrisiSobu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
  
-				Soba izbrisiSoba = new Soba();
-				if (table_pregledSoba.getSelectedRow() == -1) {
-					JOptionPane.showMessageDialog(null, "Niste selektovali sobu", "Info",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					izbrisiSoba = sobe.get(table_pregledSoba.getSelectedRow());
+				   try {
+	            	   Soba izbrisiSoba = new Soba();
+	      				if (table_pregledSoba.getSelectedRow() == -1) {
+	      					JOptionPane.showMessageDialog(null, "Niste selektovali sobu", "Info",
+	      							JOptionPane.INFORMATION_MESSAGE);
+	      				} else {
+	      					izbrisiSoba = sobe.get(table_pregledSoba.getSelectedRow());
+	      					int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni ?", "UPOZORENJE", JOptionPane.YES_NO_OPTION);
+	      				    if (reply == JOptionPane.YES_OPTION)
+	      				    {
+	      				    	sobeService.ObrisiJenduSobu(izbrisiSoba);
+	      				    }
+	      					
+	      					
+	      				}
+	      				NapuniSobe();
+	   				
+	   			} catch (Exception e2) {
+	   				UnitOfWork.logger.error(e2);
+	   			}
+	   				
 
-					
-					sobeService.ObrisiJenduSobu(izbrisiSoba);
-				}
-				NapuniSobe();
-
-			}
+	   			}
 		});
 		btnObrisiSobu.setBounds(21, 350, 150, 30);
 		frmEditSoba.getContentPane().add(btnObrisiSobu);
