@@ -30,89 +30,6 @@ public class RezervacijeService {
 		baza = DBContext.getInstance();
 	}
 	
-	//dok cekam SobeService
-	public ArrayList<Soba> dajSobeZaHotel(Hotel hotel){
-		ArrayList<Soba> sobe=new ArrayList<Soba>();
-		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("hotel", hotel));
-		sobe.addAll(baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterija));
-		return sobe;
-	}
-	
-	//dok cekam SobeService
-	//ne valja kompleksnost :(
-	public ArrayList<RezervisaniTerminSoba> dajTermineZaSobu(ArrayList<Soba> sobe){
-		ArrayList<RezervisaniTerminSoba> rts=new ArrayList<RezervisaniTerminSoba>();	
-		for(int i=0; i<sobe.size(); i++){
-			ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-			listaKriterija.add(Restrictions.eq("soba", sobe.get(i)));
-			rts.addAll(baza.getRezervisaniTerminSobaRepository().ucitajIzBazePoKriteriju(listaKriterija));
-			for(int j=0; j<rts.size(); j++){
-				Soba s=new Soba();
-				s=baza.getSobaRepository().ucitajIzBaze(rts.get(j).getSoba().getSobaId());
-				rts.get(j).setSoba(s);
-			}
-		}
-		return rts;
-	}
-	
-	//dok cekam SobeService
-	//ne valja kompleksnost :(
-	public ArrayList<Soba> dajSlobodneSobeZaHotel(Hotel hotel, Date pocetak, Date kraj){
-		ArrayList<Soba> sobe=new ArrayList<Soba>();		
-		sobe.addAll(dajSobeZaHotel(hotel));
-		
-		ArrayList<RezervisaniTerminSoba> termini=new ArrayList<RezervisaniTerminSoba>();		
-		termini=dajTermineZaSobu(sobe);
-		
-		for(int i=0; i<termini.size(); i++ ){
-			Date rezPoc=termini.get(i).getDatumPocetak();
-			Date rezKraj=termini.get(i).getDatumKraj();
-			if((pocetak.before(rezPoc) && kraj.after(rezPoc) && kraj.before(rezKraj)) || (pocetak.after(rezPoc) && kraj.before(rezKraj)) || (pocetak.after(rezPoc) && pocetak.before(rezKraj) && kraj.after(rezKraj)) || (pocetak.before(rezPoc) && kraj.after(rezKraj))){
-				for(int j=0; j<sobe.size(); j++){
-					if(sobe.get(j).getSobaId()==termini.get(i).getSoba().getSobaId())
-						sobe.remove(sobe.get(j));
-				}
-			}
-		}
-		return sobe;
-	}
-	
-	//dok cekam OsobaService
-	private List<Osoba> dajOsobuPoJMBG(String jmbg){
-		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("jmbg", (String)jmbg));
-		List<Osoba> s=new ArrayList<Osoba>();
-		s=baza.getOsobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
-		return s;
-	}
-	
-	//dok cekam KorisnickiRacunService
-	private List<KorisnickiRacun> dajKorisnickiRacunPoKorisnickiRacunID(int id){
-		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("korisnickiRacunId", (Integer)id));
-		List<KorisnickiRacun> tmp=new ArrayList<KorisnickiRacun>();
-		tmp=baza.getKorisnickiRacunRepository().ucitajIzBazePoKriteriju(listaKriterija);
-		return tmp;
-	}
-	
-	//dok cekam KlijentService
-	private List<Klijent> dajKlijentaPoOsobi(Osoba osoba){
-		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("osoba", osoba));
-		List<Klijent> k=new ArrayList<Klijent>();
-		k=baza.getKlijentRepository().ucitajIzBazePoKriteriju(listaKriterija);
-		return k;
-	}
-	
-	//dok cekam OsobaService
-	public Osoba dajOsobuPoId(int idOsoba){
-		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("osobaId", idOsoba));
-		List<Osoba> k=baza.getOsobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
-		return k.get(0);
-	}
-	
 	public Rezervacija dajRezervaciju(int idRezervacije){
 		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
 		listaKriterija.add(Restrictions.eq("rezervacijaId", idRezervacije));
@@ -185,18 +102,20 @@ public class RezervacijeService {
     
 	public boolean kreirajRezervaciju(Rezervacija rez, int idAgenta) {
 		try{
-			rez.setKorisnickiRacun(dajKorisnickiRacunPoKorisnickiRacunID(idAgenta).get(0));			
+			KorisnickiRacunService kss=new KorisnickiRacunService();
+			rez.setKorisnickiRacun(kss.dajKorisnickiRacunPoKorisnickiRacunID(idAgenta).get(0));			
 		
 			Klijent k=new Klijent();
 			k=rez.getKlijent();
 			
 			Osoba s;
-			ArrayList<Osoba> osobe=(ArrayList<Osoba>)dajOsobuPoJMBG(k.getOsoba().getJmbg());
+			OsobaService os=new OsobaService();
+			ArrayList<Osoba> osobe=(ArrayList<Osoba>)os.dajOsobuPoJMBG(k.getOsoba().getJmbg());
 			if(osobe.size()!=0){
 				s=osobe.get(0);
 			}else{
 				baza.getOsobaRepository().spasiUBazu(k.getOsoba());
-				s=dajOsobuPoJMBG(rez.getKlijent().getOsoba().getJmbg()).get(0);
+				s=os.dajOsobuPoJMBG(rez.getKlijent().getOsoba().getJmbg()).get(0);
 			}
 			
 			k.setOsoba(s);
@@ -208,8 +127,8 @@ public class RezervacijeService {
 			}else
 				k.setKlijentId(1);
 			baza.getKlijentRepository().spasiUBazu(k);
-		
-			rez.setKlijent(dajKlijentaPoOsobi(s).get(0));
+			KlijentiService ks=new KlijentiService();
+			rez.setKlijent(ks.dajKlijentaPoOsobi(s).get(0));
 			
 			ArrayList<Rezervacija> rezervacijeSve= (ArrayList<Rezervacija>)baza.getRezervacijaRepository().ucitajSveIzBaze();
 			
@@ -281,12 +200,6 @@ public class RezervacijeService {
 	public boolean obrisiRezervaciju(int idRezervacije){
 		try{
 			Rezervacija rez= dajRezervaciju(idRezervacije);
-			Racun racun= rez.getRacuns().iterator().next();
-			baza.getRacunRepository().obrisiIzBaze(racun);
-			RezervisaniTerminSoba r=null;
-			if(rez.getRezervisaniTerminSobas().iterator().hasNext())
-				r=rez.getRezervisaniTerminSobas().iterator().next();
-			baza.getRezervisaniTerminSobaRepository().obrisiIzBaze(r);
 			
 			baza.getRezervacijaRepository().obrisiIzBaze(rez);
 			

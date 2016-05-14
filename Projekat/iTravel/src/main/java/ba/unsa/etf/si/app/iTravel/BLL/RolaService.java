@@ -11,5 +11,9 @@ public class RolaService
 	{
 		return baza.getRolaRepository().ucitajIzBaze(id);		
 	}
+	
+	public void KreirajRolu(Rola rola){
+		baza.getRolaRepository().spasiUBazu(rola);
+	}
 
 }

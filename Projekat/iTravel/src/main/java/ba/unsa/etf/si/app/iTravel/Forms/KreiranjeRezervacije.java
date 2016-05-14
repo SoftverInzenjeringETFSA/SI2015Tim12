@@ -95,6 +95,13 @@ public class KreiranjeRezervacije {
 		initialize();
 	}
 
+	private void closeTheCurrentFrameAndOpenNew(java.awt.event.ActionEvent evt){
+
+		 frmKreiranjeRezervacije.dispose();//To close the current window
+
+		 Rezervacije.PrikaziFormu();
+		}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -102,7 +109,7 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije = new JFrame();
 		frmKreiranjeRezervacije.setTitle("Kreiranje rezervacije");
 		frmKreiranjeRezervacije.setBounds(100, 100, 901, 573);
-		frmKreiranjeRezervacije.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmKreiranjeRezervacije.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmKreiranjeRezervacije.getContentPane().setLayout(null);
 		frmKreiranjeRezervacije.setLocationRelativeTo(null);
 		
@@ -235,6 +242,11 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije.getContentPane().add(lblNewLabel_3);
 				
 		JButton btnPotvrdi = new JButton("Izlaz");
+		btnPotvrdi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmKreiranjeRezervacije.dispose();
+			}
+		});
 		btnPotvrdi.setBounds(598, 438, 150, 30);
 		frmKreiranjeRezervacije.getContentPane().add(btnPotvrdi);
 		
@@ -272,17 +284,12 @@ public class KreiranjeRezervacije {
 	    new PropertyChangeListener() {
 	    	public void propertyChange(PropertyChangeEvent e) {
 	        	if ("date".equals(e.getPropertyName()) && table.getSelectedRow()!=-1 && dateChooser_1.getCalendar()!=null){
-	        		table_Sobe.setModel(new DefaultTableModel(
-							new Object[][] {
-							},
-							new String[] {
-									"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
-							}
-						));
 		        	int row=table.getSelectedRow();
-					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());	
-					cijena.setText("");
-					UcitavanjeSoba(id);
+		        	if(row!=-1){
+		        		int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());	
+						cijena.setText("");
+						UcitavanjeSoba(id);
+		        	}
 	        	}
 	        }
 	    });
@@ -302,17 +309,12 @@ public class KreiranjeRezervacije {
 	    new PropertyChangeListener() {
 	        public void propertyChange(PropertyChangeEvent e) {
 	        	if ("date".equals(e.getPropertyName())&& table.getSelectedRow()!=-1 && dateChooser.getCalendar()!=null){
-	        		table_Sobe.setModel(new DefaultTableModel(
-							new Object[][] {
-							},
-							new String[] {
-									"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
-							}
-						));
 		        	int row=table.getSelectedRow();
-					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
-					cijena.setText("");
-					UcitavanjeSoba(id);
+		        	if(row!=-1){
+						int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
+						cijena.setText("");
+						UcitavanjeSoba(id);
+					}
 	        	
 	        	}
 	        }
@@ -368,14 +370,12 @@ public class KreiranjeRezervacije {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(dateChooser.getCalendar()!=null && dateChooser_1.getCalendar()!=null){
-					table_Sobe.setModel(new DefaultTableModel(
-							new Object[][] {},
-							new String[] {"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"}
-						));
 					int row=table.rowAtPoint(e.getPoint());
-					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
-					cijena.setText("");	
-					UcitavanjeSoba(id);
+					if(row!=-1){
+						int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
+						cijena.setText("");	
+						UcitavanjeSoba(id);
+					}
 				}
 				PrijevozChecking(table.rowAtPoint(e.getPoint()));
 			}
@@ -524,6 +524,11 @@ public class KreiranjeRezervacije {
 			public void windowOpened(WindowEvent e) {
 				UcitajDestinacije();
 			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Rezervacije.PrikaziFormu();
+				frmKreiranjeRezervacije.dispose();
+			}
 		});
 		
 	}
@@ -578,6 +583,10 @@ public class KreiranjeRezervacije {
 	
 	//prikaz slobodnih soba na osnovu odobranog datum i odabranog hotela
 	private void UcitavanjeSoba(int idHotel){
+		table_Sobe.setModel(new DefaultTableModel(
+				new Object[][] {},
+				new String[] {"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"}
+			));
 		Date odDatuma=(Date) dateChooser.getDate();
 		Date doDatuma=(Date) dateChooser_1.getDate();
 		
@@ -585,7 +594,7 @@ public class KreiranjeRezervacije {
 			Hotel h=new Hotel();
 			h=uow.getHoteliService().VratiHotelId(idHotel);
 			
-	     	ArrayList<Soba>	sobe=uow.getRezervacijaService().dajSlobodneSobeZaHotel(h,odDatuma,doDatuma);
+	     	ArrayList<Soba>	sobe=uow.getSobeService().dajSlobodneSobeZaHotel(h,odDatuma,doDatuma);
 	    	
 			DefaultTableModel model=(DefaultTableModel) table_Sobe.getModel();
 			model.setRowCount(0);
@@ -670,13 +679,6 @@ public class KreiranjeRezervacije {
 	        	int rowHotel=table.getSelectedRow();
 				if(rowHotel!=-1){
 		        	int idHotela=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
-		        	table_Sobe.setModel(new DefaultTableModel(
-							new Object[][] {
-							},
-							new String[] {
-									"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
-							}
-						));
 					UcitavanjeSoba(idHotela);
 				}
 			}
@@ -722,6 +724,9 @@ public class KreiranjeRezervacije {
 			return false;
 		}else if(textField_4.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Niste unijeli telefon", "Info", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}else if(cijena.getText()==""){
+			JOptionPane.showMessageDialog(null, "Niste izabrali sobu!", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
 		return true;

@@ -149,6 +149,7 @@ public class Rezervacije {
 		btnDodajKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				KreiranjeRezervacije.PrikaziFormu();
+				frmPrikazRezervacija.dispose();
 			}
 		});
 		btnDodajKorisnika.setBounds(20, 226, 150, 30);
@@ -271,11 +272,11 @@ public class Rezervacije {
 		if(rezervacije!=null) {
 			for(int i=0; i<rezervacije.size(); i++){
 				Klijent k= rezervacije.get(i).getKlijent();
-				Osoba osoba=uow.getRezervacijaService().dajOsobuPoId(k.getOsoba().getOsobaId());
+				Osoba osoba=uow.getOsobaService().dajOsobuPoId(k.getOsoba().getOsobaId());
 				
 				Racun r=null;
-				//if(rezervacije.get(i).getRacuns().iterator().hasNext())
-				Object[] racuniList=rezervacije.get(i).getRacuns().toArray();
+				Rezervacija razer=rezervacije.get(i);
+				Object[] racuniList=razer.getRacuns().toArray();
 				r=(Racun) racuniList[0];
 				RezervisaniTerminSoba termin=uow.getRezervacijaService().dajRezervisaneTermineZaRezervaciju(rezervacije.get(i).getRezervacijaId()).get(0);
 				Soba s= uow.getRezervacijaService().dajSobu(termin.getSoba().getSobaId());
