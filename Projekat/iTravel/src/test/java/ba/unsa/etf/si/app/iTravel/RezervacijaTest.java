@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -344,7 +345,7 @@ public class RezervacijaTest {
 		assertFalse(uow.getRezervacijaService().potvrdiRezervaciju(1));
 	}
 	
-	@AfterClass
+	@After
 	@Test
 	public void ObrisiSve(){
 	 	uow=new UnitOfWork();
