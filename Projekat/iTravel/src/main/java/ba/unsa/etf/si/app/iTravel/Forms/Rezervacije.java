@@ -31,7 +31,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.security.cert.PKIXRevocationChecker.Option;
+//import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;

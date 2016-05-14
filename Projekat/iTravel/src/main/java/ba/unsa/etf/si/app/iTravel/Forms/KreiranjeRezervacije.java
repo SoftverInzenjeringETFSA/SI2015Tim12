@@ -48,7 +48,7 @@ import java.awt.event.MouseEvent;
 import java.util.concurrent.TimeUnit;
 import java.beans.PropertyChangeListener;
 import java.math.BigInteger;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.beans.PropertyChangeEvent;
 
 public class KreiranjeRezervacije {
@@ -656,7 +656,7 @@ public class KreiranjeRezervacije {
 		    
 		    Rezervacija rezerv=new Rezervacija();
 		    rezerv.setKlijent(klijent);
-		    rezerv.setDatumRezervacije(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+		    rezerv.setDatumRezervacije(new Timestamp(new Date().getTime()));
 		    rezerv.setUkljucenPrevoz(chckbxPrijevoz.isSelected());
 		    
 			Soba soba=new Soba();

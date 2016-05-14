@@ -1,10 +1,12 @@
 package ba.unsa.etf.si.app.iTravel.BLL;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import javax.print.attribute.standard.DateTimeAtCreation;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
@@ -137,7 +139,7 @@ public class RezervacijeService {
 					tmpRez=dajRezervacijuPoRezervaciji(rez);
 					racun.setCijena(cijena);
 					
-					racun.setTrenutniDatum(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+					racun.setTrenutniDatum(new Timestamp(new Date().getTime()));
 					racun.setRezervacija(tmpRez);
 					
 					RacunService r=new RacunService();
@@ -267,7 +269,7 @@ public class RezervacijeService {
 		try{
 			Rezervacija rez= dajRezervaciju(idRezervacije);
 			Racun racun= rez.getRacuns().iterator().next();
-			racun.setDatumUplate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+			racun.setDatumUplate(new Timestamp(new Date().getTime()));
 			baza.getRacunRepository().sacuvajIliAzurirajUBazu(racun);
 			return true;
 		}catch(Exception e){
