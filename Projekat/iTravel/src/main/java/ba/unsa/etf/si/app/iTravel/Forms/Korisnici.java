@@ -188,7 +188,10 @@ public class Korisnici {
 		        	boolean uspjesno = uow.getKorisnickiRacunService().obrisiKorisnika(idSelektovanogKorisnika);
 		        	
 		        	if(uspjesno)
+		        	{
 		        		JOptionPane.showMessageDialog(null, "Uspješno obrisan korisnik.");
+		        		OsvjeziFormu();
+		        	}	
 		        	else
 		        		JOptionPane.showMessageDialog(null, "Dogodila se greška pri brisanju korisnika.");
 		        }
