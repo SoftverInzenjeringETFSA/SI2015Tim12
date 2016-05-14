@@ -346,11 +346,11 @@ public class RezervacijaTest {
 	
 	@AfterClass
 	@Test
-	public static void ObrisiSve(){
-	 	UnitOfWork uow1=new UnitOfWork();
-	 	uow1.getDestinacijeService().ObrisiSveDestinacije();
-	 	uow1.getHoteliService().ObrisiSveHotele();
-		uow1.getSobeService().ObrisiSveSobe();
+	public void ObrisiSve(){
+	 	uow=new UnitOfWork();
+	 	uow.getDestinacijeService().ObrisiSveDestinacije();
+	 	uow.getHoteliService().ObrisiSveHotele();
+		uow.getSobeService().ObrisiSveSobe();
 	}
 
 }
