@@ -341,11 +341,21 @@ public class RezervacijaTest {
 	}
 	
 	@Test
-	public void testZZZObrisiSve(){
+	public void testZZZObrisiDestinacije(){
 	 	uow=new UnitOfWork();
 	 	uow.getDestinacijeService().ObrisiSveDestinacije();
-	 	uow.getHoteliService().ObrisiSveHotele();
-		uow.getSobeService().ObrisiSveSobe();
 	}
 
+	@Test
+	public void testZZZObrisiHotele(){
+	 	uow=new UnitOfWork();
+	 	uow.getHoteliService().ObrisiSveHotele();
+	}
+
+	@Test
+	public void testZZZObrisiSobe(){
+	 	uow=new UnitOfWork();
+		uow.getSobeService().ObrisiSveSobe();
+	}
+	
 }
