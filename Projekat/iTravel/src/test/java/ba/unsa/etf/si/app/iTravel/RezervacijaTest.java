@@ -32,9 +32,8 @@ public class RezervacijaTest {
 
 	public UnitOfWork uow;
 	
-	@Before
 	@Test
-	public void testInsertDestinacije(){
+	public void testAAAAAAInsertDestinacije(){
 		uow=new UnitOfWork();
 		//destinacije
 		Destinacija d=new Destinacija("Sarajevo",false,null,null);
@@ -46,9 +45,8 @@ public class RezervacijaTest {
 		assertEquals(2,uow.getDestinacijeService().DajSveDestinacije().size());
 	}
 
-	@Before
 	@Test
-	public void testInsertHotel(){
+	public void testAAAAAInsertHotel(){
 		uow= new UnitOfWork();
 		Destinacija d=uow.getDestinacijeService().VratiDestinacijuPoId(1);
 		Destinacija d1=uow.getDestinacijeService().VratiDestinacijuPoId(2);
@@ -68,9 +66,8 @@ public class RezervacijaTest {
 		assertEquals(4,uow.getHoteliService().VratiSveHotele().size());
 	}
 	
-	@Before
 	@Test 
-	public void testInsertSoba(){
+	public void testAAAAInsertSoba(){
 		uow= new UnitOfWork();
 		Hotel h=uow.getHoteliService().VratiHotelId(1);
 		Hotel h1=uow.getHoteliService().VratiHotelId(2);
@@ -111,9 +108,8 @@ public class RezervacijaTest {
 		assertEquals(10,uow.getSobeService().VratiSveSobe().size());
 	}
 	
-	@Before
 	@Test
-	public void testInsertOsobaKlijentRacun(){
+	public void testAAAInsertOsobaKlijentRacun(){
 		uow= new UnitOfWork();
 		//osobe
 		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
@@ -165,9 +161,8 @@ public class RezervacijaTest {
 		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr2, false);
 	}
 	
-	@Before
 	@Test
-	public void testAInsertRezervacija(){
+	public void testAAInsertRezervacija(){
 		uow= new UnitOfWork();
 		KorisnickiRacun kr2=uow.getKorisnickiRacunService().dajKorisnika(2);
 		Klijent k1=uow.getKlijentiService().dajSveKlijente().get(0);
@@ -345,9 +340,8 @@ public class RezervacijaTest {
 		assertFalse(uow.getRezervacijaService().potvrdiRezervaciju(1));
 	}
 	
-	@After
 	@Test
-	public void ObrisiSve(){
+	public void testZZZObrisiSve(){
 	 	uow=new UnitOfWork();
 	 	uow.getDestinacijeService().ObrisiSveDestinacije();
 	 	uow.getHoteliService().ObrisiSveHotele();
