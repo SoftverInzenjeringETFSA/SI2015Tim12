@@ -42,10 +42,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.concurrent.TimeUnit;
 import java.beans.PropertyChangeListener;
+import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.beans.PropertyChangeEvent;
 
 public class KreiranjeRezervacije {
@@ -67,11 +70,12 @@ public class KreiranjeRezervacije {
 	private JComboBox<String> comboBox;
 	private JLabel cijena;
 	private UnitOfWork uow=new UnitOfWork();
+	private JTextField textField_brojLicneKarte;
 	
 	/**
 	 * Launch the application.
 	 */
-	public void PrikaziFormu() {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -95,12 +99,9 @@ public class KreiranjeRezervacije {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
-		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
-		
 		frmKreiranjeRezervacije = new JFrame();
 		frmKreiranjeRezervacije.setTitle("Kreiranje rezervacije");
-		frmKreiranjeRezervacije.setBounds(100, 100, 901, 553);
+		frmKreiranjeRezervacije.setBounds(100, 100, 901, 573);
 		frmKreiranjeRezervacije.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmKreiranjeRezervacije.getContentPane().setLayout(null);
 		frmKreiranjeRezervacije.setLocationRelativeTo(null);
@@ -279,7 +280,8 @@ public class KreiranjeRezervacije {
 							}
 						));
 		        	int row=table.getSelectedRow();
-					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());			
+					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());	
+					cijena.setText("");
 					UcitavanjeSoba(id);
 	        	}
 	        }
@@ -308,7 +310,8 @@ public class KreiranjeRezervacije {
 							}
 						));
 		        	int row=table.getSelectedRow();
-					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());			
+					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
+					cijena.setText("");
 					UcitavanjeSoba(id);
 	        	
 	        	}
@@ -371,6 +374,7 @@ public class KreiranjeRezervacije {
 						));
 					int row=table.rowAtPoint(e.getPoint());
 					int id=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
+					cijena.setText("");	
 					UcitavanjeSoba(id);
 				}
 				PrijevozChecking(table.rowAtPoint(e.getPoint()));
@@ -389,6 +393,16 @@ public class KreiranjeRezervacije {
 		chckbxPrijevoz.setBounds(600, 267, 97, 23);
 		frmKreiranjeRezervacije.getContentPane().add(chckbxPrijevoz);
 		
+		textField_brojLicneKarte = new JTextField();
+		textField_brojLicneKarte.setColumns(10);
+		textField_brojLicneKarte.setBounds(111, 479, 152, 20);
+		frmKreiranjeRezervacije.getContentPane().add(textField_brojLicneKarte);
+		
+		JLabel lblBrojLineKarte = new JLabel("Broj lične karte:");
+		lblBrojLineKarte.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblBrojLineKarte.setBounds(20, 482, 81, 14);
+		frmKreiranjeRezervacije.getContentPane().add(lblBrojLineKarte);
+		
 		JMenuBar menuBar = new JMenuBar();
 		frmKreiranjeRezervacije.setJMenuBar(menuBar);
 		
@@ -403,19 +417,16 @@ public class KreiranjeRezervacije {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmKreiranjeRezervacije.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmKreiranjeRezervacije.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmKreiranjeRezervacije.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -429,13 +440,11 @@ public class KreiranjeRezervacije {
 				win[i].dispose(); 
 				} 				
 				
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmKreiranjeRezervacije.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmHoteli);
-		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -444,13 +453,11 @@ public class KreiranjeRezervacije {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frmKreiranjeRezervacije.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmRezervacije);
-		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -460,14 +467,12 @@ public class KreiranjeRezervacije {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmKreiranjeRezervacije.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
 				mnMeni.add(mntmKlijenti);
-				mntmKlijenti.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -479,32 +484,12 @@ public class KreiranjeRezervacije {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-					Korisnici forma = new Korisnici();
-					frmKreiranjeRezervacije.setVisible(false);
-					forma.PrikaziFormu();				
+					Korisnici.PrikaziFormu();
+					frmKreiranjeRezervacije.setVisible(false);			
 				}
 			});
 			mnMeni.add(mntmKorisnici);
-			mntmKorisnici.setEnabled(postavke[4]);
 			}
-		
-		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
-		JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
-		mntmIzvjestaji.addActionListener(new ActionListener() {
-					
-			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 
-				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
-				frmKreiranjeRezervacije.setVisible(false);
-				forma.PrikaziFormu();				
-			}
-		});
-		mnMeni.add(mntmIzvjestaji);
-		mntmIzvjestaji.setEnabled(postavke[5]);
-		}
 			
 		
 		JMenu mnRaun = new JMenu("Račun");
@@ -513,8 +498,7 @@ public class KreiranjeRezervacije {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -529,8 +513,7 @@ public class KreiranjeRezervacije {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
@@ -636,14 +619,18 @@ public class KreiranjeRezervacije {
 			
 			int rowSobe=table_Sobe.getSelectedRow();
 			int cijenaSobe=0;
-		
-			if(h.getPocetakNiska().after(new Date()) && h.getKrajNiska().before(new Date()))
+			Date odDatuma=(Date) dateChooser.getCalendar().getTime();
+			Date doDatuma=(Date) dateChooser_1.getCalendar().getTime();
+			
+			if(h.getPocetakNiska().after(odDatuma) && h.getKrajNiska().before(doDatuma))
+				cijenaSobe=Integer.parseInt(table_Sobe.getModel().getValueAt(rowSobe, 1).toString());				
+			else
 				cijenaSobe=Integer.parseInt(table_Sobe.getModel().getValueAt(rowSobe, 2).toString());
-			else 
-				cijenaSobe=Integer.parseInt(table_Sobe.getModel().getValueAt(rowSobe, 1).toString());
 			int brojDana=(int)getDifferenceDays(dateChooser.getDate(),dateChooser_1.getDate());
 			double cijenaTmp=(cijenaSobe* brojDana)+ CijenaPrevoza;
 			cijena.setText(Double.toString(cijenaTmp));				
+		}else{
+			JOptionPane.showMessageDialog(null, "Niste odabrali hotel ili sobu", "Info", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 	}
@@ -654,8 +641,10 @@ public class KreiranjeRezervacije {
 				Osoba osoba=new Osoba();
 				osoba.setIme(textField_1.getText());
 				osoba.setPrezime(textField.getText());
+				
 				osoba.setJmbg(textField_2.getText());
 				osoba.setBrojPasosa(textField_3.getText());
+				osoba.setBrojLicneKarte(textField_brojLicneKarte.getText());
 				osoba.setEmail(textField_5.getText());
 				osoba.setAdresa(textField_6.getText());
 				osoba.setDatumRodjenja((Date) dateChooser_2.getCalendar().getTime());
@@ -667,7 +656,7 @@ public class KreiranjeRezervacije {
 		    
 		    Rezervacija rezerv=new Rezervacija();
 		    rezerv.setKlijent(klijent);
-		    rezerv.setDatumRezervacije(new Date());
+		    rezerv.setDatumRezervacije(new Timestamp(new Date().getTime()));
 		    rezerv.setUkljucenPrevoz(chckbxPrijevoz.isSelected());
 		    
 			Soba soba=new Soba();
@@ -676,10 +665,23 @@ public class KreiranjeRezervacije {
 			soba.setSobaId(id);
 
 			boolean provjera=uow.getRezervacijaService().kreirajRezervacijuSaSobom(rezerv,soba, odDatuma, doDatuma, idAgenta, (int)Double.parseDouble(cijena.getText()));
-			if(provjera)
+			if(provjera){
 				JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);
+	        	int rowHotel=table.getSelectedRow();
+				if(rowHotel!=-1){
+		        	int idHotela=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
+		        	table_Sobe.setModel(new DefaultTableModel(
+							new Object[][] {
+							},
+							new String[] {
+									"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"
+							}
+						));
+					UcitavanjeSoba(idHotela);
+				}
+			}
 			else
-				JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Rezervacija nije kreirana, molimo pokusajte kasnije", "Info", JOptionPane.INFORMATION_MESSAGE);
 			
 		}
 	}
@@ -700,8 +702,14 @@ public class KreiranjeRezervacije {
 		}else if(textField_2.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Niste unijeli JMBG", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
+		}else if(textField_2.getText().length()!=13 && textField_2.getText().matches("[0-9]+")){
+			JOptionPane.showMessageDialog(null, "Format JMBG nije ispravan", "Info", JOptionPane.INFORMATION_MESSAGE);
+			return false;
 		}else if(textField_3.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Niste unijeli broj pasoša", "Info", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}else if(textField_brojLicneKarte.getText().equals("")){
+			JOptionPane.showMessageDialog(null, "Niste unijeli broj lične karte", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}else if(textField_5.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Niste unijeli email", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -718,5 +726,6 @@ public class KreiranjeRezervacije {
 		}
 		return true;
 	}
-
+	
+	
 }

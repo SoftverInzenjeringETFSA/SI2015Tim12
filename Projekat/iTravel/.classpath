@@ -6,7 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+    <classpathentry kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
@@ -27,8 +27,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/FAKS/SI/Git/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="D:/FAKS/SI/Git/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="D:/FAKS/SI/Git/SI2015Tim12/Projekat/iTravel/src/main/resources/Externals/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

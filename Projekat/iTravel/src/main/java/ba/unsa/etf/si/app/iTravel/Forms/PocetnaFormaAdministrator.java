@@ -38,19 +38,20 @@ public class PocetnaFormaAdministrator {
 
 	private void otvoriPostavke()
 	{
-		Postavke forma = new Postavke();
-		forma.PrikaziFormu();
+		Postavke forma = new Postavke(this);
+  		forma.PrikaziFormu();;
 	}
 		
 	/**
 	 * Launch the application.
 	 */
-	public void PrikaziFormu() {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PocetnaFormaAdministrator window = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator window=new PocetnaFormaAdministrator();
 					window.frame.setVisible(true);
+			
 				} catch (Exception e) {
 					UnitOfWork.logger.error(e);
 				}
@@ -73,7 +74,7 @@ public class PocetnaFormaAdministrator {
 	}
 	
 	// Neki problem sa repositorijem i sesijama nece fino da ucita iz baze
-	/*public void OsvjeziPostavkeFormu()
+	public void OsvjeziPostavkeFormu()
 	{	
 		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
@@ -82,7 +83,7 @@ public class PocetnaFormaAdministrator {
 		btnKlijenti.setEnabled(postavke[3]);		
 		btnKorisnici.setEnabled(postavke[4]); 	
 		btnIzvjetaji.setEnabled(postavke[5]);
-	}*/
+	}
 	
 
 	/**
@@ -126,8 +127,7 @@ public class PocetnaFormaAdministrator {
 		
 		btnPonude.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Hoteli novaForma = new Hoteli();
-				novaForma.PrikaziFormu();
+				Hoteli.PrikaziFormu();
 			}
 		});
 		btnPonude.setBounds(44, 67, 350, 35);
@@ -138,8 +138,7 @@ public class PocetnaFormaAdministrator {
 		
 		btnRezervacije.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Rezervacije novaForma = new Rezervacije();
-						novaForma.PrikaziFormu();
+				Rezervacije.PrikaziFormu();
 			}
 		});
 		btnRezervacije.setBounds(44, 113, 350, 35);
@@ -150,8 +149,7 @@ public class PocetnaFormaAdministrator {
 		
 		btnKlijenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Klijenti forma = new Klijenti();
-				forma.PrikaziFormu();
+				Klijenti.PrikaziFormu();
 			}
 		});
 		btnKlijenti.setBounds(44, 158, 350, 35);
@@ -162,8 +160,7 @@ public class PocetnaFormaAdministrator {
 		
 		btnKorisnici.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Korisnici forma = new Korisnici();
-				forma.PrikaziFormu();
+				Korisnici.PrikaziFormu();
 			}
 		});
 		btnKorisnici.setBounds(44, 204, 350, 35);
@@ -174,8 +171,7 @@ public class PocetnaFormaAdministrator {
 		
 		btnIzvjetaji.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
-				forma.PrikaziFormu();
+				GenerisanjeIzvjestaja.PrikaziFormu();
 			}
 		});
 		btnIzvjetaji.setBounds(44, 250, 350, 35);
@@ -199,8 +195,7 @@ public class PocetnaFormaAdministrator {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni \u0161ifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnNewMenu.add(mntmPromijeniifru);
@@ -215,8 +210,7 @@ public class PocetnaFormaAdministrator {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose();
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnNewMenu.add(mntmOdjaviSe);

@@ -31,8 +31,12 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+//import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class Rezervacije {
@@ -44,7 +48,7 @@ public class Rezervacije {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -55,6 +59,7 @@ public class Rezervacije {
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -69,6 +74,9 @@ public class Rezervacije {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmPrikazRezervacija = new JFrame();
 		frmPrikazRezervacija.addWindowListener(new WindowAdapter() {
 			@Override
@@ -129,14 +137,18 @@ public class Rezervacije {
 		frmPrikazRezervacija.getContentPane().add(btnModifikujKorisnike);
 		
 		JButton btnObriiKorisnika = new JButton("Otka\u017Ei rezervaciju");
+		btnObriiKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OtkaziRezervaciju();
+			}
+		});
 		btnObriiKorisnika.setBounds(340, 226, 150, 30);
 		frmPrikazRezervacija.getContentPane().add(btnObriiKorisnika);
 		
 		JButton btnDodajKorisnika = new JButton("Kreiraj rezervaciju");
 		btnDodajKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KreiranjeRezervacije forma = new KreiranjeRezervacije();
-				forma.PrikaziFormu();
+				KreiranjeRezervacije.PrikaziFormu();
 			}
 		});
 		btnDodajKorisnika.setBounds(20, 226, 150, 30);
@@ -156,19 +168,16 @@ public class Rezervacije {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmPrikazRezervacija.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmPrikazRezervacija.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmPrikazRezervacija.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -182,12 +191,12 @@ public class Rezervacije {
 				win[i].dispose(); 
 				} 				
 				
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmPrikazRezervacija.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -198,13 +207,13 @@ public class Rezervacije {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmPrikazRezervacija.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
 			
 			if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -216,12 +225,12 @@ public class Rezervacije {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-					Korisnici forma = new Korisnici();
-					frmPrikazRezervacija.setVisible(false);
-					forma.PrikaziFormu();				
+					Korisnici.PrikaziFormu();
+					frmPrikazRezervacija.setVisible(false);			
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
 		JMenu mnRaun = new JMenu("Račun");
 		menuBar.add(mnRaun);
@@ -229,8 +238,7 @@ public class Rezervacije {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -245,26 +253,13 @@ public class Rezervacije {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
 	}
 
-	public void PrikaziFormu() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Rezervacije window = new Rezervacije();
-					window.frmPrikazRezervacija.setVisible(true);
-				} catch (Exception e) {
-					UnitOfWork.logger.error(e);
-				}
-			}
-		});
-		
-	}
+
 	
 	
 	private void UcitajSveRezervacije(){
@@ -278,7 +273,10 @@ public class Rezervacije {
 				Klijent k= rezervacije.get(i).getKlijent();
 				Osoba osoba=uow.getRezervacijaService().dajOsobuPoId(k.getOsoba().getOsobaId());
 				
-				Racun r= rezervacije.get(i).getRacuns().iterator().next();
+				Racun r=null;
+				//if(rezervacije.get(i).getRacuns().iterator().hasNext())
+				Object[] racuniList=rezervacije.get(i).getRacuns().toArray();
+				r=(Racun) racuniList[0];
 				RezervisaniTerminSoba termin=uow.getRezervacijaService().dajRezervisaneTermineZaRezervaciju(rezervacije.get(i).getRezervacijaId()).get(0);
 				Soba s= uow.getRezervacijaService().dajSobu(termin.getSoba().getSobaId());
 				Hotel h=s.getHotel();
@@ -307,6 +305,23 @@ public class Rezervacije {
 				UcitajSveRezervacije();
 			}else
 				JOptionPane.showMessageDialog(null, "Niste uspjeli potvrditi rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
+		}
+	}
+	
+	private void OtkaziRezervaciju(){
+		if(table.getSelectedRow()!=-1){
+			int row=table.getSelectedRow();
+			int idRezervacije=Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
+			
+			boolean provjera=false;
+			int dialogResult = JOptionPane.showConfirmDialog(null,"Da li zaista zelite otkazati rezervaciju?");
+			if(dialogResult==JOptionPane.YES_OPTION)
+				provjera=uow.getRezervacijaService().obrisiRezervaciju(idRezervacije);
+			if(provjera){
+				JOptionPane.showMessageDialog(null, "Rezervacija je otkazana", "Info", JOptionPane.INFORMATION_MESSAGE);
+				UcitajSveRezervacije();
+			}else
+				JOptionPane.showMessageDialog(null, "Niste uspjeli otkazati rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
 		}
 	}
 }

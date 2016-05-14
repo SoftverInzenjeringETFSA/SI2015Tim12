@@ -39,17 +39,19 @@ public class Repository<T>{
      */
     
     public List<T> ucitajSveIzBaze() {
-        /*Transaction t = session.beginTransaction();
-        String queryString = FROM + SPACE + PARAMETER;
-        Query query = session.createQuery(queryString);
-        query.setString(0, entityClass.getCanonicalName());
-        List<T> resultObjects = query.list();
-        t.commit();
-        return resultObjects;*/
+
+    	Session novaSesija = SessionFactoryDB.getSession();
+    	Transaction transaction = novaSesija.beginTransaction();
+    	transaction.begin();
+    	List<T> lista = novaSesija.createCriteria(entityClass).list();
         
-        List<T> lista = this.session.createCriteria(entityClass).list();
-        //session.close();
+    	transaction.commit();
+        novaSesija.close();
         return (List<T>)lista;
+        
+        // BACKUP KOD
+     	//List<T> lista = this.session.createCriteria(entityClass).list();
+        //return (List<T>)lista;
     }
 
     /**

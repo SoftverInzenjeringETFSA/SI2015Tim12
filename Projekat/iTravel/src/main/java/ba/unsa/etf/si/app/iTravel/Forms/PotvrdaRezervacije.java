@@ -19,11 +19,12 @@ import java.awt.event.ActionEvent;
 public class PotvrdaRezervacije {
 
 	private JFrame frmPotvrdaRezervacije;
+	private UnitOfWork uow=new UnitOfWork();
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -47,6 +48,9 @@ public class PotvrdaRezervacije {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmPotvrdaRezervacije = new JFrame();
 		frmPotvrdaRezervacije.setTitle("Potvrda rezervacije");
 		frmPotvrdaRezervacije.setBounds(100, 100, 317, 195);
@@ -76,19 +80,17 @@ public class PotvrdaRezervacije {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmPotvrdaRezervacije.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmPotvrdaRezervacije.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmPotvrdaRezervacije.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -102,12 +104,12 @@ public class PotvrdaRezervacije {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmPotvrdaRezervacije.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -122,6 +124,7 @@ public class PotvrdaRezervacije {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -131,13 +134,13 @@ public class PotvrdaRezervacije {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmPotvrdaRezervacije.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
 			
 			if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -149,12 +152,12 @@ public class PotvrdaRezervacije {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-					Korisnici forma = new Korisnici();
-					frmPotvrdaRezervacije.setVisible(false);
-					forma.PrikaziFormu();				
+					Korisnici.PrikaziFormu();
+					frmPotvrdaRezervacije.setVisible(false);			
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
 		
 		JMenu mnRaun = new JMenu("Račun");
@@ -163,8 +166,7 @@ public class PotvrdaRezervacije {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -179,23 +181,9 @@ public class PotvrdaRezervacije {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
-	}
-	public void PrikaziFormu() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PotvrdaRezervacije window = new PotvrdaRezervacije();
-					window.frmPotvrdaRezervacije.setVisible(true);
-				} catch (Exception e) {
-					UnitOfWork.logger.error(e);
-				}
-			}
-		});
-		
 	}
 }

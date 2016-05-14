@@ -5,11 +5,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-//import java.util.logging.Logger;
+import java.util.logging.Logger;
 
 public class SessionFactoryDB {
-    //private static final Logger logger =
-    //        Logger.getLogger(SessionFactoryDB.class.getName());
+    private static final Logger logger =
+            Logger.getLogger(SessionFactoryDB.class.getName());
 
     private static final SessionFactory ourSessionFactory;
 

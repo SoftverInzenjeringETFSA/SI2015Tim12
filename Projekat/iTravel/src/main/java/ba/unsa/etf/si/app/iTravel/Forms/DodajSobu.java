@@ -105,7 +105,7 @@ public class DodajSobu {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -117,6 +117,7 @@ public class DodajSobu {
 				}
 			}
 		});
+
 	}
 
 	/**
@@ -216,17 +217,16 @@ public class DodajSobu {
 					win[i].dispose();
 				}
 				if (UserContext.getInstance().getRoleID() == 1) {
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmModifikacijeSoba.setVisible(false);
-					forma.PrikaziFormu();
+
 				} else if (UserContext.getInstance().getRoleID() == 2) {
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmModifikacijeSoba.setVisible(false);
-					forma.PrikaziFormu();
+
 				} else if (UserContext.getInstance().getRoleID() == 3) {
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmModifikacijeSoba.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -239,9 +239,8 @@ public class DodajSobu {
 				for (int i = 0; i < win.length; i++) {
 					win[i].dispose();
 				}
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmModifikacijeSoba.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -253,9 +252,8 @@ public class DodajSobu {
 				for (int i = 0; i < win.length; i++) {
 					win[i].dispose();
 				}
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frmModifikacijeSoba.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -268,9 +266,8 @@ public class DodajSobu {
 					for (int i = 0; i < win.length; i++) {
 						win[i].dispose();
 					}
-					Klijenti forma = new Klijenti();
+					Klijenti.PrikaziFormu();
 					frmModifikacijeSoba.setVisible(false);
-					forma.PrikaziFormu();
 
 				}
 			});
@@ -286,9 +283,8 @@ public class DodajSobu {
 					for (int i = 0; i < win.length; i++) {
 						win[i].dispose();
 					}
-					Korisnici forma = new Korisnici();
+					Korisnici.PrikaziFormu();
 					frmModifikacijeSoba.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			});
 			mnMeni.add(mntmKorisnici);
@@ -300,8 +296,7 @@ public class DodajSobu {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -316,25 +311,11 @@ public class DodajSobu {
 				for (int i = 0; i < win.length; i++) {
 					win[i].dispose();
 				}
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
 	}
 
-	public void PrikaziFormu() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-					DodajSobu window = new DodajSobu();
-					window.frmModifikacijeSoba.setVisible(true);
-				} catch (Exception e) {
-					UnitOfWork.logger.error(e);
-				}
-			}
-		});
-
-	}
+	
 }

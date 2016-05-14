@@ -36,17 +36,18 @@ public class ModifikacijaKorisnika {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ModifikacijaKorisnika window = new ModifikacijaKorisnika ();
+					ModifikacijaKorisnika window = new ModifikacijaKorisnika();
 					window.frmModifikacijaKorisnika.setVisible(true);
 				} catch (Exception e) {
 					UnitOfWork.logger.error(e);
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -179,19 +180,17 @@ public class ModifikacijaKorisnika {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmModifikacijaKorisnika.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmModifikacijaKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmModifikacijaKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -205,9 +204,9 @@ public class ModifikacijaKorisnika {
 				win[i].dispose(); 
 				} 				
 				
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmModifikacijaKorisnika.setVisible(false);
-				forma.PrikaziFormu();
+
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -219,9 +218,9 @@ public class ModifikacijaKorisnika {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frmModifikacijaKorisnika.setVisible(false);
-				forma.PrikaziFormu();
+
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -234,9 +233,8 @@ public class ModifikacijaKorisnika {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmModifikacijaKorisnika.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
@@ -252,9 +250,8 @@ public class ModifikacijaKorisnika {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-					Korisnici forma = new Korisnici();
-					frmModifikacijaKorisnika.setVisible(false);
-					forma.PrikaziFormu();				
+					Korisnici.PrikaziFormu();
+					frmModifikacijaKorisnika.setVisible(false);			
 				}
 			});
 			mnMeni.add(mntmKorisnici);
@@ -266,8 +263,7 @@ public class ModifikacijaKorisnika {
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -282,23 +278,10 @@ public class ModifikacijaKorisnika {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
 	}
-	public void PrikaziFormu() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ModifikacijaKorisnika window = new ModifikacijaKorisnika();
-					window.frmModifikacijaKorisnika.setVisible(true);
-				} catch (Exception e) {
-					UnitOfWork.logger.error(e);
-				}
-			}
-		});
-		
-	}
+
 }

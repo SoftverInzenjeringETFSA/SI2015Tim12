@@ -22,6 +22,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class Korisnici {
 	
@@ -30,11 +31,12 @@ public class Korisnici {
 
 	private JFrame frmPrikazKorisnika;
 	private JTable table;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,6 +47,50 @@ public class Korisnici {
 				}
 			}
 		});
+	}
+	
+	public void OsvjeziFormu()
+	{
+		Object[][] podaci= uow.getPrikazKorisnika().PrikaziSveKorisnike();
+		
+		table.setModel(new DefaultTableModel(
+				podaci,
+				new String[] {
+					"Ime", "Prezime", "JMBG", "Broj li\u010Dne karte", "Adresa", "Telefon", "E-mail", "Username", "Tip korisnika", "Id"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		
+		table.getColumnModel().getColumn(2).setPreferredWidth(89);
+		table.getColumnModel().getColumn(3).setPreferredWidth(85);
+		table.getColumnModel().getColumn(4).setPreferredWidth(99);
+		table.getColumnModel().getColumn(6).setPreferredWidth(100);
+		scrollPane.setViewportView(table);
+		
+		TableColumnModel tcm = table.getColumnModel();
+		if(tcm.getColumnCount()==10)
+			tcm.removeColumn( tcm.getColumn(9) );
+	}
+	
+	private void OtvoriKreirajKorisnikaFormu(boolean modif, int idSelektovanogKorisnika)
+	{
+		if(modif)
+	 	{
+ 			KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(this, idSelektovanogKorisnika);
+ 			forma.PrikaziFormu();
+ 		}
+ 		else		
+ 		{
+ 			KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(this);
+ 			forma.PrikaziFormu();
+ 		}
+
 	}
 
 	/**
@@ -68,16 +114,14 @@ public class Korisnici {
 		frmPrikazKorisnika.getContentPane().setLayout(null);
 		frmPrikazKorisnika.setLocationRelativeTo(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 29, 821, 175);
 		frmPrikazKorisnika.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		PrikazKorisnika pk = new PrikazKorisnika();
-		
-		Object[][] podaci= pk.PrikaziSveKorisnike();
+				
+		Object[][] podaci= uow.getPrikazKorisnika().PrikaziSveKorisnike();
 		
 		table.setModel(new DefaultTableModel(
 			podaci,
@@ -120,23 +164,49 @@ public class Korisnici {
 				int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());			
 				
 				//KorisnickiRacun korisnickiRacun = uow.getKorisnickiRacunService().dajKorisnika(idSelektovanogKorisnika);
+
+
 				
-				KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna(idSelektovanogKorisnika);
-				forma.PrikaziFormu();
+				OtvoriKreirajKorisnikaFormu(true, idSelektovanogKorisnika);
 			}
 		});
 		btnModifikujKorisnike.setBounds(180, 226, 150, 30);
 		frmPrikazKorisnika.getContentPane().add(btnModifikujKorisnike);
 		
 		JButton btnObriiKorisnika = new JButton("Obri\u0161i korisnika");
+		btnObriiKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite izbrisati korisnika",
+						"Potvrda", JOptionPane.YES_NO_OPTION);
+				
+		        if (reply == JOptionPane.YES_OPTION) {
+		        	
+		        	int row=table.getSelectedRow();
+					int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
+					
+		        	boolean uspjesno = uow.getKorisnickiRacunService().obrisiKorisnika(idSelektovanogKorisnika);
+		        	
+		        	if(uspjesno)
+		        	{
+		        		JOptionPane.showMessageDialog(null, "Uspješno obrisan korisnik.");
+		        		OsvjeziFormu();
+		        	}	
+		        	else
+		        		JOptionPane.showMessageDialog(null, "Dogodila se greška pri brisanju korisnika.");
+		        }
+		        else {
+		        }
+			}
+		});
+		
 		btnObriiKorisnika.setBounds(340, 226, 150, 30);
 		frmPrikazKorisnika.getContentPane().add(btnObriiKorisnika);
 		
 		JButton btnDodajKorisnika = new JButton("Dodaj korisnika");
 		btnDodajKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KreiranjeKorisnickogRacuna forma = new KreiranjeKorisnickogRacuna();
-				forma.PrikaziFormu();
+				OtvoriKreirajKorisnikaFormu(false, -1);
 			}
 		});
 		btnDodajKorisnika.setBounds(20, 226, 150, 30);
@@ -156,19 +226,17 @@ public class Korisnici {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmPrikazKorisnika.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmPrikazKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmPrikazKorisnika.setVisible(false);
-					forma.PrikaziFormu();
 				}
 			}
 		});
@@ -182,9 +250,9 @@ public class Korisnici {
 				win[i].dispose(); 
 				} 				
 				
-				Hoteli forma = new Hoteli();
+				Hoteli.PrikaziFormu();
 				frmPrikazKorisnika.setVisible(false);
-				forma.PrikaziFormu();
+
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -197,9 +265,8 @@ public class Korisnici {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frmPrikazKorisnika.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -213,9 +280,8 @@ public class Korisnici {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmPrikazKorisnika.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
@@ -232,9 +298,8 @@ public class Korisnici {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				GenerisanjeIzvjestaja forma = new GenerisanjeIzvjestaja();
-				frmPrikazKorisnika.setVisible(false);
-				forma.PrikaziFormu();				
+				GenerisanjeIzvjestaja.PrikaziFormu();
+				frmPrikazKorisnika.setVisible(false);			
 			}
 		});
 		mnMeni.add(mntmIzvjestaji);
@@ -252,8 +317,7 @@ public class Korisnici {
 				win[i].dispose(); 
 				} 
 				
-				Prijava prijava = new Prijava();				
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		menuBar.add(mnRaun);
@@ -262,9 +326,7 @@ public class Korisnici {
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				PromjenaSifre novaForma = new PromjenaSifre();
-				
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -273,16 +335,5 @@ public class Korisnici {
 		mnRaun.add(mntmOdjaviSe);
 	}
 	
-	public void PrikaziFormu() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Korisnici window = new Korisnici();
-					window.frmPrikazKorisnika.setVisible(true);
-				} catch (Exception e) {
-					UnitOfWork.logger.error(e);
-				}
-			}
-		});
-	}
+	
 }

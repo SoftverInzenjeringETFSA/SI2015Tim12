@@ -60,7 +60,7 @@ public class Hoteli {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PrikaziFormu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -138,9 +138,7 @@ public class Hoteli {
 		btnModifikujHotel = new JButton("Modifikuj hotel");
 		btnModifikujHotel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModifikacijaHotela forma =  new ModifikacijaHotela();
-
-				forma.PrikaziFormu();
+				ModifikacijaHotela.PrikaziFormu();
 			}
 		});
 		btnModifikujHotel.setBounds(343, 287, 150, 30);
@@ -172,8 +170,7 @@ public class Hoteli {
 		btnDodajHotel = new JButton("Dodaj hotel");
 		btnDodajHotel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DodavanjeHotela forma =  new DodavanjeHotela();
-				forma.PrikaziFormu();
+				DodavanjeHotela.PrikaziFormu();
 			}
 		});
 		btnDodajHotel.setBounds(183, 287, 150, 30);
@@ -186,8 +183,7 @@ public class Hoteli {
 		btnPregledajSobe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				EditSoba forma = new EditSoba();
-				forma.PrikaziFormu();
+				EditSoba.PrikaziFormu();
 			}
 		});
 		menuBar = new JMenuBar();
@@ -204,19 +200,19 @@ public class Hoteli {
 				win[i].dispose(); 
 				} 				
 				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator forma = new PocetnaFormaAdministrator();
+					PocetnaFormaAdministrator.PrikaziFormu();
 					frmPrikazHotela.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent forma = new PocetnaFormaAgent();
+					PocetnaFormaAgent.PrikaziFormu();
 					frmPrikazHotela.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor forma = new PocetnaFormaSupervizor();
+					PocetnaFormaSupervizor.PrikaziFormu();
 					frmPrikazHotela.setVisible(false);
-					forma.PrikaziFormu();
+
 				}
 			}
 		});
@@ -229,9 +225,8 @@ public class Hoteli {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 				
-				Rezervacije forma = new Rezervacije();
+				Rezervacije.PrikaziFormu();
 				frmPrikazHotela.setVisible(false);
-				forma.PrikaziFormu();
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -244,9 +239,8 @@ public class Hoteli {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-						Klijenti forma = new Klijenti();
+						Klijenti.PrikaziFormu();
 						frmPrikazHotela.setVisible(false);
-						forma.PrikaziFormu();	
 					
 				}
 			});
@@ -262,9 +256,8 @@ public class Hoteli {
 					for(int i=0;i<win.length;i++){ 
 					win[i].dispose(); 
 					} 				
-					Korisnici forma = new Korisnici();
-					frmPrikazHotela.setVisible(false);
-					forma.PrikaziFormu();				
+					Korisnici.PrikaziFormu();
+					frmPrikazHotela.setVisible(false);			
 				}
 			});
 			mnMeni.add(mntmKorisnici);
@@ -276,8 +269,7 @@ public class Hoteli {
 		mntmPromijeniifru = new JMenuItem("Promijeni šifru");
 		mntmPromijeniifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PromjenaSifre novaForma = new PromjenaSifre();
-				novaForma.PrikaziFormu();
+				PromjenaSifre.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmPromijeniifru);
@@ -294,8 +286,7 @@ public class Hoteli {
 				for(int i=0;i<win.length;i++){ 
 				win[i].dispose(); 
 				} 
-				Prijava prijava = new Prijava();
-				prijava.PrikaziFormu();
+				Prijava.PrikaziFormu();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
@@ -309,18 +300,7 @@ public class Hoteli {
 		table_pregledHotela.getColumnModel().getColumn(7).setPreferredWidth(110);
 	}
 
-	public void PrikaziFormu() {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						Hoteli window = new Hoteli();
-						window.frmPrikazHotela.setVisible(true);
-					} catch (Exception e) {
-						UnitOfWork.logger.error(e);
-					}
-				}
-			});
-		}
+	
 
 
 }
