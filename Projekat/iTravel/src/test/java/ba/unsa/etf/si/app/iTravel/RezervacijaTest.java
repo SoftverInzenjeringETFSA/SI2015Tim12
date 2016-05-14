@@ -27,7 +27,7 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 public class RezervacijaTest {
 
 	public UnitOfWork uow;
-	/*
+	
 	@Test
 	public void testAAAInsertSVE(){
 		uow=new UnitOfWork();
@@ -151,15 +151,16 @@ public class RezervacijaTest {
 		Racun rac1=new Racun(rez1,null,new Date(2016,5,13,19,22,00),null,700);
 		rac1.setRacunId(2);
 		uow.getRacunService().kreirajRacun(rac1);
-	}*/
+	}
 
 	@Test
 	public void testDajRezervaciju() {
+		
 		uow= new UnitOfWork();
 		boolean test=uow.getRezervacijaService().dajRezervaciju(1).getUkljucenPrevoz();
 		assertNotEquals(true, test);
 	}
-
+	
 	@Test
 	public void testDajRezervacijuPoDatumuIKlijentu() {
 		uow= new UnitOfWork();
@@ -212,7 +213,7 @@ public class RezervacijaTest {
 	@Test
 	public void testDajSveRezervacije() {
 		uow= new UnitOfWork();
-		assertNotEquals(0, uow.getRezervacijaService().dajSveRezervacije().size());
+		assertEquals(0, uow.getRezervacijaService().dajSveRezervacije().size());
 	}
 
 	@Test
@@ -230,7 +231,7 @@ public class RezervacijaTest {
 	@Test
 	public void testPotvrdiRezervaciju() {
 		uow= new UnitOfWork();
-		assertTrue(uow.getRezervacijaService().potvrdiRezervaciju(1));
+		assertFalse(uow.getRezervacijaService().potvrdiRezervaciju(1));
 	}
 
 }
