@@ -9,6 +9,8 @@ import java.util.Set;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -29,8 +31,9 @@ public class RezervacijaTest {
 
 	public UnitOfWork uow;
 	
+	@Before
 	@Test
-	public void testAAAAInsertDestinacije(){
+	public void testInsertDestinacije(){
 		uow=new UnitOfWork();
 		//destinacije
 		Destinacija d=new Destinacija("Sarajevo",false,null,null);
@@ -39,11 +42,12 @@ public class RezervacijaTest {
 		Destinacija d1=new Destinacija("Dubai",true,null,null);
 		//d1.setDestinacijaId(2);
 		uow.getDestinacijeService().UbaciDestinacijuUBAzu(d);
-		//assertEquals(2,uow.getDestinacijeService().DajSveDestinacije().size());
+		assertEquals(2,uow.getDestinacijeService().DajSveDestinacije().size());
 	}
 
+	@Before
 	@Test
-	public void testAAAInsertHotel(){
+	public void testInsertHotel(){
 		uow= new UnitOfWork();
 		Destinacija d=uow.getDestinacijeService().VratiDestinacijuPoId(1);
 		Destinacija d1=uow.getDestinacijeService().VratiDestinacijuPoId(2);
@@ -60,11 +64,12 @@ public class RezervacijaTest {
 		Hotel h3=new Hotel(d1,"Adresa2 u UAE","UAE","Dubai","+46406545648",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Mustuluk","DOO2",5,null,null);
 		//h3.setHotelId(4);
 		uow.getHoteliService().KreirajHotel(h3);
-		//assertEquals(4,uow.getHoteliService().VratiSveHotele().size());
+		assertEquals(4,uow.getHoteliService().VratiSveHotele().size());
 	}
 	
+	@Before
 	@Test 
-	public void testAAInsertSoba(){
+	public void testInsertSoba(){
 		uow= new UnitOfWork();
 		Hotel h=uow.getHoteliService().VratiHotelId(1);
 		Hotel h1=uow.getHoteliService().VratiHotelId(2);
@@ -102,12 +107,12 @@ public class RezervacijaTest {
 		Soba s9=new Soba(h3,2,"opis desete sobe",50,40,null,null);
 		//s9.setSobaId(10);
 		uow.getSobeService().AzurirajiliUbaciSobu(s9);
-		//assertEquals(10,uow.getSobeService().VratiSveSobe().size());
+		assertEquals(10,uow.getSobeService().VratiSveSobe().size());
 	}
 	
-	
+	@Before
 	@Test
-	public void testAInsertOsobaKlijentRacun(){
+	public void testInsertOsobaKlijentRacun(){
 		uow= new UnitOfWork();
 		//osobe
 		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
@@ -159,6 +164,7 @@ public class RezervacijaTest {
 		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr2, false);
 	}
 	
+	@Before
 	@Test
 	public void testAInsertRezervacija(){
 		uow= new UnitOfWork();
@@ -336,6 +342,15 @@ public class RezervacijaTest {
 	public void testPotvrdiRezervaciju() {
 		uow= new UnitOfWork();
 		assertFalse(uow.getRezervacijaService().potvrdiRezervaciju(1));
+	}
+	
+	@AfterClass
+	@Test
+	public static void ObrisiSve(){
+	 	UnitOfWork uow1=new UnitOfWork();
+	 	uow1.getDestinacijeService().ObrisiSveDestinacije();
+	 	uow1.getHoteliService().ObrisiSveHotele();
+		uow1.getSobeService().ObrisiSveSobe();
 	}
 
 }
