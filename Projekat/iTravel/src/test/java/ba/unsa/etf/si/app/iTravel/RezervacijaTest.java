@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
@@ -28,8 +29,9 @@ public class RezervacijaTest {
 
 	public UnitOfWork uow;
 	
+	@BeforeClass
 	@Test
-	public void testAAAInsertSVE(){
+	public void testInsertDestinacijeHoteliSobe(){
 		uow=new UnitOfWork();
 		//destinacije
 		Destinacija d=new Destinacija("Sarajevo",false,null,null);
@@ -85,8 +87,12 @@ public class RezervacijaTest {
 		s9.setSobaId(10);
 		uow.getSobeService().AzurirajiliUbaciSobu(s9);
 		//assertEquals(10,uow.getSobeService().VratiSveSobe().size());
+	}
+	@BeforeClass
+	@Test
+	public void testInsertOsobaKlijentRacun(){
 		//osobe
-/*		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
+		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
 		o.setOsobaId(1);
 		uow.getOsobaService().KreirajOsobu(o, false);
 		Osoba o1=new Osoba("Emina","Prlja", new Date(1668,5,5),"adresa usera 2","emaieet@nesto.com","46546545","1234567894489","dsa6454","4dsasda654d",null,null,null,null);
@@ -94,26 +100,26 @@ public class RezervacijaTest {
 		uow.getOsobaService().KreirajOsobu(o1, false);
 		Osoba o2=new Osoba("Adna","Tahic", new Date(1668,5,5),"adresa usera 3","emailsad@nesto.com","46546455","1234567894795","dsa64da","454dsa654d",null,null,null,null);
 		o2.setOsobaId(3);
-		uow.getOsobaService().KreirajOsobu(o2, false);*/
+		uow.getOsobaService().KreirajOsobu(o2, false);
 		//assertEquals(3,uow.getOsobaService().dajSveOsobe().size());
 		//klijenti
-/*		Klijent k=new Klijent(o1);
+		Klijent k=new Klijent(o1);
 		k.setKlijentId(1);
 		uow.getKlijentiService().KreirajKlijenta(k);
 		Klijent k1=new Klijent(o2);
 		k1.setKlijentId(2);
-		uow.getKlijentiService().KreirajKlijenta(k1);*/
+		uow.getKlijentiService().KreirajKlijenta(k1);
 		//assertEquals(3,uow.getKlijentiService().dajSveKlijente().size());
 		//Role
-/*		Rola r=new Rola(1,"Administrator",null,null);
+		Rola r=new Rola(1,"Administrator",null,null);
 		uow.getRolaService().KreirajRolu(r);
 		Rola r1=new Rola(2,"Agent",null,null);
 		uow.getRolaService().KreirajRolu(r1);
 		Rola r2=new Rola(3,"Supervizor",null,null);
-		uow.getRolaService().KreirajRolu(r2);*/
+		uow.getRolaService().KreirajRolu(r2);
 		//assertEquals(3,uow.getRolaService().dajRolu(3).getRolaId());		
 		//korisnicki racuni
-/*		KorisnickiRacun kr=new KorisnickiRacun(o,"kenanprses","Sitim12",null,null,null,null);
+		KorisnickiRacun kr=new KorisnickiRacun(o,"kenanprses","Sitim12",null,null,null,null);
 		kr.setKorisnickiRacunId(1);
 		uow.getKorisnickiRacunService().KreirajKorisnickiRacun(kr, false);
 		KorisnickiRacun kr2=new KorisnickiRacun(o,"kagent","Sitim12",null,null,null,null);
@@ -121,10 +127,10 @@ public class RezervacijaTest {
 		uow.getKorisnickiRacunService().KreirajKorisnickiRacun(kr2, false);
 		KorisnickiRacun kr3=new KorisnickiRacun(o,"ksupervizor","Sitim12",null,null,null,null);
 		kr3.setKorisnickiRacunId(3);
-		uow.getKorisnickiRacunService().KreirajKorisnickiRacun(kr3, false);*/
+		uow.getKorisnickiRacunService().KreirajKorisnickiRacun(kr3, false);
 		//assertEquals(3,uow.getKorisnickiRacunService().dajKorisnika(3).getKorisnickiRacunId().intValue());
 		//korisnicki Racun Rola
-/*		Korisnickiracunxrola krr=new Korisnickiracunxrola(r,kr);
+		Korisnickiracunxrola krr=new Korisnickiracunxrola(r,kr);
 		krr.setKorisnickiRacunXrolaId(1);
 		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr, false);
 		Korisnickiracunxrola krr1=new Korisnickiracunxrola(r,kr2);
@@ -132,27 +138,36 @@ public class RezervacijaTest {
 		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr1, false);
 		Korisnickiracunxrola krr2=new Korisnickiracunxrola(r,kr3);
 		krr2.setKorisnickiRacunXrolaId(3);
-		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr2, false);*/
+		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr2, false);
+	}
+	
+	@BeforeClass
+	@Test
+	public void testInsertRezervacija(){
+		KorisnickiRacun kr2=uow.getKorisnickiRacunService().dajKorisnika(2);
+		Klijent k1=uow.getKlijentiService().dajSveKlijente().get(0);
 		//rezervacija
-/*		Rezervacija rez=new Rezervacija(kr2,k1,new Date(2016,5,14,19,11,00),false,null,null,null,null);
+		Rezervacija rez=new Rezervacija(kr2,k1,new Date(2016,5,14,19,11,00),false,null,null,null,null);
 		rez.setRezervacijaId(1);
 		uow.getRezervacijaService().kreirajRezervaciju(rez, 2);
 		Rezervacija rez1=new Rezervacija(kr2,k1,new Date(2016,5,13,19,22,00),false,null,null,null,null);
 		rez1.setRezervacijaId(2);
 		uow.getRezervacijaService().kreirajRezervaciju(rez1, 2);
-*/		//rezervisani termin soba
-/*		uow.getRezervacijaService().rezervisiSobu(s1, new Date(2016,7,1), new Date(2016,7,5), rez);
+		Soba s1=uow.getSobeService().VratiSobaId(1);
+		Soba s2=uow.getSobeService().VratiSobaId(2);
+		//rezervisani termin soba
+		uow.getRezervacijaService().rezervisiSobu(s1, new Date(2016,7,1), new Date(2016,7,5), rez);
 		uow.getRezervacijaService().rezervisiSobu(s2, new Date(2016,7,3), new Date(2016,7,12), rez1);
-*/		
+		
 		//racun
-/*		Racun rac=new Racun(rez,null,new Date(2016,5,14,19,11,00),null,500);
+		Racun rac=new Racun(rez,null,new Date(2016,5,14,19,11,00),null,500);
 		rac.setRacunId(1);
 		uow.getRacunService().kreirajRacun(rac);
 		Racun rac1=new Racun(rez1,null,new Date(2016,5,13,19,22,00),null,700);
 		rac1.setRacunId(2);
-		uow.getRacunService().kreirajRacun(rac1);*/
+		uow.getRacunService().kreirajRacun(rac1);
 	}
-
+	
 	@Test
 	public void testDajRezervaciju() {
 		
