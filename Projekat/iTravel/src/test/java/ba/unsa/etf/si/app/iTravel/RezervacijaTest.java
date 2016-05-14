@@ -30,66 +30,66 @@ public class RezervacijaTest {
 	public UnitOfWork uow;
 	
 	@Test
-	public void testAAAInsertDestinacijeHoteliSobe(){
+	public void testInsertDestinacijeHoteliSobe(){
 		uow=new UnitOfWork();
 		//destinacije
 		Destinacija d=new Destinacija("Sarajevo",false,null,null);
-		d.setDestinacijaId(1);
+		//d.setDestinacijaId(1);
 		uow.getDestinacijeService().UbaciDestinacijuUBAzu(d);
 		Destinacija d1=new Destinacija("Dubai",true,null,null);
-		d1.setDestinacijaId(2);
+		//d1.setDestinacijaId(2);
 		uow.getDestinacijeService().UbaciDestinacijuUBAzu(d);
 		//assertEquals(2,uow.getDestinacijeService().DajSveDestinacije().size());
 		//hoteli
 		Hotel h=new Hotel(d,"Adresa1","BiH","Sarajevo","065498",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Europa","DOO",5,null,null);
-		h.setHotelId(1);
+		//h.setHotelId(1);
 		uow.getHoteliService().KreirajHotel(h);
 		Hotel h1=new Hotel(d,"Adresa2 i Sa","BiH","Sarajevo","06545648",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Holivud","DOO",4,null,null);
-		h1.setHotelId(2);
+		//h1.setHotelId(2);
 		uow.getHoteliService().KreirajHotel(h1);
 		Hotel h2=new Hotel(d1,"Adresa1 u UAE","UAE","Dubai","+454065498",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Harem","DOO2",5,null,null);
-		h2.setHotelId(3);
+		//h2.setHotelId(3);
 		uow.getHoteliService().KreirajHotel(h2);
 		Hotel h3=new Hotel(d1,"Adresa2 u UAE","UAE","Dubai","+46406545648",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Mustuluk","DOO2",5,null,null);
-		h3.setHotelId(4);
+		//h3.setHotelId(4);
 		uow.getHoteliService().KreirajHotel(h3);
 		//assertEquals(4,uow.getHoteliService().VratiSveHotele().size());
 		//sobe
 		Soba s=new Soba(h,5,"opis prve sobe",110,100,null,null);
-		s.setSobaId(1);
+		//s.setSobaId(1);
 		uow.getSobeService().AzurirajiliUbaciSobu(s);
 		Soba s1=new Soba(h,3,"opis drug sobe",90,800,null,null);
-		s1.setSobaId(2);
+		//s1.setSobaId(2);
 		uow.getSobeService().AzurirajiliUbaciSobu(s1);
 		Soba s2=new Soba(h,5,"opis trece sobe",130,120,null,null);
-		s2.setSobaId(3);
+		//s2.setSobaId(3);
 		uow.getSobeService().AzurirajiliUbaciSobu(s2);
 		Soba s3=new Soba(h1,3,"opis cetvrte sobe",110,100,null,null);
-		s3.setSobaId(4);
+		//s3.setSobaId(4);
 		uow.getSobeService().AzurirajiliUbaciSobu(s3);
 		Soba s4=new Soba(h1,5,"opis pete sobe",110,100,null,null);
-		s4.setSobaId(5);
+		//s4.setSobaId(5);
 		uow.getSobeService().AzurirajiliUbaciSobu(s4);
 		Soba s5=new Soba(h2,4,"opis seste sobe",170,160,null,null);
-		s5.setSobaId(6);
+		//s5.setSobaId(6);
 		uow.getSobeService().AzurirajiliUbaciSobu(s5);
 		Soba s6=new Soba(h3,5,"opis sedme sobe",180,165,null,null);
-		s6.setSobaId(7);
+		//s6.setSobaId(7);
 		uow.getSobeService().AzurirajiliUbaciSobu(s6);
 		Soba s7=new Soba(h3,4,"opis osme sobe",140,110,null,null);
-		s7.setSobaId(8);
+		//s7.setSobaId(8);
 		uow.getSobeService().AzurirajiliUbaciSobu(s7);
 		Soba s8=new Soba(h3,3,"opis devete sobe",110,100,null,null);
-		s8.setSobaId(9);
+		//s8.setSobaId(9);
 		uow.getSobeService().AzurirajiliUbaciSobu(s8);
 		Soba s9=new Soba(h3,2,"opis desete sobe",50,40,null,null);
-		s9.setSobaId(10);
+		//s9.setSobaId(10);
 		uow.getSobeService().AzurirajiliUbaciSobu(s9);
 		//assertEquals(10,uow.getSobeService().VratiSveSobe().size());
 	}
-	
+
 	@Test
-	public void testAAAInsertOsobaKlijentRacun(){
+	public void testInsertOsobaKlijentRacun(){
 		//osobe
 		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
 		o.setOsobaId(1);
@@ -141,7 +141,7 @@ public class RezervacijaTest {
 	}
 	
 	@Test
-	public void testAAAInsertRezervacija(){
+	public void testInsertRezervacija(){
 		KorisnickiRacun kr2=uow.getKorisnickiRacunService().dajKorisnika(2);
 		Klijent k1=uow.getKlijentiService().dajSveKlijente().get(0);
 		//rezervacija
