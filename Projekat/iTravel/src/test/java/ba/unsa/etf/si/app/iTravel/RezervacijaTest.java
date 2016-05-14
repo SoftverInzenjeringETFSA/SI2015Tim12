@@ -40,7 +40,7 @@ public class RezervacijaTest {
 		uow.getDestinacijeService().UbaciDestinacijuUBAzu(d);
 		//assertEquals(2,uow.getDestinacijeService().DajSveDestinacije().size());
 		//hoteli
-/*		Hotel h=new Hotel(d,"Adresa1","BiH","Sarajevo","065498",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Europa","DOO",5,null,null);
+		Hotel h=new Hotel(d,"Adresa1","BiH","Sarajevo","065498",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Europa","DOO",5,null,null);
 		h.setHotelId(1);
 		uow.getHoteliService().KreirajHotel(h);
 		Hotel h1=new Hotel(d,"Adresa2 i Sa","BiH","Sarajevo","06545648",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Holivud","DOO",4,null,null);
@@ -52,9 +52,9 @@ public class RezervacijaTest {
 		Hotel h3=new Hotel(d1,"Adresa2 u UAE","UAE","Dubai","+46406545648",new Date(2016,9,1),new Date(2016,4,30),new Date(2016,30,8),new Date(2016,5,1),"Mustuluk","DOO2",5,null,null);
 		h3.setHotelId(4);
 		uow.getHoteliService().KreirajHotel(h3);
-*/		//assertEquals(4,uow.getHoteliService().VratiSveHotele().size());
+		//assertEquals(4,uow.getHoteliService().VratiSveHotele().size());
 		//sobe
-/*		Soba s=new Soba(h,5,"opis prve sobe",110,100,null,null);
+		Soba s=new Soba(h,5,"opis prve sobe",110,100,null,null);
 		s.setSobaId(1);
 		uow.getSobeService().AzurirajiliUbaciSobu(s);
 		Soba s1=new Soba(h,3,"opis drug sobe",90,800,null,null);
@@ -84,9 +84,9 @@ public class RezervacijaTest {
 		Soba s9=new Soba(h3,2,"opis desete sobe",50,40,null,null);
 		s9.setSobaId(10);
 		uow.getSobeService().AzurirajiliUbaciSobu(s9);
-*/		//assertEquals(10,uow.getSobeService().VratiSveSobe().size());
+		//assertEquals(10,uow.getSobeService().VratiSveSobe().size());
 		//osobe
-/*		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
+		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
 		o.setOsobaId(1);
 		uow.getOsobaService().KreirajOsobu(o, false);
 		Osoba o1=new Osoba("Emina","Prlja", new Date(1668,5,5),"adresa usera 2","emaieet@nesto.com","46546545","1234567894489","dsa6454","4dsasda654d",null,null,null,null);
@@ -94,7 +94,7 @@ public class RezervacijaTest {
 		uow.getOsobaService().KreirajOsobu(o1, false);
 		Osoba o2=new Osoba("Adna","Tahic", new Date(1668,5,5),"adresa usera 3","emailsad@nesto.com","46546455","1234567894795","dsa64da","454dsa654d",null,null,null,null);
 		o2.setOsobaId(3);
-		uow.getOsobaService().KreirajOsobu(o2, false);*/
+		uow.getOsobaService().KreirajOsobu(o2, false);
 		//assertEquals(3,uow.getOsobaService().dajSveOsobe().size());
 		//klijenti
 /*		Klijent k=new Klijent(o1);
