@@ -29,9 +29,8 @@ public class RezervacijaTest {
 
 	public UnitOfWork uow;
 	
-	@BeforeClass
 	@Test
-	public void testInsertDestinacijeHoteliSobe(){
+	public void testAAAInsertDestinacijeHoteliSobe(){
 		uow=new UnitOfWork();
 		//destinacije
 		Destinacija d=new Destinacija("Sarajevo",false,null,null);
@@ -88,9 +87,9 @@ public class RezervacijaTest {
 		uow.getSobeService().AzurirajiliUbaciSobu(s9);
 		//assertEquals(10,uow.getSobeService().VratiSveSobe().size());
 	}
-	@BeforeClass
+	
 	@Test
-	public void testInsertOsobaKlijentRacun(){
+	public void testAAAInsertOsobaKlijentRacun(){
 		//osobe
 		Osoba o=new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
 		o.setOsobaId(1);
@@ -141,9 +140,8 @@ public class RezervacijaTest {
 		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(krr2, false);
 	}
 	
-	@BeforeClass
 	@Test
-	public void testInsertRezervacija(){
+	public void testAAAInsertRezervacija(){
 		KorisnickiRacun kr2=uow.getKorisnickiRacunService().dajKorisnika(2);
 		Klijent k1=uow.getKlijentiService().dajSveKlijente().get(0);
 		//rezervacija
