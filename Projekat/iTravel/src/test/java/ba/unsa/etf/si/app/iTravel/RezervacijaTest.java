@@ -29,7 +29,7 @@ public class RezervacijaTest {
 	public UnitOfWork uow;
 	
 	@Test
-	public void testInsertSVE(){
+	public void testAAAInsertSVE(){
 		uow=new UnitOfWork();
 		//destinacije
 		Destinacija d=new Destinacija("Sarajevo",false,null,null);
