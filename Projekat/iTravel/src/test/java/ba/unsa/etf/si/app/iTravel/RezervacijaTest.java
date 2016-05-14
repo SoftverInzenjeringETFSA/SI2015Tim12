@@ -103,7 +103,7 @@ public class RezervacijaTest {
 		Klijent k1=new Klijent(o2);
 		k1.setKlijentId(2);
 		uow.getKlijentiService().KreirajKlijenta(k1);
-		assertEquals(2,uow.getKlijentiService().dajSveKlijente().size());
+		assertEquals(3,uow.getKlijentiService().dajSveKlijente().size());
 		//Role
 		Rola r=new Rola(1,"Administrator",null,null);
 		uow.getRolaService().KreirajRolu(r);
