@@ -14,7 +14,7 @@ public class PostavkeTest {
 	@Test
 	public void testModulOmoguce(){
 		uow= new UnitOfWork();
-		Postavke p=new Postavke(1,"Hoteli", true);
+		Postavke p=new Postavke(10,"Hoteli", true);
 		p= baza.getPostavkeRepository().spasiUBazu(p);
 		assertTrue(uow.getPostavkeService().modulOmogucen(1));
 		baza.getPostavkeRepository().obrisiIzBaze(p);
@@ -23,12 +23,12 @@ public class PostavkeTest {
 	@Test
 	public void testSpasiPromjenePostavki(){
 		uow=new UnitOfWork();
-		Postavke p=new Postavke(1, "Hoteli", true);
+		Postavke p=new Postavke(14, "Hoteli", true);
 		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
-		p=new Postavke(2, "Sobe", false);
-		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
-		p=new Postavke(3, "Rezervacije", true);
-		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
+	    Postavke p1=new Postavke(15, "Sobe", false);
+		p1= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p1);
+		Postavke p2=new Postavke(16, "Rezervacije", true);
+		p2= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p2);
 		
 		boolean[] nizPostavki = new boolean[3];
 		nizPostavki[0] = false;
@@ -36,21 +36,25 @@ public class PostavkeTest {
 		nizPostavki[2] = false;
 		uow.getPostavkeService().spasiPromjenePostavki(nizPostavki);
 		assertFalse(uow.getPostavkeService().dajSvePostavke()[1]);
-		uow.getPostavkeService().baza.getPostavkeRepository().obrisiSveIzBaze();
+		baza.getPostavkeRepository().obrisiIzBaze(p);
+		baza.getPostavkeRepository().obrisiIzBaze(p1);
+		baza.getPostavkeRepository().obrisiIzBaze(p2);
 	}
 	
 	@Test
 	public void testDajSvePostavke(){
 		uow=new UnitOfWork();
-		Postavke p=new Postavke(1, "Hoteli", true);
+		Postavke p=new Postavke(14, "Hoteli", true);
 		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
-		p=new Postavke(2, "Sobe", false);
-		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
-		p=new Postavke(3, "Rezervacije", true);
-		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
+	    Postavke p1=new Postavke(15, "Sobe", false);
+		p1= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p1);
+		Postavke p2=new Postavke(16, "Rezervacije", true);
+		p2= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p2);
 		
 		assertEquals(3,uow.getPostavkeService().dajSvePostavke());
-		uow.getPostavkeService().baza.getPostavkeRepository().obrisiSveIzBaze();
+		baza.getPostavkeRepository().obrisiIzBaze(p);
+		baza.getPostavkeRepository().obrisiIzBaze(p1);
+		baza.getPostavkeRepository().obrisiIzBaze(p2);
 	}
 	
 }
