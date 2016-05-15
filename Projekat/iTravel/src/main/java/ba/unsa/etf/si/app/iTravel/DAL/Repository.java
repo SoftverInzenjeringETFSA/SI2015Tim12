@@ -98,7 +98,7 @@ public class Repository<T>{
      * @param session Hibernate sesija
      */
     public void obrisiIzBaze(T object) {
-        Transaction t = session.beginTransaction();
+    	Transaction t = session.beginTransaction();
         session.delete(object);
         t.commit();
     }

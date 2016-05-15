@@ -1,4 +1,4 @@
-package ba.unsa.etf.si.app.iTravel;
+package ba.unsa.etf.si.app.iTravel.BLL;
 
 import static org.junit.Assert.*;
 

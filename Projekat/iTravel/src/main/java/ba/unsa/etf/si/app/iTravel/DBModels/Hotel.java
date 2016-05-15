@@ -42,6 +42,8 @@ public class Hotel implements java.io.Serializable {
 
 	public Hotel() {
 	}
+	
+	
 
 	public Hotel(Destinacija destinacija, String adresa, String drzava, String grad, String brojTelefona,
 			Date pocetakNiska, Date krajNiska, Date krajVisoka, Date pocetakVisoka, String naziv, String nazivLanca,

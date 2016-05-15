@@ -348,9 +348,9 @@ public class KreiranjeRezervacije {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Kreiranje();
-				boolean varijabla=false;
+				
 				// Možda izmjesiti u metodu ili u BLL
-				if(!varijabla) // ako je uspjesno kreirana rezervacija ide potvrda u pdf-u
+				if(true) // ako je uspjesno kreirana rezervacija ide potvrda u pdf-u
 				{
 					// START PDF-a
 					Document document = new Document();
