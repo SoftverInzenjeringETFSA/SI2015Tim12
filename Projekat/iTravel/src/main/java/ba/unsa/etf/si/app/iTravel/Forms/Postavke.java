@@ -18,8 +18,6 @@ import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.Dialog;
 
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
@@ -224,6 +222,7 @@ public class Postavke {
 		frmPostavke.getContentPane().add(btnPotvrdi);
 		btnPotvrdi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
 				boolean[] nizPostavki = new boolean[5];
 				nizPostavki[0] = chckbxHoteli.isSelected();
 				nizPostavki[1] = chckbxRezervacije.isSelected();

@@ -1,11 +1,24 @@
 package ba.unsa.etf.si.app.iTravel.Forms;
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
@@ -17,6 +30,11 @@ import javax.swing.JPasswordField;
 import java.awt.Font;
 
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class Prijava {
 	
@@ -28,6 +46,10 @@ public class Prijava {
 	
 	class AkcijaIzlaz implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
+			
+			
+					
+			
 			String usernameValue = textField.getText();
 			char[] passwordValue = passwordField.getPassword();
 			
