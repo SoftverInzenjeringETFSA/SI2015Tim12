@@ -39,11 +39,11 @@ public class KlijentiService {
 	public void KreirajKlijentaOsoba(Osoba osoba) {
 		Klijent k=new Klijent();
 		k.setOsoba(osoba);
-		baza.getKlijentRepository().spasiUBazu(k);
+		baza.getKlijentRepository().spasiUBazu(k);	
 	}
 	
-	public void KreirajKlijenta(Klijent klijent){
-		baza.getKlijentRepository().spasiUBazu(klijent);
+	public Klijent KreirajKlijenta(Klijent klijent){
+		return baza.getKlijentRepository().spasiUBazu(klijent);
 	}
 	
 	public ArrayList<Klijent> dajSveKlijente(){
