@@ -66,10 +66,10 @@ public class RezervacijaTest {
 	public void ObrisiSve()
 	{
 		uow.getRezervacijaService().obrisiRezervaciju(rezervacija.getRezervacijaId());
-		uow.getKorisnickiRacunService().obrisiKorisnika(korisnickaRola.getKorisnickiRacunXrolaId());
+		//uow.getKorisnickiRacunService().obrisiKorisnika(korisnickaRola.getKorisnickiRacunXrolaId());
 		//uow.getRolaService().ObrisiJednuRolu(rola);
 		uow.getKorisnickiRacunService().obrisiKorisnika(korisnickiracun.getKorisnickiRacunId());
-		uow.getKlijentiService().ObrisiJednogKlijenta(klijent);
+		//uow.getKlijentiService().ObrisiJednogKlijenta(klijent);
 		uow.getOsobaService().ObrisiJednuOsobu(osoba);
 	}
 	
