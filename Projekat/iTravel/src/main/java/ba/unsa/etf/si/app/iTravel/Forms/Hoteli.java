@@ -1,4 +1,5 @@
 package ba.unsa.etf.si.app.iTravel.Forms;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -37,7 +38,7 @@ import javax.swing.JOptionPane;
 public class Hoteli {
 
 	private UnitOfWork uow = new UnitOfWork();
-	
+
 	private JFrame frmPrikazHotela;
 	private JTable table_pregledHotela;
 	private JScrollPane scrollPane;
@@ -55,7 +56,8 @@ public class Hoteli {
 	private JMenuItem mntmPromijeniifru;
 	private JMenuItem mntmOdjaviSe;
 	private ArrayList<Hotel> hoteli;
-	private HoteliService hoteliService =new HoteliService();;
+	private HoteliService hoteliService = new HoteliService();;
+	private Integer ID;
 
 	/**
 	 * Launch the application.
@@ -72,20 +74,21 @@ public class Hoteli {
 			}
 		});
 	}
-       void NapuniHotele() {
-		
+
+	public void NapuniHotele() {
+
 		hoteli = new ArrayList<Hotel>();
-		
-		hoteli =  hoteliService.VratiSveHotele();
-		
-		String header[] = new String[] { "Naziv", "Adresa", "Destinacija", "Broj Zvijezdica",
-				"Lanac", "Pocetak visoke", "Kraj visoke", "broj" };
+
+		hoteli = hoteliService.VratiSveHotele();
+
+		String header[] = new String[] { "Naziv", "Adresa", "Destinacija", "Broj Zvijezdica", "Lanac", "Pocetak visoke",
+				"Kraj visoke", "broj" };
 
 		TableModel model = new DefaultTableModel() {
 			Class[] types = new Class[] {
-					
-					java.lang.String.class,java.lang.String.class,java.lang.String.class, java.lang.Integer.class,java.lang.String.class,java.lang.String.class,
-					java.lang.String.class,java.lang.String.class };
+
+					java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class,
+					java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class };
 
 			@Override
 			public Class getColumnClass(int columnIndex) {
@@ -95,16 +98,17 @@ public class Hoteli {
 		((DefaultTableModel) model).setColumnIdentifiers(header);
 		table_pregledHotela.setModel(model);
 		Hotel hotel = new Hotel();
-		
-		for (int i = 0; i < hoteli.size(); i++) {
-			hotel = hoteli.get(i);			
 
-			((DefaultTableModel) model).addRow(new Object[] {hotel.getNaziv(),hotel.getAdresa(),hotel.getDestinacija().getNaziv()
-					, hotel.getBrojZvjezdica(),hotel.getNazivLanca(),hotel.getPocetakVisoka().toString(),hotel.getKrajVisoka().toString(),hotel.getBrojTelefona()});
+		for (int i = 0; i < hoteli.size(); i++) {
+			hotel = hoteli.get(i);
+
+			((DefaultTableModel) model).addRow(new Object[] { hotel.getNaziv(), hotel.getAdresa(),
+					hotel.getDestinacija().getNaziv(), hotel.getBrojZvjezdica(), hotel.getNazivLanca(),
+					hotel.getPocetakVisoka().toString(), hotel.getKrajVisoka().toString(), hotel.getBrojTelefona() });
 		}
-      
-       
-       }
+
+	}
+
 	/**
 	 * Create the application.
 	 */
@@ -138,8 +142,19 @@ public class Hoteli {
 		btnModifikujHotel = new JButton("Modifikuj hotel");
 		btnModifikujHotel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModifikacijaHotela.PrikaziFormu();
+				if(table_pregledHotela.getSelectedRow()!=-1){
+					ID= new Integer(hoteli.get(table_pregledHotela.getSelectedRow()).getHotelId());
+					
+				
+
+				ModifikacijaHotela.PrikaziFormu(ID);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Niste selektovali hotel", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
+			
 		});
 		btnModifikujHotel.setBounds(343, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnModifikujHotel);
@@ -148,28 +163,46 @@ public class Hoteli {
 		btnObriiHotel = new JButton("Obri\u0161i hotel");
 		btnObriiHotel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Jeste li sigurni da želite obrisati odabrani hotel?", "Brisanje hotela", JOptionPane.OK_CANCEL_OPTION);
 				
-				Hotel hotel = new Hotel();
-				if (table_pregledHotela.getSelectedRow() == -1) {
-					JOptionPane.showMessageDialog(null, "Niste selektovali hotel", "Info",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					hotel = hoteli.get(table_pregledHotela.getSelectedRow());
+				
+				 try {  
+					                                               
+					                                             Hotel hotel = new Hotel();  
+					                                             if (table_pregledHotela.getSelectedRow() == -1) {  
+					                                                     JOptionPane.showMessageDialog(null, "Niste selektovali hotel", "Info",  
+					                                                                     JOptionPane.INFORMATION_MESSAGE);  
+					                                             } else {  
+					                                                     hotel = hoteli.get(table_pregledHotela.getSelectedRow());  
+					                                                     
+					                                                     int reply = JOptionPane.showConfirmDialog(null,"Jeste li sigurni da želite obrisati odabrani hotel?", "UPOZORENJE", JOptionPane.YES_NO_OPTION);
+					                         	      				    if (reply == JOptionPane.YES_OPTION)
+					                         	      				    {
+					                         	      				    	hoteliService.ObrisiJendaHotel(hotel); 
+					                         	      				    }
+					      
+					                                   
+					                                             }  
+					                                             NapuniHotele();  
+					                                     } catch (Exception e2) {  
+					                                     UnitOfWork.logger.error(e2);  
+					                                     }  
+					                                                                      
 
-					
-					hoteliService.ObrisiJendaHotel(hotel);
-				}
-				NapuniHotele();
-				
-			}
+
+					 
+					                                                             
+					                                  
+					                                                                    
+					                         }                         
+
 		});
 		btnObriiHotel.setBounds(503, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnObriiHotel);
 		
 		btnDodajHotel = new JButton("Dodaj hotel");
 		btnDodajHotel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+
+	public void actionPerformed(ActionEvent e) {
 				DodavanjeHotela.PrikaziFormu();
 			}
 		});
@@ -182,16 +215,34 @@ public class Hoteli {
 		
 		btnPregledajSobe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				EditSoba.PrikaziFormu();
-			}
+				if (table_pregledHotela.getSelectedRow() == -1) {
+  					JOptionPane.showMessageDialog(null, "Niste selektovali hotel", "Info",
+  							JOptionPane.INFORMATION_MESSAGE);
+  				} else {
+				EditSoba.PrikaziFormu((Integer)hoteli.get(table_pregledHotela.getSelectedRow()).getHotelId());
+			}}
 		});
 		menuBar = new JMenuBar();
 		frmPrikazHotela.setJMenuBar(menuBar);
 		
 		mnMeni = new JMenu("Meni");
 		menuBar.add(mnMeni);
-		
+		JMenu mnRefresh = new JMenu("Refresh ");  
+	                    menuBar.add(mnRefresh);  
+	     
+	                     JMenuItem mnOsvjezi = new JMenuItem("Osvjezi");  
+	                     mnOsvjezi.addActionListener(new ActionListener() {  
+	                            public void actionPerformed(ActionEvent e) {  
+	                                      
+	                                     
+	                                     frmPrikazHotela.setVisible(false);  
+	                                    Hoteli.PrikaziFormu();  
+	     
+	                             }  
+	      
+	                     });  
+	                    mnRefresh.add(mnOsvjezi); 
+
 		mntmPoetna = new JMenuItem("Početna");
 		mntmPoetna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -299,8 +350,5 @@ public class Hoteli {
 		table_pregledHotela.getColumnModel().getColumn(6).setPreferredWidth(108);
 		table_pregledHotela.getColumnModel().getColumn(7).setPreferredWidth(110);
 	}
-
-	
-
 
 }

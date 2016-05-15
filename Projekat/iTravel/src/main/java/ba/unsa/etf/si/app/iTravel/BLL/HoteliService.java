@@ -25,20 +25,15 @@ public class HoteliService
 	
 	public Hotel VratiHotelId(int id) {
 		Hotel hotel = new Hotel();
-
 		hotel = baza.getHoteliRepo().ucitajIzBaze(id);
-
 		return hotel;
 
 	}
 
 	public ArrayList<Hotel> VratiSveHotele() {
 		ArrayList<Hotel> hoteli = new ArrayList<Hotel>();
-
 		hoteli = (ArrayList<Hotel>) baza.getHoteliRepo().ucitajSveIzBaze();
-
 		return hoteli;
-
 	}
 
 	public Hotel VrtatiHotelPoNazivu(String NazivHotela, String AdresaHotela) {
@@ -47,18 +42,18 @@ public class HoteliService
 		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
 		listaKriterjona.add(Restrictions.eq("naziv", (String) NazivHotela));
 		listaKriterjona.add(Restrictions.eq("adresa", (String) AdresaHotela));
-
 		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterjona).get(0);
-
 		return hotel;
 	}
 	
-	public void AzurirajHotel(Hotel hotel) {
+	public void AzurirajHotel(Hotel hotel) 
+	{
 		baza.getHoteliRepo().sacuvajIliAzurirajUBazu(hotel);
 
 	}
 	
-	public void ObrisiJendaHotel(Hotel hotel) {
+	public void ObrisiJendaHotel(Hotel hotel) 
+	{
 
 		baza.getHoteliRepo().obrisiIzBaze(hotel);
 	}

@@ -1,6 +1,10 @@
 package ba.unsa.etf.si.app.iTravel.BLL;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
@@ -96,5 +100,13 @@ public class KorisnickiRacunService
 			return false;
 		}
 
+	}
+	
+	public List<KorisnickiRacun> dajKorisnickiRacunPoKorisnickiRacunID(int id){
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		listaKriterija.add(Restrictions.eq("korisnickiRacunId", (Integer)id));
+		List<KorisnickiRacun> tmp=new ArrayList<KorisnickiRacun>();
+		tmp=baza.getKorisnickiRacunRepository().ucitajIzBazePoKriteriju(listaKriterija);
+		return tmp;
 	}
 }

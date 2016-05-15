@@ -45,6 +45,8 @@ public class DodavanjeHotela {
 	private JDateChooser dateChooser;
 	private JTextField textField_2;
 	private JComboBox<String> comboBox;
+    private JTextField textField_3; 
+    
 
 	public static java.sql.Date convertUtilDateToSqlDate(java.util.Date date) {
 		if (date != null) {
@@ -57,27 +59,37 @@ public class DodavanjeHotela {
 	class AkcijaDodavanja implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			if (ValidacijaPoljaZaDodavanjeHotela()) {
-				HoteliService hoteliService = new HoteliService();
 
-				Hotel hotel = new Hotel();
-				hotel.setNaziv(textField.getText());
-				hotel.setAdresa(textField_1.getText());
-				hotel.setNazivLanca(textField_2.getText());
-				hotel.setBrojZvjezdica((Integer) spinner.getValue());
-				hotel.setPocetakVisoka(convertUtilDateToSqlDate(dateChooser.getDate()));
-				hotel.setKrajVisoka(convertUtilDateToSqlDate(dateChooser_1.getDate()));
-				int i = comboBox.getSelectedIndex();
-				Destinacija destinacijahotel = destinacije.get(i);
-				hotel.setDestinacija(destinacijahotel);
-				hoteliService.KreirajHotel(hotel);
+			try {
+				if (ValidacijaPoljaZaDodavanjeHotela()) {
+					HoteliService hoteliService = new HoteliService();
 
-				JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali hotel", "Info",
+					Hotel hotel = new Hotel();
+					hotel.setNaziv(textField.getText());
+					hotel.setAdresa(textField_1.getText());
+					hotel.setNazivLanca(textField_2.getText());
+					hotel.setBrojTelefona(textField_3.getText());
+					hotel.setBrojZvjezdica((Integer) spinner.getValue());
+					hotel.setPocetakVisoka(convertUtilDateToSqlDate(dateChooser.getDate()));
+					hotel.setKrajVisoka(convertUtilDateToSqlDate(dateChooser_1.getDate()));
+					int i = comboBox.getSelectedIndex();
+					Destinacija destinacijahotel = destinacije.get(i);
+					hotel.setDestinacija(destinacijahotel);
+					hoteliService.KreirajHotel(hotel);
+
+					JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali hotel", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
+
+				}
+
+			} catch (Exception e) {
+				UnitOfWork.logger.error(e);
+				JOptionPane.showMessageDialog(null, "Provjerite unesene podatke", "Info",
 						JOptionPane.INFORMATION_MESSAGE);
-			} else {
-				JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
-
 			}
+
 		}
 
 	}
@@ -105,7 +117,10 @@ public class DodavanjeHotela {
 		} else if (textField.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli naziv", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		} else if (textField_2.getText().equals("")) {
+		}else if (textField_3.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Niste unijeli broj hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}  else if (textField_2.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli lanac hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		} else if (comboBox.getSelectedIndex() == -1) {
@@ -194,7 +209,7 @@ public class DodavanjeHotela {
 		frmUnosHotela.getContentPane().add(spinner);
 
 		JButton btnNewButton = new JButton("Dodaj Hotel");
-		btnNewButton.setBounds(221, 325, 161, 30);
+		btnNewButton.setBounds(158, 337, 171, 43);
 		frmUnosHotela.getContentPane().add(btnNewButton);
 
 		btnNewButton.addActionListener(new AkcijaDodavanja());
@@ -226,9 +241,7 @@ public class DodavanjeHotela {
 		frmUnosHotela.getContentPane().add(comboBox);
 		NapuniDestinacijeUCB();
 
-		JButton button = new JButton("Edituj sobe");
-		button.setBounds(45, 325, 150, 30);
-		frmUnosHotela.getContentPane().add(button);
+		
 
 		JLabel lblLanacHotela = new JLabel("Lanac hotela:");
 		lblLanacHotela.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -239,6 +252,14 @@ public class DodavanjeHotela {
 		textField_2.setColumns(10);
 		textField_2.setBounds(191, 221, 138, 20);
 		frmUnosHotela.getContentPane().add(textField_2);
+		JLabel lblNewLabel_1 = new JLabel("Tel. broj:");
+		lblNewLabel_1.setBounds(125, 249, 46, 14);
+		frmUnosHotela.getContentPane().add(lblNewLabel_1);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(191, 248, 138, 20);
+		frmUnosHotela.getContentPane().add(textField_3);
+		textField_3.setColumns(10);
 
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -247,12 +268,7 @@ public class DodavanjeHotela {
 			}
 		});
         
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				EditSoba.PrikaziFormu();
-			}
-		});
+		
 		JMenuBar menuBar = new JMenuBar();
 		frmUnosHotela.setJMenuBar(menuBar);
 

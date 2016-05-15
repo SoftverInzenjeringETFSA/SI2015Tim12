@@ -20,6 +20,8 @@ public class UnitOfWork {
 	private OdjavaService odjavaService;
 	private PostavkeService postavkeService;
 	private PromjenaSifreService promjenaSifreService;
+	private SobeService sobeService;
+	private KlijentiService klijentiService;
 	
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
@@ -35,7 +37,8 @@ public class UnitOfWork {
 		odjavaService = new OdjavaService();
 		postavkeService = new PostavkeService();
 		promjenaSifreService = new PromjenaSifreService();
-		
+		sobeService=new SobeService();
+		klijentiService=new KlijentiService();
 	}
 
 	public PrijavaService getPrijavaService() {
@@ -143,8 +146,20 @@ public class UnitOfWork {
 		return promjenaSifreService;
 	}
 	
+	public SobeService getSobeService()
+	{
+		if(sobeService==null){
+			sobeService=new SobeService();
+		}
+		return sobeService;
+	}
 	
-	
+	public KlijentiService getKlijentiService()
+	{
+		if(klijentiService==null)
+			klijentiService=new KlijentiService();
+		return klijentiService;
+	}
 	
 	
 
