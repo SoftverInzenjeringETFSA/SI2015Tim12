@@ -306,19 +306,6 @@ public class Korisnici {
 		}
 		
 		JMenu mnRaun = new JMenu("Račun");
-		mnRaun.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-								
-				uow.getOdjavaService().OdjaviKorisnika();
-							
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 
-				
-				Prijava.PrikaziFormu();
-			}
-		});
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
@@ -331,6 +318,21 @@ public class Korisnici {
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+								
+				uow.getOdjavaService().OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				
+				Prijava.PrikaziFormu();
+			}
+		});
+		
 		mnRaun.add(mntmOdjaviSe);
 	}
 	

@@ -99,7 +99,7 @@ public class PocetnaFormaAdministrator {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 453, 416);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		

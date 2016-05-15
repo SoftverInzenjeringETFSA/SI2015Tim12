@@ -58,7 +58,7 @@ public class PocetnaFormaSupervizor {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 444, 379);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		

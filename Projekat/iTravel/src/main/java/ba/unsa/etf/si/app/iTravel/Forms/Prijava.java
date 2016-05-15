@@ -131,7 +131,7 @@ public class Prijava {
 		frmPrijava = new JFrame();
 		frmPrijava.setTitle("Prijava");
 		frmPrijava.setBounds(100, 100, 350, 250);
-		frmPrijava.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmPrijava.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrijava.getContentPane().setLayout(null);
 		frmPrijava.setLocationRelativeTo(null);
 		

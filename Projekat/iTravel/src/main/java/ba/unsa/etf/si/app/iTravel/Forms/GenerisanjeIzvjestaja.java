@@ -335,9 +335,31 @@ public class GenerisanjeIzvjestaja {
 		menuBar.add(mnRaun);
 		
 		JMenuItem mntmPromijeniifru = new JMenuItem("Promijeni šifru");
+		mntmPromijeniifru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				PromjenaSifre.PrikaziFormu();
+			}
+		});
 		mnRaun.add(mntmPromijeniifru);
 		
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
+		
+		mntmOdjaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//OdjavaService odjava = new OdjavaService();
+				//odjava.OdjaviKorisnika();
+				
+				uow.getOdjavaService().OdjaviKorisnika();
+							
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				Prijava.PrikaziFormu();
+			}
+		});
+		
 		mnRaun.add(mntmOdjaviSe);
 		
 		

@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import java.util.List;
 //import java.util.logging.Logger;
 
@@ -61,10 +63,21 @@ public class Repository<T>{
      * @return Trazeni objekat ili null ako ga nema
      */
     public T ucitajIzBaze(Integer id) {
-        Transaction t = this.session.beginTransaction();
+    	Session novaSesija = SessionFactoryDB.getSession();
+    	Transaction transaction = novaSesija.beginTransaction();
+    	
+    	transaction.begin();
+    	T resultObject = (T) novaSesija.get(entityClass, id);
+    	transaction.commit();
+    	
+    	novaSesija.close();
+    	
+    	return resultObject;
+    	
+        /*Transaction t = this.session.beginTransaction();
         T resultObject = (T) this.session.get(entityClass, id);
         session.clear();
-        return resultObject;
+        return resultObject;*/
     }
 
     /**
@@ -73,10 +86,22 @@ public class Repository<T>{
      * @param session Hibernate sesija
      */
     public T spasiUBazu(T object) {
-        Transaction t = session.beginTransaction();
+    	
+        Session novaSesija = SessionFactoryDB.getSession();
+        Transaction transaction = novaSesija.beginTransaction();
+        
+        transaction.begin();
+        novaSesija.save(object);
+        transaction.commit();
+        
+        novaSesija.close();
+        
+        return object;
+    	
+        /*Transaction t = session.beginTransaction();
         session.save(object);
         t.commit();
-        return object;
+        return object;*/
     }
 
     /**
@@ -85,10 +110,21 @@ public class Repository<T>{
      * @param session Hibernate sesija
      */
     public T sacuvajIliAzurirajUBazu(T object) {
-        Transaction t = session.beginTransaction();
+        Session novaSesija = SessionFactoryDB.getSession();
+        Transaction transaction = novaSesija.beginTransaction();
+        
+        transaction.begin();
+        novaSesija.saveOrUpdate(object);
+        transaction.commit();
+        
+        novaSesija.close();
+        
+        return object;
+    	
+    	/*Transaction t = session.beginTransaction();
         session.saveOrUpdate(object);
         t.commit();
-        return object;
+        return object;*/
     }
 
 
@@ -118,9 +154,28 @@ public class Repository<T>{
     
     /* Učitavanje iz baze po kriteriju */
     public List<T> ucitajIzBazePoKriteriju(List<Criterion> listaKriterija) {
+        Session novaSesija = SessionFactoryDB.getSession();
+        Transaction transaction = novaSesija.beginTransaction();
         
+        transaction.begin();
+    	
+        Criteria kriterja = novaSesija.createCriteria(entityClass);
+        
+        for(Criterion k : listaKriterija)
+        {
+        	kriterja.add(k);
+        }
+        
+        List rezultat = kriterja.list();
+        
+        transaction.commit();
+       
+        novaSesija.close();
+       
+        return rezultat;
+    	
     	//Transaction transaction = session.beginTransaction();
-        Criteria kriterja = session.createCriteria(entityClass);
+        /*Criteria kriterja = session.createCriteria(entityClass);
         
         for(Criterion k : listaKriterija)
         {
@@ -130,6 +185,6 @@ public class Repository<T>{
         List rezultat = kriterja.list();
         //session.clear();
         
-        return rezultat;
+        return rezultat;*/
     }
 }
