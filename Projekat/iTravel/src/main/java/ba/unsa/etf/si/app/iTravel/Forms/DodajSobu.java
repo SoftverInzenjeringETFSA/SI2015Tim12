@@ -15,11 +15,9 @@ import java.awt.Font;
 import com.toedter.calendar.JDateChooser;
 
 import antlr.collections.List;
-import ba.unsa.etf.si.app.iTravel.BLL.DestinacijeService;
 import ba.unsa.etf.si.app.iTravel.BLL.SobeService;
 import ba.unsa.etf.si.app.iTravel.BLL.HoteliService;
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
-import ba.unsa.etf.si.app.iTravel.BLL.SobeService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;

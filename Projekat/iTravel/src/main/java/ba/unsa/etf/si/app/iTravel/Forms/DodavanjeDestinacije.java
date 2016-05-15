@@ -1,5 +1,3 @@
-
-
 package ba.unsa.etf.si.app.iTravel.Forms;
 
 import java.awt.EventQueue;
@@ -7,34 +5,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
-import javax.swing.DropMode;
-import java.awt.Font;
-import com.toedter.calendar.JDateChooser;
-
 import ba.unsa.etf.si.app.iTravel.BLL.DestinacijeService;
-import ba.unsa.etf.si.app.iTravel.BLL.HoteliService;
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
-import ba.unsa.etf.si.app.iTravel.BLL.SobeService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
-import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
-import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
-import ba.unsa.etf.si.app.iTravel.Forms.DodavanjeHotela;
-
-import javassist.bytecode.ConstantAttribute;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
-import java.sql.Ref;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
