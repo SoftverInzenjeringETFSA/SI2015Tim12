@@ -21,8 +21,6 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
 public class RezervacijaTest {
 
-	DBContext baza = new DBContext();
-	
 	public UnitOfWork uow = new UnitOfWork();
 	public Rezervacija rezervacija;
 	public Osoba osoba;
@@ -36,6 +34,7 @@ public class RezervacijaTest {
 	public Destinacija d;
 	public Hotel h;
 	public Soba s;
+	DBContext baza= new DBContext();
 	
 	@SuppressWarnings("deprecation")
 	public void PostaviParametre()
@@ -58,43 +57,29 @@ public class RezervacijaTest {
 	public void PostaviZaSobu()
 	{
 		d= new Destinacija("mjesto", true, null, null);
-		uow.getDestinacijeService().KreirajDestinaciju(d);
+		baza.getDestRepository().spasiUBazu(d);
 		h= new Hotel(d, "adresa", "drzava", "grad", "061111111", new Date(2016,4,1), new Date(2016,7,1), new Date(2016,4,1), new Date(2016,4,1), "naziv",
 				"lanac", 5, null, null);
-		uow.getHoteliService().KreirajHotel(h);
+		baza.getHoteliRepo().spasiUBazu(h);
 		s= new Soba(h, 2, "opis", 50, 30, null, null);
-		uow.getSobeService().UbaciSobuUBazu(s);
+		baza.getSobaRepository().spasiUBazu(s);
 	}
 	
 	public void ObrisiSve()
 	{
-		rezervacija = baza.getRezervacijaRepository().ucitajIzBaze(rezervacija.getRezervacijaId());
 		baza.getRezervacijaRepository().obrisiIzBaze(rezervacija);
-		
-		korisnickaRola = baza.getKorisnickiRacunXRolaRepository().ucitajIzBaze(korisnickaRola.getKorisnickiRacunXrolaId());
 		baza.getKorisnickiRacunXRolaRepository().obrisiIzBaze(korisnickaRola);
-		
-		korisnickiracun = baza.getKorisnickiRacunRepository().ucitajIzBaze(korisnickiracun.getKorisnickiRacunId());
+		//baza.getRolaRepository().obrisiIzBaze(rola);
 		baza.getKorisnickiRacunRepository().obrisiIzBaze(korisnickiracun);
-		
-		klijent = baza.getKlijentRepository().ucitajIzBaze(klijent.getKlijentId());
 		baza.getKlijentRepository().obrisiIzBaze(klijent);
-		
-		osoba = baza.getOsobaRepository().ucitajIzBaze(osoba.getOsobaId());
-		baza.getOsobaRepository().obrisiIzBaze(osoba);
-		/*
-		uow.getRezervacijaService().obrisiRezervaciju(rezervacija.getRezervacijaId());
-		//uow.getRolaService().ObrisiJednuRolu(rola);
-		uow.getKorisnickiRacunService().obrisiKorisnika(korisnickiracun.getKorisnickiRacunId());
-		//uow.getKlijentiService().ObrisiJednogKlijenta(klijent);
-		uow.getOsobaService().ObrisiJednuOsobu(osoba);*/
+		//baza.getOsobaRepository().obrisiIzBaze(osoba);
 	}
 	
 	public void ObrisiSveSoba()
 	{
-		uow.getSobeService().ObrisiJenduSobu(s);
-		uow.getHoteliService().ObrisiJendaHotel(h);
-		uow.getDestinacijeService().ObrisiJednuDestinaciju(d);
+		baza.getSobaRepository().obrisiIzBaze(s);
+		baza.getHoteliRepo().obrisiIzBaze(h);
+		baza.getDestRepository().obrisiIzBaze(d);
 	}
 	
 	@Test
