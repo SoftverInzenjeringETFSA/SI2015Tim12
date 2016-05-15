@@ -7,6 +7,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
+import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Klijent;
@@ -20,6 +21,8 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
 public class RezervacijaTest {
 
+	DBContext baza = new DBContext();
+	
 	public UnitOfWork uow = new UnitOfWork();
 	public Rezervacija rezervacija;
 	public Osoba osoba;
@@ -65,12 +68,26 @@ public class RezervacijaTest {
 	
 	public void ObrisiSve()
 	{
+		rezervacija = baza.getRezervacijaRepository().ucitajIzBaze(rezervacija.getRezervacijaId());
+		baza.getRezervacijaRepository().obrisiIzBaze(rezervacija);
+		
+		korisnickaRola = baza.getKorisnickiRacunXRolaRepository().ucitajIzBaze(korisnickaRola.getKorisnickiRacunXrolaId());
+		baza.getKorisnickiRacunXRolaRepository().obrisiIzBaze(korisnickaRola);
+		
+		korisnickiracun = baza.getKorisnickiRacunRepository().ucitajIzBaze(korisnickiracun.getKorisnickiRacunId());
+		baza.getKorisnickiRacunRepository().obrisiIzBaze(korisnickiracun);
+		
+		klijent = baza.getKlijentRepository().ucitajIzBaze(klijent.getKlijentId());
+		baza.getKlijentRepository().obrisiIzBaze(klijent);
+		
+		osoba = baza.getOsobaRepository().ucitajIzBaze(osoba.getOsobaId());
+		baza.getOsobaRepository().obrisiIzBaze(osoba);
+		/*
 		uow.getRezervacijaService().obrisiRezervaciju(rezervacija.getRezervacijaId());
-		//uow.getKorisnickiRacunService().obrisiKorisnika(korisnickaRola.getKorisnickiRacunXrolaId());
 		//uow.getRolaService().ObrisiJednuRolu(rola);
 		uow.getKorisnickiRacunService().obrisiKorisnika(korisnickiracun.getKorisnickiRacunId());
 		//uow.getKlijentiService().ObrisiJednogKlijenta(klijent);
-		uow.getOsobaService().ObrisiJednuOsobu(osoba);
+		uow.getOsobaService().ObrisiJednuOsobu(osoba);*/
 	}
 	
 	public void ObrisiSveSoba()
