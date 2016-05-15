@@ -38,18 +38,18 @@ import javax.swing.JComboBox;
 public class ModifikacijaHotela 
 {
 	private UnitOfWork uow = new UnitOfWork();
-	private ArrayList<Destinacija> destinacije;
-	private JFrame frmUnosHotela;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JSpinner spinner;
-	private JDateChooser dateChooser_1;
-	private JDateChooser dateChooser;
-	private JTextField textField_2;
-	private JComboBox<String> comboBox;
-    private JTextField textField_3; 
-    private Integer hotelID= new Integer(0);
-    private Integer pomocniID= new Integer(0);
+	private ArrayList<Destinacija> destinacijeModifikacije;
+	private JFrame frmModifikacijaHotela;
+	private JTextField textFieldModifikacija;
+	private JTextField textField_1Modifikacija;
+	private JSpinner spinnerModifikacija;
+	private JDateChooser dateChooser_1Modifikacija;
+	private JDateChooser dateChooserModifikacija;
+	private JTextField textField_2Modifikacija;
+	private JComboBox<String> comboBoxModifikacija;
+    private JTextField textField_3Modifikacija; 
+    private Integer hotelIDModifikacija= new Integer(0);
+    private Integer pomocniIDModifikacija= new Integer(0);
 
 	public static java.sql.Date convertUtilDateToSqlDate(java.util.Date date) {
 		if (date != null) {
@@ -68,17 +68,17 @@ public class ModifikacijaHotela
 					HoteliService hoteliService = new HoteliService();
 
 					Hotel hotel = new Hotel();
-					hotel = hoteliService.VratiHotelId((int)hotelID);
+					hotel = hoteliService.VratiHotelId((int)hotelIDModifikacija);
 					
-					hotel.setNaziv(textField.getText());
-					hotel.setAdresa(textField_1.getText());
-					hotel.setNazivLanca(textField_2.getText());
-					hotel.setBrojTelefona(textField_3.getText());
-					hotel.setBrojZvjezdica((Integer) spinner.getValue());
-					hotel.setPocetakVisoka(convertUtilDateToSqlDate(dateChooser.getDate()));
-					hotel.setKrajVisoka(convertUtilDateToSqlDate(dateChooser_1.getDate()));
-					int i = comboBox.getSelectedIndex();
-					Destinacija destinacijahotel = destinacije.get(i);
+					hotel.setNaziv(textFieldModifikacija.getText());
+					hotel.setAdresa(textField_1Modifikacija.getText());
+					hotel.setNazivLanca(textField_2Modifikacija.getText());
+					hotel.setBrojTelefona(textField_3Modifikacija.getText());
+					hotel.setBrojZvjezdica((Integer) spinnerModifikacija.getValue());
+					hotel.setPocetakVisoka(convertUtilDateToSqlDate(dateChooserModifikacija.getDate()));
+					hotel.setKrajVisoka(convertUtilDateToSqlDate(dateChooser_1Modifikacija.getDate()));
+					int i = comboBoxModifikacija.getSelectedIndex();
+					Destinacija destinacijahotel = destinacijeModifikacije.get(i);
 					hotel.setDestinacija(destinacijahotel);
 					hoteliService.AzurirajHotel(hotel);
 
@@ -101,34 +101,34 @@ public class ModifikacijaHotela
 
 	void NapuniDestinacijeUCB() {
 		DestinacijeService destinacijeService = new DestinacijeService();
-		destinacije = new ArrayList<Destinacija>();
-		destinacije = destinacijeService.DajSveDestinacije();
-		for (int i = 0; i < destinacije.size(); i++) {
-			comboBox.addItem(destinacije.get(i).getNaziv());
+		destinacijeModifikacije = new ArrayList<Destinacija>();
+		destinacijeModifikacije = destinacijeService.DajSveDestinacije();
+		for (int i = 0; i < destinacijeModifikacije.size(); i++) {
+			comboBoxModifikacija.addItem(destinacijeModifikacije.get(i).getNaziv());
 		}
 
 	}
 
 	private boolean ValidacijaPoljaZaDodavanjeHotela() {
-		if (dateChooser.getCalendar() == null) {
+		if (dateChooserModifikacija.getCalendar() == null) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli datum 'Od'", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		} else if (dateChooser_1.getCalendar() == null) {
+		} else if (dateChooser_1Modifikacija.getCalendar() == null) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli datum 'Do'", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		} else if (textField_1.getText().equals("")) {
+		} else if (textField_1Modifikacija.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli lokaciju", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		} else if (textField.getText().equals("")) {
+		} else if (textFieldModifikacija.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli naziv", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		}else if (textField_3.getText().equals("")) {
+		}else if (textField_3Modifikacija.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli broj hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		}  else if (textField_2.getText().equals("")) {
+		}  else if (textField_2Modifikacija.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli lanac hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		} else if (comboBox.getSelectedIndex() == -1) {
+		} else if (comboBoxModifikacija.getSelectedIndex() == -1) {
 			JOptionPane.showMessageDialog(null, "Niste selektovali destinaciju", "Info",
 					JOptionPane.INFORMATION_MESSAGE);
 			return false;
@@ -145,7 +145,7 @@ public class ModifikacijaHotela
 				try {
                     
 					ModifikacijaHotela window = new ModifikacijaHotela(pomocniID);
-					window.frmUnosHotela.setVisible(true);
+					window.frmModifikacijaHotela.setVisible(true);
 				} catch (Exception e) {
 					UnitOfWork.logger.error(e);
 				}
@@ -160,7 +160,7 @@ public class ModifikacijaHotela
 				try {
                     
 					ModifikacijaHotela window = new ModifikacijaHotela();
-					window.frmUnosHotela.setVisible(true);
+					window.frmModifikacijaHotela.setVisible(true);
 				} catch (Exception e) {
 					UnitOfWork.logger.error(e);
 				}
@@ -172,7 +172,7 @@ public class ModifikacijaHotela
 	 * Create the application.
 	 */
 	public ModifikacijaHotela(Integer ID) {
-	     hotelID =ID;
+	     hotelIDModifikacija =ID;
 			initialize();
 		}
 	
@@ -189,84 +189,84 @@ public class ModifikacijaHotela
 		
 		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
-		frmUnosHotela = new JFrame();
-		frmUnosHotela.setTitle("Unos hotela");
-		frmUnosHotela.setBounds(100, 100, 481, 451);
-		frmUnosHotela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frmUnosHotela.getContentPane().setLayout(null);
-		frmUnosHotela.setLocationRelativeTo(null);
+		frmModifikacijaHotela = new JFrame();
+		frmModifikacijaHotela.setTitle("Unos hotela");
+		frmModifikacijaHotela.setBounds(100, 100, 481, 451);
+		frmModifikacijaHotela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmModifikacijaHotela.getContentPane().setLayout(null);
+		frmModifikacijaHotela.setLocationRelativeTo(null);
 
 		JLabel lblNazivHotela = new JLabel("Naziv hotela:");
 		lblNazivHotela.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNazivHotela.setBounds(10, 68, 161, 20);
-		frmUnosHotela.getContentPane().add(lblNazivHotela);
+		frmModifikacijaHotela.getContentPane().add(lblNazivHotela);
 
 		JLabel lblBrojZvjezdica = new JLabel("Lokacija hotela:");
 		lblBrojZvjezdica.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblBrojZvjezdica.setBounds(10, 99, 160, 20);
-		frmUnosHotela.getContentPane().add(lblBrojZvjezdica);
+		frmModifikacijaHotela.getContentPane().add(lblBrojZvjezdica);
 
 		JLabel label = new JLabel("Broj zvjezdica:");
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setBounds(10, 130, 161, 20);
-		frmUnosHotela.getContentPane().add(label);
+		frmModifikacijaHotela.getContentPane().add(label);
 
 		JLabel lblPoetniDatum = new JLabel("Početak visoke sezone:");
 		lblPoetniDatum.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPoetniDatum.setBounds(10, 160, 161, 20);
-		frmUnosHotela.getContentPane().add(lblPoetniDatum);
+		frmModifikacijaHotela.getContentPane().add(lblPoetniDatum);
 
 		JLabel lblKrajnjiDatum = new JLabel("Kraj visoke sezone:");
 		lblKrajnjiDatum.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblKrajnjiDatum.setBounds(10, 190, 161, 20);
-		frmUnosHotela.getContentPane().add(lblKrajnjiDatum);
+		frmModifikacijaHotela.getContentPane().add(lblKrajnjiDatum);
 
-		textField = new JTextField();
-		textField.setBounds(191, 68, 138, 20);
-		frmUnosHotela.getContentPane().add(textField);
-		textField.setColumns(10);
+		textFieldModifikacija = new JTextField();
+		textFieldModifikacija.setBounds(191, 68, 138, 20);
+		frmModifikacijaHotela.getContentPane().add(textFieldModifikacija);
+		textFieldModifikacija.setColumns(10);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(191, 99, 138, 20);
-		frmUnosHotela.getContentPane().add(textField_1);
+		textField_1Modifikacija = new JTextField();
+		textField_1Modifikacija.setColumns(10);
+		textField_1Modifikacija.setBounds(191, 99, 138, 20);
+		frmModifikacijaHotela.getContentPane().add(textField_1Modifikacija);
 
-		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(1, 1, 6, 1));
-		spinner.setBounds(191, 130, 42, 20);
-		frmUnosHotela.getContentPane().add(spinner);
+		spinnerModifikacija = new JSpinner();
+		spinnerModifikacija.setModel(new SpinnerNumberModel(1, 1, 6, 1));
+		spinnerModifikacija.setBounds(191, 130, 42, 20);
+		frmModifikacijaHotela.getContentPane().add(spinnerModifikacija);
 
 		JButton btnNewButton = new JButton("Dodaj Hotel");
 		btnNewButton.setBounds(221, 325, 161, 30);
-		frmUnosHotela.getContentPane().add(btnNewButton);
+		frmModifikacijaHotela.getContentPane().add(btnNewButton);
 
 		btnNewButton.addActionListener(new AkcijaDodavanja());
 
 		JLabel lbDestinacija = new JLabel("Destinacija:");
 		lbDestinacija.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbDestinacija.setBounds(-57, 279, 161, 20);
-		frmUnosHotela.getContentPane().add(lbDestinacija);
+		frmModifikacijaHotela.getContentPane().add(lbDestinacija);
 
 		JLabel lblNewLabel = new JLabel("Unesite podatke o novom hotelu");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel.setBounds(88, 24, 213, 14);
-		frmUnosHotela.getContentPane().add(lblNewLabel);
+		frmModifikacijaHotela.getContentPane().add(lblNewLabel);
 
-		dateChooser = new JDateChooser();
-		dateChooser.setBounds(191, 160, 140, 20);
-		frmUnosHotela.getContentPane().add(dateChooser);
+		dateChooserModifikacija = new JDateChooser();
+		dateChooserModifikacija.setBounds(191, 160, 140, 20);
+		frmModifikacijaHotela.getContentPane().add(dateChooserModifikacija);
 
-		dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(191, 190, 140, 20);
-		frmUnosHotela.getContentPane().add(dateChooser_1);
+		dateChooser_1Modifikacija = new JDateChooser();
+		dateChooser_1Modifikacija.setBounds(191, 190, 140, 20);
+		frmModifikacijaHotela.getContentPane().add(dateChooser_1Modifikacija);
 
 		JButton btnNewButton_1 = new JButton("+ Destinacija");
 		btnNewButton_1.setBounds(282, 278, 132, 23);
-		frmUnosHotela.getContentPane().add(btnNewButton_1);
+		frmModifikacijaHotela.getContentPane().add(btnNewButton_1);
 
-		comboBox = new JComboBox<String>();
-		comboBox.setBounds(116, 279, 150, 20);
-		frmUnosHotela.getContentPane().add(comboBox);
+		comboBoxModifikacija = new JComboBox<String>();
+		comboBoxModifikacija.setBounds(116, 279, 150, 20);
+		frmModifikacijaHotela.getContentPane().add(comboBoxModifikacija);
 		NapuniDestinacijeUCB();
 
 		
@@ -274,20 +274,20 @@ public class ModifikacijaHotela
 		JLabel lblLanacHotela = new JLabel("Lanac hotela:");
 		lblLanacHotela.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLanacHotela.setBounds(10, 223, 161, 20);
-		frmUnosHotela.getContentPane().add(lblLanacHotela);
+		frmModifikacijaHotela.getContentPane().add(lblLanacHotela);
 
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(191, 221, 138, 20);
-		frmUnosHotela.getContentPane().add(textField_2);
+		textField_2Modifikacija = new JTextField();
+		textField_2Modifikacija.setColumns(10);
+		textField_2Modifikacija.setBounds(191, 221, 138, 20);
+		frmModifikacijaHotela.getContentPane().add(textField_2Modifikacija);
 		JLabel lblNewLabel_1 = new JLabel("Tel. broj:");
 		lblNewLabel_1.setBounds(125, 249, 46, 14);
-		frmUnosHotela.getContentPane().add(lblNewLabel_1);
+		frmModifikacijaHotela.getContentPane().add(lblNewLabel_1);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(191, 248, 138, 20);
-		frmUnosHotela.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		textField_3Modifikacija = new JTextField();
+		textField_3Modifikacija.setBounds(191, 248, 138, 20);
+		frmModifikacijaHotela.getContentPane().add(textField_3Modifikacija);
+		textField_3Modifikacija.setColumns(10);
 
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -298,7 +298,7 @@ public class ModifikacijaHotela
         
 		
 		JMenuBar menuBar = new JMenuBar();
-		frmUnosHotela.setJMenuBar(menuBar);
+		frmModifikacijaHotela.setJMenuBar(menuBar);
 
 		JMenu mnMeni = new JMenu("Meni");
 		menuBar.add(mnMeni);
@@ -328,15 +328,15 @@ public class ModifikacijaHotela
 				}
 				if (UserContext.getInstance().getRoleID() == 1) {
 					PocetnaFormaAdministrator.PrikaziFormu();
-					frmUnosHotela.setVisible(false);
+					frmModifikacijaHotela.setVisible(false);
 
 				} else if (UserContext.getInstance().getRoleID() == 2) {
 					PocetnaFormaAgent.PrikaziFormu();
-					frmUnosHotela.setVisible(false);
+					frmModifikacijaHotela.setVisible(false);
 
 				} else if (UserContext.getInstance().getRoleID() == 3) {
 					PocetnaFormaSupervizor.PrikaziFormu();
-					frmUnosHotela.setVisible(false);
+					frmModifikacijaHotela.setVisible(false);
 
 				}
 			}
@@ -351,7 +351,7 @@ public class ModifikacijaHotela
 					win[i].dispose();
 				}
 				Hoteli.PrikaziFormu();
-				frmUnosHotela.setVisible(false);
+				frmModifikacijaHotela.setVisible(false);
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -365,7 +365,7 @@ public class ModifikacijaHotela
 					win[i].dispose();
 				}
 				Rezervacije.PrikaziFormu();
-				frmUnosHotela.setVisible(false);
+				frmModifikacijaHotela.setVisible(false);
 
 			}
 		});
@@ -381,7 +381,7 @@ public class ModifikacijaHotela
 						win[i].dispose();
 					}
 					Klijenti.PrikaziFormu();
-					frmUnosHotela.setVisible(false);
+					frmModifikacijaHotela.setVisible(false);
 
 				}
 			});
@@ -399,7 +399,7 @@ public class ModifikacijaHotela
 						win[i].dispose();
 					}
 					Korisnici.PrikaziFormu();
-					frmUnosHotela.setVisible(false);
+					frmModifikacijaHotela.setVisible(false);
 				}
 			});
 			mnMeni.add(mntmKorisnici);
