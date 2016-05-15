@@ -113,10 +113,9 @@ public class RezervacijeService {
 			if(osobe.size()!=0){
 				s=osobe.get(0);
 			}else{
-				baza.getOsobaRepository().spasiUBazu(k.getOsoba());
-				s=os.dajOsobuPoJMBG(rez.getKlijent().getOsoba().getJmbg()).get(0);
+				s= baza.getOsobaRepository().spasiUBazu(k.getOsoba());
 			}
-			
+		
 			k.setOsoba(s);
 	
 			ArrayList<Klijent> klijenati=(ArrayList<Klijent>)baza.getKlijentRepository().ucitajSveIzBaze();

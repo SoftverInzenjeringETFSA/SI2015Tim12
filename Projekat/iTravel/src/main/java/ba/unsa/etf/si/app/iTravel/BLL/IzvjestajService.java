@@ -112,18 +112,8 @@ public class IzvjestajService {
 		
 	}
 	
-//	public String VratiNazivHotela(Integer hotelid)
-//	{
-//		Hotel h= new Hotel();
-//		h = baza.getHoteliRepo().ucitajIzBaze(hotelid);
-//		return (String)h.getNaziv();
-//	}
 	
-	public void KreirajDestinaciju(Destinacija d) {
-		
-		baza.getDestRepository().spasiUBazu(d);
-
-	}
+	
 	
 	
 	public List<Destinacija> VratiListuDestinacija()

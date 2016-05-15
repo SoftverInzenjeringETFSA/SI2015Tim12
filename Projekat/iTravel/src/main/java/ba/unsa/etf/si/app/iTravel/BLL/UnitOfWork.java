@@ -21,7 +21,16 @@ public class UnitOfWork {
 	private SobeService sobeService;
 	private KlijentiService klijentiService;
 	private KorisniciService korisniciService;
+	private RezervisaniTerminService rezervisaniTerminService;
 	
+	public RezervisaniTerminService getRezervisaniTerminService() {
+		return rezervisaniTerminService;
+	}
+
+	public void setRezervisaniTerminService(RezervisaniTerminService rezervisaniTerminService) {
+		this.rezervisaniTerminService = rezervisaniTerminService;
+	}
+
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
 		izvjestajService = new IzvjestajService();
@@ -37,6 +46,7 @@ public class UnitOfWork {
 		sobeService=new SobeService();
 		klijentiService=new KlijentiService();
 		korisniciService=new KorisniciService();
+		rezervisaniTerminService= new RezervisaniTerminService();
 	}
 
 	public PrijavaService getPrijavaService() {

@@ -37,6 +37,12 @@ public class DestinacijeService {
 		return dest;
 	} 
 	
+	public void KreirajDestinaciju(Destinacija d) {
+			
+			baza.getDestRepository().spasiUBazu(d);
+	
+		}
+	
 	public ArrayList<Destinacija> DajSveDestinacije(){
 		ArrayList<Destinacija> destinacije=new ArrayList<Destinacija>();
 		destinacije.addAll((ArrayList<Destinacija>) baza.getDestRepository().ucitajSveIzBaze());

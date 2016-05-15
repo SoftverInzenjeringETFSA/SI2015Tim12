@@ -30,7 +30,6 @@ public class RezervisaniTerminSoba implements java.io.Serializable {
 
 	public RezervisaniTerminSoba() {
 	}
-
 	public RezervisaniTerminSoba(Rezervacija rezervacija, Soba soba, Date datumPocetak, Date datumKraj,
 			Boolean aktivan) {
 		this.rezervacija = rezervacija;

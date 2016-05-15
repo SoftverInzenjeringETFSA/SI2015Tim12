@@ -17,11 +17,11 @@ public class OsobaService
 	DBContext baza = new DBContext();
 
 	
-	public List<Osoba> dajOsobuPoJMBG(String jmbg){
+	public ArrayList<Osoba> dajOsobuPoJMBG(String jmbg){
 		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("jmbg", (String)jmbg));
-		List<Osoba> s=new ArrayList<Osoba>();
-		s=baza.getOsobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
+		listaKriterija.add(Restrictions.eq("jmbg",jmbg));
+		ArrayList<Osoba> s=new ArrayList<Osoba>();
+		s=(ArrayList<Osoba>)baza.getOsobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
 		return s;
 	}
 

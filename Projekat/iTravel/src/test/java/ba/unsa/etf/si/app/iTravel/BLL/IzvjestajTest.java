@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
@@ -21,7 +20,7 @@ public class IzvjestajTest {
 	public void PrebrojRezervacijeZaDestinacijuTest() {
 		uow= new UnitOfWork();
 		Destinacija d= new Destinacija("mjesto", true, null, null);
-		uow.getIzvjestajService().KreirajDestinaciju(d);
+		uow.getDestinacijeService().KreirajDestinaciju(d);
 		@SuppressWarnings("deprecation")
 		Date d1= new Date(2016,4,1);
 		Date d2= new Date(2016,5,31);
@@ -36,7 +35,7 @@ public class IzvjestajTest {
 	public void UkupanBrojSobaNaRaspolaganjuTest() {
 		uow= new UnitOfWork();
 		Destinacija d= new Destinacija("mjesto", true, null, null);
-		uow.getIzvjestajService().KreirajDestinaciju(d);
+		uow.getDestinacijeService().KreirajDestinaciju(d);
 		Hotel h= new Hotel(d, "adresa", "drzava", "grad", "061111111", new Date(2016,4,1), new Date(2016,7,1), new Date(2016,4,1), new Date(2016,4,1), "naziv",
 				"lanac", 5, null, null);
 		uow.getHoteliService().KreirajHotel(h);
@@ -71,7 +70,7 @@ public class IzvjestajTest {
 	public void VratiNazivDestinacijeTest() {
 		uow= new UnitOfWork();
 		Destinacija d= new Destinacija("mjesto", true, null, null);
-		uow.getIzvjestajService().KreirajDestinaciju(d);
+		uow.getDestinacijeService().KreirajDestinaciju(d);
 		List<Destinacija> destinacije= new ArrayList<Destinacija>();
 		destinacije= uow.getIzvjestajService().VratiListuDestinacija();
 		
@@ -88,9 +87,9 @@ public class IzvjestajTest {
 		
 		uow= new UnitOfWork();
 		Destinacija d= new Destinacija("mjesto", true, null, null);
-		uow.getIzvjestajService().KreirajDestinaciju(d);
+		uow.getDestinacijeService().KreirajDestinaciju(d);
 		Destinacija d1= new Destinacija("mjesto2", true, null, null);
-		uow.getIzvjestajService().KreirajDestinaciju(d1);
+		uow.getDestinacijeService().KreirajDestinaciju(d1);
 		List<Destinacija> destinacije= new ArrayList<Destinacija>();
 		destinacije= uow.getIzvjestajService().VratiListuDestinacija();
 		int vel= destinacije.size();
@@ -103,7 +102,7 @@ public class IzvjestajTest {
 	public void VratiListuHotelaTest() {
 		uow= new UnitOfWork();
 		Destinacija d= new Destinacija("mjesto", true, null, null);
-		uow.getIzvjestajService().KreirajDestinaciju(d);
+		uow.getDestinacijeService().KreirajDestinaciju(d);
 		Hotel h= new Hotel(d, "adresa", "drzava", "grad", "061111111", new Date(2016,4,1), new Date(2016,7,1), new Date(2016,4,1), new Date(2016,4,1), "naziv",
 				"lanac", 5, null, null);
 			uow.getHoteliService().KreirajHotel(h);
