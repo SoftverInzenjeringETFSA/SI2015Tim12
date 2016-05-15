@@ -14,20 +14,20 @@ public class PostavkeTest {
 	@Test
 	public void testModulOmoguce(){
 		uow= new UnitOfWork();
-		Postavke p=new Postavke(10,"Hoteli", true);
+		Postavke p=new Postavke(1000,"Hoteli", true);
 		p= baza.getPostavkeRepository().spasiUBazu(p);
-		assertTrue(uow.getPostavkeService().modulOmogucen(1));
+		assertTrue(uow.getPostavkeService().modulOmogucen(1000));
 		baza.getPostavkeRepository().obrisiIzBaze(p);
 	}
 	
 	@Test
 	public void testSpasiPromjenePostavki(){
 		uow=new UnitOfWork();
-		Postavke p=new Postavke(14, "Hoteli", true);
+		Postavke p=new Postavke(1400, "Hoteli", true);
 		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
-	    Postavke p1=new Postavke(15, "Sobe", false);
+	    Postavke p1=new Postavke(1500, "Sobe", false);
 		p1= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p1);
-		Postavke p2=new Postavke(16, "Rezervacije", true);
+		Postavke p2=new Postavke(1600, "Rezervacije", true);
 		p2= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p2);
 		
 		boolean[] nizPostavki = new boolean[3];
@@ -44,11 +44,11 @@ public class PostavkeTest {
 	@Test
 	public void testDajSvePostavke(){
 		uow=new UnitOfWork();
-		Postavke p=new Postavke(14, "Hoteli", true);
+		Postavke p=new Postavke(1700, "Hoteli", true);
 		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
-	    Postavke p1=new Postavke(15, "Sobe", false);
+	    Postavke p1=new Postavke(1800, "Sobe", false);
 		p1= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p1);
-		Postavke p2=new Postavke(16, "Rezervacije", true);
+		Postavke p2=new Postavke(1900, "Rezervacije", true);
 		p2= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p2);
 		
 		assertEquals(3,uow.getPostavkeService().dajSvePostavke());
