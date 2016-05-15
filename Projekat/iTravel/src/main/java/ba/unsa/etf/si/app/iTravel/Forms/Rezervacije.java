@@ -391,7 +391,7 @@ public class Rezervacije {
         	
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Faktura_rezervacije_" + idRezervacije +".pdf"));
             document.open();	        
-            document.addTitle("POTVRDA O REZERVACIJI");
+            document.addTitle("FAKUTRA ZA REZERVACIJU");
 
             Image logoEuroByte;
             Image logoEtfTravel;
@@ -414,7 +414,8 @@ public class Rezervacije {
             Paragraph p = new Paragraph("Ovaj dokument se printa u dva primjerka,"
             		+ " jedan primjerak preuzima klijent, a drugi ostaje u agenciji ETFTravel."
             		+ " Dokument služi kao potvrda da je klijent platio rezervaciju za određenu"
-            		+ " destinaciju i služi kao dodatni dokaz za check-in u hotel.");
+            		+ " destinaciju i služi kao prilog potvrdi koju je klijent prethodno dobio"
+            		+ " od ETFTravela i kao dodatni dokaz za check-in u hotel.");
 
             p.setAlignment(Element.ALIGN_JUSTIFIED);
             document.add(p);
@@ -439,6 +440,25 @@ public class Rezervacije {
             
             document.add(tableFakt);
             
+            PdfPTable tableRez = new PdfPTable(2);
+            tableRez.setWidthPercentage(100);
+            
+            PdfPCell cell2 = new PdfPCell();
+            cell.setPadding(3f);
+            cell.addElement(new Paragraph("Broj rezervacije:")); 
+            
+            PdfPCell cell3 = new PdfPCell();
+            cell1.setPadding(3f);
+            cell1.addElement(new Paragraph(idRezervacijeInt.toString()));
+            
+            tableRez.addCell(cell2);
+            tableRez.addCell(cell3);
+
+            tableRez.setSpacingBefore(10f);
+            tableRez.setSpacingAfter(5f);
+            
+            document.add(tableRez);
+            
             Paragraph pocetniParagraf = new Paragraph("Podaci o rezervaciji:");
             pocetniParagraf.setSpacingBefore(10f);
             document.add(pocetniParagraf);
@@ -451,24 +471,10 @@ public class Rezervacije {
             Rezervacija rezTmp=uow.getRezervacijaService().dajRezervaciju(idRezervacijeInt);
             Osoba osoba=uow.getKlijentiService().dajOsobuPoKlijentId(rezTmp.getKlijent().getKlijentId());
             table.addCell("Klijent:");
-            table.addCell(new Paragraph(osoba.getIme()+ " "+osoba.getPrezime()+", "+osoba.getBrojLicneKarte()+ ", "+osoba.getAdresa()+", "+osoba.getBrojTelefona())); // Ovdje dinamički podaci o klijentu uradjeno xD
-            
-            Soba s= uow.getRezervacijaService().dajRezervisaneTermineZaRezervaciju(idRezervacijeInt).get(0).getSoba();
-            Hotel h=uow.getHoteliService().VratiHotelId(s.getHotel().getHotelId());
-            Destinacija d=uow.getDestinacijeService().VratiDestinacijuPoId(h.getDestinacija().getDestinacijaId());
-            table.addCell(new Paragraph("Destinacija:"));
-            table.addCell(new Paragraph(d.getNaziv())); // Dinamički Destinacija
-            
-            table.addCell(new Paragraph("Podaci za hotel:"));
-            table.addCell(new Paragraph(h.getNaziv()+", "+h.getAdresa())); // Dinamički hotel
-            
-            table.addCell(new Paragraph("Podaci za sobe:"));
-            table.addCell(new Paragraph("Soba "+s.getSobaId()+", broj kreveta: "+s.getBrojKreveta()+", "+ s.getOpis()+"."));
-            // Dinamički podaci za sobu
+            table.addCell(new Paragraph(osoba.getIme()+ " "+osoba.getPrezime()+", "+osoba.getBrojLicneKarte()+ ", "+osoba.getAdresa())); // Ovdje dinamički podaci o klijentu uradjeno xD
             
             table.addCell(new Paragraph("Cijena:"));
-            table.addCell(new Paragraph(racun.getCijena()+ " KM"));   
-            // Dinamički cijena
+            table.addCell(new Paragraph(racun.getCijena()+ " KM"));
             
             document.add(table);
             

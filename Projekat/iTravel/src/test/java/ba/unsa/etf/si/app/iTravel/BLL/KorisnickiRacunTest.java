@@ -52,9 +52,55 @@ public class KorisnickiRacunTest
 		baza.getKorisnickiRacunXRolaRepository().obrisiIzBaze(korisnickiracunxrola);
 		baza.getKorisnickiRacunRepository().obrisiIzBaze(korisnickiRacun);
 		baza.getOsobaRepository().obrisiIzBaze(osoba);
-		//baza.getRolaRepository().obrisiIzBaze(rola);
+		//baza.getRolaRepository().obrisiIzBaze(rola);		
+	}
+	
+	@Test
+	public void testKreiranjaKorisnickogRacuna()
+	{
+		Osoba osoba = new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
+		osoba = baza.getOsobaRepository().spasiUBazu(osoba);
 		
+		Rola rola = baza.getRolaRepository().ucitajIzBaze(1);
 		
+		KorisnickiRacun korisnickiRacun = new KorisnickiRacun();
+		korisnickiRacun.setUsername("testNoviUserUnique");
+		korisnickiRacun.setPassword("test");
+		korisnickiRacun.setOsoba(osoba);
+		
+		korisnickiRacun = uow.getKorisnickiRacunService()
+							 .KreirajKorisnickiRacun(korisnickiRacun, false);
+		
+		assertEquals("testNoviUserUnique", uow.getKorisnickiRacunService()
+											  .dajKorisnika(korisnickiRacun.getKorisnickiRacunId())
+											  .getUsername());
+
+		baza.getKorisnickiRacunRepository().obrisiIzBaze(korisnickiRacun);
+		baza.getOsobaRepository().obrisiIzBaze(osoba);
+	}
+	
+	@Test
+	public void testRoleKorisnika()
+	{/*
+		Osoba osoba = new Osoba("Kenan","Prses", new Date(1668,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
+		osoba = baza.getOsobaRepository().spasiUBazu(osoba);
+		
+		Rola rola = baza.getRolaRepository().ucitajIzBaze(1);
+		
+		KorisnickiRacun korisnickiRacun = new KorisnickiRacun();
+		korisnickiRacun.setUsername("test");
+		korisnickiRacun.setPassword("test");
+		korisnickiRacun.setOsoba(osoba);
+		
+		korisnickiRacun = baza.getKorisnickiRacunRepository().spasiUBazu(korisnickiRacun);
+		
+		Korisnickiracunxrola korisnickiracunxrola = new Korisnickiracunxrola();
+		korisnickiracunxrola.setKorisnickiRacun(korisnickiRacun);
+		korisnickiracunxrola.setRola(rola);
+		
+		korisnickiracunxrola = uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(korisnickiracunxrola, false);
+		*/
+		assertTrue(true);
 	}
 
 }

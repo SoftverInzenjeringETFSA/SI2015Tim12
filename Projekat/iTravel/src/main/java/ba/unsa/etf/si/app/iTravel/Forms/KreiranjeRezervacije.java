@@ -710,7 +710,7 @@ public class KreiranjeRezervacije {
 			idKreiraneRezervacije=provjera;
 			if(provjera!=0){
 				JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);
-				KreirajFakturu();
+				KreirajPotvrdu();
 	        	int rowHotel=table.getSelectedRow();
 				if(rowHotel!=-1){
 		        	int idHotela=Integer.parseInt(table.getModel().getValueAt(rowHotel, 4).toString());
@@ -767,7 +767,7 @@ public class KreiranjeRezervacije {
 		return true;
 	}
 	
-	private void KreirajFakturu(){
+	private void KreirajPotvrdu(){
 		// START PDF-a
 		Document document = new Document();
         try {
