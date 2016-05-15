@@ -56,17 +56,17 @@ public class SobeService
 
 	}
 
-	public Soba VrtatiSobuPoHoteluIBrojuKreveta(int brojKreveta,int HotelID) {
-		Soba soba = new Soba();
-
-		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("BrojKreveta", (int) brojKreveta));
-		listaKriterjona.add(Restrictions.eq("HotelID", (int) HotelID));
-
-		soba = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterjona).get(0);
-
-		return soba;
-	}
+//	public Soba VrtatiSobuPoHoteluIBrojuKreveta(int brojKreveta,int HotelID) {
+//		Soba soba = new Soba();
+//
+//		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
+//		listaKriterjona.add(Restrictions.eq("brojKreveta", (int) brojKreveta));
+//		listaKriterjona.add(Restrictions.eq("hotel", (int) HotelID));
+//
+//		soba = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterjona).get(0);
+//
+//		return soba;
+//	}
 	
 	public boolean ProvjeriPostojanjeSobaId(int id) {
 		Soba soba =new Soba();
@@ -83,7 +83,7 @@ public class SobeService
 
 		Soba soba =new Soba();
 		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("BrojKreveta", (int)brojKreveta));
+		listaKriterjona.add(Restrictions.eq("brojKreveta", (int)brojKreveta));
 	
 
 		soba = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterjona).get(0);
