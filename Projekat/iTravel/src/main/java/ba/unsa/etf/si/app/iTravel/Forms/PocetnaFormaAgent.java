@@ -106,14 +106,7 @@ public class PocetnaFormaAgent {
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
 		mntmOdjaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				uow.getOdjavaService().OdjaviKorisnika();
-							
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 
-				Prijava.PrikaziFormu();
+				Meni.OdjaviSe();
 			}
 		});
 		mnAkcije.add(mntmOdjaviSe);
