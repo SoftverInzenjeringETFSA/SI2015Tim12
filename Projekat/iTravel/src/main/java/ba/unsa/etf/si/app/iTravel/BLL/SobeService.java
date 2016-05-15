@@ -25,12 +25,16 @@ public class SobeService
 		
 		baza.getSobaRepository().spasiUBazu(soba);
 
+		
 	}
+	
 	
 	public void ObrisiJenduSobu(Soba soba) {
 
 		baza.getSobaRepository().obrisiIzBaze(soba);
 	}
+	
+	
 
 	public void ObrisiSveSobe()
 	{
@@ -143,6 +147,8 @@ public class SobeService
 		}
 		return sobe;
 	}
+	
+	
 	
 
 }

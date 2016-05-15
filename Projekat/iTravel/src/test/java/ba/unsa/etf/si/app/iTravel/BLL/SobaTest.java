@@ -10,6 +10,11 @@ import org.junit.Test;
 
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
+import ba.unsa.etf.si.app.iTravel.DBModels.Klijent;
+import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
+import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
+import ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija;
+import ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba;
 import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
 public class SobaTest {
@@ -30,29 +35,6 @@ public class SobaTest {
 	}
 	
 	
-//
-//	@Test
-//	public void testObrisiJenduSobu() {
-//		uow= new UnitOfWork();
-//		Destinacija d= new Destinacija("mjesto1", true, null, null);
-//		uow.getDestinacijeService().KreirajDestinaciju(d);
-//		Hotel h= new Hotel(d, "adresa2", "drzava", "grad", "061111111", new Date(2016,4,1), new Date(2016,7,1), new Date(2016,4,1), new Date(2016,4,1), "naziv",
-//				"lanac", 5, null, null);
-//		uow.getHoteliService().KreirajHotel(h);
-//		Soba s= new Soba(h, 1, "opis", 50, 30, null, null);
-//		uow.getSobeService().UbaciSobuUBazu(s);
-//		Soba s1= new Soba(h, 1, "opis", 50, 30, null, null);
-//		uow.getSobeService().UbaciSobuUBazu(s1);
-//		int sobe= uow.getIzvjestajService().ukupanBrojSobaNaRaspolaganju(h);
-//		uow.getSobeService().ObrisiJenduSobu(s);
-//		int sobe2= uow.getIzvjestajService().ukupanBrojSobaNaRaspolaganju(h);
-//		uow.getSobeService().ObrisiJenduSobu(s1);
-//		uow.getHoteliService().ObrisiJendaHotel(h);
-//		uow.getDestinacijeService().ObrisiJednuDestinaciju(d);
-//		assertEquals(sobe, sobe2);
-//		
-//	}
-
 	@Test
 	public void testObrisiSveSobe() {
 		//Ne diram zbog baze
@@ -121,17 +103,25 @@ public class SobaTest {
 		assertTrue(sobe.size()>0);
 	}
 
-//	@Test
-//	public void testDajTermineZaSobu() {
-//		
-//	}
+	@Test
+	public void testDajTermineZaSobu() {
+		uow= new UnitOfWork();
+		PocetneVrijednosti();
+		Soba s2= new Soba(h, 5, "opis", 50, 30, null, null);
+		uow.getSobeService().UbaciSobuUBazu(s2);
+		ArrayList<Soba> sobe= new ArrayList<Soba>();
+		sobe.add(s);
+		sobe.add(s2);
+		RezervisaniTerminSoba rt= new RezervisaniTerminSoba(null, s, new Date(2016,5,1), new Date(2016,5,10), true);
+		uow.getRezervisaniTerminService().DodajRezervisaniTermin(rt);
+		List<RezervisaniTerminSoba> rts= new ArrayList<RezervisaniTerminSoba>();
+		rts= uow.getSobeService().dajTermineZaSobu(sobe);
+		uow.getSobeService().ObrisiJenduSobu(s2);
+		uow.getRezervisaniTerminService().ObrisiJenduSobuRezervacija(rt);
+		Izbrisi(h,d,s);
+		assertEquals(1, rts.size());	
+	}
 
-//	@Test
-//	public void testDajSlobodneSobeZaHotel() {
-//		
-//		
-//	}
-	
 
 	public void Izbrisi(Hotel h, Destinacija d, Soba s)
 	{

@@ -32,6 +32,8 @@ public class KorisnickiRacun implements java.io.Serializable {
 
 	public KorisnickiRacun() {
 	}
+	
+
 
 	public KorisnickiRacun(Osoba osoba, String username, String password,
 			Set<Korisnickiracunxrola> korisnickiracunxrolas, Set<Rezervacija> rezervacijas,

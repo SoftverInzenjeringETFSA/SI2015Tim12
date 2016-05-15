@@ -39,6 +39,7 @@ public class Osoba implements java.io.Serializable {
 
 	public Osoba() {
 	}
+	
 
 	public Osoba(String ime, String prezime, Date datumRodjenja, String adresa, String email, String brojTelefona,
 			String jmbg, String brojPasosa, String brojLicneKarte, Set<KorisnickiRacun> korisnickiRacuns,
