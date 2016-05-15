@@ -120,6 +120,9 @@ public class Hoteli {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmPrikazHotela = new JFrame();
 		frmPrikazHotela.setTitle("Pregled hotela");
 		frmPrikazHotela.setBounds(100, 100, 784, 395);
@@ -281,6 +284,7 @@ public class Hoteli {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -296,6 +300,7 @@ public class Hoteli {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmRezervacije.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -312,6 +317,7 @@ public class Hoteli {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
 		
 		mnRaun = new JMenu("Račun");
