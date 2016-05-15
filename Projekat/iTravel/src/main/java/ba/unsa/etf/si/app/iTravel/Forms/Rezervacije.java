@@ -279,7 +279,7 @@ public class Rezervacije {
 				Object[] racuniList=razer.getRacuns().toArray();
 				r=(Racun) racuniList[0];
 				RezervisaniTerminSoba termin=uow.getRezervacijaService().dajRezervisaneTermineZaRezervaciju(rezervacije.get(i).getRezervacijaId()).get(0);
-				Soba s= uow.getRezervacijaService().dajSobu(termin.getSoba().getSobaId());
+				Soba s= uow.getSobeService().VratiSobaId(termin.getSoba().getSobaId());
 				Hotel h=s.getHotel();
 				Destinacija d=uow.getDestinacijeService().VratiDestinacijuPoId(h.getDestinacija().getDestinacijaId());
 				String status="Nije potvdjeno";

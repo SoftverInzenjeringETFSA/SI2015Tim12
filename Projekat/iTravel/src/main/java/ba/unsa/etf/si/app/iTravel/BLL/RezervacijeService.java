@@ -52,7 +52,6 @@ public class RezervacijeService {
 				if(rezervisiSobu(soba,odD,doD, dajRezervacijuPoRezervaciji(rez))){
 					Racun racun=new Racun();
 					Rezervacija tmpRez=new Rezervacija();
-					//tmpRez=dajRezervacijuPoDatumuIKlijentu(rez.getDatumRezervacije(),rez.getKlijent());
 					tmpRez=dajRezervacijuPoRezervaciji(rez);
 					racun.setCijena(cijena);
 					
@@ -145,7 +144,6 @@ public class RezervacijeService {
 	private Rezervacija dajRezervacijuPoRezervaciji(Rezervacija rez){
 		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
 		listaKriterija.add(Restrictions.eq("klijent", rez.getKlijent()));
-		//listaKriterija.add(Restrictions.eq("datumRezervacije", rez.getDatumRezervacije()));
 		listaKriterija.add(Restrictions.eq("korisnickiRacun", rez.getKorisnickiRacun()));
 		listaKriterija.add(Restrictions.eq("ukljucenPrevoz", rez.getUkljucenPrevoz()));
 		List<Rezervacija> r=new ArrayList<Rezervacija>();
@@ -169,18 +167,6 @@ public class RezervacijeService {
 		listaKriterija.add(Restrictions.eq("rezervacija", rez));
 		ArrayList<RezervisaniTerminSoba> r=new ArrayList<RezervisaniTerminSoba>();
 		r=(ArrayList<RezervisaniTerminSoba>)baza.getRezervisaniTerminSobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
-		return r;
-	}
-	
-	//dok cekam SobaService
-	public Soba dajSobu(int idSobe){
-		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("sobaId", idSobe));
-		Soba r=new Soba();
-		r=baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterija).get(0);
-		HoteliService hs=new HoteliService();		
-		Hotel h=hs.VratiHotelId(r.getHotel().getHotelId());
-		r.setHotel(h);
 		return r;
 	}
 	
@@ -208,6 +194,10 @@ public class RezervacijeService {
 			UnitOfWork.logger.error(e);
 			return false;
 		}
+	}
+	
+	public void obrisiSveRezervacije(){
+		baza.getRezervacijaRepository().obrisiSveIzBaze();
 	}
 		
 }

@@ -9,7 +9,6 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
-import ba.unsa.etf.si.app.iTravel.BLL.PrikazKlijenata;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 
@@ -72,8 +71,7 @@ public class Klijenti {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		PrikazKlijenata pk=new PrikazKlijenata();
-		Object[][] podaci=pk.PrikaziSveKlijente();
+		Object[][] podaci=uow.getKlijentiService().PrikaziSveKlijente();
 		
 		table.setModel(new DefaultTableModel(
 			podaci,

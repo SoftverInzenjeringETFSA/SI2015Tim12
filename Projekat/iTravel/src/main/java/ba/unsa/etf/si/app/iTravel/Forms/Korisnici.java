@@ -10,7 +10,6 @@ import javax.swing.table.TableColumnModel;
 
 import org.hibernate.engine.internal.StatisticalLoggingSessionEventListener;
 
-import ba.unsa.etf.si.app.iTravel.BLL.PrikazKorisnika;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
@@ -51,7 +50,7 @@ public class Korisnici {
 	
 	public void OsvjeziFormu()
 	{
-		Object[][] podaci= uow.getPrikazKorisnika().PrikaziSveKorisnike();
+		Object[][] podaci= uow.getKorisniciService().PrikaziSveKorisnike();
 		
 		table.setModel(new DefaultTableModel(
 				podaci,
@@ -121,7 +120,7 @@ public class Korisnici {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				
-		Object[][] podaci= uow.getPrikazKorisnika().PrikaziSveKorisnike();
+		Object[][] podaci= uow.getKorisniciService().PrikaziSveKorisnike();
 		
 		table.setModel(new DefaultTableModel(
 			podaci,

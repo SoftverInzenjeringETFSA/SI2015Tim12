@@ -15,13 +15,12 @@ public class UnitOfWork {
 	private RezervacijeService rezervacijaService;
 	private RacunService racunService;
 	private RolaService rolaService;
-	private PrikazKlijenata prikazKlijenata;
-	private PrikazKorisnika prikazKorisnika;
 	private OdjavaService odjavaService;
 	private PostavkeService postavkeService;
 	private PromjenaSifreService promjenaSifreService;
 	private SobeService sobeService;
 	private KlijentiService klijentiService;
+	private KorisniciService korisniciService;
 	
 	public UnitOfWork() {
 		prijavaService = new PrijavaService();
@@ -32,13 +31,12 @@ public class UnitOfWork {
 		rezervacijaService = new RezervacijeService();
 		racunService = new RacunService();
 		rolaService = new RolaService();
-		prikazKlijenata = new PrikazKlijenata();
-		prikazKorisnika = new PrikazKorisnika();
 		odjavaService = new OdjavaService();
 		postavkeService = new PostavkeService();
 		promjenaSifreService = new PromjenaSifreService();
 		sobeService=new SobeService();
 		klijentiService=new KlijentiService();
+		korisniciService=new KorisniciService();
 	}
 
 	public PrijavaService getPrijavaService() {
@@ -105,22 +103,6 @@ public class UnitOfWork {
 		
 		return rolaService;
 	}
-	
-	public PrikazKlijenata getPrikazKlijenata()
-	{
-		if(prikazKlijenata == null)
-			prikazKlijenata = new PrikazKlijenata();
-		
-		return prikazKlijenata;
-	}
-
-	public PrikazKorisnika getPrikazKorisnika()
-	{
-		if(prikazKorisnika == null)
-			prikazKorisnika = new PrikazKorisnika();
-		
-		return prikazKorisnika;
-	}
 
 	public OdjavaService getOdjavaService()
 	{
@@ -159,6 +141,13 @@ public class UnitOfWork {
 		if(klijentiService==null)
 			klijentiService=new KlijentiService();
 		return klijentiService;
+	}
+	
+	public KorisniciService getKorisniciService()
+	{
+		if(korisniciService==null)
+			korisniciService=new KorisniciService();
+		return korisniciService;
 	}
 	
 	
