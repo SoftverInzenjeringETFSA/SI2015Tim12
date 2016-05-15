@@ -131,9 +131,7 @@ public class PocetnaFormaSupervizor {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Promijeni \u0161ifru");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				PromjenaSifre.PrikaziFormu();
-
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
@@ -141,14 +139,7 @@ public class PocetnaFormaSupervizor {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Odjavi se");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-								
-				uow.getOdjavaService().OdjaviKorisnika();
-				
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 
-				Prijava.PrikaziFormu();
+				Meni.OdjaviSe();
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);

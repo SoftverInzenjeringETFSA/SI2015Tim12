@@ -327,16 +327,6 @@ public class EditSoba {
 		textField_2e.setBounds(424, 393, 138, 66);
 		frmEditSoba.getContentPane().add(textField_2e);
 	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		btnDodajSobu = new JButton("Dodaj sobu");
 		btnDodajSobu.addActionListener(new AkcijaDodavanja());
 		btnDodajSobu.setBounds(21, 411, 150, 30);
@@ -358,8 +348,7 @@ public class EditSoba {
 	      				    {
 	      				    	sobeService.ObrisiJenduSobu(izbrisiSoba);
 	      				    }
-	      					
-	      					
+
 	      				}
 	      				NapuniSobe();
 	   				
@@ -414,22 +403,7 @@ public class EditSoba {
 		mntmPoetna = new JMenuItem("Početna");
 		mntmPoetna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows();
-				for (int i = 0; i < win.length; i++) {
-					win[i].dispose();
-				}
-				if (UserContext.getInstance().getRoleID() == 1) {
-					PocetnaFormaAdministrator.PrikaziFormu();
-					frmEditSoba.setVisible(false);
-				} else if (UserContext.getInstance().getRoleID() == 2) {
-					PocetnaFormaAgent.PrikaziFormu();
-					frmEditSoba.setVisible(false);
-
-				} else if (UserContext.getInstance().getRoleID() == 3) {
-					PocetnaFormaSupervizor.PrikaziFormu();
-					frmEditSoba.setVisible(false);
-
-				}
+				Meni.Pocetna(frmEditSoba);	
 			}
 		});
 		mnMeni.add(mntmPoetna);
@@ -437,13 +411,7 @@ public class EditSoba {
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows();
-				for (int i = 0; i < win.length; i++) {
-					win[i].dispose();
-				}
-				Rezervacije.PrikaziFormu();
-				frmEditSoba.setVisible(false);
-	
+				Meni.Rezervacije(frmEditSoba);
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -453,13 +421,7 @@ public class EditSoba {
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
 			mntmKlijenti.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					java.awt.Window win[] = java.awt.Window.getWindows();
-					for (int i = 0; i < win.length; i++) {
-						win[i].dispose();
-					}
-					Klijenti.PrikaziFormu();
-					frmEditSoba.setVisible(false);
-
+					Meni.Klijenti(frmEditSoba);
 				}
 			});
 			mnMeni.add(mntmKlijenti);
@@ -473,12 +435,7 @@ public class EditSoba {
 			mntmKorisnici.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
-					java.awt.Window win[] = java.awt.Window.getWindows();
-					for (int i = 0; i < win.length; i++) {
-						win[i].dispose();
-					}
-					Korisnici.PrikaziFormu();
-					frmEditSoba.setVisible(false);
+					Meni.Korisnici(frmEditSoba);
 				}
 			});
 			mnMeni.add(mntmKorisnici);
@@ -499,16 +456,7 @@ public class EditSoba {
 		mntmOdjaviSe = new JMenuItem("Odjavi se");
 		mntmOdjaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// OdjavaService odjava = new OdjavaService();
-				// odjava.OdjaviKorisnika();
-
-				uow.getOdjavaService().OdjaviKorisnika();
-
-				java.awt.Window win[] = java.awt.Window.getWindows();
-				for (int i = 0; i < win.length; i++) {
-					win[i].dispose();
-				}
-				Prijava.PrikaziFormu();
+				Meni.OdjaviSe();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);

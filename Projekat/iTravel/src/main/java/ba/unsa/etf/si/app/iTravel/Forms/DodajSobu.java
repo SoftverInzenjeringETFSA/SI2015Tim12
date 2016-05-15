@@ -214,22 +214,7 @@ public class DodajSobu {
 		JMenuItem mntmPoetna = new JMenuItem("Početna");
 		mntmPoetna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows();
-				for (int i = 0; i < win.length; i++) {
-					win[i].dispose();
-				}
-				if (UserContext.getInstance().getRoleID() == 1) {
-					PocetnaFormaAdministrator.PrikaziFormu();
-					frmModifikacijeSoba.setVisible(false);
-
-				} else if (UserContext.getInstance().getRoleID() == 2) {
-					PocetnaFormaAgent.PrikaziFormu();
-					frmModifikacijeSoba.setVisible(false);
-
-				} else if (UserContext.getInstance().getRoleID() == 3) {
-					PocetnaFormaSupervizor.PrikaziFormu();
-					frmModifikacijeSoba.setVisible(false);
-				}
+				Meni.Pocetna(frmModifikacijeSoba);
 			}
 		});
 		mnMeni.add(mntmPoetna);
@@ -237,12 +222,7 @@ public class DodajSobu {
 		JMenuItem mntmHoteli = new JMenuItem("Hoteli");
 		mntmHoteli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows();
-				for (int i = 0; i < win.length; i++) {
-					win[i].dispose();
-				}
-				Hoteli.PrikaziFormu();
-				frmModifikacijeSoba.setVisible(false);
+				Meni.Hoteli(frmModifikacijeSoba);
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -251,12 +231,7 @@ public class DodajSobu {
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows();
-				for (int i = 0; i < win.length; i++) {
-					win[i].dispose();
-				}
-				Rezervacije.PrikaziFormu();
-				frmModifikacijeSoba.setVisible(false);
+				Meni.Rezervacije(frmModifikacijeSoba);
 			}
 		});
 		mnMeni.add(mntmRezervacije);
@@ -266,13 +241,7 @@ public class DodajSobu {
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
 			mntmKlijenti.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					java.awt.Window win[] = java.awt.Window.getWindows();
-					for (int i = 0; i < win.length; i++) {
-						win[i].dispose();
-					}
-					Klijenti.PrikaziFormu();
-					frmModifikacijeSoba.setVisible(false);
-
+					Meni.Klijenti(frmModifikacijeSoba);
 				}
 			});
 			mnMeni.add(mntmKlijenti);
@@ -284,12 +253,7 @@ public class DodajSobu {
 			mntmKorisnici.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
-					java.awt.Window win[] = java.awt.Window.getWindows();
-					for (int i = 0; i < win.length; i++) {
-						win[i].dispose();
-					}
-					Korisnici.PrikaziFormu();
-					frmModifikacijeSoba.setVisible(false);
+					Meni.Korisnici(frmModifikacijeSoba);
 				}
 			});
 			mnMeni.add(mntmKorisnici);
@@ -310,14 +274,7 @@ public class DodajSobu {
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
 		mntmOdjaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OdjavaService odjava = new OdjavaService();
-				odjava.OdjaviKorisnika();
-
-				java.awt.Window win[] = java.awt.Window.getWindows();
-				for (int i = 0; i < win.length; i++) {
-					win[i].dispose();
-				}
-				Prijava.PrikaziFormu();
+				Meni.OdjaviSe();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);

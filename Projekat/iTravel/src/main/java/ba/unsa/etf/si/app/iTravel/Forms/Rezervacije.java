@@ -178,7 +178,6 @@ public class Rezervacije {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow()!=-1){
 					int idRezervacije=Integer.parseInt(table.getModel().getValueAt(table.getSelectedRow(), 9).toString());
-					//table.getModel().getValueAt(table.getSelectedRow(), 8).toString().equals("Potvrđeno")
 					Racun rac=uow.getRacunService().dajRacunPoIdRezervacije(idRezervacije);
 					if(rac.getDatumUplate()!=null){
 						KreirajRacun(idRezervacije);
@@ -203,22 +202,7 @@ public class Rezervacije {
 		JMenuItem mntmPoetna = new JMenuItem("Početna");
 		mntmPoetna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 				
-				if(UserContext.getInstance().getRoleID() == 1){
-					PocetnaFormaAdministrator.PrikaziFormu();
-					frmPrikazRezervacija.setVisible(false);
-				}
-				else if(UserContext.getInstance().getRoleID() == 2){
-					PocetnaFormaAgent.PrikaziFormu();
-					frmPrikazRezervacija.setVisible(false);
-				}
-				else if(UserContext.getInstance().getRoleID() == 3){
-					PocetnaFormaSupervizor.PrikaziFormu();
-					frmPrikazRezervacija.setVisible(false);
-				}
+				Meni.Pocetna(frmPrikazRezervacija);
 			}
 		});
 		mnMeni.add(mntmPoetna);
@@ -226,13 +210,7 @@ public class Rezervacije {
 		JMenuItem mntmHoteli = new JMenuItem("Hoteli");
 		mntmHoteli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 				
-				
-				Hoteli.PrikaziFormu();
-				frmPrikazRezervacija.setVisible(false);
+				Meni.Hoteli(frmPrikazRezervacija);
 			}
 		});
 		mnMeni.add(mntmHoteli);
@@ -243,13 +221,7 @@ public class Rezervacije {
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
 			mntmKlijenti.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					java.awt.Window win[] = java.awt.Window.getWindows(); 
-					for(int i=0;i<win.length;i++){ 
-					win[i].dispose(); 
-					} 				
-						Klijenti.PrikaziFormu();
-						frmPrikazRezervacija.setVisible(false);
-					
+					Meni.Klijenti(frmPrikazRezervacija);					
 				}
 			});
 				mnMeni.add(mntmKlijenti);
@@ -261,12 +233,7 @@ public class Rezervacije {
 			mntmKorisnici.addActionListener(new ActionListener() {
 						
 				public void actionPerformed(ActionEvent e) {
-					java.awt.Window win[] = java.awt.Window.getWindows(); 
-					for(int i=0;i<win.length;i++){ 
-					win[i].dispose(); 
-					} 				
-					Korisnici.PrikaziFormu();
-					frmPrikazRezervacija.setVisible(false);			
+					Meni.Korisnici(frmPrikazRezervacija);
 				}
 			});
 			mnMeni.add(mntmKorisnici);
@@ -276,14 +243,8 @@ public class Rezervacije {
 			if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 				JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
 				mntmIzvjestaji.addActionListener(new ActionListener() {
-							
 					public void actionPerformed(ActionEvent e) {
-						java.awt.Window win[] = java.awt.Window.getWindows(); 
-						for(int i=0;i<win.length;i++){ 
-						win[i].dispose(); 
-						} 
-						GenerisanjeIzvjestaja.PrikaziFormu();
-						frmPrikazRezervacija.setVisible(false);		
+						Meni.Izvjestaj(frmPrikazRezervacija);
 					}
 				});
 				mnMeni.add(mntmIzvjestaji);
@@ -304,21 +265,11 @@ public class Rezervacije {
 		JMenuItem mntmOdjaviSe = new JMenuItem("Odjavi se");
 		mntmOdjaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OdjavaService odjava = new OdjavaService();
-				odjava.OdjaviKorisnika();
-							
-				java.awt.Window win[] = java.awt.Window.getWindows(); 
-				for(int i=0;i<win.length;i++){ 
-				win[i].dispose(); 
-				} 
-				Prijava.PrikaziFormu();
+				Meni.OdjaviSe();
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
 	}
-
-
-	
 	
 	private void UcitajSveRezervacije(){
 		ArrayList<Rezervacija> rezervacije=uow.getRezervacijaService().dajSveRezervacije();
