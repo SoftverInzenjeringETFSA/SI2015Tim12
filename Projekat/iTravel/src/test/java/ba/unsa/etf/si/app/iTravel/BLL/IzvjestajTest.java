@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Soba;

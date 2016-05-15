@@ -7,13 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
-
 import ba.unsa.etf.si.app.iTravel.DBModels.Destinacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
-import ba.unsa.etf.si.app.iTravel.DBModels.Klijent;
-import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
-import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
-import ba.unsa.etf.si.app.iTravel.DBModels.Rezervacija;
 import ba.unsa.etf.si.app.iTravel.DBModels.RezervisaniTerminSoba;
 import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
@@ -43,12 +38,12 @@ public class SobaTest {
 		
 	}
 	
-	
-	@Test
-	public void testObrisiSveSobe() {
-		uow= new UnitOfWork();
-		//uow.getSobeService().ObrisiSveSobe();
-	}
+//	
+//	@Test
+//	public void testObrisiSveSobe() {
+//		uow= new UnitOfWork();
+//		//uow.getSobeService().ObrisiSveSobe();
+//	}
 
 	@Test
 	public void testVratiSobaId() {
@@ -113,6 +108,7 @@ public class SobaTest {
 		assertTrue(sobe.size()>0);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testDajTermineZaSobu() {
 		uow= new UnitOfWork();
@@ -141,6 +137,7 @@ public class SobaTest {
 		uow.getDestinacijeService().ObrisiJednuDestinaciju(d);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void PocetneVrijednosti()
 	{
 		d= new Destinacija("mjesto", true, null, null);
