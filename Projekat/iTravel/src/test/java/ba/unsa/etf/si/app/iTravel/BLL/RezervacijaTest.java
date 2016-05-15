@@ -20,7 +20,7 @@ import ba.unsa.etf.si.app.iTravel.DBModels.Soba;
 
 public class RezervacijaTest {
 
-	public UnitOfWork uow;
+	public UnitOfWork uow = new UnitOfWork();
 	public Rezervacija rezervacija;
 	public Osoba osoba;
 	public Rola rola;
@@ -37,16 +37,16 @@ public class RezervacijaTest {
 	@SuppressWarnings("deprecation")
 	public void PostaviParametre()
 	{
-		uow= new UnitOfWork();
+		//uow= new UnitOfWork();
 		osoba=new Osoba("Kenan","Prses", new Date(1994,5,5),"adresa usera 1","email@nesto.com","466655465","1234567894562","dsa64","4dsa6545d",null,null,null,null);
-		uow.getOsobaService().KreirajOsobu(osoba, false);
-		klijent=new Klijent(osoba);
-		uow.getKlijentiService().KreirajKlijenta(klijent);
-		korisnickiracun=new KorisnickiRacun(osoba,"kagent","Sitim12",null,null,null,null);
-		uow.getKorisnickiRacunService().KreirajKorisnickiRacun(korisnickiracun, false);
+		osoba = uow.getOsobaService().KreirajOsobu(osoba, false);
+		klijent = new Klijent(osoba);
+		klijent = uow.getKlijentiService().KreirajKlijenta(klijent);
+		korisnickiracun = new KorisnickiRacun(osoba,"kagent","Sitim12",null,null,null,null);
+		korisnickiracun = uow.getKorisnickiRacunService().KreirajKorisnickiRacun(korisnickiracun, false);
 		Rola rola = uow.getRolaService().dajRolu(1);
-		korisnickaRola=new Korisnickiracunxrola(rola,korisnickiracun);
-		uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(korisnickaRola, false);
+		korisnickaRola = new Korisnickiracunxrola(rola,korisnickiracun);
+		korisnickaRola = uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(korisnickaRola, false);
 		
 		rezervacija=new Rezervacija(korisnickiracun,klijent,new Date(2016,5,14),false,null,null,null,null);
 		uow.getRezervacijaService().kreirajRezervaciju(rezervacija, rola.getRolaId());
@@ -82,7 +82,7 @@ public class RezervacijaTest {
 	
 	@Test
 	public void testDajRezervaciju() {
-		uow= new UnitOfWork();
+		//uow= new UnitOfWork();
 		PostaviParametre();
 		assertEquals(false, uow.getRezervacijaService().dajRezervaciju(rezervacija.getRezervacijaId()).getUkljucenPrevoz());
 		ObrisiSve();
@@ -93,7 +93,7 @@ public class RezervacijaTest {
 	@Test
 	public void testKreirajRezervacijuSaSobom() {
 		
-		uow= new UnitOfWork();
+		//uow= new UnitOfWork();
 		PostaviParametre();
 		PostaviZaSobu();
 		
@@ -111,7 +111,7 @@ public class RezervacijaTest {
 
 	@Test
 	public void testRezervisiSobu() {
-		uow= new UnitOfWork();
+		//uow= new UnitOfWork();
 		PostaviParametre();
 		PostaviZaSobu();
 		Date d= new Date(2016,4,1);
@@ -140,7 +140,7 @@ public class RezervacijaTest {
 
 	@Test
 	public void testDajSveRezervacije() {
-		uow= new UnitOfWork();
+		//uow= new UnitOfWork();
 		PostaviParametre();
 		assertTrue(uow.getRezervacijaService().dajSveRezervacije().size()>0);
 		ObrisiSve();
@@ -148,7 +148,7 @@ public class RezervacijaTest {
 
 	@Test
 	public void testDajRezervisaneTermineZaRezervaciju() {
-		uow= new UnitOfWork();
+		//uow= new UnitOfWork();
 		PostaviParametre();
 		PostaviZaSobu();
 		RezervisaniTerminSoba rts= new RezervisaniTerminSoba(rezervacija, soba, new Date(2016,5,5), new Date(2016,5,15), true);
@@ -161,7 +161,7 @@ public class RezervacijaTest {
 
 	@Test
 	public void testPotvrdiRezervaciju() {
-		uow= new UnitOfWork();
+		//uow= new UnitOfWork();
 		assertFalse(uow.getRezervacijaService().potvrdiRezervaciju(1));
 	}
 	
