@@ -35,7 +35,7 @@ public class PostavkeTest {
 		nizPostavki[1] = true;
 		nizPostavki[2] = false;
 		uow.getPostavkeService().spasiPromjenePostavki(nizPostavki);
-		assertFalse(uow.getPostavkeService().dajSvePostavke()[1]);
+		assertFalse(uow.getPostavkeService().dajSvePostavke()[0]);
 		baza.getPostavkeRepository().obrisiIzBaze(p);
 		baza.getPostavkeRepository().obrisiIzBaze(p1);
 		baza.getPostavkeRepository().obrisiIzBaze(p2);
@@ -51,7 +51,7 @@ public class PostavkeTest {
 		Postavke p2=new Postavke(1900, "Rezervacije", true);
 		p2= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p2);
 		
-		assertEquals(3,uow.getPostavkeService().dajSvePostavke());
+		assertEquals(3,baza.getPostavkeRepository().ucitajSveIzBaze());
 		baza.getPostavkeRepository().obrisiIzBaze(p);
 		baza.getPostavkeRepository().obrisiIzBaze(p1);
 		baza.getPostavkeRepository().obrisiIzBaze(p2);
