@@ -49,10 +49,11 @@ public class KorisnickiRacunTest
 		Object[][] korisnici = uow.getKorisniciService().PrikaziSveKorisnike();
 		assertNotEquals(0, korisnici.length);
 		
+		baza.getKorisnickiRacunXRolaRepository().obrisiIzBaze(korisnickiracunxrola);
+		baza.getKorisnickiRacunRepository().obrisiIzBaze(korisnickiRacun);
 		baza.getOsobaRepository().obrisiIzBaze(osoba);
 		//baza.getRolaRepository().obrisiIzBaze(rola);
-		//baza.getKorisnickiRacunRepository().obrisiIzBaze(korisnickiRacun);
-		//baza.getKorisnickiRacunXRolaRepository().obrisiIzBaze(korisnickiracunxrola);
+		
 		
 	}
 
