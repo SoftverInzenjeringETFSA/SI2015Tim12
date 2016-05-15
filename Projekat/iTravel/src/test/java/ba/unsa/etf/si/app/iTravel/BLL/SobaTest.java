@@ -27,9 +27,18 @@ public class SobaTest {
 	@Test
 	public void testUbaciSobuUBazu() {
 		uow= new UnitOfWork();
-		PocetneVrijednosti();
+		d= new Destinacija("mjesto", true, null, null);
+		uow.getDestinacijeService().KreirajDestinaciju(d);
+		h= new Hotel(d, "adresa", "drzava", "grad", "061111111", new Date(2016,4,1), new Date(2016,7,1), new Date(2016,4,1), new Date(2016,4,1), "naziv",
+				"lanac", 5, null, null);
+		uow.getHoteliService().KreirajHotel(h);
+		s= new Soba(h, 2, "opis", 50, 30, null, null);
+		uow.getSobeService().UbaciSobuUBazu(s);
 		int sobe= uow.getIzvjestajService().ukupanBrojSobaNaRaspolaganju(h);
-		Izbrisi(h,d,s);
+		uow= new UnitOfWork();
+		uow.getSobeService().ObrisiJenduSobu(s);
+		uow.getHoteliService().ObrisiJendaHotel(h);
+		uow.getDestinacijeService().ObrisiJednuDestinaciju(d);
 		assertEquals(1, sobe);
 		
 	}
@@ -37,7 +46,8 @@ public class SobaTest {
 	
 	@Test
 	public void testObrisiSveSobe() {
-		//Ne diram zbog baze
+		uow= new UnitOfWork();
+		//uow.getSobeService().ObrisiSveSobe();
 	}
 
 	@Test
