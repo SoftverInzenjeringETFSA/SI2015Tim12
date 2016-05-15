@@ -50,11 +50,11 @@ public class PostavkeTest {
 	@Test
 	public void testDajSvePostavke(){
 		uow=new UnitOfWork();
-		Postavke p=new Postavke(1700, "Hoteli", true);
+		Postavke p=new Postavke(1701, "Hoteli", true);
 		p= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p);
-	    Postavke p1=new Postavke(1800, "Sobe", false);
+	    Postavke p1=new Postavke(1801, "Sobe", false);
 		p1= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p1);
-		Postavke p2=new Postavke(1900, "Rezervacije", true);
+		Postavke p2=new Postavke(1901, "Rezervacije", true);
 		p2= uow.getPostavkeService().baza.getPostavkeRepository().spasiUBazu(p2);
 		
 		List<Postavke> lista=baza.getPostavkeRepository().ucitajSveIzBaze();
