@@ -24,14 +24,14 @@ import java.awt.event.ActionEvent;
 public class ModifikacijaKorisnika {
 	private UnitOfWork uow = new UnitOfWork();
 	private JFrame frmModifikacijaKorisnika;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_2;
+	private JTextField textFieldModifikacija;
+	private JTextField textField_1Modifikacija;
+	private JTextField textField_3Modifikacija;
+	private JTextField textField_4Modifikacija;
+	private JTextField textField_5Modifikacija;
+	private JTextField textField_6Modifikacija;
+	private JTextField textField_7Modifikacija;
+	private JTextField textField_2Modifikacija;
 
 	/**
 	 * Launch the application.
@@ -105,33 +105,33 @@ public class ModifikacijaKorisnika {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Administrator", "Supervizor", "Putni\u010Dki agent"}));
 		comboBox.setBounds(134, 306, 139, 24);
 		
-		textField = new JTextField();
-		textField.setBounds(134, 60, 139, 20);
-		textField.setColumns(10);
+		textFieldModifikacija = new JTextField();
+		textFieldModifikacija.setBounds(134, 60, 139, 20);
+		textFieldModifikacija.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(134, 91, 139, 20);
-		textField_1.setColumns(10);
+		textField_1Modifikacija = new JTextField();
+		textField_1Modifikacija.setBounds(134, 91, 139, 20);
+		textField_1Modifikacija.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(134, 122, 139, 20);
-		textField_3.setColumns(10);
+		textField_3Modifikacija = new JTextField();
+		textField_3Modifikacija.setBounds(134, 122, 139, 20);
+		textField_3Modifikacija.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(134, 153, 139, 20);
-		textField_4.setColumns(10);
+		textField_4Modifikacija = new JTextField();
+		textField_4Modifikacija.setBounds(134, 153, 139, 20);
+		textField_4Modifikacija.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(134, 184, 139, 20);
-		textField_5.setColumns(10);
+		textField_5Modifikacija = new JTextField();
+		textField_5Modifikacija.setBounds(134, 184, 139, 20);
+		textField_5Modifikacija.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(134, 215, 139, 20);
-		textField_6.setColumns(10);
+		textField_6Modifikacija = new JTextField();
+		textField_6Modifikacija.setBounds(134, 215, 139, 20);
+		textField_6Modifikacija.setColumns(10);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(134, 246, 139, 20);
-		textField_7.setColumns(10);
+		textField_7Modifikacija = new JTextField();
+		textField_7Modifikacija.setBounds(134, 246, 139, 20);
+		textField_7Modifikacija.setColumns(10);
 		frmModifikacijaKorisnika.getContentPane().setLayout(null);
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel);
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel_3);
@@ -141,13 +141,13 @@ public class ModifikacijaKorisnika {
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel_7);
 		frmModifikacijaKorisnika.getContentPane().add(lblNewLabel_8);
 		frmModifikacijaKorisnika.getContentPane().add(comboBox);
-		frmModifikacijaKorisnika.getContentPane().add(textField_7);
-		frmModifikacijaKorisnika.getContentPane().add(textField_6);
-		frmModifikacijaKorisnika.getContentPane().add(textField_5);
-		frmModifikacijaKorisnika.getContentPane().add(textField_4);
-		frmModifikacijaKorisnika.getContentPane().add(textField_3);
-		frmModifikacijaKorisnika.getContentPane().add(textField_1);
-		frmModifikacijaKorisnika.getContentPane().add(textField);
+		frmModifikacijaKorisnika.getContentPane().add(textField_7Modifikacija);
+		frmModifikacijaKorisnika.getContentPane().add(textField_6Modifikacija);
+		frmModifikacijaKorisnika.getContentPane().add(textField_5Modifikacija);
+		frmModifikacijaKorisnika.getContentPane().add(textField_4Modifikacija);
+		frmModifikacijaKorisnika.getContentPane().add(textField_3Modifikacija);
+		frmModifikacijaKorisnika.getContentPane().add(textField_1Modifikacija);
+		frmModifikacijaKorisnika.getContentPane().add(textFieldModifikacija);
 		frmModifikacijaKorisnika.getContentPane().add(btnNewButton);
 		
 		JLabel lblUnesitePodatkeO = new JLabel("Unesite nove podatke o korisniku");
@@ -160,10 +160,10 @@ public class ModifikacijaKorisnika {
 		label.setBounds(25, 281, 97, 14);
 		frmModifikacijaKorisnika.getContentPane().add(label);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(134, 277, 139, 20);
-		frmModifikacijaKorisnika.getContentPane().add(textField_2);
+		textField_2Modifikacija = new JTextField();
+		textField_2Modifikacija.setColumns(10);
+		textField_2Modifikacija.setBounds(134, 277, 139, 20);
+		frmModifikacijaKorisnika.getContentPane().add(textField_2Modifikacija);
 		
 		JMenuItem menuItem = new JMenuItem("New menu item");
 		menuItem.setBounds(-5, 85, 129, 22);
