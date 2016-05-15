@@ -353,138 +353,6 @@ public class KreiranjeRezervacije {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Kreiranje();
-				
-				// Možda izmjesiti u metodu ili u BLL
-				if(true) // ako je uspjesno kreirana rezervacija ide potvrda u pdf-u
-				{
-					// START PDF-a
-					Document document = new Document();
-			        try {
-			        	
-			        	String idRezervacije = "151"; // Ovdje dinamicki IDRezervacije
-			        	
-			            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Potvrda_rezervacije_" + idRezervacije +".pdf"));
-			            document.open();	        
-			            document.addTitle("POTVRDA O REZERVACIJI");
-
-			            Image logoEuroByte;
-			            Image logoEtfTravel;
-						
-			            try {
-			            	// Postavljanje dva loga
-							logoEuroByte = Image.getInstance("src/main/resources/Images/iTravelEuroByte.png");
-							logoEtfTravel = Image.getInstance("src/main/resources/Images/etfTravel.png");
-							logoEuroByte.setAbsolutePosition(380f, 750f);
-							
-							document.add(logoEtfTravel);
-				            document.add(logoEuroByte);
-				            
-						} catch (MalformedURLException e1) {
-							UnitOfWork.logger.error(e1);
-						} catch (IOException e1) {
-							UnitOfWork.logger.error(e1);
-						}
-			            
-			            Paragraph p = new Paragraph("Ovaj dokument se printa u dva primjerka,"
-			            		+ " jedan primjerak preuzima klijent, a drugi ostaje u agenciji ETFTravel."
-			            		+ " Dokument služi kao potvrda da je klijent napravio rezervaciju za određenu"
-			            		+ " destinaciju i služi kao dodatni dokaz za check-in u hotel.");
-
-			            p.setAlignment(Element.ALIGN_JUSTIFIED);
-			            document.add(p);
-			            
-			            PdfPTable tableFakt = new PdfPTable(2);
-			            tableFakt.setWidthPercentage(100);
-			            
-			            PdfPCell cell = new PdfPCell();
-			            cell.setPadding(3f);
-			            cell.addElement(new Paragraph("Broj fakture:")); 
-			            
-			            PdfPCell cell1 = new PdfPCell();
-			            cell1.setPadding(3f);
-			            cell1.addElement(new Paragraph("1542")); // Ovdje dinamicki ID racuna
-			            
-			            tableFakt.addCell(cell);
-			            tableFakt.addCell(cell1);
-
-			            tableFakt.setSpacingBefore(10f);
-			            tableFakt.setSpacingAfter(5f);
-			            
-			            document.add(tableFakt);
-			            
-			            Paragraph pocetniParagraf = new Paragraph("Podaci o rezervaciji:");
-			            pocetniParagraf.setSpacingBefore(10f);
-			            document.add(pocetniParagraf);
-			            
-			            PdfPTable table = new PdfPTable(2);
-			            table.setSpacingBefore(5f);
-			            table.setWidthPercentage(100);
-			            table.setWidths(new int[]{100,200});
-			            
-			            table.addCell("Klijent:");
-			            table.addCell(new Paragraph("Kenan Pršeš, 12KJKP1, Kamenica potok 11, "
-			            		+ "+387 62 999 999")); // Ovdje dinamički podaci o klijentu
-			            
-			            table.addCell(new Paragraph("Destinacija:"));
-			            table.addCell(new Paragraph("Sarajevo")); // Dinamički Destinacija
-			            
-			            table.addCell(new Paragraph("Podaci za hotel:"));
-			            table.addCell(new Paragraph("Sveto drvo, Jenkins 12a")); // Dinamički hotel
-			            
-			            table.addCell(new Paragraph("Podaci za sobe:"));
-			            table.addCell(new Paragraph("Soba 112, broj kreveta: 4, televizija, internet, pogled na industrijsku zonu."));
-			            // Dinamički podaci za sobu
-			            
-			            table.addCell(new Paragraph("Cijena:"));
-			            table.addCell(new Paragraph("350,00 KM"));   
-			            // Dinamički cijena
-			            
-			            document.add(table);
-			            
-			            Paragraph potpisOvlasteneosobe = new Paragraph("Potpis ovlaštene osobe: ");
-			            potpisOvlasteneosobe.setSpacingBefore(25f);
-			            potpisOvlasteneosobe.setIndentationLeft(125f);
-			            DottedLineSeparator dottedline = new DottedLineSeparator();
-			            dottedline.setLineColor(BaseColor.GRAY);
-			            dottedline.setGap(3f);
-			            dottedline.setPercentage(50f);
-			            dottedline.setAlignment(0);
-			            potpisOvlasteneosobe.add(new Chunk(dottedline));
-			            document.add(potpisOvlasteneosobe);
-			            
-			            Paragraph potpisKlijenta = new Paragraph("Potpis klijenta: ");
-			            potpisKlijenta.setSpacingBefore(25f);
-			            potpisKlijenta.setIndentationLeft(175f);
-			            DottedLineSeparator dottedline1 = new DottedLineSeparator();
-			            dottedline1.setLineColor(BaseColor.GRAY);
-			            dottedline1.setGap(3f);
-			            dottedline1.setPercentage(50f);
-			            dottedline1.setAlignment(0);
-			            potpisKlijenta.add(new Chunk(dottedline1));
-			            document.add(potpisKlijenta);    
-			            
-			            document.close();
-			            writer.close();
-			            
-			            if (Desktop.isDesktopSupported()) {
-			                try {
-			                    File myFile = new File("Potvrda_rezervacije_" + idRezervacije +".pdf");
-			                    Desktop.getDesktop().open(myFile);
-			                } catch (IOException ex) {
-			                	UnitOfWork.logger.error(ex);
-			                }
-			            }
-			            
-			        } catch (DocumentException e1)
-			        {
-			        	UnitOfWork.logger.error(e1);
-			        }
-			        catch(FileNotFoundException e2)
-			        {
-			        	UnitOfWork.logger.error(e2);
-			        }
-					// KRAJ PDF-a
-				}
 			}
 		});
 		btnNewButton.setBounds(597, 377, 150, 30);
@@ -832,12 +700,13 @@ public class KreiranjeRezervacije {
 			soba.setSobaId(id);
 
 			int provjera=uow.getRezervacijaService().kreirajRezervacijuSaSobom(rezerv,soba, odDatuma, doDatuma, idAgenta, (int)Double.parseDouble(cijena.getText()));
+			idKreiraneRezervacije=provjera;
 			if(provjera!=0){
 				JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);
 				KreirajFakturu();
 	        	int rowHotel=table.getSelectedRow();
 				if(rowHotel!=-1){
-		        	int idHotela=Integer.parseInt(table.getModel().getValueAt(row, 4).toString());
+		        	int idHotela=Integer.parseInt(table.getModel().getValueAt(rowHotel, 4).toString());
 					UcitavanjeSoba(idHotela);
 				}
 			}
@@ -971,7 +840,7 @@ public class KreiranjeRezervacije {
             table.addCell(new Paragraph(h.getNaziv()+", "+h.getAdresa())); // Dinamički hotel
             
             table.addCell(new Paragraph("Podaci za sobe:"));
-            table.addCell(new Paragraph("Soba "+s.getSobaId()+", broj kreveta: "+s.getBrojKreveta()+","+ s.getOpis()+"."));
+            table.addCell(new Paragraph("Soba "+s.getSobaId()+", broj kreveta: "+s.getBrojKreveta()+", "+ s.getOpis()+"."));
             // Dinamički podaci za sobu
             
             table.addCell(new Paragraph("Cijena:"));
