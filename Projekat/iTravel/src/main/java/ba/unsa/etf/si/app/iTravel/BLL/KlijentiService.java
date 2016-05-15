@@ -7,6 +7,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
+import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Klijent;
 import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
 
@@ -66,5 +67,11 @@ public class KlijentiService {
 		OsobaService os=new OsobaService();
 		Osoba o= os.dajOsobuPoId(k.getOsoba().getOsobaId());
 		return o;
+	}
+	
+	public void ObrisiJednogKlijenta(Klijent klijent) 
+	{
+
+		baza.getKlijentRepository().obrisiIzBaze(klijent);
 	}
 }

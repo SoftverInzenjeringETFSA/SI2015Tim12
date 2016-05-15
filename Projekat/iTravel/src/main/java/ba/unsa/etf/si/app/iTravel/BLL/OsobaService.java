@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.spi.Stoppable;
 
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
+import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
 
 public class OsobaService
@@ -98,5 +99,11 @@ public class OsobaService
 		
 		return rezultat;
 		
+	}
+	
+	public void ObrisiJednuOsobu(Osoba osoba) 
+	{
+
+		baza.getOsobaRepository().obrisiIzBaze(osoba);
 	}
 }
