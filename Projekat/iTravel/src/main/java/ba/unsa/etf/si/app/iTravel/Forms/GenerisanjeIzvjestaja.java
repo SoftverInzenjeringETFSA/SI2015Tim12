@@ -318,7 +318,7 @@ public class GenerisanjeIzvjestaja {
 				}
 			});
 				mnPovratak.add(mntmKlijenti);
-				mntmRezervacije.setEnabled(postavke[3]);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){

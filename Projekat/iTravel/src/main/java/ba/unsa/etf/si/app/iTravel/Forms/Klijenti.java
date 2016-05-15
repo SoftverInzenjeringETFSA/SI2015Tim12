@@ -59,13 +59,13 @@ public class Klijenti {
 		
 		frmPrikazKlijenata = new JFrame();
 		frmPrikazKlijenata.setTitle("Prikaz klijenata");
-		frmPrikazKlijenata.setBounds(100, 100, 876, 318);
+		frmPrikazKlijenata.setBounds(100, 100, 876, 407);
 		frmPrikazKlijenata.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrikazKlijenata.getContentPane().setLayout(null);
 		frmPrikazKlijenata.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 29, 821, 175);
+		scrollPane.setBounds(10, 11, 840, 325);
 		frmPrikazKlijenata.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -89,14 +89,6 @@ public class Klijenti {
 		table.getColumnModel().getColumn(2).setPreferredWidth(88);
 		table.getColumnModel().getColumn(6).setPreferredWidth(95);
 		scrollPane.setViewportView(table);
-		
-		JButton btnModifikujKorisnike = new JButton("Modifikuj klijenta");
-		btnModifikujKorisnike.setBounds(20, 222, 150, 30);
-		frmPrikazKlijenata.getContentPane().add(btnModifikujKorisnike);
-		
-		JButton btnObriiKorisnika = new JButton("Obri\u0161i klijenta");
-		btnObriiKorisnika.setBounds(180, 222, 150, 30);
-		frmPrikazKlijenata.getContentPane().add(btnObriiKorisnika);
 		
 		JButton btnIzlaz = new JButton("Izlaz");
 		btnIzlaz.setBounds(691, 222, 150, 30);

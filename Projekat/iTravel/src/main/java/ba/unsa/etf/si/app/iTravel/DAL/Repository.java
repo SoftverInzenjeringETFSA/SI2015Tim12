@@ -134,9 +134,18 @@ public class Repository<T>{
      * @param session Hibernate sesija
      */
     public void obrisiIzBaze(T object) {
+        Session novaSesija = SessionFactoryDB.getSession();
+        Transaction transaction = novaSesija.beginTransaction();
+        
+        transaction.begin();
+        novaSesija.delete(object);
+        transaction.commit();
+        
+        novaSesija.close();
+    	/*
     	Transaction t = session.beginTransaction();
         session.delete(object);
-        t.commit();
+        t.commit();*/
     }
 
     /**
@@ -144,12 +153,25 @@ public class Repository<T>{
      * @param session Hibernate sesija
      */
     public void obrisiSveIzBaze() {
+    	 Session novaSesija = SessionFactoryDB.getSession();
+         Transaction transaction = novaSesija.beginTransaction();
+         
+         String queryString = DELETE + SPACE + FROM + PARAMETER;
+         
+         Query query = novaSesija.createQuery(queryString);
+         query.setString(0, entityClass.getCanonicalName());
+         query.executeUpdate();
+         
+         transaction.commit();
+         
+         novaSesija.close();      
+    	/*
         Transaction t = session.beginTransaction();
         String queryString = DELETE + SPACE + FROM + PARAMETER;
         Query query = session.createQuery(queryString);
         query.setString(0, entityClass.getCanonicalName());
         query.executeUpdate();
-        t.commit();
+        t.commit();*/
     }
     
     /* Učitavanje iz baze po kriteriju */

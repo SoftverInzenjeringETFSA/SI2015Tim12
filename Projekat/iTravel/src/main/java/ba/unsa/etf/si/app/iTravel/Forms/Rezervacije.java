@@ -233,6 +233,24 @@ public class Rezervacije {
 			mnMeni.add(mntmKorisnici);
 			mntmKorisnici.setEnabled(postavke[4]);
 			}
+			
+			if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
+				JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
+				mntmIzvjestaji.addActionListener(new ActionListener() {
+							
+					public void actionPerformed(ActionEvent e) {
+						java.awt.Window win[] = java.awt.Window.getWindows(); 
+						for(int i=0;i<win.length;i++){ 
+						win[i].dispose(); 
+						} 
+						GenerisanjeIzvjestaja.PrikaziFormu();
+						frmPrikazRezervacija.setVisible(false);		
+					}
+				});
+				mnMeni.add(mntmIzvjestaji);
+				mntmIzvjestaji.setEnabled(postavke[5]);
+				}
+			
 		JMenu mnRaun = new JMenu("Račun");
 		menuBar.add(mnRaun);
 		

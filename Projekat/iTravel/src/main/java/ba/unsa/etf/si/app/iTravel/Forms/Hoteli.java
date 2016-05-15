@@ -169,34 +169,28 @@ public class Hoteli {
 				
 				
 				 try {  
-					                                               
-					                                             Hotel hotel = new Hotel();  
-					                                             if (table_pregledHotela.getSelectedRow() == -1) {  
-					                                                     JOptionPane.showMessageDialog(null, "Niste selektovali hotel", "Info",  
-					                                                                     JOptionPane.INFORMATION_MESSAGE);  
-					                                             } else {  
-					                                                     hotel = hoteli.get(table_pregledHotela.getSelectedRow());  
-					                                                     
-					                                                     int reply = JOptionPane.showConfirmDialog(null,"Jeste li sigurni da želite obrisati odabrani hotel?", "UPOZORENJE", JOptionPane.YES_NO_OPTION);
-					                         	      				    if (reply == JOptionPane.YES_OPTION)
-					                         	      				    {
-					                         	      				    	hoteliService.ObrisiJendaHotel(hotel); 
-					                         	      				    }
-					      
-					                                   
-					                                             }  
-					                                             NapuniHotele();  
-					                                     } catch (Exception e2) {  
-					                                     UnitOfWork.logger.error(e2);  
-					                                     }  
-					                                                                      
-
-
-					 
-					                                                             
-					                                  
-					                                                                    
-					                         }                         
+                           
+                         Hotel hotel = new Hotel();  
+                         if (table_pregledHotela.getSelectedRow() == -1) {  
+                                 JOptionPane.showMessageDialog(null, "Niste selektovali hotel", "Info",  
+                                                 JOptionPane.INFORMATION_MESSAGE);  
+                         } else {  
+                                 hotel = hoteli.get(table_pregledHotela.getSelectedRow());  
+                                 
+                                 int reply = JOptionPane.showConfirmDialog(null,"Jeste li sigurni da želite obrisati odabrani hotel?", "UPOZORENJE", JOptionPane.YES_NO_OPTION);
+                     	      				    if (reply == JOptionPane.YES_OPTION)
+                     	      				    {
+                     	      				    	hoteliService.ObrisiJendaHotel(hotel); 
+                     	      				    }
+  
+                               
+                                         }  
+                                         NapuniHotele();  
+                                 } catch (Exception e2) {  
+                                 UnitOfWork.logger.error(e2);  
+                                 }  
+                                                             
+                 }                         
 
 		});
 		btnObriiHotel.setBounds(503, 287, 150, 30);
@@ -204,8 +198,7 @@ public class Hoteli {
 		
 		btnDodajHotel = new JButton("Dodaj hotel");
 		btnDodajHotel.addActionListener(new ActionListener() {
-
-	public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e) {
 				DodavanjeHotela.PrikaziFormu();
 			}
 		});
@@ -300,7 +293,7 @@ public class Hoteli {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
-				mntmRezervacije.setEnabled(postavke[3]);
+				mntmKlijenti.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -319,6 +312,23 @@ public class Hoteli {
 			mnMeni.add(mntmKorisnici);
 			mntmKorisnici.setEnabled(postavke[4]);
 			}
+		
+		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
+		JMenuItem mntmIzvjestaji = new JMenuItem("Izvještaji");
+		mntmIzvjestaji.addActionListener(new ActionListener() {
+					
+			public void actionPerformed(ActionEvent e) {
+				java.awt.Window win[] = java.awt.Window.getWindows(); 
+				for(int i=0;i<win.length;i++){ 
+				win[i].dispose(); 
+				} 
+				GenerisanjeIzvjestaja.PrikaziFormu();
+				frmPrikazHotela.setVisible(false);		
+			}
+		});
+		mnMeni.add(mntmIzvjestaji);
+		mntmIzvjestaji.setEnabled(postavke[5]);
+		}
 		
 		mnRaun = new JMenu("Račun");
 		menuBar.add(mnRaun);
