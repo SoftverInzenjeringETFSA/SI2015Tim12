@@ -62,7 +62,7 @@ public class IzvjestajTest {
 		Date d= new Date(2016,3,1);
 		Date d1= new Date(2016,4,31);
 		//Nesto ne fercera
-		assertEquals(0, uow.getIzvjestajService().brojIznajmljenihSoba(hotel.get(hotel.size()-1), d, d1));
+		assertEquals(1, uow.getIzvjestajService().brojIznajmljenihSoba(hotel.get(hotel.size()-1), d, d1));
 		
 	}
 
