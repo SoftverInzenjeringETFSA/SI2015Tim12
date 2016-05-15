@@ -359,6 +359,13 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije.getContentPane().add(btnNewButton);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(table_Sobe.getSelectedRow()!=-1)
+					IzracunajCijenu();
+			}
+		});
 		scrollPane_1.setBounds(463, 118, 412, 128);
 		frmKreiranjeRezervacije.getContentPane().add(scrollPane_1);
 		

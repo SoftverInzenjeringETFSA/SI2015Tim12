@@ -102,11 +102,7 @@ public class KorisnickiRacunService
 
 	}
 	
-	public List<KorisnickiRacun> dajKorisnickiRacunPoKorisnickiRacunID(int id){
-		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		listaKriterija.add(Restrictions.eq("korisnickiRacunId", (Integer)id));
-		List<KorisnickiRacun> tmp=new ArrayList<KorisnickiRacun>();
-		tmp=baza.getKorisnickiRacunRepository().ucitajIzBazePoKriteriju(listaKriterija);
-		return tmp;
+	public KorisnickiRacun dajKorisnickiRacunPoKorisnickiRacunID(int id){
+		return baza.getKorisnickiRacunRepository().ucitajIzBaze(id);
 	}
 }

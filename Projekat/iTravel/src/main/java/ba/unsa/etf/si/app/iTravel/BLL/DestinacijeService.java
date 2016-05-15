@@ -28,20 +28,12 @@ public class DestinacijeService {
 	} 
 	
 	public Destinacija VratiDestinacijuPoId(int idDestinacije){
-		Destinacija dest=new Destinacija();
-
-		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("destinacijaId",idDestinacije));
-		
-		dest=baza.getDestRepository().ucitajIzBazePoKriteriju(listaKriterjona).get(0);
-		return dest;
+		return baza.getDestRepository().ucitajIzBaze(idDestinacije);
 	} 
 	
 	public void KreirajDestinaciju(Destinacija d) {
-			
 			baza.getDestRepository().spasiUBazu(d);
-	
-		}
+	}
 	
 	public ArrayList<Destinacija> DajSveDestinacije(){
 		ArrayList<Destinacija> destinacije=new ArrayList<Destinacija>();
@@ -50,17 +42,14 @@ public class DestinacijeService {
 	}
 	public void UbaciDestinacijuUBAzu(Destinacija destinacija) {
 		baza.getDestRepository().spasiUBazu(destinacija);
-
 	}
 	
 	public void ObrisiJednuDestinaciju (Destinacija destinacija) {
-
 		baza.getDestRepository().obrisiIzBaze(destinacija);
 	}
 
 	public void ObrisiSveDestinacije()
 	{
-
 		baza.getDestRepository().obrisiSveIzBaze();
 	}
 
