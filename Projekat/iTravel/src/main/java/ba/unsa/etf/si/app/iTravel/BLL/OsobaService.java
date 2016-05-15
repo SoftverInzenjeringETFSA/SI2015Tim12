@@ -103,7 +103,6 @@ public class OsobaService
 	
 	public void ObrisiJednuOsobu(Osoba osoba) 
 	{
-
 		baza.getOsobaRepository().obrisiIzBaze(osoba);
 	}
 }

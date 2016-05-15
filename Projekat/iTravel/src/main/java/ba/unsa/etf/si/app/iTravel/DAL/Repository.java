@@ -138,7 +138,7 @@ public class Repository<T>{
         Transaction transaction = novaSesija.beginTransaction();
         
         transaction.begin();
-        novaSesija.delete(object);
+        novaSesija.delete(entityClass.getName(), object);
         transaction.commit();
         
         novaSesija.close();
