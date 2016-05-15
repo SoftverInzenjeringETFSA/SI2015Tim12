@@ -117,7 +117,8 @@ public class IzvjestajTest {
 	@Test
 	public void VratiListuHotelaDestinacijaTest() {
 		uow= new UnitOfWork();
-		Destinacija d= uow.getIzvjestajService().VratiListuDestinacija().get(0);
+		Destinacija d= new Destinacija("mjesto", true, null, null);
+		uow.getDestinacijeService().KreirajDestinaciju(d);
 		Hotel h= new Hotel(d, "Ruzna", "drzava", "grad", "061111111", new Date(2016,4,1), new Date(2016,7,1), new Date(2016,4,1), new Date(2016,4,1), "naziv",
 				"lanac", 5, null, null);
 		uow.getHoteliService().KreirajHotel(h);
@@ -131,8 +132,7 @@ public class IzvjestajTest {
 		uow.getHoteliService().ObrisiJendaHotel(h);
 		uow.getHoteliService().ObrisiJendaHotel(h2);
 		uow.getDestinacijeService().ObrisiJednuDestinaciju(d);
-		//Neki hepek i nećeee
-		assertEquals(1,1);
+		assertEquals("Ruzna", adresa);
 		
 	}
 
