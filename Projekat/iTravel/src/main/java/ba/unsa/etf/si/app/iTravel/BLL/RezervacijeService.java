@@ -47,7 +47,7 @@ public class RezervacijeService {
 		return r.get(0);
 	}
 	
-    public boolean	kreirajRezervacijuSaSobom(Rezervacija rez, Soba soba, Date odD, Date doD, int idAgent, int cijena){
+    public int kreirajRezervacijuSaSobom(Rezervacija rez, Soba soba, Date odD, Date doD, int idAgent, int cijena){
 			if(kreirajRezervaciju(rez, idAgent)){
 				if(rezervisiSobu(soba,odD,doD, dajRezervacijuPoRezervaciji(rez))){
 					Racun racun=new Racun();
@@ -67,10 +67,10 @@ public class RezervacijeService {
 						racun.setRacunId(1);
 					r.kreirajRacun(racun);
 					
-					return true;
+					return tmpRez.getRezervacijaId();
 				}
 			}
-			return false;
+			return 0;
 	}
 	
     public boolean rezervisiSobu(Soba soba, Date odD, Date doD, Rezervacija rez){

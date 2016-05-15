@@ -57,4 +57,14 @@ public class KlijentiService {
 		k=baza.getKlijentRepository().ucitajIzBazePoKriteriju(listaKriterija);
 		return k;
 	}
+	
+	public Osoba dajOsobuPoKlijentId(int idKlijent){
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		listaKriterija.add(Restrictions.eq("klijentId", idKlijent));
+		Klijent k=new Klijent();
+		k=(Klijent) baza.getKlijentRepository().ucitajIzBazePoKriteriju(listaKriterija).get(0);
+		OsobaService os=new OsobaService();
+		Osoba o= os.dajOsobuPoId(k.getOsoba().getOsobaId());
+		return o;
+	}
 }
