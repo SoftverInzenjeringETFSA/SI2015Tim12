@@ -123,6 +123,9 @@ public class KreiranjeRezervacije {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmKreiranjeRezervacije = new JFrame();
 		frmKreiranjeRezervacije.setTitle("Kreiranje rezervacije");
 		frmKreiranjeRezervacije.setBounds(100, 100, 901, 573);
@@ -594,6 +597,7 @@ public class KreiranjeRezervacije {
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -607,6 +611,7 @@ public class KreiranjeRezervacije {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -622,6 +627,7 @@ public class KreiranjeRezervacije {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmRezervacije.setEnabled(postavke[3]);
 			}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -638,6 +644,7 @@ public class KreiranjeRezervacije {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
 			
 		

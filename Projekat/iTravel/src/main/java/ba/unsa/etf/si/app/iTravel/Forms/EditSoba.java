@@ -261,7 +261,7 @@ public class EditSoba {
 	 */
 	private void initialize() {
 		
-		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
 		frmEditSoba = new JFrame();
 		frmEditSoba.setTitle("Edit soba");
@@ -447,6 +447,7 @@ public class EditSoba {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 
 		if (UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3) {
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -462,6 +463,7 @@ public class EditSoba {
 				}
 			});
 			mnMeni.add(mntmKlijenti);
+			mntmRezervacije.setEnabled(postavke[3]);
 		}
 		NapuniSobe();
 		hotelsoba = new Soba();
@@ -480,6 +482,7 @@ public class EditSoba {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 		}
 
 		mnRaun = new JMenu("Račun");

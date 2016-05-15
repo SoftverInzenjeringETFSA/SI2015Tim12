@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ModifikacijaKorisnika {
-
+	private UnitOfWork uow = new UnitOfWork();
 	private JFrame frmModifikacijaKorisnika;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -61,6 +61,9 @@ public class ModifikacijaKorisnika {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
 		frmModifikacijaKorisnika = new JFrame();
 		frmModifikacijaKorisnika.setTitle("Modifikacija korisnika");
 		frmModifikacijaKorisnika.setBounds(100, 100, 362, 454);
@@ -210,6 +213,7 @@ public class ModifikacijaKorisnika {
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -224,6 +228,7 @@ public class ModifikacijaKorisnika {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 			JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -239,6 +244,7 @@ public class ModifikacijaKorisnika {
 				}
 			});
 				mnMeni.add(mntmKlijenti);
+				mntmRezervacije.setEnabled(postavke[3]);
 			}
 			
 			if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -255,6 +261,7 @@ public class ModifikacijaKorisnika {
 				}
 			});
 			mnMeni.add(mntmKorisnici);
+			mntmKorisnici.setEnabled(postavke[4]);
 			}
 		
 		JMenu mnRaun = new JMenu("Račun");

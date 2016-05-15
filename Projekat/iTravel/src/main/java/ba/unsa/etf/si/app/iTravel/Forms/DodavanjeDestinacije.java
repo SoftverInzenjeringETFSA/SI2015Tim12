@@ -39,7 +39,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
 public class DodavanjeDestinacije {
-
+	private UnitOfWork uow = new UnitOfWork();
 	private JFrame frmDodavanjeDestinacije;
 	private JTextField textField;
 	private JCheckBox chckbxNewCheckBox;
@@ -115,7 +115,11 @@ public class DodavanjeDestinacije {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {frmDodavanjeDestinacije = new JFrame();
+	private void initialize() {
+	
+		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
+		
+	frmDodavanjeDestinacije = new JFrame();
 	frmDodavanjeDestinacije.setTitle("Unos destinacije");
 	frmDodavanjeDestinacije.setBounds(100, 100, 400, 265);
 	frmDodavanjeDestinacije.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -198,6 +202,7 @@ public class DodavanjeDestinacije {
 			}
 		});
 		mnMeni.add(mntmHoteli);
+		mntmHoteli.setEnabled(postavke[1]);
 		
 		JMenuItem mntmRezervacije = new JMenuItem("Rezervacije");
 		mntmRezervacije.addActionListener(new ActionListener() {
@@ -211,6 +216,7 @@ public class DodavanjeDestinacije {
 			}
 		});
 		mnMeni.add(mntmRezervacije);
+		mntmRezervacije.setEnabled(postavke[2]);
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
 		JMenuItem mntmKlijenti = new JMenuItem("Klijenti");
@@ -226,6 +232,7 @@ public class DodavanjeDestinacije {
 			}
 		});
 			mnMeni.add(mntmKlijenti);
+			mntmRezervacije.setEnabled(postavke[3]);
 		}
 		
 		if(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3){
@@ -242,6 +249,7 @@ public class DodavanjeDestinacije {
 			}
 		});
 		mnMeni.add(mntmKorisnici);
+		mntmKorisnici.setEnabled(postavke[4]);
 		}
 		
 		JMenu mnRaun = new JMenu("Račun");
