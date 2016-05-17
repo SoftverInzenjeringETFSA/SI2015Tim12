@@ -53,6 +53,14 @@ public class Prijava {
 			String usernameValue = textField.getText();
 			char[] passwordValue = passwordField.getPassword();
 			
+			if(usernameValue.isEmpty() || passwordValue.length == 0)
+			{
+				JOptionPane.showMessageDialog(null, "Pogrešni pristupni podaci! (Username i/ili password nije unijet)",
+						"Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
+				
+				return;
+			}
+			
 			if(uow.getPrijavaService().ProvjeriPristupnePodatke(usernameValue, passwordValue))
 			{		
 				
