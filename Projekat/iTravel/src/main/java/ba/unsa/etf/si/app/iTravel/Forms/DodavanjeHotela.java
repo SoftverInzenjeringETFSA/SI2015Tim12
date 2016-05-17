@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JComboBox;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class DodavanjeHotela {
 	private UnitOfWork uow = new UnitOfWork();
@@ -228,13 +230,26 @@ public class DodavanjeHotela {
 		lblNewLabel.setBounds(88, 24, 213, 14);
 		frmUnosHotela.getContentPane().add(lblNewLabel);
 
+		
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(191, 160, 140, 20);
-		frmUnosHotela.getContentPane().add(dateChooser);
-
 		dateChooser_1 = new JDateChooser();
+		dateChooser_1.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				dateChooser.setMaxSelectableDate(dateChooser_1.getDate());
+			}
+		});
 		dateChooser_1.setBounds(191, 190, 140, 20);
 		frmUnosHotela.getContentPane().add(dateChooser_1);
+		
+		
+		
+		dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				dateChooser_1.setMinSelectableDate(dateChooser.getDate());
+			}
+		});
+		dateChooser.setBounds(191, 160, 140, 20);
+		frmUnosHotela.getContentPane().add(dateChooser);
 
 		JButton btnNewButton_1 = new JButton("+ Destinacija");
 		btnNewButton_1.setBounds(282, 278, 132, 23);
