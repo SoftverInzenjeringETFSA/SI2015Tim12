@@ -65,6 +65,7 @@ public class KorisnickiRacunService
 		{
 			rezultat = rezultat + "Polje username ne smije biti prazno<br />";
 		}
+		System.out.println(korisnickiRacun.getUsername() + " " + modifikacija);
 		if(korisnickiRacun.getPassword().isEmpty() && !modifikacija)
 		{
 			rezultat = rezultat + "Polje šifra ne smije biti prazno<br />";

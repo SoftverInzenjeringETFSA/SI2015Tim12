@@ -9,6 +9,8 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.spi.Stoppable;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import ba.unsa.etf.si.app.iTravel.DAL.DBContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.Hotel;
 import ba.unsa.etf.si.app.iTravel.DBModels.Osoba;
@@ -64,7 +66,32 @@ public class OsobaService
 		//return baza.getOsobaRepository().sacuvajIliAzurirajUBazu(osoba);
 	}
 	
-	public String Validiraj(Osoba osoba)
+	private boolean daLiPostojiJMB(Osoba osoba, boolean modifikacija)
+	{
+		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
+		
+		listaKriterija.add(Restrictions.eq("jmbg", osoba.getJmbg()));
+		List<Osoba> listaOsobaSaJmbom;
+		
+		if(!modifikacija)
+		{	
+			listaOsobaSaJmbom = baza.getOsobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
+		}
+		else
+		{		
+			listaKriterija.add(Restrictions.ne("osobaId", osoba.getOsobaId()));
+			listaOsobaSaJmbom = baza.getOsobaRepository().ucitajIzBazePoKriteriju(listaKriterija);
+		}
+		
+		System.out.println(listaOsobaSaJmbom.toString());
+		
+		if(listaOsobaSaJmbom.size() == 0) return false;
+		
+		return true;
+
+	}
+	
+	public String Validiraj(Osoba osoba, boolean modifikacija)
 	{
 		String rezultat = "";
 		
@@ -79,6 +106,14 @@ public class OsobaService
 		if(osoba.getJmbg() == null)
 		{
 			rezultat = rezultat + "Polje jmb ne smije biti prazno<br />";
+		}
+		if(daLiPostojiJMB(osoba, modifikacija))
+		{
+			rezultat = rezultat + "Uneseni JMB već postoji<br />";
+		}
+		if(osoba.getJmbg().length() != 13)
+		{
+			rezultat = rezultat + "JMB mora imati tačno 13 cifara<br />";
 		}
 		if(osoba.getAdresa().isEmpty())
 		{

@@ -11,6 +11,10 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
+import org.w3c.dom.css.ElementCSSInlineStyle;
+
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
@@ -107,7 +111,77 @@ public class KreiranjeKorisnickogRacuna {
 		
 		initialize(parentForma);		
 	}
+	
+	private Osoba PripremiOsobu()
+	{
+		Osoba novaOsoba = new Osoba();
+			
+		// Sa forme
+		String ime = textField.getText();
+		String prezime = textField_1.getText();
+		String jmb = textField_2.getText();
+		String brojLicne = textField_3.getText();
+		String adresa = textField_4.getText();
+		String brojTelefona = textField_5.getText();
+		String email = textField_6.getText();
+		
+		if(modifikacija)
+			novaOsoba.setOsobaId(osoba.getOsobaId());
+		
+		novaOsoba.setIme(ime);
+		novaOsoba.setPrezime(prezime);
+		novaOsoba.setAdresa(adresa);
+		novaOsoba.setBrojLicneKarte(brojLicne);
+		novaOsoba.setBrojPasosa("");
+		novaOsoba.setBrojTelefona(brojTelefona);
+		novaOsoba.setEmail(email);
+		novaOsoba.setJmbg(jmb);
+		
+		return novaOsoba;
+	}
 
+	private KorisnickiRacun PripremiKorisnickiRacun(Osoba osobaRef)
+	{
+		KorisnickiRacun noviKorisnickiRacun = new KorisnickiRacun();
+		
+		if(modifikacija)
+		{
+			noviKorisnickiRacun.setKorisnickiRacunId(korisnickiRacun.getKorisnickiRacunId());
+		}
+		
+		// Sa forme
+		String username = textField_7.getText();
+		String password = textField_8.getText();
+		
+		noviKorisnickiRacun.setOsoba(osobaRef);
+		noviKorisnickiRacun.setUsername(username);
+		noviKorisnickiRacun.setPassword(password);
+		
+		return noviKorisnickiRacun;
+	}
+	
+	private Korisnickiracunxrola PripremiRoluZaKorinika(KorisnickiRacun korisnickiRacunRef)
+	{
+		Korisnickiracunxrola novaKorRola = new Korisnickiracunxrola();
+		
+		if(modifikacija)
+		{
+			novaKorRola.setKorisnickiRacunXrolaId(korisnickiracunxrola.getKorisnickiRacunXrolaId());
+		}
+		
+		novaKorRola.setKorisnickiRacun(korisnickiRacunRef);
+		
+		// Sa forme
+		Integer rolaID = comboBox1.getSelectedIndex();
+		rolaID = rolaID + 1;
+		
+		Rola rola = uow.getRolaService().dajRolu(rolaID);
+		
+		novaKorRola.setRola(rola);
+		
+		return novaKorRola;
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -168,114 +242,94 @@ public class KreiranjeKorisnickogRacuna {
 			btnNewButton = new JButton("Kreiraj");
 		
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Osoba novaOsoba = new Osoba();
-				
-				String ime = textField.getText();
-				String prezime = textField_1.getText();
-				String jmb = textField_2.getText();
-				String brojLicne = textField_3.getText();
-				String adresa = textField_4.getText();
-				String brojTelefona = textField_5.getText();
-				String email = textField_6.getText();
-				String username = textField_7.getText();
-				String password = textField_8.getText();
+			public void actionPerformed(ActionEvent e) {			
 			
-				Integer rolaID = comboBox1.getSelectedIndex();
-				rolaID = rolaID + 1;
+
 				
-				if(modifikacija)
-					novaOsoba.setOsobaId(osoba.getOsobaId());
+				Osoba novaOsoba = PripremiOsobu();
+				KorisnickiRacun noviRacun = PripremiKorisnickiRacun(novaOsoba);
+				Korisnickiracunxrola  novaRola = PripremiRoluZaKorinika(noviRacun);
 				
-				novaOsoba.setIme(ime);
-				novaOsoba.setPrezime(prezime);
-				novaOsoba.setAdresa(adresa);
-				novaOsoba.setBrojLicneKarte(brojLicne);
-				novaOsoba.setBrojPasosa("");
-				novaOsoba.setBrojTelefona(brojTelefona);
-				novaOsoba.setEmail(email);
-				novaOsoba.setJmbg(jmb);
+				String porukaValidacijeOsobe = uow.getOsobaService().Validiraj(novaOsoba, modifikacija);
+				String porukaValidacijePristupnihPod = uow.getKorisnickiRacunService()
+						.Validiraj(noviRacun, modifikacija);
 				
-				String porukaValidacije = uow.getOsobaService().Validiraj(novaOsoba);
 				
-				if(porukaValidacije == "")
+				boolean uspjesno = false;
+				if(porukaValidacijeOsobe == "" && porukaValidacijePristupnihPod == "")
 				{
 					// Ako se uspije kreirati osoba idi dalje da kreiras korisnicki racun
 					if(uow.getOsobaService().KreirajOsobu(novaOsoba, modifikacija).getOsobaId() != null)
-					{						
-						KorisnickiRacun noviLorisnickiRacun = new KorisnickiRacun();
-						
-						if(modifikacija)
-							noviLorisnickiRacun.setKorisnickiRacunId(korisnickiRacun.getKorisnickiRacunId());
-						
-						noviLorisnickiRacun.setOsoba(novaOsoba);
-						noviLorisnickiRacun.setUsername(username);
-						noviLorisnickiRacun.setPassword(password);
-						
-						String porukaValidacijeRacuna = uow.getKorisnickiRacunService().Validiraj(noviLorisnickiRacun, modifikacija);
-						
-						if(porukaValidacijeRacuna == "")
-						{		
-							// Ako se kreira korisnicki racun idi kreiraj rekord za rolu
-							if(uow.getKorisnickiRacunService().
-									KreirajKorisnickiRacun(noviLorisnickiRacun,  modifikacija).
-									getKorisnickiRacunId() != null)
+					{
+						if(uow.getKorisnickiRacunService().KreirajKorisnickiRacun(noviRacun, modifikacija)
+								.getKorisnickiRacunId() != null)
+						{
+							if(uow.getKorisnickiRacunService()
+									.KreirajRoluZaKorisnika(novaRola, modifikacija)
+									.getKorisnickiRacunXrolaId() != null)
 							{
-								Korisnickiracunxrola novaKorisnickiracunxrola = new Korisnickiracunxrola();
-								
-								if(modifikacija)
-									novaKorisnickiracunxrola.setKorisnickiRacunXrolaId(korisnickiracunxrola.getKorisnickiRacunXrolaId());
-								
-								if(!modifikacija)
-									novaKorisnickiracunxrola.setKorisnickiRacun(noviLorisnickiRacun);
-								
-								// Dobavi rolu
-								Rola rola = uow.getRolaService().dajRolu(rolaID);
-								
-								novaKorisnickiracunxrola.setRola(rola);
-								
-								// Kreiranje rekorda za rolu
-								if(uow.getKorisnickiRacunService()
-										.KreirajRoluZaKorisnika(novaKorisnickiracunxrola,  modifikacija)
-										.getKorisnickiRacunXrolaId() != null)
-								{
-									if(modifikacija)
-									{
-										JOptionPane.showMessageDialog(null,
-												"Uspješno ažuriran korisnički račun", "Obavijest",
-												JOptionPane.INFORMATION_MESSAGE);
-									}
-									else
-									{
-										JOptionPane.showMessageDialog(null,
-												"Uspješno kreiran korisnički račun", "Obavijest",
-												JOptionPane.INFORMATION_MESSAGE);
-									}
-														
-									frmKreirajiKorisnika.dispose();
-									parentForma.OsvjeziFormu();
-								}
+								uspjesno = true;
+							}
+							else
+							{
+								uow.getKorisnickiRacunService().obrisiKorisnika(noviRacun.getKorisnickiRacunId());
+								uow.getOsobaService().ObrisiJednuOsobu(novaOsoba);
 							}
 						}
 						else
 						{
-							JOptionPane.showMessageDialog(null,
-									"<html><font color='red'>"+porukaValidacijeRacuna+"</font></html>",
-									"Molimo provjerite username i password!",
-									JOptionPane.INFORMATION_MESSAGE);
+							uow.getOsobaService().ObrisiJednuOsobu(novaOsoba);
 						}
 					}
 				}
 				else
 				{
 					JOptionPane.showMessageDialog(null,
-							"<html><font color='red'>"+porukaValidacije+"</font></html>",
-							"Molimo provjerite unos!",
+							"<html><font color='red'>"
+							+ porukaValidacijeOsobe
+							+ porukaValidacijePristupnihPod + "</font></html>",
+							"Molimo provjerite username i password!",
 							JOptionPane.INFORMATION_MESSAGE);
+					
+					return;
 				}
 				
-			}
+				if(uspjesno && modifikacija)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Uspješno modificiran korisnički račun", "Obavijest",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if(uspjesno && !modifikacija)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Uspješno kreiran korisnički račun", "Obavijest",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if (!uspjesno && modifikacija)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Bezuspješno modificiran korisnički račun", "Obavijest",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if(!uspjesno && !modifikacija)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Bezuspješno kreiran korisnički račun", "Obavijest",
+							JOptionPane.INFORMATION_MESSAGE);		
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null,
+							"Dogodila se greška, molimo pokušajte kasnije!", "Obavijest",
+							JOptionPane.INFORMATION_MESSAGE);
+				
+				}
+				
+				frmKreirajiKorisnika.dispose();
+				parentForma.OsvjeziFormu();
+					
+			}			
 		});
 		btnNewButton.setBounds(90, 384, 150, 30);
 		
@@ -374,8 +428,16 @@ public class KreiranjeKorisnickogRacuna {
 			textField_5.setText(osoba.getBrojTelefona());
 			textField_6.setText(osoba.getEmail());
 			textField_7.setText(korisnickiRacun.getUsername());
-			textField_8.setVisible(false);	
-			comboBox1.setSelectedIndex(korisnickiracunxrola.getRola().getRolaId() - 1);
+			textField_8.setVisible(false);
+			
+			if(korisnickiracunxrola == null)
+			{
+				comboBox1.setSelectedIndex(1);
+			}		
+			else {
+				comboBox1.setSelectedIndex(korisnickiracunxrola.getRola().getRolaId() - 1);
+			}
+			
 		}
 		
 		JMenuBar menuBar = new JMenuBar();
