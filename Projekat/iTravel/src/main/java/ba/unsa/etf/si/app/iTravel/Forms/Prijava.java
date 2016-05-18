@@ -62,8 +62,7 @@ public class Prijava {
 			}
 			
 			if(uow.getPrijavaService().ProvjeriPristupnePodatke(usernameValue, passwordValue))
-			{		
-				
+			{					
 				JOptionPane.showMessageDialog(null, "Dobrodošli u iTravel", "Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
 				
 				if(UserContext.getInstance().getRoleID() == 1)

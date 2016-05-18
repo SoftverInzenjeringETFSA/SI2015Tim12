@@ -14,6 +14,8 @@ import java.util.Set;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.List;
+
 public class PrijavaService {
 	
 	DBContext baza;
@@ -30,10 +32,14 @@ public class PrijavaService {
 		
 		KorisnickiRacun korisnickiRacun = new KorisnickiRacun();
 		
-		korisnickiRacun = baza
+		List<KorisnickiRacun> lista = baza
 				 .getKorisnickiRacunRepository()
-				 .ucitajIzBazePoKriteriju(listaKriterjona).get(0);
-		
+				 .ucitajIzBazePoKriteriju(listaKriterjona);
+		if(lista.size() <= 0)
+			return false;
+		else
+			korisnickiRacun = lista.get(0);
+
 		if(korisnickiRacun == null)
 			return false;
 		
