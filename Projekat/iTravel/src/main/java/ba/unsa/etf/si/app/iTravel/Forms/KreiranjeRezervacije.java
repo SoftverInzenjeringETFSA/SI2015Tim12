@@ -714,8 +714,16 @@ public class KreiranjeRezervacije {
 			poruka+= "Niste unijeli ime." + '\n';
 			proslo=false;
 		}
+		if(textField_1.getText().toString().matches("[a-zA-Z ]*\\d+.*")){
+			poruka+= "Ime ne moze sadrzavati brojeve." + '\n';
+			proslo=false;
+		}
 		if(textField.getText().equals("")){
 			poruka+= "Niste unijeli prezime." + '\n';
+			proslo=false;
+		}
+		if(textField.getText().toString().matches("[a-zA-Z ]*\\d+.*")){
+			poruka+= "Prezime ne moze sadrzavati brojeve." + '\n';
 			proslo=false;
 		}
 		if(textField_2.getText().equals("")){

@@ -314,6 +314,8 @@ public class Rezervacije {
 				UcitajSveRezervacije();
 			}else
 				JOptionPane.showMessageDialog(null, "Niste uspjeli potvrditi rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
+		}else{
+			JOptionPane.showMessageDialog(null, "Niste odabrali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
 		}
 	}
 	
@@ -331,6 +333,8 @@ public class Rezervacije {
 				UcitajSveRezervacije();
 			}else
 				JOptionPane.showMessageDialog(null, "Niste uspjeli otkazati rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
+		}else{
+			JOptionPane.showMessageDialog(null, "Niste odabrali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
 		}
 	}
 	
