@@ -108,30 +108,52 @@ public class DodavanjeHotela {
 	}
 
 	private boolean ValidacijaPoljaZaDodavanjeHotela() {
-		if (dateChooser.getCalendar() == null) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli datum 'Od'", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		} else if (dateChooser_1.getCalendar() == null) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli datum 'Do'", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		} else if (textField_1.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli lokaciju", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		} else if (textField.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli naziv", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if (textField_3.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli broj hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}  else if (textField_2.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli lanac hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		} else if (comboBox.getSelectedIndex() == -1) {
-			JOptionPane.showMessageDialog(null, "Niste selektovali destinaciju", "Info",
-					JOptionPane.INFORMATION_MESSAGE);
-			return false;
+		String poruka="";
+		boolean proslo=true;
+		if (dateChooser.getCalendar() == null) 
+		{
+			poruka+="Niste unijeli datum 'Od'" + '\n';
+			proslo=false;
+		} 
+		if (dateChooser_1.getCalendar() == null) {
+			poruka+="Niste unijeli datum 'Do'" + '\n';
+			proslo=false;
+		} 
+		if (textField_1.getText().equals("")) {
+			poruka+="Niste unijeli lokaciju" + '\n';
+			proslo=false;
+			
+		} 
+		if (textField.getText().equals("")) {
+			poruka+="Niste unijeli naziv" + '\n';
+			proslo=false;
 		}
-		return true;
+		if (textField_3.getText().equals("")) {
+			poruka+="Niste unijeli broj hotela" + '\n';
+			proslo=false;
+		}  if (textField_2.getText().equals("")) {
+			poruka+="Niste unijeli lanac hotela" + '\n';
+			proslo=false;
+		} 
+		if (comboBox.getSelectedIndex() == -1) {
+			poruka+="Niste selektovali destinaciju." + '\n';
+			proslo=false;
+		}
+		if(textField_3.getText().equals(""))
+		{
+			poruka+="Niste unijeli broj telefona" + '\n';
+		proslo=false;
+			
+		}
+		if(textField_3.getText().length()<6 || !textField_3.getText().matches("[0-9]+"))
+		{
+			poruka+= "Telefon može sadržavati samo cifre (min 6)." + '\n';
+			proslo=false;
+		}
+		if(!proslo) JOptionPane.showMessageDialog(null, poruka, "Info",
+				JOptionPane.INFORMATION_MESSAGE);
+			
+		return proslo;
 	}
 
 	/**

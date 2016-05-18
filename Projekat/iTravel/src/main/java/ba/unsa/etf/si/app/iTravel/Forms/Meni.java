@@ -1,6 +1,7 @@
 package ba.unsa.etf.si.app.iTravel.Forms;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
@@ -15,6 +16,7 @@ public class Meni {
 		for(int i=0;i<win.length;i++){ 
 		win[i].dispose(); 
 		} 
+		JOptionPane.showMessageDialog(null, "Uspješno ste odjavljeni sa sistema!", "Info",JOptionPane.INFORMATION_MESSAGE);
 		Prijava.PrikaziFormu();
 	}
 	

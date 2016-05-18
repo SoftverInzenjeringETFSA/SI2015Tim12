@@ -151,6 +151,7 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije.getContentPane().add(comboBox);
 		
 		
+		
 		JLabel lblNewLabel = new JLabel("Unesite podatke o novoj rezervaciji");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel.setBounds(20, 11, 287, 20);
@@ -633,7 +634,8 @@ public class KreiranjeRezervacije {
 
 	}
 	private void Kreiranje(){
-		if(ValidacijaPoljaZaPotvrduRezervacije() && table_Sobe.getSelectedRow()!=-1 && table.getSelectedRow()!=-1 && dateChooser.getCalendar()!=null && dateChooser_1.getCalendar()!=null){
+		if(ValidacijaPoljaZaPotvrduRezervacije())
+		{
 			Date odDatuma=(Date) dateChooser.getCalendar().getTime();
 			Date doDatuma=(Date) dateChooser_1.getCalendar().getTime();					
 				Osoba osoba=new Osoba();
@@ -664,11 +666,13 @@ public class KreiranjeRezervacije {
 
 			int provjera=uow.getRezervacijaService().kreirajRezervacijuSaSobom(rezerv,soba, odDatuma, doDatuma, idAgenta, (int)Double.parseDouble(cijena.getText()));
 			idKreiraneRezervacije=provjera;
-			if(provjera!=0){
+			if(provjera!=0)
+			{
 				JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);
 				KreirajFakturu();
 	        	int rowHotel=table.getSelectedRow();
-				if(rowHotel!=-1){
+				if(rowHotel!=-1)
+				{
 		        	int idHotela=Integer.parseInt(table.getModel().getValueAt(rowHotel, 4).toString());
 					UcitavanjeSoba(idHotela);
 				}
@@ -677,50 +681,90 @@ public class KreiranjeRezervacije {
 				JOptionPane.showMessageDialog(null, "Rezervacija nije kreirana, molimo pokusajte kasnije", "Info", JOptionPane.INFORMATION_MESSAGE);
 			
 		}
+		
 	}
 	
 	private boolean ValidacijaPoljaZaPotvrduRezervacije(){
-		if(dateChooser.getCalendar()==null) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli datum 'Od'", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(dateChooser_1.getCalendar()==null){
-			JOptionPane.showMessageDialog(null, "Niste unijeli datum 'Do'", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField_1.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Niste unijeli ime", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Niste unijeli prezime", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField_2.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Niste unijeli JMBG", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField_2.getText().length()!=13 && textField_2.getText().matches("[0-9]+")){
-			JOptionPane.showMessageDialog(null, "Format JMBG nije ispravan", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField_3.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Niste unijeli broj pasoša", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField_brojLicneKarte.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Niste unijeli broj lične karte", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField_5.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Niste unijeli email", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField_6.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Niste unijeli adresu", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(dateChooser_2.getCalendar()==null){
-			JOptionPane.showMessageDialog(null, "Niste unijeli datum rođenja", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(textField_4.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Niste unijeli telefon", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}else if(cijena.getText()==""){
-			JOptionPane.showMessageDialog(null, "Niste izabrali sobu!", "Info", JOptionPane.INFORMATION_MESSAGE);
-			return false;
+		String poruka="";
+		boolean proslo=true;
+		if(comboBox.getSelectedIndex()==0) 
+		{
+			poruka+= "Niste odabrali destinaciju." + '\n';
+			proslo=false;
 		}
-		return true;
+		if(table.getSelectedRow()==-1)
+		{
+			poruka+= "Niste odabrali hotel." + '\n';
+			proslo=false;
+		}
+		if(table_Sobe.getSelectedRow()==-1)
+		{
+			poruka+= "Niste odabrali sobu." + '\n';
+			proslo=false;
+		}
+		if(dateChooser.getCalendar()==null) {
+			poruka+= "Niste unijeli datum 'Od'." + '\n';
+			proslo=false;
+		}
+		if(dateChooser_1.getCalendar()==null){
+			poruka+= "Niste unijeli datum 'Do'." + '\n';
+			proslo=false;
+		}
+		if(textField_1.getText().equals("")){
+			poruka+= "Niste unijeli ime." + '\n';
+			proslo=false;
+		}
+		if(textField.getText().equals("")){
+			poruka+= "Niste unijeli prezime." + '\n';
+			proslo=false;
+		}
+		if(textField_2.getText().equals("")){
+			poruka+= "Niste unijeli JMBG." + '\n';
+			proslo=false;
+		}
+		if(textField_2.getText().length()!=13 || !textField_2.getText().toString().matches("[0-9]+"))
+			{
+				poruka+= "Format JMBG nije ispravan (13 cifara)." + '\n';
+				proslo=false;
+			}
+		
+		if(textField_3.getText().equals("")){
+			poruka+= "Niste unijeli broj pasoša." + '\n';
+			proslo=false;
+			
+		}
+		if(textField_brojLicneKarte.getText().equals("")){
+			poruka+= "Niste unijeli broj lične karte." + '\n';
+			proslo=false;
+		} 
+		if(textField_5.getText().equals("")){
+			poruka+= "Niste unijeli email." + '\n';
+			proslo=false;
+		}
+		if(textField_6.getText().equals("")){
+			poruka+= "Niste unijeli adresu." + '\n';
+			proslo=false;
+		}
+		if(dateChooser_2.getCalendar()==null){
+			poruka+= "Niste odabrali datum rođenja." + '\n';
+			proslo=false;
+		}
+		if(textField_4.getText().equals("")){
+			poruka+= "Niste unijeli broj telefona." + '\n';
+			proslo=false;
+		}
+		if(textField_4.getText().length()<6 || !textField_4.getText().matches("[0-9]+"))
+		{
+			poruka+= "Telefon može sadržavati samo cifre (min 6)." + '\n';
+			proslo=false;
+		}
+		if(cijena.getText()==""){
+			poruka+= "Niste odabrali sobu." + '\n';
+			proslo=false;
+		}
+		if(!proslo)JOptionPane.showMessageDialog(null, poruka, "Info", JOptionPane.INFORMATION_MESSAGE);
+		
+		return proslo;
 	}
 	private void KreirajFakturu(){
 		PDFGenerator.GenerisiPdf(idKreiraneRezervacije, "Potvrda");
