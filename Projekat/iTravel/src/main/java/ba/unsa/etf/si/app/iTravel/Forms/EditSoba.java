@@ -206,7 +206,7 @@ public class EditSoba {
                 NapuniSobe();
 				
                 
-                JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali sobu", "Info",
+                JOptionPane.showMessageDialog(null, "Uspjesno ste editovali sobu", "Info",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);

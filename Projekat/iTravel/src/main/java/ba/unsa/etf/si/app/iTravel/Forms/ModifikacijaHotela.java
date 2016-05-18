@@ -82,7 +82,7 @@ public class ModifikacijaHotela
 					hotel.setDestinacija(destinacijahotel);
 					hoteliService.AzurirajHotel(hotel);
 
-					JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali hotel", "Info",
+					JOptionPane.showMessageDialog(null, "Uspjesno ste modifikovali hotel", "Info",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -122,8 +122,8 @@ public class ModifikacijaHotela
 		} else if (textFieldModifikacija.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli naziv", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		}else if (textField_3Modifikacija.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli broj hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
+		}else if (textField_3Modifikacija.getText().equals("")|| !textField_3Modifikacija.getText().matches("[0-9]+")) {
+			JOptionPane.showMessageDialog(null, "Niste unijeli broj hotela 6 cifara min", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}  else if (textField_2Modifikacija.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli lanac hotela", "Info", JOptionPane.INFORMATION_MESSAGE);

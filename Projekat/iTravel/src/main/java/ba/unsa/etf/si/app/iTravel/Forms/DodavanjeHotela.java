@@ -49,6 +49,7 @@ public class DodavanjeHotela {
 	private JTextField textField_2;
 	private JComboBox<String> comboBox;
     private JTextField textField_3; 
+    private HoteliService hoteliService = new HoteliService();
     
 
 	public static java.sql.Date convertUtilDateToSqlDate(java.util.Date date) {
@@ -65,8 +66,8 @@ public class DodavanjeHotela {
 
 			try {
 				if (ValidacijaPoljaZaDodavanjeHotela()) {
-					HoteliService hoteliService = new HoteliService();
-
+					
+                    
 					Hotel hotel = new Hotel();
 					hotel.setNaziv(textField.getText());
 					hotel.setAdresa(textField_1.getText());
@@ -78,11 +79,33 @@ public class DodavanjeHotela {
 					int i = comboBox.getSelectedIndex();
 					Destinacija destinacijahotel = destinacije.get(i);
 					hotel.setDestinacija(destinacijahotel);
-					hoteliService.KreirajHotel(hotel);
-
-					JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali hotel", "Info",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
+					
+					ArrayList<Hotel> sviHoteli =new ArrayList<Hotel>();
+					sviHoteli= hoteliService.VratiSveHotele();
+					boolean stop = false;
+					Hotel probni = new Hotel();
+					for (int j = 0; j < sviHoteli.size(); j++) {
+						probni=sviHoteli.get(j);
+						if (probni.getNaziv().equals(hotel.getNaziv()) && probni.getAdresa().equals(hotel.getAdresa()) )
+                             
+					stop=true;
+                               
+					}
+				     if (!stop){
+				    	
+						hoteliService.KreirajHotel(hotel);
+				     JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali hotel", "Info",
+								JOptionPane.INFORMATION_MESSAGE);
+				     }
+				     else {
+				    	   JOptionPane.showMessageDialog(null, "Hotel vec postoji na toj lokaciji", "Info",
+									JOptionPane.INFORMATION_MESSAGE);
+					}
+						
+					
+				}
+				
+				else {
 					JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
 
 				}
@@ -96,7 +119,8 @@ public class DodavanjeHotela {
 		}
 
 	}
-
+	
+    
 	void NapuniDestinacijeUCB() {
 		DestinacijeService destinacijeService = new DestinacijeService();
 		destinacije = new ArrayList<Destinacija>();
