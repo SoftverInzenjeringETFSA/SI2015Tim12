@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.DropMode;
 import java.awt.Font;
+
+import com.mysql.fabric.xmlrpc.base.Data;
 import com.toedter.calendar.JDateChooser;
 
 import antlr.collections.List;
@@ -31,10 +33,13 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import java.beans.PropertyChangeListener;
+import java.sql.Date;
 import java.beans.PropertyChangeEvent;
 
 public class DodavanjeHotela {
@@ -59,6 +64,23 @@ public class DodavanjeHotela {
 		}
 		return null;
 	}
+  
+	public static java.sql.Date addDays(java.sql.Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days);
+                 
+        return convertUtilDateToSqlDate (cal.getTime());
+    }
+     
+   
+    public static java.sql.Date subtractDays(java.sql.Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, -days);
+                 
+        return convertUtilDateToSqlDate (cal.getTime());
+    }
 
 	class AkcijaDodavanja implements ActionListener {
 
@@ -79,6 +101,12 @@ public class DodavanjeHotela {
 					int i = comboBox.getSelectedIndex();
 					Destinacija destinacijahotel = destinacije.get(i);
 					hotel.setDestinacija(destinacijahotel);
+					
+					java.sql.Date krajNiska = subtractDays(convertUtilDateToSqlDate (dateChooser.getDate()),1);
+					java.sql.Date pocetakNiska = addDays(convertUtilDateToSqlDate( dateChooser_1.getDate()), 1);
+					hotel.setKrajNiska(krajNiska);
+					hotel.setPocetakNiska(pocetakNiska);
+					
 					
 					ArrayList<Hotel> sviHoteli =new ArrayList<Hotel>();
 					sviHoteli= hoteliService.VratiSveHotele();
