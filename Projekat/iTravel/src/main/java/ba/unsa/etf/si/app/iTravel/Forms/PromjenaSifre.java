@@ -17,6 +17,9 @@ import javax.swing.SwingConstants;
 
 //import ba.unsa.etf.si.app.iTravel.BLL.PromjenaSifreService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class PromjenaSifre {
 
@@ -64,7 +67,7 @@ public class PromjenaSifre {
 	private void initialize() {
 		frmPromjenaSifre = new JFrame();
 		frmPromjenaSifre.setTitle("Promjena \u0161ifre");
-		frmPromjenaSifre.setBounds(100, 100, 289, 279);
+		frmPromjenaSifre.setBounds(100, 100, 289, 301);
 		frmPromjenaSifre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPromjenaSifre.getContentPane().setLayout(null);
 		frmPromjenaSifre.setLocationRelativeTo(null);
@@ -136,5 +139,20 @@ public class PromjenaSifre {
 		passwordField_potvrda = new JPasswordField();
 		passwordField_potvrda.setBounds(135, 147, 100, 23);
 		frmPromjenaSifre.getContentPane().add(passwordField_potvrda);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmPromjenaSifre.setJMenuBar(menuBar);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/PromjenaPodatakaSlika.jpg");
+
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
 }

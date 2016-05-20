@@ -460,6 +460,19 @@ public class EditSoba {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/PregledSoba.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
+		
+
+				
 		table_pregledSoba.getColumnModel().getColumn(0).setPreferredWidth(99);
 		table_pregledSoba.getColumnModel().getColumn(1).setPreferredWidth(83);
 		table_pregledSoba.getColumnModel().getColumn(2).setPreferredWidth(81);

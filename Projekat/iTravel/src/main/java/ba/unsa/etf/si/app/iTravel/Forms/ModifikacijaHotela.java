@@ -410,6 +410,16 @@ public class ModifikacijaHotela
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/KreiranjeHotela.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
 
 	

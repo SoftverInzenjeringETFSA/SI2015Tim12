@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 
 import com.itextpdf.text.BaseColor;
@@ -35,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import javax.swing.JMenuBar;
 
 public class Prijava {
 	
@@ -174,5 +177,21 @@ public class Prijava {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(123, 102, 150, 20);
 		frmPrijava.getContentPane().add(passwordField);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmPrijava.setJMenuBar(menuBar);
+		
+		JMenu mnPomo_1 = new JMenu("Pomoć");
+		menuBar.add(mnPomo_1);
+		
+		JMenuItem mntmOFormi_1 = new JMenuItem("O formi...");
+		mntmOFormi_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/PrijavaSlika.jpg");
+			}
+		});
+		mnPomo_1.add(mntmOFormi_1);
+		
+		
 	}
 }

@@ -141,6 +141,19 @@ public class Postavke {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/PostavkeSlika.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
+		
+		
 		frmPostavke.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Uključi/isključi module:");

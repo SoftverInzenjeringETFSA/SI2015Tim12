@@ -1,10 +1,12 @@
 package ba.unsa.etf.si.app.iTravel.Forms;
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import ba.unsa.etf.si.app.iTravel.BLL.DestinacijeService;
@@ -18,6 +20,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
@@ -216,7 +221,17 @@ public class DodavanjeDestinacije {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			Meni.HelpForma("d:\\UnosDestinacijeSlika.jpg");
+		}
+		});
+		mnPomo.add(mntmOFormi);
 	}
-	
 }
 

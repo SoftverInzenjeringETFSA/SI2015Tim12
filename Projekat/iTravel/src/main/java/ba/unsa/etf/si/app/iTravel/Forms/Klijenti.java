@@ -168,5 +168,16 @@ public class Klijenti {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/KlijentiSlika.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
 }

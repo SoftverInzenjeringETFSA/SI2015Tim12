@@ -287,6 +287,17 @@ public class Korisnici {
 		});
 		
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/KorisniciSlika.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
 	
 	
