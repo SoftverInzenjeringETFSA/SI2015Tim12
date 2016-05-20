@@ -655,7 +655,12 @@ public class KreiranjeRezervacije {
 				osoba.setJmbg(textField_2.getText());
 				osoba.setBrojPasosa(textField_3.getText());
 				osoba.setBrojLicneKarte(textField_brojLicneKarte.getText());
-				osoba.setEmail(textField_5.getText());
+				if(textField_5.getText().equals("")){
+					osoba.setEmail(null);	
+				}
+				else{
+					osoba.setEmail(textField_5.getText());
+				}
 				osoba.setAdresa(textField_6.getText());
 				osoba.setDatumRodjenja((Date) dateChooser_2.getCalendar().getTime());
 				osoba.setBrojTelefona(textField_4.getText());
@@ -755,10 +760,8 @@ public class KreiranjeRezervacije {
 			poruka+= "Niste unijeli broj lične karte." + '\n';
 			proslo=false;
 		} 
-		if(textField_5.getText().equals("")){
-			poruka+= "Niste unijeli email." + '\n';
-			proslo=false;
-		}
+		
+		
 		if(textField_6.getText().equals("")){
 			poruka+= "Niste unijeli adresu." + '\n';
 			proslo=false;
