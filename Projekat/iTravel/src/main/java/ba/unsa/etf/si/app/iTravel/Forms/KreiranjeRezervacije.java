@@ -347,6 +347,7 @@ public class KreiranjeRezervacije {
 		
 		dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(394, 417, 152, 20);
+		dateChooser_2.setMaxSelectableDate(new Date());
 		frmKreiranjeRezervacije.getContentPane().add(dateChooser_2);
 		
 		JButton btnNewButton = new JButton("Potvrdi");
