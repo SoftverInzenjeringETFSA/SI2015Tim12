@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import ba.unsa.etf.si.app.iTravel.BLL.NasModel;
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
@@ -73,7 +74,7 @@ public class Klijenti {
 		
 		Object[][] podaci=uow.getKlijentiService().PrikaziSveKlijente();
 		
-		table.setModel(new DefaultTableModel(
+		table.setModel(new NasModel(
 			podaci,
 			new String[] {
 				"Ime", "Prezime", "JMBG", "Broj paso\u0161a", "Broj telefona", "E-mail", "Adresa", "Datum ro\u0111enja"

@@ -30,7 +30,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.toedter.calendar.JDateChooser;
 
-
+import ba.unsa.etf.si.app.iTravel.BLL.NasModel;
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
@@ -166,7 +166,7 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije.getContentPane().add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		table.setModel(new NasModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -537,7 +537,7 @@ public class KreiranjeRezervacije {
 			table.setModel(model);
 			
 		}
-		table_Sobe.setModel(new DefaultTableModel(
+		table_Sobe.setModel(new NasModel(
 				new Object[][] {},
 				new String[] {"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis"}
 			));
@@ -573,7 +573,7 @@ public class KreiranjeRezervacije {
 	
 	//prikaz slobodnih soba na osnovu odobranog datum i odabranog hotela
 	private void UcitavanjeSoba(int idHotel){
-		table_Sobe.setModel(new DefaultTableModel(
+		table_Sobe.setModel(new NasModel(
 				new Object[][] {},
 				new String[] {"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"}
 			));

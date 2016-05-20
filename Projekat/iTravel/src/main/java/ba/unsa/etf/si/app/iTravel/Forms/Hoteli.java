@@ -94,6 +94,12 @@ public class Hoteli {
 			public Class getColumnClass(int columnIndex) {
 				return types[columnIndex];
 			}
+			
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
 		};
 		((DefaultTableModel) model).setColumnIdentifiers(header);
 		table_pregledHotela.setModel(model);

@@ -10,6 +10,7 @@ import javax.swing.table.TableColumnModel;
 
 import org.hibernate.engine.internal.StatisticalLoggingSessionEventListener;
 
+import ba.unsa.etf.si.app.iTravel.BLL.NasModel;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
@@ -22,6 +23,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Korisnici {
 	
@@ -52,7 +55,7 @@ public class Korisnici {
 	{
 		Object[][] podaci= uow.getKorisniciService().PrikaziSveKorisnike();
 		
-		table.setModel(new DefaultTableModel(
+		table.setModel(new NasModel(
 				podaci,
 				new String[] {
 					"Ime", "Prezime", "JMBG", "Broj li\u010Dne karte", "Adresa", "Telefon", "E-mail", "Username", "Tip korisnika", "Id"
@@ -118,11 +121,13 @@ public class Korisnici {
 		frmPrikazKorisnika.getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.setCellSelectionEnabled(false);
+		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				
 		Object[][] podaci= uow.getKorisniciService().PrikaziSveKorisnike();
 		
-		table.setModel(new DefaultTableModel(
+		table.setModel(new NasModel(
 			podaci,
 			new String[] {
 				"Ime", "Prezime", "JMBG", "Broj li\u010Dne karte", "Adresa", "Telefon", "E-mail", "Username", "Tip korisnika", "Id"

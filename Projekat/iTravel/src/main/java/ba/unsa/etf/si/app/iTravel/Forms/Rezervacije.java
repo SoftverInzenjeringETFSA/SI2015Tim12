@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 
+import ba.unsa.etf.si.app.iTravel.BLL.NasModel;
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
@@ -96,6 +97,7 @@ public class Rezervacije {
 		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
 		frmPrikazRezervacija = new JFrame();
+		frmPrikazRezervacija.getContentPane().setEnabled(false);
 		frmPrikazRezervacija.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -114,7 +116,7 @@ public class Rezervacije {
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new DefaultTableModel(
+		table.setModel(new NasModel(
 			new Object[][] {},
 			new String[] {
 				"Destinacija", "Hotel", "Ime klijenta", "Prezime klijenta", "Cijena", "Od (datum)", "Do (datum)", "Prijevoz", "Status","id"
