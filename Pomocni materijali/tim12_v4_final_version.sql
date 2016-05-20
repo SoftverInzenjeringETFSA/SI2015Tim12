@@ -1,9 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost	Database: tim12
+-- Host: localhost    Database: tim12
 -- ------------------------------------------------------
--- Server version 5.7.11-log
-use tim12;
+-- Server version	5.7.12-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,7 +20,7 @@ use tim12;
 --
 
 DROP TABLE IF EXISTS `destinacija`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `destinacija` (
   `DestinacijaID` int(11) NOT NULL AUTO_INCREMENT,
@@ -37,7 +36,7 @@ CREATE TABLE `destinacija` (
 
 LOCK TABLES `destinacija` WRITE;
 /*!40000 ALTER TABLE `destinacija` DISABLE KEYS */;
-INSERT INTO `destinacija` VALUES (1,'Dubai',''),(2,'Sarajevo',''),(3,'Pariz',''),(4,'Zenica','\0');
+INSERT INTO `destinacija` VALUES (1,'Dubai','\0'),(2,'Sarajevo','\0'),(3,'Pariz','\0'),(4,'Zenica','\0');
 /*!40000 ALTER TABLE `destinacija` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -46,7 +45,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `hotel`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hotel` (
   `HotelID` int(11) NOT NULL AUTO_INCREMENT,
@@ -64,11 +63,8 @@ CREATE TABLE `hotel` (
   `BrojZvjezdica` int(5) DEFAULT NULL,
   PRIMARY KEY (`HotelID`),
   KEY `DestinacijaID` (`DestinacijaID`),
-  CONSTRAINT `FKpmg7kev8w0sqhy3l3kwuhjc68` FOREIGN KEY (`DestinacijaID`) REFERENCES `destinacija` (`DestinacijaID`) ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `hotel_ibfk_1` FOREIGN KEY (`DestinacijaID`) REFERENCES `destinacija` (`DestinacijaID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE
+  CONSTRAINT `FKpmg7kev8w0sqhy3l3kwuhjc68` FOREIGN KEY (`DestinacijaID`) REFERENCES `destinacija` (`DestinacijaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `hotel_ibfk_1` FOREIGN KEY (`DestinacijaID`) REFERENCES `destinacija` (`DestinacijaID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -87,19 +83,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `klijent`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `klijent` (
   `KlijentID` int(11) NOT NULL AUTO_INCREMENT,
   `OsobaID` int(11) NOT NULL,
   PRIMARY KEY (`KlijentID`),
   KEY `OsobaID` (`OsobaID`),
-  CONSTRAINT `FK7utmlw51oc9c80912xv34bxvd` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `klijent_ibfk_1` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE
+  CONSTRAINT `FK7utmlw51oc9c80912xv34bxvd` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `klijent_ibfk_1` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -118,7 +110,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `korisnicki_racun`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `korisnicki_racun` (
   `KorisnickiRacunID` int(11) NOT NULL AUTO_INCREMENT,
@@ -127,13 +119,9 @@ CREATE TABLE `korisnicki_racun` (
   `OsobaID` int(11) DEFAULT NULL,
   PRIMARY KEY (`KorisnickiRacunID`),
   KEY `OsobaID` (`OsobaID`),
-  CONSTRAINT `FK6dm6s3s0tm9ijpbg69ko6qtsr` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `korisnicki_racun_ibfk_1` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK6dm6s3s0tm9ijpbg69ko6qtsr` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `korisnicki_racun_ibfk_1` FOREIGN KEY (`OsobaID`) REFERENCES `osoba` (`OsobaID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +130,7 @@ CREATE TABLE `korisnicki_racun` (
 
 LOCK TABLES `korisnicki_racun` WRITE;
 /*!40000 ALTER TABLE `korisnicki_racun` DISABLE KEYS */;
-INSERT INTO `korisnicki_racun` VALUES (1,'kenanprses','Sitim12',1),(2,'kagent','Sitim12',1),(3,'ksupervizor','Sitim12',1),(5,'Tkorisnik','Tsifra',7),(6,'neko1','sifra1',8);
+INSERT INTO `korisnicki_racun` VALUES (1,'kenanprses','-530182141',1),(2,'kagent','-530182141',1),(3,'ksupervizor','-530182141',1),(5,'Tkorisnik','Tsifra',7),(6,'neko1','sifra1',8),(8,'EminaSef','-530182141',14),(9,'EminuSviVole','-530182141',15);
 /*!40000 ALTER TABLE `korisnicki_racun` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +139,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `korisnickiracunxrola`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `korisnickiracunxrola` (
   `KorisnickiRacunXRolaID` int(11) NOT NULL AUTO_INCREMENT,
@@ -160,19 +148,11 @@ CREATE TABLE `korisnickiracunxrola` (
   PRIMARY KEY (`KorisnickiRacunXRolaID`),
   KEY `RolaID` (`RolaID`),
   KEY `KorisnickiRacunID` (`KorisnickiRacunID`),
-  CONSTRAINT `FK5frxvcjv82ocak5g48t806ccq` FOREIGN KEY (`RolaID`) REFERENCES `rola` (`RolaID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `FKamwf73l7ffq8s659bdrl78gi0` FOREIGN KEY (`KorisnickiRacunID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `korisnickiracunxrola_ibfk_1` FOREIGN KEY (`RolaID`) REFERENCES `rola` (`RolaID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `korisnickiracunxrola_ibfk_2` FOREIGN KEY (`KorisnickiRacunID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK5frxvcjv82ocak5g48t806ccq` FOREIGN KEY (`RolaID`) REFERENCES `rola` (`RolaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FKamwf73l7ffq8s659bdrl78gi0` FOREIGN KEY (`KorisnickiRacunID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `korisnickiracunxrola_ibfk_1` FOREIGN KEY (`RolaID`) REFERENCES `rola` (`RolaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `korisnickiracunxrola_ibfk_2` FOREIGN KEY (`KorisnickiRacunID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +161,7 @@ CREATE TABLE `korisnickiracunxrola` (
 
 LOCK TABLES `korisnickiracunxrola` WRITE;
 /*!40000 ALTER TABLE `korisnickiracunxrola` DISABLE KEYS */;
-INSERT INTO `korisnickiracunxrola` VALUES (1,1,1),(2,2,2),(3,3,3),(4,2,6);
+INSERT INTO `korisnickiracunxrola` VALUES (1,1,1),(2,2,2),(3,3,3),(4,2,6),(6,3,8),(7,2,9);
 /*!40000 ALTER TABLE `korisnickiracunxrola` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +170,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `osoba`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `osoba` (
   `OsobaID` int(11) NOT NULL AUTO_INCREMENT,
@@ -204,7 +184,7 @@ CREATE TABLE `osoba` (
   `BrojPasosa` varchar(45) DEFAULT NULL,
   `BrojLicneKarte` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`OsobaID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,7 +193,7 @@ CREATE TABLE `osoba` (
 
 LOCK TABLES `osoba` WRITE;
 /*!40000 ALTER TABLE `osoba` DISABLE KEYS */;
-INSERT INTO `osoba` VALUES (1,'Kenan','Prses','1995-01-06','Test','test@test.test','222-222-222',123456,'1234A',NULL),(2,'Sahin','Repuh','2016-05-10','fsfsfds','saijdoiaj@email.com','45645',156156,'454dsa',NULL),(3,'Treci','Trecko','2016-05-11','nesto','valjdaMail','safas',242432,'safa',NULL),(4,'Tim','12','2016-05-10','fsfsfds','saijdoiaj@vrucimail.com','45645',156454156,'454dsa',NULL),(5,'12','Tim','2016-05-10','tel','email@email.com','45645',1561564556,'454dsa',NULL),(7,'TIme','TPrezime',NULL,'TAdresa','Temail','062062062',123123123,'','TB124'),(8,'Time1','Tprezim1',NULL,'asdsad','dkamksond','561565',123321123,'','231KKK'),(9,'Test','test',NULL,'sdasd','kodkasod','51321',321321,'','sda51'),(10,'Test','test',NULL,'sdasd','kodkasod','51321',321321,'','sda51'),(11,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da'),(12,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da'),(13,'test','test',NULL,'asdasd','dsads','3213',2123,'','321da');
+INSERT INTO `osoba` VALUES (1,'Kenan','Prses','1995-01-06','Test','test@test.test','222-222-222','123456','1234A',NULL),(2,'Sahin','Repuh','2016-05-10','fsfsfds','saijdoiaj@email.com','45645','156156','454dsa',NULL),(3,'Treci','Trecko','2016-05-11','nesto','valjdaMail','safas','242432','safa',NULL),(4,'Tim','12','2016-05-10','fsfsfds','saijdoiaj@vrucimail.com','45645','156454156','454dsa',NULL),(5,'12','Tim','2016-05-10','tel','email@email.com','45645','1561564556','454dsa',NULL),(7,'TIme','TPrezime',NULL,'TAdresa','Temail','062062062','123123123','','TB124'),(8,'Time1','Tprezim1',NULL,'asdsad','dkamksond','561565','123321123','','231KKK'),(9,'Test','test',NULL,'sdasd','kodkasod','51321','321321','','sda51'),(10,'Test','test',NULL,'sdasd','kodkasod','51321','321321','','sda51'),(11,'test','test',NULL,'asdasd','dsads','3213','2123','','321da'),(12,'test','test',NULL,'asdasd','dsads','3213','2123','','321da'),(13,'test','test',NULL,'asdasd','dsads','3213','2123','','321da'),(14,'Emina','Prlja',NULL,'Neka adresa','emina@mail.com','123456789','1234567894561','','123456'),(15,'Emina2','Prlja2',NULL,'djsakdfaskhfak','emina@email.com','456456','1234567894567','','123456');
 /*!40000 ALTER TABLE `osoba` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,7 +202,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `postavke`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `postavke` (
   `PostavkaID` int(11) NOT NULL,
@@ -238,7 +218,7 @@ CREATE TABLE `postavke` (
 
 LOCK TABLES `postavke` WRITE;
 /*!40000 ALTER TABLE `postavke` DISABLE KEYS */;
-INSERT INTO `postavke` VALUES (1,'Hoteli',''),(2,'Rezervacije',''),(3,'Klijenti',''),(4,'Korisnici','\0'),(5,'Izvjetaji','\0');
+INSERT INTO `postavke` VALUES (1,'Hoteli',''),(2,'Rezervacije',''),(3,'Klijenti',''),(4,'Korisnici',''),(5,'Izvjetaji','');
 /*!40000 ALTER TABLE `postavke` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +227,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `racun`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `racun` (
   `RacunID` int(11) NOT NULL AUTO_INCREMENT,
@@ -258,11 +238,8 @@ CREATE TABLE `racun` (
   `Cijena` int(11) DEFAULT NULL,
   PRIMARY KEY (`RacunID`),
   KEY `FK57atuwmdqgl9ft04a6ysndbmv` (`RezervacijaID`),
-  CONSTRAINT `FK1ji96e1wqpcy7gk2fmfid09bp` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `FK57atuwmdqgl9ft04a6ysndbmv` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`) ON DELETE CASCADE
-	ON UPDATE CASCADE
+  CONSTRAINT `FK1ji96e1wqpcy7gk2fmfid09bp` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK57atuwmdqgl9ft04a6ysndbmv` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -272,7 +249,7 @@ CREATE TABLE `racun` (
 
 LOCK TABLES `racun` WRITE;
 /*!40000 ALTER TABLE `racun` DISABLE KEYS */;
-INSERT INTO `racun` VALUES (1,1,NULL,'2016-05-08',NULL,1120),(2,2,NULL,'2016-05-08',NULL,1120),(3,3,NULL,'2016-05-09',NULL,1120),(4,4,NULL,'2016-05-09',NULL,1120);
+INSERT INTO `racun` VALUES (1,1,NULL,'2016-05-08 00:00:00',NULL,1120),(2,2,NULL,'2016-05-08 00:00:00',NULL,1120),(3,3,NULL,'2016-05-09 00:00:00',NULL,1120),(4,4,NULL,'2016-05-09 00:00:00',NULL,1120);
 /*!40000 ALTER TABLE `racun` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,7 +258,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `rezervacija`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rezervacija` (
   `RezervacijaID` int(11) NOT NULL AUTO_INCREMENT,
@@ -292,18 +269,10 @@ CREATE TABLE `rezervacija` (
   PRIMARY KEY (`RezervacijaID`),
   KEY `KlijentID` (`KlijentID`),
   KEY `AgentKreiraoID` (`AgentKreiraoID`),
-  CONSTRAINT `FK2elw09e8tydhuf6pc2ftob2nr` FOREIGN KEY (`KlijentID`) REFERENCES `klijent` (`KlijentID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `FK5txyk606exashquy2w0ourlxx` FOREIGN KEY (`AgentKreiraoID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `rezervacija_ibfk_1` FOREIGN KEY (`KlijentID`) REFERENCES `klijent` (`KlijentID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `rezervacija_ibfk_2` FOREIGN KEY (`AgentKreiraoID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE
+  CONSTRAINT `FK2elw09e8tydhuf6pc2ftob2nr` FOREIGN KEY (`KlijentID`) REFERENCES `klijent` (`KlijentID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK5txyk606exashquy2w0ourlxx` FOREIGN KEY (`AgentKreiraoID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rezervacija_ibfk_1` FOREIGN KEY (`KlijentID`) REFERENCES `klijent` (`KlijentID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rezervacija_ibfk_2` FOREIGN KEY (`AgentKreiraoID`) REFERENCES `korisnicki_racun` (`KorisnickiRacunID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -313,7 +282,7 @@ CREATE TABLE `rezervacija` (
 
 LOCK TABLES `rezervacija` WRITE;
 /*!40000 ALTER TABLE `rezervacija` DISABLE KEYS */;
-INSERT INTO `rezervacija` VALUES (1,'2016-05-08','',2,1),(2,'2016-05-08','',2,2),(3,'2016-05-09','',2,3),(4,'2016-05-09','',2,4);
+INSERT INTO `rezervacija` VALUES (1,'2016-05-08 00:00:00','\0',2,1),(2,'2016-05-08 00:00:00','\0',2,2),(3,'2016-05-09 00:00:00','\0',2,3),(4,'2016-05-09 00:00:00','\0',2,4);
 /*!40000 ALTER TABLE `rezervacija` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +291,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `rezervisani_termin_soba`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rezervisani_termin_soba` (
   `RezervisaniTerminID` int(11) NOT NULL AUTO_INCREMENT,
@@ -334,18 +303,10 @@ CREATE TABLE `rezervisani_termin_soba` (
   PRIMARY KEY (`RezervisaniTerminID`),
   KEY `RezervacijaID` (`RezervacijaID`),
   KEY `SobaID` (`SobaID`),
-  CONSTRAINT `FK261msj4xk2r6207e5msr94848` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`)
-	ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `FKleb6wmcghjngcmfy5ikmxp4p` FOREIGN KEY (`SobaID`) REFERENCES `soba` (`SobaID`)
-	ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `rezervisani_termin_soba_ibfk_2` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`)
-	ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `rezervisani_termin_soba_ibfk_3` FOREIGN KEY (`SobaID`) REFERENCES `soba` (`SobaID`)
-	ON DELETE CASCADE
-	ON UPDATE CASCADE
+  CONSTRAINT `FK261msj4xk2r6207e5msr94848` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FKleb6wmcghjngcmfy5ikmxp4p` FOREIGN KEY (`SobaID`) REFERENCES `soba` (`SobaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rezervisani_termin_soba_ibfk_2` FOREIGN KEY (`RezervacijaID`) REFERENCES `rezervacija` (`RezervacijaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rezervisani_termin_soba_ibfk_3` FOREIGN KEY (`SobaID`) REFERENCES `soba` (`SobaID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -355,7 +316,7 @@ CREATE TABLE `rezervisani_termin_soba` (
 
 LOCK TABLES `rezervisani_termin_soba` WRITE;
 /*!40000 ALTER TABLE `rezervisani_termin_soba` DISABLE KEYS */;
-INSERT INTO `rezervisani_termin_soba` VALUES (1,1,'2016-05-01','2016-05-10',8,''),(2,2,'2016-05-19','2016-05-25',10,''),(3,3,'2016-05-08','2016-05-15',15,''),(4,4,'2016-05-05','2016-05-10',2,'');
+INSERT INTO `rezervisani_termin_soba` VALUES (1,1,'2016-05-01','2016-05-10',8,'\0'),(2,2,'2016-05-19','2016-05-25',10,'\0'),(3,3,'2016-05-08','2016-05-15',15,'\0'),(4,4,'2016-05-05','2016-05-10',2,'\0');
 /*!40000 ALTER TABLE `rezervisani_termin_soba` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +325,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `rola`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rola` (
   `RolaID` int(11) NOT NULL,
@@ -388,7 +349,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `soba`;
-/*!40101 SET @saved_cs_client 	= @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `soba` (
   `SobaID` int(11) NOT NULL AUTO_INCREMENT,
@@ -399,12 +360,8 @@ CREATE TABLE `soba` (
   `CijenaNiska` int(11) NOT NULL,
   PRIMARY KEY (`SobaID`),
   KEY `HotelID` (`HotelID`),
-  CONSTRAINT `FK9p9j6xhl8gwusioly36rg7wh1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE,
-  CONSTRAINT `soba_ibfk_1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`)
-   ON DELETE CASCADE
-	ON UPDATE CASCADE
+  CONSTRAINT `FK9p9j6xhl8gwusioly36rg7wh1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `soba_ibfk_1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -427,5 +384,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-11  3:39:33
-
+-- Dump completed on 2016-05-21  1:29:55

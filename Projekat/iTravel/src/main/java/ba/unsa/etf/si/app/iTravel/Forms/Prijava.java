@@ -51,12 +51,13 @@ public class Prijava {
 		public void actionPerformed(ActionEvent event) {
 			
 			
-					
 			
 			String usernameValue = textField.getText();
-			char[] passwordValue = passwordField.getPassword();
+			char[] passwordValue2 = passwordField.getPassword();
+			String passwordValue = new String(passwordField.getPassword());
+						
 			
-			if(usernameValue.isEmpty() || passwordValue.length == 0)
+			if(usernameValue.isEmpty() || passwordValue2.length == 0)
 			{
 				JOptionPane.showMessageDialog(null, "Pogrešni pristupni podaci! (Username i/ili password nije unijet)",
 						"Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
@@ -64,7 +65,8 @@ public class Prijava {
 				return;
 			}
 			
-			if(uow.getPrijavaService().ProvjeriPristupnePodatke(usernameValue, passwordValue))
+			if(uow.getPrijavaService().ProvjeriPristupnePodatke(usernameValue,
+					Integer.toString(passwordValue.hashCode()).toCharArray()))
 			{					
 				JOptionPane.showMessageDialog(null, "Dobrodošli u iTravel", "Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
 				

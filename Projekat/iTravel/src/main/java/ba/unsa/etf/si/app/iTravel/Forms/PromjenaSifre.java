@@ -91,7 +91,8 @@ public class PromjenaSifre {
 					String passStari = new String(passwordField_trenutna.getPassword());
 					String passNovi = new String(passwordField_nova.getPassword());
 				
-					if(uow.getPromjenaSifreService().PromijeniPristupnePodatke(passStari, passNovi)){
+					if(uow.getPromjenaSifreService().PromijeniPristupnePodatke
+							(Integer.toString(passStari.hashCode()), Integer.toString(passNovi.hashCode()))){
 						JOptionPane.showMessageDialog(null, "Uspješno promijenjena šifra!");
 						frmPromjenaSifre.dispose();
 					}

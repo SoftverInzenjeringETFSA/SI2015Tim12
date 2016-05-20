@@ -151,7 +151,7 @@ public class KreiranjeKorisnickogRacuna {
 		
 		// Sa forme
 		String username = textField_7.getText();
-		String password = textField_8.getText();
+		String password =  Integer.toString(textField_8.getText().hashCode());
 		
 		noviKorisnickiRacun.setOsoba(osobaRef);
 		noviKorisnickiRacun.setUsername(username);
