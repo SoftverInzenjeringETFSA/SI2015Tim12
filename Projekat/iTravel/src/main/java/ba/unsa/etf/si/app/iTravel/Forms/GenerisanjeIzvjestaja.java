@@ -101,6 +101,8 @@ public class GenerisanjeIzvjestaja {
 		
 		
 		table = new JTable();
+		table.setEnabled(false);
+		table.setColumnSelectionAllowed(true);
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -139,12 +141,10 @@ public class GenerisanjeIzvjestaja {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				model.setRowCount(0);
 				List<Destinacija> id= uow.getIzvjestajService().VratiListuDestinacija();
-				
-				
 				for(Destinacija i: id)
 				{
 					Integer rezervacija= uow.getIzvjestajService().PrebrojRezervacijeZaDestinaciju(i, dateChooser.getDate(), dateChooser_1.getDate());
-					if(rezervacija==-1) continue;
+					if(rezervacija==0) continue;
 					Object[] row={i.getNaziv(), rezervacija}; 
 					model.addRow(row);
 				}
@@ -182,6 +182,8 @@ public class GenerisanjeIzvjestaja {
 		frame.getContentPane().add(scrollPane_1);
 		
 		table_1 = new JTable();
+		table_1.setEnabled(false);
+		table_1.setColumnSelectionAllowed(true);
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
