@@ -160,13 +160,16 @@ public class Korisnici {
 			public void actionPerformed(ActionEvent e) {
 				
 	        	int row=table.getSelectedRow();
-				int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());			
-				
-				//KorisnickiRacun korisnickiRacun = uow.getKorisnickiRacunService().dajKorisnika(idSelektovanogKorisnika);
-
-
-				
-				OtvoriKreirajKorisnikaFormu(true, idSelektovanogKorisnika);
+	        	if(row<0) 
+	        	{
+	        		JOptionPane.showMessageDialog(null, "Nije odabran korisnik.");
+	        	}
+	        	else
+	        	{
+	        		int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());			
+					//KorisnickiRacun korisnickiRacun = uow.getKorisnickiRacunService().dajKorisnika(idSelektovanogKorisnika);
+					OtvoriKreirajKorisnikaFormu(true, idSelektovanogKorisnika);
+	        	}
 			}
 		});
 		btnModifikujKorisnike.setBounds(180, 226, 150, 30);
@@ -176,26 +179,34 @@ public class Korisnici {
 		btnObriiKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite izbrisati korisnika",
-						"Potvrda", JOptionPane.YES_NO_OPTION);
-				
-		        if (reply == JOptionPane.YES_OPTION) {
-		        	
-		        	int row=table.getSelectedRow();
-					int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
+				int row=table.getSelectedRow();
+				if(row<0) 
+				{
+					JOptionPane.showMessageDialog(null, "Nije odabran korisnik.");
+				}
+				else
+				{
+					int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite izbrisati korisnika",
+							"Potvrda", JOptionPane.YES_NO_OPTION);
 					
-		        	boolean uspjesno = uow.getKorisnickiRacunService().obrisiKorisnika(idSelektovanogKorisnika);
-		        	
-		        	if(uspjesno)
-		        	{
-		        		JOptionPane.showMessageDialog(null, "Uspješno obrisan korisnik.");
-		        		OsvjeziFormu();
-		        	}	
-		        	else
-		        		JOptionPane.showMessageDialog(null, "Dogodila se greška pri brisanju korisnika.");
-		        }
-		        else {
-		        }
+			        if (reply == JOptionPane.YES_OPTION) {
+			        	
+			        	
+						int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
+						
+			        	boolean uspjesno = uow.getKorisnickiRacunService().obrisiKorisnika(idSelektovanogKorisnika);
+			        	
+			        	if(uspjesno)
+			        	{
+			        		JOptionPane.showMessageDialog(null, "Uspješno obrisan korisnik.");
+			        		OsvjeziFormu();
+			        	}	
+			        	else
+			        		JOptionPane.showMessageDialog(null, "Dogodila se greška pri brisanju korisnika.");
+			        }
+				}
+				
+		       
 			}
 		});
 		
