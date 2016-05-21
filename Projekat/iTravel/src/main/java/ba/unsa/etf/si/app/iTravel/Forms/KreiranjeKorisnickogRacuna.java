@@ -318,12 +318,12 @@ public class KreiranjeKorisnickogRacuna {
 							"Bezuspješno modificiran korisnički račun", "Obavijest",
 							JOptionPane.INFORMATION_MESSAGE);
 				}
-				else if(!uspjesno && !modifikacija)
-				{
-					JOptionPane.showMessageDialog(null,
-							"Bezuspješno kreiran korisnički račun", "Obavijest",
-							JOptionPane.INFORMATION_MESSAGE);		
-				}
+//				else if(!uspjesno && !modifikacija)
+//				{
+//					JOptionPane.showMessageDialog(null,
+//							"Bezuspješno kreiran korisnički račun", "Obavijest",
+//							JOptionPane.INFORMATION_MESSAGE);		
+//				}
 				else
 				{
 					JOptionPane.showMessageDialog(null,
