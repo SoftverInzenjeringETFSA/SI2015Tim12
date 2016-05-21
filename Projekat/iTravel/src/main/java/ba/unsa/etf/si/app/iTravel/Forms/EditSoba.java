@@ -339,6 +339,11 @@ public class EditSoba {
 		btnDodajSobu.addActionListener(new AkcijaDodavanja());
 		btnDodajSobu.setBounds(21, 411, 150, 30);
 		frmEditSoba.getContentPane().add(btnDodajSobu);
+		
+		if(!(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3))
+		{
+			btnDodajSobu.setVisible(false);
+		}
 
 		btnObrisiSobu = new JButton("Obrisi sobu");
 		btnObrisiSobu.addActionListener(new ActionListener() {
@@ -369,10 +374,21 @@ public class EditSoba {
 		});
 		btnObrisiSobu.setBounds(21, 350, 150, 30);
 		frmEditSoba.getContentPane().add(btnObrisiSobu);
+		
+		if(!(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3))
+		{
+			btnObrisiSobu.setVisible(false);
+		}
 
 		btnEditujSobu = new JButton("Edituj Sobu");
 		btnEditujSobu.setBounds(23, 287, 150, 30);
 		frmEditSoba.getContentPane().add(btnEditujSobu);
+		
+		if(!(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3))
+		{
+			btnEditujSobu.setVisible(false);
+		}
+		
 		btnEditujSobu.addActionListener(new AkcijaEditovanja());
 	/*	btnEditujSobu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

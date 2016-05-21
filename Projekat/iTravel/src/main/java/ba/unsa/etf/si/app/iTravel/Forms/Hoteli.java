@@ -170,6 +170,11 @@ public class Hoteli {
 		btnModifikujHotel.setBounds(343, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnModifikujHotel);
 		
+		if(!(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3))
+		{
+			btnModifikujHotel.setVisible(false);
+		}
+		
 			
 		btnObriiHotel = new JButton("Obri\u0161i hotel");
 		btnObriiHotel.addActionListener(new ActionListener() {
@@ -204,6 +209,11 @@ public class Hoteli {
 		btnObriiHotel.setBounds(503, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnObriiHotel);
 		
+		if(!(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3))
+		{
+			btnObriiHotel.setVisible(false);
+		}
+		
 		btnDodajHotel = new JButton("Dodaj hotel");
 		btnDodajHotel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -212,6 +222,11 @@ public class Hoteli {
 		});
 		btnDodajHotel.setBounds(183, 287, 150, 30);
 		frmPrikazHotela.getContentPane().add(btnDodajHotel);
+		
+		if(!(UserContext.getInstance().getRoleID() == 1 || UserContext.getInstance().getRoleID() == 3))
+		{
+			btnDodajHotel.setVisible(false);
+		}
 		
 		btnPregledajSobe = new JButton("Pregledaj sobe");
 		btnPregledajSobe.setBounds(23, 287, 150, 30);

@@ -27,14 +27,14 @@ public class PrijavaService {
 	
 	public boolean ProvjeriPristupnePodatke(String username, char[] password)
 	{
-		ArrayList<Criterion> listaKriterjona = new ArrayList<Criterion>();
-		listaKriterjona.add(Restrictions.eq("username", (String)username));
+		ArrayList<Criterion> listaKriteriona = new ArrayList<Criterion>();
+		listaKriteriona.add(Restrictions.eq("username", (String)username));
 		
 		KorisnickiRacun korisnickiRacun = new KorisnickiRacun();
 		
 		List<KorisnickiRacun> lista = baza
 				 .getKorisnickiRacunRepository()
-				 .ucitajIzBazePoKriteriju(listaKriterjona);
+				 .ucitajIzBazePoKriteriju(listaKriteriona);
 		if(lista.size() <= 0)
 			return false;
 		else

@@ -166,6 +166,12 @@ public class KreiranjeKorisnickogRacuna {
 		
 		if(modifikacija)
 		{
+			if(korisnickiracunxrola == null)
+			{
+				korisnickiracunxrola = novaKorRola;
+				korisnickiracunxrola = uow.getKorisnickiRacunService().KreirajRoluZaKorisnika(korisnickiracunxrola, false);
+			}
+			
 			novaKorRola.setKorisnickiRacunXrolaId(korisnickiracunxrola.getKorisnickiRacunXrolaId());
 		}
 		
