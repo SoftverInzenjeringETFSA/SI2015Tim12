@@ -8,12 +8,8 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import org.hibernate.engine.internal.StatisticalLoggingSessionEventListener;
-
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
-import ba.unsa.etf.si.app.iTravel.DBModels.KorisnickiRacun;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -160,12 +156,13 @@ public class Korisnici {
 			public void actionPerformed(ActionEvent e) {
 				
 	        	int row=table.getSelectedRow();
+	        	
+	        	if(row < 0) return;
+	        	
 				int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());			
 				
 				//KorisnickiRacun korisnickiRacun = uow.getKorisnickiRacunService().dajKorisnika(idSelektovanogKorisnika);
 
-
-				
 				OtvoriKreirajKorisnikaFormu(true, idSelektovanogKorisnika);
 			}
 		});
@@ -176,13 +173,19 @@ public class Korisnici {
 		btnObriiKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				int row=table.getSelectedRow();
+				
+				if(row < 0) return;
+				
+				int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
+				
 				int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite izbrisati korisnika",
 						"Potvrda", JOptionPane.YES_NO_OPTION);
 				
 		        if (reply == JOptionPane.YES_OPTION) {
 		        	
-		        	int row=table.getSelectedRow();
-					int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
+		        	//int row=table.getSelectedRow();
+					//int idSelektovanogKorisnika = Integer.parseInt(table.getModel().getValueAt(row, 9).toString());
 					
 		        	boolean uspjesno = uow.getKorisnickiRacunService().obrisiKorisnika(idSelektovanogKorisnika);
 		        	
