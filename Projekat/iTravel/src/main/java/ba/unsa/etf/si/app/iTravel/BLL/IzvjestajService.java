@@ -24,39 +24,17 @@ public class IzvjestajService {
 	public int PrebrojRezervacijeZaDestinaciju(Destinacija destinacija1, Date date, Date date2)
 	{	
 		ArrayList<Criterion> listaKriterija = new ArrayList<Criterion>();
-		ArrayList<Criterion> listaKriterija1 = new ArrayList<Criterion>();
-		ArrayList<Criterion> listaKriterija2 = new ArrayList<Criterion>();
 		listaKriterija.add(Restrictions.eq("destinacija", (Destinacija)destinacija1));
 		List<Hotel> hotel= new ArrayList<Hotel>();
 		hotel = baza.getHoteliRepo().ucitajIzBazePoKriteriju(listaKriterija);
 		
 		int suma=0;
+		int provjera=0;
 		for(Hotel h: hotel)
 		{
-			listaKriterija1.add(Restrictions.eq("hotel", (Hotel)h));
-			List<Soba> sobe= new ArrayList<Soba>();
-			sobe = baza.getSobaRepository().ucitajIzBazePoKriteriju(listaKriterija1);
-			if(sobe.size()==0) return -1; 
-			for(Soba s: sobe)
-			{
-				listaKriterija2.add(Restrictions.eq("soba", (Soba)s));
-				List<RezervisaniTerminSoba> rez= new ArrayList<RezervisaniTerminSoba>();
-				rez = baza.getSobaRezRepozitory().ucitajIzBazePoKriteriju(listaKriterija2);
-				for(RezervisaniTerminSoba r: rez)
-				{
-					if( (date.getTime()< r.getDatumPocetak().getTime() && r.getDatumKraj().getTime()<date2.getTime()) 
-							|| ( r.getDatumPocetak().getTime()<date.getTime() && date.getTime() < r.getDatumKraj().getTime() && r.getDatumKraj().getTime()<date2.getTime()) 
-							|| (date.getTime() < r.getDatumPocetak().getTime() && r.getDatumPocetak().getTime()<date2.getTime() && date2.getTime()<r.getDatumKraj().getTime())
-							|| (r.getDatumPocetak().getTime()==date.getTime()) || (r.getDatumKraj().getTime()==date2.getTime()))
+			suma+= brojIznajmljenihSoba(h, date, date2);
 					
-						suma++;
-				}
-				listaKriterija2.clear();
-			}
-			listaKriterija1.clear();
 		}
-		
-		
 		return suma;	
 		
 	}
@@ -112,8 +90,12 @@ public class IzvjestajService {
 		
 	}
 	
-	
-	
+	public String VratiNazivHotela(Integer hotelid)
+	{
+		Hotel h= new Hotel();
+		h = baza.getHoteliRepo().ucitajIzBaze(hotelid);
+		return h.getNaziv();
+	}
 	
 	
 	public List<Destinacija> VratiListuDestinacija()

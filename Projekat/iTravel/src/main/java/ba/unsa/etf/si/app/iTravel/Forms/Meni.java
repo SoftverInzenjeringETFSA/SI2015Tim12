@@ -1,5 +1,9 @@
 package ba.unsa.etf.si.app.iTravel.Forms;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -79,5 +83,9 @@ public class Meni {
 		} 				
 		Rezervacije.PrikaziFormu();
 		forma.setVisible(false);
+	}
+	public static void HelpForma(String putanja){
+
+		HelpForma.PrikaziFormu(putanja);
 	}
 }

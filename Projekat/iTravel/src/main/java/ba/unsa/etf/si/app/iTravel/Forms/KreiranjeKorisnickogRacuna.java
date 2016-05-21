@@ -151,7 +151,7 @@ public class KreiranjeKorisnickogRacuna {
 		
 		// Sa forme
 		String username = textField_7.getText();
-		String password = textField_8.getText();
+		String password =  Integer.toString(textField_8.getText().hashCode());
 		
 		noviKorisnickiRacun.setOsoba(osobaRef);
 		noviKorisnickiRacun.setUsername(username);
@@ -526,6 +526,19 @@ public class KreiranjeKorisnickogRacuna {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/KreiranjeKorisnika.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
+	
+	
 	
 }

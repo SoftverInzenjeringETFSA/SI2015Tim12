@@ -31,6 +31,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JComboBox;
@@ -58,6 +60,23 @@ public class ModifikacijaHotela
 		}
 		return null;
 	}
+	
+	public static java.sql.Date addDays(java.sql.Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days);
+                 
+        return convertUtilDateToSqlDate (cal.getTime());
+    }
+     
+   
+    public static java.sql.Date subtractDays(java.sql.Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, -days);
+                 
+        return convertUtilDateToSqlDate (cal.getTime());
+    }
 
 	class AkcijaDodavanja implements ActionListener {
 
@@ -81,8 +100,13 @@ public class ModifikacijaHotela
 					Destinacija destinacijahotel = destinacijeModifikacije.get(i);
 					hotel.setDestinacija(destinacijahotel);
 					hoteliService.AzurirajHotel(hotel);
+					
+					java.sql.Date krajNiska = subtractDays(convertUtilDateToSqlDate (dateChooserModifikacija.getDate()),1);
+					java.sql.Date pocetakNiska = addDays(convertUtilDateToSqlDate( dateChooser_1Modifikacija.getDate()), 1);
+					hotel.setKrajNiska(krajNiska);
+					hotel.setPocetakNiska(pocetakNiska);
 
-					JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali hotel", "Info",
+					JOptionPane.showMessageDialog(null, "Uspjesno ste modifikovali hotel", "Info",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -122,8 +146,8 @@ public class ModifikacijaHotela
 		} else if (textFieldModifikacija.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli naziv", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		}else if (textField_3Modifikacija.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli broj hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
+		}else if (textField_3Modifikacija.getText().equals("")|| !textField_3Modifikacija.getText().matches("[0-9]+")) {
+			JOptionPane.showMessageDialog(null, "Niste unijeli broj hotela 6 cifara min", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}  else if (textField_2Modifikacija.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli lanac hotela", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -236,7 +260,7 @@ public class ModifikacijaHotela
 		spinnerModifikacija.setBounds(191, 130, 42, 20);
 		frmModifikacijaHotela.getContentPane().add(spinnerModifikacija);
 
-		JButton btnNewButton = new JButton("Dodaj Hotel");
+		JButton btnNewButton = new JButton("Modifikuj Hotel");
 		btnNewButton.setBounds(221, 325, 161, 30);
 		frmModifikacijaHotela.getContentPane().add(btnNewButton);
 
@@ -386,6 +410,16 @@ public class ModifikacijaHotela
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/KreiranjeHotela.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
 
 	

@@ -101,6 +101,8 @@ public class GenerisanjeIzvjestaja {
 		
 		
 		table = new JTable();
+		table.setEnabled(false);
+		table.setColumnSelectionAllowed(true);
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -113,10 +115,16 @@ public class GenerisanjeIzvjestaja {
 		table.getColumnModel().getColumn(1).setPreferredWidth(290);
 		
 		final JDateChooser dateChooser_1 = new JDateChooser();
+		final JDateChooser dateChooser = new JDateChooser();
+		dateChooser_1.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				dateChooser.setMaxSelectableDate(dateChooser_1.getDate());
+			}
+		});
 		dateChooser_1.setBounds(270, 52, 131, 20);
 		frame.getContentPane().add(dateChooser_1);
 		
-		final JDateChooser dateChooser = new JDateChooser();
+		
 		dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) 
 			{
@@ -139,12 +147,10 @@ public class GenerisanjeIzvjestaja {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				model.setRowCount(0);
 				List<Destinacija> id= uow.getIzvjestajService().VratiListuDestinacija();
-				
-				
 				for(Destinacija i: id)
 				{
 					Integer rezervacija= uow.getIzvjestajService().PrebrojRezervacijeZaDestinaciju(i, dateChooser.getDate(), dateChooser_1.getDate());
-					if(rezervacija==-1) continue;
+					if(rezervacija==0) continue;
 					Object[] row={i.getNaziv(), rezervacija}; 
 					model.addRow(row);
 				}
@@ -159,10 +165,16 @@ public class GenerisanjeIzvjestaja {
 		frame.getContentPane().add(label);
 
 		final JDateChooser dateChooser_3 = new JDateChooser();
+		final JDateChooser dateChooser_2 = new JDateChooser();
+		dateChooser_3.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				dateChooser_2.setMaxSelectableDate(dateChooser_3.getDate());
+			}
+		});
 		dateChooser_3.setBounds(270, 315, 131, 20);
 		frame.getContentPane().add(dateChooser_3);
 		
-		final JDateChooser dateChooser_2 = new JDateChooser();
+		
 		dateChooser_2.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) 
 			{
@@ -182,6 +194,8 @@ public class GenerisanjeIzvjestaja {
 		frame.getContentPane().add(scrollPane_1);
 		
 		table_1 = new JTable();
+		table_1.setEnabled(false);
+		table_1.setColumnSelectionAllowed(true);
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
 			},

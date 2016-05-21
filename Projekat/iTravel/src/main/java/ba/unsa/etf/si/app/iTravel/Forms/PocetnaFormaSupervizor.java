@@ -143,5 +143,15 @@ public class PocetnaFormaSupervizor {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/SupervizorEkranSlika.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
 }

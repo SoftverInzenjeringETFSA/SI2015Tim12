@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 
+import ba.unsa.etf.si.app.iTravel.BLL.NasModel;
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
@@ -96,6 +97,7 @@ public class Rezervacije {
 		boolean[] postavke = uow.getPostavkeService().dajSvePostavke();
 		
 		frmPrikazRezervacija = new JFrame();
+		frmPrikazRezervacija.getContentPane().setEnabled(false);
 		frmPrikazRezervacija.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -114,7 +116,7 @@ public class Rezervacije {
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new DefaultTableModel(
+		table.setModel(new NasModel(
 			new Object[][] {},
 			new String[] {
 				"Destinacija", "Hotel", "Ime klijenta", "Prezime klijenta", "Cijena", "Od (datum)", "Do (datum)", "Prijevoz", "Status","id"
@@ -269,6 +271,17 @@ public class Rezervacije {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/PrikazRezervacijaSlika.jpg");
+
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
 	
 	private void UcitajSveRezervacije(){
@@ -314,6 +327,8 @@ public class Rezervacije {
 				UcitajSveRezervacije();
 			}else
 				JOptionPane.showMessageDialog(null, "Niste uspjeli potvrditi rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
+		}else{
+			JOptionPane.showMessageDialog(null, "Niste odabrali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
 		}
 	}
 	
@@ -331,6 +346,8 @@ public class Rezervacije {
 				UcitajSveRezervacije();
 			}else
 				JOptionPane.showMessageDialog(null, "Niste uspjeli otkazati rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
+		}else{
+			JOptionPane.showMessageDialog(null, "Niste odabrali rezervaciju", "Info", JOptionPane.INFORMATION_MESSAGE);	
 		}
 	}
 	

@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 
 import com.itextpdf.text.BaseColor;
@@ -35,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import javax.swing.JMenuBar;
 
 public class Prijava {
 	
@@ -48,12 +51,13 @@ public class Prijava {
 		public void actionPerformed(ActionEvent event) {
 			
 			
-					
 			
 			String usernameValue = textField.getText();
-			char[] passwordValue = passwordField.getPassword();
+			char[] passwordValue2 = passwordField.getPassword();
+			String passwordValue = new String(passwordField.getPassword());
+						
 			
-			if(usernameValue.isEmpty() || passwordValue.length == 0)
+			if(usernameValue.isEmpty() || passwordValue2.length == 0)
 			{
 				JOptionPane.showMessageDialog(null, "Pogrešni pristupni podaci! (Username i/ili password nije unijet)",
 						"Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
@@ -61,7 +65,8 @@ public class Prijava {
 				return;
 			}
 			
-			if(uow.getPrijavaService().ProvjeriPristupnePodatke(usernameValue, passwordValue))
+			if(uow.getPrijavaService().ProvjeriPristupnePodatke(usernameValue,
+					Integer.toString(passwordValue.hashCode()).toCharArray()))
 			{					
 				JOptionPane.showMessageDialog(null, "Dobrodošli u iTravel", "Poruka o prijavi", JOptionPane.INFORMATION_MESSAGE);
 				
@@ -174,5 +179,21 @@ public class Prijava {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(123, 102, 150, 20);
 		frmPrijava.getContentPane().add(passwordField);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmPrijava.setJMenuBar(menuBar);
+		
+		JMenu mnPomo_1 = new JMenu("Pomoć");
+		menuBar.add(mnPomo_1);
+		
+		JMenuItem mntmOFormi_1 = new JMenuItem("O formi...");
+		mntmOFormi_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/PrijavaSlika.jpg");
+			}
+		});
+		mnPomo_1.add(mntmOFormi_1);
+		
+		
 	}
 }

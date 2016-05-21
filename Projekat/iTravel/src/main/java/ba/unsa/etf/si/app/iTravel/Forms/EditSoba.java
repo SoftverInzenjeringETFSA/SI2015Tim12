@@ -127,6 +127,11 @@ public class EditSoba {
 			public Class getColumnClass(int columnIndex) {
 				return types[columnIndex];
 			}
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
 		};
 
 		((DefaultTableModel) model).setColumnIdentifiers(header);
@@ -192,23 +197,25 @@ public class EditSoba {
 			
 			 try {
          		if (SelektovanRed()&&ValidacijaPoljaZaDodavanjeSobe()) {
-         	  hotelsoba.setBrojKreveta((Integer) spinnere.getValue());
-				hotelsoba.setCijenaNiska(Integer.parseInt(textField_1e.getText()));
-				hotelsoba.setCijenaVisoka(Integer.parseInt(textFielde.getText()));
-				hotelsoba.setOpis(textField_2e.getText());
+         	 
+         				hotelsoba.setBrojKreveta((Integer) spinnere.getValue());
+         						hotelsoba.setCijenaNiska(Integer.parseInt(textField_1e.getText()));
+         						hotelsoba.setCijenaVisoka(Integer.parseInt(textFielde.getText()));
+         						hotelsoba.setOpis(textField_2e.getText());
 				
 				
-               hotelsoba.setHotel(sobe.get(table_pregledSoba.getSelectedRow()).getHotel());
+         						hotelsoba.setHotel(sobe.get(table_pregledSoba.getSelectedRow()).getHotel());
               
 				
-               sobeService.AzurirajiliUbaciSobu(hotelsoba);
+         						sobeService.AzurirajiliUbaciSobu(hotelsoba);
 				
-                NapuniSobe();
+         						NapuniSobe();
 				
                 
-                JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali sobu", "Info",
+         						JOptionPane.showMessageDialog(null, "Uspjesno ste editovali sobu", "Info",
 						JOptionPane.INFORMATION_MESSAGE);
-			} else {
+         	  }
+			else {
 				JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
 
 			}
@@ -225,11 +232,12 @@ public class EditSoba {
 	}
 
 	private boolean ValidacijaPoljaZaDodavanjeSobe() {
-		if (textField_1e.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli cijenu", "Info", JOptionPane.INFORMATION_MESSAGE);
+		if (textField_1e.getText().equals("") || (Integer.parseInt(textField_1e.getText()) < 1))
+		{
+			JOptionPane.showMessageDialog(null, "Niste unijeli ispravnu cijenu", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
-		} else if (textFielde.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Niste unijeli cijenu", "Info", JOptionPane.INFORMATION_MESSAGE);
+		} else if (textFielde.getText().equals("") || (Integer.parseInt(textFielde.getText()) < 1)) {
+			JOptionPane.showMessageDialog(null, "Niste unijeli ispravnu cijenu", "Info", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		} else if (textField_2e.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Niste unijeli opis", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -460,6 +468,19 @@ public class EditSoba {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/PregledSoba.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
+		
+
+				
 		table_pregledSoba.getColumnModel().getColumn(0).setPreferredWidth(99);
 		table_pregledSoba.getColumnModel().getColumn(1).setPreferredWidth(83);
 		table_pregledSoba.getColumnModel().getColumn(2).setPreferredWidth(81);

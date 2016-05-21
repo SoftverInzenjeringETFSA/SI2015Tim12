@@ -58,6 +58,8 @@ public class Hoteli {
 	private ArrayList<Hotel> hoteli;
 	private HoteliService hoteliService = new HoteliService();;
 	private Integer ID;
+	private JMenu mnPomo;
+	private JMenuItem mntmOFormi;
 
 	/**
 	 * Launch the application.
@@ -93,6 +95,12 @@ public class Hoteli {
 			@Override
 			public Class getColumnClass(int columnIndex) {
 				return types[columnIndex];
+			}
+			
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
 			}
 		};
 		((DefaultTableModel) model).setColumnIdentifiers(header);
@@ -309,6 +317,17 @@ public class Hoteli {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		
+		mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/HoteliSlika.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
 		table_pregledHotela.getColumnModel().getColumn(0).setPreferredWidth(99);
 		table_pregledHotela.getColumnModel().getColumn(1).setPreferredWidth(83);
 		table_pregledHotela.getColumnModel().getColumn(2).setPreferredWidth(81);

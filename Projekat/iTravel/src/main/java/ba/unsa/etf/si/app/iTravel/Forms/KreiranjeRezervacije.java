@@ -30,7 +30,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.toedter.calendar.JDateChooser;
 
-
+import ba.unsa.etf.si.app.iTravel.BLL.NasModel;
 import ba.unsa.etf.si.app.iTravel.BLL.OdjavaService;
 import ba.unsa.etf.si.app.iTravel.BLL.UnitOfWork;
 import ba.unsa.etf.si.app.iTravel.BLL.UserContext;
@@ -166,7 +166,7 @@ public class KreiranjeRezervacije {
 		frmKreiranjeRezervacije.getContentPane().add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		table.setModel(new NasModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -347,6 +347,7 @@ public class KreiranjeRezervacije {
 		
 		dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(394, 417, 152, 20);
+		dateChooser_2.setMaxSelectableDate(new Date());
 		frmKreiranjeRezervacije.getContentPane().add(dateChooser_2);
 		
 		JButton btnNewButton = new JButton("Potvrdi");
@@ -508,6 +509,16 @@ public class KreiranjeRezervacije {
 		});
 		mnRaun.add(mntmOdjaviSe);
 		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/KreiranjeRezervacijeSlika.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
+		
 		//ucitavanje destinacija u combobox
 		frmKreiranjeRezervacije.addWindowListener(new WindowAdapter() {
 			@Override
@@ -537,7 +548,7 @@ public class KreiranjeRezervacije {
 			table.setModel(model);
 			
 		}
-		table_Sobe.setModel(new DefaultTableModel(
+		table_Sobe.setModel(new NasModel(
 				new Object[][] {},
 				new String[] {"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis"}
 			));
@@ -573,7 +584,7 @@ public class KreiranjeRezervacije {
 	
 	//prikaz slobodnih soba na osnovu odobranog datum i odabranog hotela
 	private void UcitavanjeSoba(int idHotel){
-		table_Sobe.setModel(new DefaultTableModel(
+		table_Sobe.setModel(new NasModel(
 				new Object[][] {},
 				new String[] {"Broj kreveta", "Cijena u VS", "Cijena u NS", "Opis","Id"}
 			));
@@ -645,7 +656,12 @@ public class KreiranjeRezervacije {
 				osoba.setJmbg(textField_2.getText());
 				osoba.setBrojPasosa(textField_3.getText());
 				osoba.setBrojLicneKarte(textField_brojLicneKarte.getText());
-				osoba.setEmail(textField_5.getText());
+				if(textField_5.getText().equals("")){
+					osoba.setEmail(null);	
+				}
+				else{
+					osoba.setEmail(textField_5.getText());
+				}
 				osoba.setAdresa(textField_6.getText());
 				osoba.setDatumRodjenja((Date) dateChooser_2.getCalendar().getTime());
 				osoba.setBrojTelefona(textField_4.getText());
@@ -714,8 +730,16 @@ public class KreiranjeRezervacije {
 			poruka+= "Niste unijeli ime." + '\n';
 			proslo=false;
 		}
+		if(textField_1.getText().toString().matches("[a-zA-Z ]*\\d+.*")){
+			poruka+= "Ime ne moze sadrzavati brojeve." + '\n';
+			proslo=false;
+		}
 		if(textField.getText().equals("")){
 			poruka+= "Niste unijeli prezime." + '\n';
+			proslo=false;
+		}
+		if(textField.getText().toString().matches("[a-zA-Z ]*\\d+.*")){
+			poruka+= "Prezime ne moze sadrzavati brojeve." + '\n';
 			proslo=false;
 		}
 		if(textField_2.getText().equals("")){
@@ -737,10 +761,8 @@ public class KreiranjeRezervacije {
 			poruka+= "Niste unijeli broj lične karte." + '\n';
 			proslo=false;
 		} 
-		if(textField_5.getText().equals("")){
-			poruka+= "Niste unijeli email." + '\n';
-			proslo=false;
-		}
+		
+		
 		if(textField_6.getText().equals("")){
 			poruka+= "Niste unijeli adresu." + '\n';
 			proslo=false;

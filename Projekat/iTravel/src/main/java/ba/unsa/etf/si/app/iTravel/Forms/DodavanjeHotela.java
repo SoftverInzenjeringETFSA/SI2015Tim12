@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.DropMode;
 import java.awt.Font;
+
+import com.mysql.fabric.xmlrpc.base.Data;
 import com.toedter.calendar.JDateChooser;
 
 import antlr.collections.List;
@@ -31,10 +33,13 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import java.beans.PropertyChangeListener;
+import java.sql.Date;
 import java.beans.PropertyChangeEvent;
 
 public class DodavanjeHotela {
@@ -49,6 +54,7 @@ public class DodavanjeHotela {
 	private JTextField textField_2;
 	private JComboBox<String> comboBox;
     private JTextField textField_3; 
+    private HoteliService hoteliService = new HoteliService();
     
 
 	public static java.sql.Date convertUtilDateToSqlDate(java.util.Date date) {
@@ -58,6 +64,23 @@ public class DodavanjeHotela {
 		}
 		return null;
 	}
+  
+	public static java.sql.Date addDays(java.sql.Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days);
+                 
+        return convertUtilDateToSqlDate (cal.getTime());
+    }
+     
+   
+    public static java.sql.Date subtractDays(java.sql.Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, -days);
+                 
+        return convertUtilDateToSqlDate (cal.getTime());
+    }
 
 	class AkcijaDodavanja implements ActionListener {
 
@@ -65,8 +88,8 @@ public class DodavanjeHotela {
 
 			try {
 				if (ValidacijaPoljaZaDodavanjeHotela()) {
-					HoteliService hoteliService = new HoteliService();
-
+					
+                    
 					Hotel hotel = new Hotel();
 					hotel.setNaziv(textField.getText());
 					hotel.setAdresa(textField_1.getText());
@@ -78,11 +101,39 @@ public class DodavanjeHotela {
 					int i = comboBox.getSelectedIndex();
 					Destinacija destinacijahotel = destinacije.get(i);
 					hotel.setDestinacija(destinacijahotel);
-					hoteliService.KreirajHotel(hotel);
-
-					JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali hotel", "Info",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
+					
+					java.sql.Date krajNiska = subtractDays(convertUtilDateToSqlDate (dateChooser.getDate()),1);
+					java.sql.Date pocetakNiska = addDays(convertUtilDateToSqlDate( dateChooser_1.getDate()), 1);
+					hotel.setKrajNiska(krajNiska);
+					hotel.setPocetakNiska(pocetakNiska);
+					
+					
+					ArrayList<Hotel> sviHoteli =new ArrayList<Hotel>();
+					sviHoteli= hoteliService.VratiSveHotele();
+					boolean stop = false;
+					Hotel probni = new Hotel();
+					for (int j = 0; j < sviHoteli.size(); j++) {
+						probni=sviHoteli.get(j);
+						if (probni.getNaziv().equals(hotel.getNaziv()) && probni.getAdresa().equals(hotel.getAdresa()) )
+                             
+					stop=true;
+                               
+					}
+				     if (!stop){
+				    	
+						hoteliService.KreirajHotel(hotel);
+				     JOptionPane.showMessageDialog(null, "Uspjesno ste kreirali hotel", "Info",
+								JOptionPane.INFORMATION_MESSAGE);
+				     }
+				     else {
+				    	   JOptionPane.showMessageDialog(null, "Hotel vec postoji na toj lokaciji", "Info",
+									JOptionPane.INFORMATION_MESSAGE);
+					}
+						
+					
+				}
+				
+				else {
 					JOptionPane.showMessageDialog(null, ":(", "Info", JOptionPane.INFORMATION_MESSAGE);
 
 				}
@@ -96,7 +147,8 @@ public class DodavanjeHotela {
 		}
 
 	}
-
+	
+    
 	void NapuniDestinacijeUCB() {
 		DestinacijeService destinacijeService = new DestinacijeService();
 		destinacije = new ArrayList<Destinacija>();
@@ -399,6 +451,17 @@ public class DodavanjeHotela {
 			}
 		});
 		mnRaun.add(mntmOdjaviSe);
+		
+		JMenu mnPomo = new JMenu("Pomoć");
+		menuBar.add(mnPomo);
+		
+		JMenuItem mntmOFormi = new JMenuItem("O formi...");
+		mntmOFormi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meni.HelpForma("/HelpImages/DodavanjeHotelaSlika.jpg");
+			}
+		});
+		mnPomo.add(mntmOFormi);
 	}
 
 	
