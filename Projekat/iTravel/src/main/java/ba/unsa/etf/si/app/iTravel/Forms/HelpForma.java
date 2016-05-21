@@ -36,7 +36,7 @@ public class HelpForma {
 					HelpForma window = new HelpForma();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					UnitOfWork.logger.error(e);
 				}
 			}
 		});
