@@ -115,10 +115,16 @@ public class GenerisanjeIzvjestaja {
 		table.getColumnModel().getColumn(1).setPreferredWidth(290);
 		
 		final JDateChooser dateChooser_1 = new JDateChooser();
+		final JDateChooser dateChooser = new JDateChooser();
+		dateChooser_1.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				dateChooser.setMaxSelectableDate(dateChooser_1.getDate());
+			}
+		});
 		dateChooser_1.setBounds(270, 52, 131, 20);
 		frame.getContentPane().add(dateChooser_1);
 		
-		final JDateChooser dateChooser = new JDateChooser();
+		
 		dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) 
 			{
@@ -159,10 +165,16 @@ public class GenerisanjeIzvjestaja {
 		frame.getContentPane().add(label);
 
 		final JDateChooser dateChooser_3 = new JDateChooser();
+		final JDateChooser dateChooser_2 = new JDateChooser();
+		dateChooser_3.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				dateChooser_2.setMaxSelectableDate(dateChooser_3.getDate());
+			}
+		});
 		dateChooser_3.setBounds(270, 315, 131, 20);
 		frame.getContentPane().add(dateChooser_3);
 		
-		final JDateChooser dateChooser_2 = new JDateChooser();
+		
 		dateChooser_2.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) 
 			{
@@ -323,17 +335,6 @@ public class GenerisanjeIzvjestaja {
 		});
 		
 		mnRaun.add(mntmOdjaviSe);
-		
-		JMenu mnPomo = new JMenu("Pomoć");
-		menuBar.add(mnPomo);
-		
-		JMenuItem mntmOFormi = new JMenuItem("O formi...");
-		mntmOFormi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Meni.HelpForma("/HelpImages/IzvjestajiSlika.jpg");
-			}
-		});
-		mnPomo.add(mntmOFormi);
 		
 		
 		
