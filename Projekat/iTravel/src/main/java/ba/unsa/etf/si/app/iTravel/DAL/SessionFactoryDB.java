@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.io.FileInputStream;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class SessionFactoryDB {
@@ -15,9 +17,10 @@ public class SessionFactoryDB {
 
     static {
         try {
-            ourSessionFactory = new Configuration().
-                    configure().
-                    buildSessionFactory();
+        	java.util.Properties properties = new Properties();
+			properties.load(new FileInputStream("db.properties"));
+			
+            ourSessionFactory= new Configuration().addProperties(properties).configure().buildSessionFactory();
         } catch (Exception ex) {
             throw new ExceptionInInitializerError(ex);
         }

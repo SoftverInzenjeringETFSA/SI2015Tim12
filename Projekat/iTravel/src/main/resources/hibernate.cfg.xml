@@ -7,12 +7,12 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tim12</property>
+<!--    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tim12</property>
   
-   <!-- <property name="hibernate.connection.username">root</property> -->
-   <!-- <property name="hibernate.connection.password">Sitim12</property> -->
-    <property name="hibernate.connection.username">EtfSI2015</property>
-    <property name="hibernate.connection.password">2015SIEtf</property>
+    <property name="hibernate.connection.username">root</property> 
+   <property name="hibernate.connection.password">Sitim12</property>--> 
+   <!--  <property name="hibernate.connection.username">EtfSI2015</property>
+    <property name="hibernate.connection.password">2015SIEtf</property>-->
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
